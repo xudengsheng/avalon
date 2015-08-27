@@ -64,7 +64,6 @@
 	<classpathentry kind="lib" path="lib/logback-access-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/logback-classic-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/logback-core-1.1.1.jar"/>
-	<classpathentry kind="lib" path="lib/netty-all-5.0.0.Alpha1.jar"/>
 	<classpathentry kind="lib" path="lib/netty-all-5.0.0.Alpha2.jar"/>
 	<classpathentry kind="lib" path="lib/scala-library-2.11.5.jar"/>
 	<classpathentry kind="lib" path="lib/sigar.jar"/>
