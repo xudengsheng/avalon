@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Avalon"/>
+	<classpathentry kind="lib" path="/Avalon/lib/akka/akka-actor_2.11-2.3.9.jar" sourcepath="/Avalon/Source/akka-actor_2.11-2.3.9-sources.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
