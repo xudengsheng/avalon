@@ -1,6 +1,6 @@
-#Avalon 
+1. Avalon 
 **高性能，可伸缩的Java Tcp服务器架构**
-Avalon基于Akka构建的服务器核心。网络部分使用Netty和Mina，二者可根据使用者习惯进行切换。
+1.Avalon基于Akka构建的服务器核心。#网络部分使用Netty和Mina，二者可根据使用者习惯进行切换。
 Akka使用版本2.11-2.3.9
 ExampleServer为服务器事例项目，当前结构完成单服务器部分。集群部分还有待调整。
 未来会提供一些数据库，日志解决方案。
