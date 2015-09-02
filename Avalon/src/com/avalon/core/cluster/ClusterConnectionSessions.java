@@ -12,15 +12,16 @@ import com.avalon.core.message.GameServerSupervisorMessage.DistributionCluserSes
 import com.avalon.core.supervision.GameServerSupervisor;
 
 /**
+ * 集群网络会话，处理分布信息
  * 
  * @author ZERO
  *
  */
-public class ConnectionSessions extends UntypedPersistentActor {
+public class ClusterConnectionSessions extends UntypedPersistentActor {
 
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
-	public final static String shardName = "ConnectionSessions";
+	public final static String shardName = "ClusterConnectionSessions";
 
 	@Override
 	public void onReceiveRecover(Object msg)
@@ -34,8 +35,9 @@ public class ConnectionSessions extends UntypedPersistentActor {
 			String sessionId = ((ConnectionSessionsProtocol) msg).sessionId;
 			Object origins = ((ConnectionSessionsProtocol) msg).origins;
 
-			ConnectionSessionSupervisorMessage.CluserSessionMessage message = new ConnectionSessionSupervisorMessage.CluserSessionMessage(
-					clusterUid, sessionId, origins);
+			ConnectionSessionSupervisorMessage.CluserSessionMessage message = 
+					new ConnectionSessionSupervisorMessage.CluserSessionMessage(clusterUid, sessionId, origins);
+			
 			DistributionCluserSessionMessage cluserSessionMessage = new DistributionCluserSessionMessage(message);
 			actorSelection.tell(cluserSessionMessage, getSender());
 		}
@@ -53,8 +55,8 @@ public class ConnectionSessions extends UntypedPersistentActor {
 			String sessionId = ((ConnectionSessionsProtocol) msg).sessionId;
 			Object origins = ((ConnectionSessionsProtocol) msg).origins;
 
-			ConnectionSessionSupervisorMessage.CluserSessionMessage message = new ConnectionSessionSupervisorMessage.CluserSessionMessage(
-					clusterUid, sessionId, origins);
+			ConnectionSessionSupervisorMessage.CluserSessionMessage message = 
+					new ConnectionSessionSupervisorMessage.CluserSessionMessage(clusterUid, sessionId, origins);
 			DistributionCluserSessionMessage cluserSessionMessage = new DistributionCluserSessionMessage(message);
 			actorSelection.tell(cluserSessionMessage, getSender());
 		}

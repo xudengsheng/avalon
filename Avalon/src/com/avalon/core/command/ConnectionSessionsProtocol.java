@@ -3,7 +3,7 @@ package com.avalon.core.command;
 import java.io.Serializable;
 
 /**
- * 协议发送到 ConnectionSessions 可能会在网络服务器之间传输
+ * 协议发送到 ClusterConnectionSessions 可能会在网络服务器之间传输
  * 
  * @author ZERO
  *

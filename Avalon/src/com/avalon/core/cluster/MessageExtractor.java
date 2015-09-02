@@ -5,7 +5,7 @@ import akka.contrib.pattern.ShardRegion;
 import com.avalon.core.command.ConnectionSessionsProtocol;
 
 /**
- * Actor分配策略
+ * Actor集群分配策略
  * 
  * @author ZERO
  *

@@ -16,7 +16,7 @@ import akka.japi.Creator;
 
 import com.avalon.api.IoSession;
 import com.avalon.core.cluster.AvalonClusterListener;
-import com.avalon.core.cluster.ConnectionSessions;
+import com.avalon.core.cluster.ClusterConnectionSessions;
 import com.avalon.core.cluster.MessageExtractor;
 import com.avalon.core.message.AvalonMessageEvent;
 import com.avalon.core.message.AvalonMessageEvent.BrocastPacket;
@@ -89,7 +89,7 @@ public class Avalon extends UntypedActor {
 	// 本地的region
 	private ActorRef localRegion;
 
-	private ActorRef transportSupervisor;
+	private ActorRef transportSupervisorRef;
 
 	private ActorRef connectionSessionSupervisor;
 
@@ -112,32 +112,36 @@ public class Avalon extends UntypedActor {
 				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
 				this.getContext().watch(connectionSessionSupervisor);
 				log.info("ConnectionSessionSupervisor path is:"+connectionSessionSupervisor.path().toString());
-				transportSupervisor = actorSystem.actorOf(Props.create(TransportSupervisor.class, connectionSessionSupervisor.path().toString()),TransportSupervisor.IDENTIFY);
-				this.getContext().watch(transportSupervisor);
-			} else if (property.equals(AvalonConstant.SERVER_TYPE_GATE))
+				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, connectionSessionSupervisor.path().toString()),TransportSupervisor.IDENTIFY);
+				this.getContext().watch(transportSupervisorRef);
+			}
+			//如果作为网关服务器启动，需要启动Akka的集群服务
+			else if (property.equals(AvalonConstant.SERVER_TYPE_GATE))
 			{
 				log.info("Server model is gate");
 				clusterListener = actorSystem.actorOf(Props.create(AvalonClusterListener.class), SystemEnvironment.AVALON_CLUSTER_NAME);
 				this.getContext().watch(clusterListener);
-
+				//集群服务
 				ClusterSharding clusterSharding = ClusterSharding.get(actorSystem);
-				Props RegionCreate = Props.create(ConnectionSessions.class);
-				localRegion = clusterSharding.start(ConnectionSessions.shardName, RegionCreate, new MessageExtractor());
+				Props RegionCreate = Props.create(ClusterConnectionSessions.class);
+				localRegion = clusterSharding.start(ClusterConnectionSessions.shardName, RegionCreate, new MessageExtractor());
 				this.context().watch(localRegion);
 
-				transportSupervisor = actorSystem.actorOf(Props.create(TransportSupervisor.class, localRegion.path().toString()),TransportSupervisor.IDENTIFY);
-				this.getContext().watch(transportSupervisor);
+				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, localRegion.path().toString()),TransportSupervisor.IDENTIFY);
+				this.getContext().watch(transportSupervisorRef);
 
-				Props create2 = Props.create(GameServerSupervisor.class);
-				ActorRef actorOf = actorSystem.actorOf(create2, GameServerSupervisor.IDENTIFY);
-				this.context().watch(actorOf);
-			} else
+				Props gameServerSupervisorProps = Props.create(GameServerSupervisor.class);
+				ActorRef gameServerSupervisorRef = actorSystem.actorOf(gameServerSupervisorProps, GameServerSupervisor.IDENTIFY);
+				this.context().watch(gameServerSupervisorRef);
+			}
+			//逻辑服务器模式
+			else
 			{
 				log.info("Server model is game");
 			}
-			Props createDeadLetter = Props.create(AvalonDeadLetter.class);
-			ActorRef actorOfDeadLetter = actorSystem.actorOf(createDeadLetter);
-			actorSystem.eventStream().subscribe(actorOfDeadLetter, DeadLetter.class);
+			Props avalonDeadLetterProps = Props.create(AvalonDeadLetter.class);
+			ActorRef avalonDeadLetterRef = actorSystem.actorOf(avalonDeadLetterProps);
+			actorSystem.eventStream().subscribe(avalonDeadLetterRef, DeadLetter.class);
 
 			this.metricsListener = actorSystem.actorOf(Props.create(MetricsListener.class));
 			ActorRef actorOf = actorSystem.actorOf(Props.create(RemotingSupsrvisor.class), "Remoting");
@@ -152,15 +156,15 @@ public class Avalon extends UntypedActor {
 
 			TransportSupervisorMessage.CreateIOSessionActor message = new TransportSupervisorMessage.CreateIOSessionActor(ioSession,sessionActorId);
 
-			transportSupervisor.tell(message, getSelf());
+			transportSupervisorRef.tell(message, getSelf());
 		}
 		// 转发给传输的transportSupervisor
 		else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage)
 		{
-			transportSupervisor.forward(msg, getContext());
+			transportSupervisorRef.forward(msg, getContext());
 		} else if (msg instanceof AvalonMessageEvent.nowTransportNum)
 		{
-			transportSupervisor.forward(msg, getContext());
+			transportSupervisorRef.forward(msg, getContext());
 		}
 		// 全局消息
 		else if (msg instanceof AvalonTopticMessage)

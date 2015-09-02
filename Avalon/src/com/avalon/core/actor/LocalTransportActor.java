@@ -16,7 +16,6 @@ import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
 import com.avalon.core.message.TopicMessage.TransportTopicMessage;
 import com.avalon.core.message.TransportMessage;
 import com.avalon.core.message.TransportMessage.ConnectionSessionsClosed;
-import com.avalon.core.message.TransportMessage.IOSessionReciveDirectMessage;
 import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
 import com.avalon.core.message.TransportMessage.SessionSessionMessage;
 import com.avalon.core.subscribe.TransportTopic;

@@ -2,7 +2,6 @@ package com.avalon.core.supervision;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
@@ -54,7 +53,9 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 			actorOf.tell(message, getSelf());
 			sessionNum += 1;
 
-		} else if (msg instanceof LocalSessionMessage)
+		}
+		//单服的消息策略
+		else if (msg instanceof LocalSessionMessage)
 		{
 			//放置延时的策略
 			String name = getSender().path().name();
