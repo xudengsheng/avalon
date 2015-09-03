@@ -39,30 +39,45 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 	{
 		if (msg instanceof CluserSessionMessage)
 		{
+			log.info("获得GATE,网络消息");
+			// TransportSupervisor
+			String supervisorName = ((CluserSessionMessage) msg).supervisorName;
+			// 59eb66d6-9463-43c0-832e-90126295b2f1
+			String actorUId = ((CluserSessionMessage) msg).actorId;
+			// akka.tcp://AVALON@192.168.199.200:2551/user/TransportSupervisor/59eb66d6-9463-43c0-832e-90126295b2f1
+			String Path = getSender().path().parent().toString() + "/" + supervisorName + "/" + actorUId;
 
-			String remoteAddress = ((CluserSessionMessage) msg).remoteAddress;
-			String Path = getSender().path().parent().toString() + "/" + remoteAddress;
+			if (keyConnectionSession.containsKey(actorUId))
+			{
+				ActorRef actorRef = keyConnectionSession.get(keyConnectionSession);
+				ConnectionSessionMessage.DirectSessionMessage directSessionMessage = new DirectSessionMessage(
+						((LocalSessionMessage) msg).messagePackage);
+				actorRef.tell(directSessionMessage, getSender());
+			} else
+			{
+				ActorRef actorOf = getContext().actorOf(Props.create(ConnectionSession.class), actorUId);
+				getContext().watch(actorOf);
 
-			ActorRef actorOf = getContext().actorOf(Props.create(ConnectionSession.class));
-			getContext().watch(actorOf);
+				int uid = ((CluserSessionMessage) msg).uid;
+				Object origins = ((CluserSessionMessage) msg).origins;
+				HasSenderPathMessage message = new HasSenderPathMessage(uid, Path, origins);
 
-			int uid = ((CluserSessionMessage) msg).uid;
-			Object origins = ((CluserSessionMessage) msg).origins;
-			HasSenderPathMessage message = new HasSenderPathMessage(uid, Path, origins);
-
-			actorOf.tell(message, getSelf());
-			sessionNum += 1;
+				actorOf.tell(message, getSelf());
+				sessionNum += 1;
+			}
 
 		}
-		//单服的消息策略
+		// 单服的消息策略
 		else if (msg instanceof LocalSessionMessage)
 		{
-			//放置延时的策略
+			// 放置延时的策略
+			// be645988-0ff5-4e7a-bcd0-566ec1789cb7
 			String name = getSender().path().name();
 			if (keyConnectionSession.containsKey(name))
 			{
 				ActorRef actorRef = keyConnectionSession.get(keyConnectionSession);
-				ConnectionSessionMessage.DirectSessionMessage directSessionMessage=new DirectSessionMessage(((LocalSessionMessage) msg).messagePackage);
+				ConnectionSessionMessage.DirectSessionMessage directSessionMessage = new DirectSessionMessage(
+						((LocalSessionMessage) msg).messagePackage);
 				actorRef.tell(directSessionMessage, getSender());
 			} else
 			{

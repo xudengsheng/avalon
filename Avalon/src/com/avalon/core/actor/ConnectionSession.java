@@ -82,7 +82,10 @@ public class ConnectionSession extends UntypedActor {
 						SystemEnvironment.APP_SESSION_LISTENER, ClientSessionLinenter.class, new Class[] {});
 			}
 			sessionLinenter.receivedMessage(clientSession, message);
-		} else if (msg instanceof ConnectionSessionMessage.DirectSessionMessage)
+
+		}
+		// 获得remote的Actor消息
+		else if (msg instanceof ConnectionSessionMessage.DirectSessionMessage)
 		{
 			Object message = ((ConnectionSessionMessage.DirectSessionMessage) msg).origins;
 			sessionLinenter.receivedMessage(clientSession, message);

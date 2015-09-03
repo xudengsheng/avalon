@@ -65,9 +65,10 @@ public class TransportSupervisor extends UntypedActor {
 
 		if (msg instanceof TransportSupervisorMessage.CreateIOSessionActor)
 		{
-
+			//be645988-0ff5-4e7a-bcd0-566ec1789cb7
 			String sessionActorId = ((TransportSupervisorMessage.CreateIOSessionActor) msg).sessionActorId;
 			IoSession ioSession = ((TransportSupervisorMessage.CreateIOSessionActor) msg).ioSession;
+			//akka://AVALON/user/TransportSupervisor
 			String transportSupervisorPath = getSelf().path().toString();
 			Props create = null;
 			if (useRemote)

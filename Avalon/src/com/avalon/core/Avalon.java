@@ -138,12 +138,14 @@ public class Avalon extends UntypedActor {
 			else
 			{
 				log.info("Server model is game");
+				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
+				this.getContext().watch(connectionSessionSupervisor);
 			}
 			Props avalonDeadLetterProps = Props.create(AvalonDeadLetter.class);
 			ActorRef avalonDeadLetterRef = actorSystem.actorOf(avalonDeadLetterProps);
 			actorSystem.eventStream().subscribe(avalonDeadLetterRef, DeadLetter.class);
 
-			this.metricsListener = actorSystem.actorOf(Props.create(MetricsListener.class));
+//			this.metricsListener = actorSystem.actorOf(Props.create(MetricsListener.class));
 			ActorRef actorOf = actorSystem.actorOf(Props.create(RemotingSupsrvisor.class), "Remoting");
 			System.out.println(actorOf.path().toString());
 			System.out.println(actorOf.path().address().toString());

@@ -8,13 +8,16 @@ public interface ConnectionSessionSupervisorMessage extends Serializable {
 
 		private static final long serialVersionUID = 4143946258710301150L;
 		public final int uid;
-		public final String remoteAddress;
+		public final String supervisorName;
+		public final String actorId;
 		public final Object origins;
 
-		public CluserSessionMessage(int uid, String remoteAddress, Object origins) {
+		public CluserSessionMessage(int uid, String supervisorName, String actorId, Object origins)
+		{
 			super();
 			this.uid = uid;
-			this.remoteAddress = remoteAddress;
+			this.supervisorName = supervisorName;
+			this.actorId = actorId;
 			this.origins = origins;
 		}
 

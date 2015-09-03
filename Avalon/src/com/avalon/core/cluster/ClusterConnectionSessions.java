@@ -33,11 +33,13 @@ public class ClusterConnectionSessions extends UntypedPersistentActor {
 
 			int clusterUid = ((ConnectionSessionsProtocol) msg).ClusterUid;
 			String sessionId = ((ConnectionSessionsProtocol) msg).sessionId;
+			// TransportSupervisor/59eb66d6-9463-43c0-832e-90126295b2f1
+			String[] split = sessionId.split("/");
 			Object origins = ((ConnectionSessionsProtocol) msg).origins;
 
-			ConnectionSessionSupervisorMessage.CluserSessionMessage message = 
-					new ConnectionSessionSupervisorMessage.CluserSessionMessage(clusterUid, sessionId, origins);
-			
+			ConnectionSessionSupervisorMessage.CluserSessionMessage message = new ConnectionSessionSupervisorMessage.CluserSessionMessage(
+					clusterUid, split[0], split[1], origins);
+
 			DistributionCluserSessionMessage cluserSessionMessage = new DistributionCluserSessionMessage(message);
 			actorSelection.tell(cluserSessionMessage, getSender());
 		}
@@ -53,10 +55,12 @@ public class ClusterConnectionSessions extends UntypedPersistentActor {
 
 			int clusterUid = ((ConnectionSessionsProtocol) msg).ClusterUid;
 			String sessionId = ((ConnectionSessionsProtocol) msg).sessionId;
+			// TransportSupervisor/59eb66d6-9463-43c0-832e-90126295b2f1
+			String[] split = sessionId.split("/");
 			Object origins = ((ConnectionSessionsProtocol) msg).origins;
 
-			ConnectionSessionSupervisorMessage.CluserSessionMessage message = 
-					new ConnectionSessionSupervisorMessage.CluserSessionMessage(clusterUid, sessionId, origins);
+			ConnectionSessionSupervisorMessage.CluserSessionMessage message = new ConnectionSessionSupervisorMessage.CluserSessionMessage(
+					clusterUid, split[0], split[1], origins);
 			DistributionCluserSessionMessage cluserSessionMessage = new DistributionCluserSessionMessage(message);
 			actorSelection.tell(cluserSessionMessage, getSender());
 		}

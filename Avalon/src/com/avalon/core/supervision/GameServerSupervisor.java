@@ -79,6 +79,7 @@ public class GameServerSupervisor extends UntypedActor {
 			}
 			ServerNodeMember gameServerMember = new ServerNodeMember(addGameServerMember.uid, addGameServerMember.address);
 			serverNodeMembers.add(gameServerMember);
+			return;
 		} else if (message instanceof GameServerSupervisorMessage.BlockGameServerMember)
 		{
 			for (ServerNodeMember serverNodeMember : serverNodeMembers)
@@ -89,6 +90,7 @@ public class GameServerSupervisor extends UntypedActor {
 					return;
 				}
 			}
+			return;
 		} else if (message instanceof GameServerSupervisorMessage.LostGameServerMember)
 		{
 			for (ServerNodeMember serverNodeMember : serverNodeMembers)
@@ -99,6 +101,7 @@ public class GameServerSupervisor extends UntypedActor {
 					return;
 				}
 			}
+			return;
 		} else if (message instanceof DistributionCluserSessionMessage)
 		{
 			if (serverNodeMembers.size() > 0)
@@ -106,8 +109,9 @@ public class GameServerSupervisor extends UntypedActor {
 				List<ServerNodeMember> sortedCopy = ServerNodeMember.bySessionOrdering.sortedCopy(serverNodeMembers);
 				for (ServerNodeMember serverNodeMember : sortedCopy)
 				{
-
+					//akka.tcp://AVALON@192.168.199.200:2552/user/ConnectionSessionSupervisor
 					String path = serverNodeMember.address.toString() + "/user/" + ConnectionSessionSupervisor.IDENTIFY;
+					
 					ActorSelection actorSelection = getContext().system().actorSelection(path);
 
 					CluserSessionMessage message2 = ((DistributionCluserSessionMessage) message).message;
@@ -121,6 +125,7 @@ public class GameServerSupervisor extends UntypedActor {
 				}
 
 			}
+			return;
 		} else if (message instanceof Packet)
 		{
 			Byte packetType = ((Packet) message).getPacketType();
@@ -132,6 +137,7 @@ public class GameServerSupervisor extends UntypedActor {
 				JsonMessagePacket messagePacket = (JsonMessagePacket) message;
 				processJsonMessage(messagePacket);
 			}
+			return;
 		} else
 		{
 			unhandled(message);
