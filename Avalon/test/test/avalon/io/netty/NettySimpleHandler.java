@@ -1,12 +1,12 @@
 package test.avalon.io.netty;
 
-import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.io.MessagePackImpl;
-import com.avalon.util.MessageHead;
-
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+
+import com.avalon.api.internal.IoMessagePackage;
+import com.avalon.io.MessagePackImpl;
+import com.avalon.util.MessageHead;
 
 public class NettySimpleHandler extends ChannelHandlerAdapter implements MessageTransport {
 

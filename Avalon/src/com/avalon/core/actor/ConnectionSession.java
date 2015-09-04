@@ -60,7 +60,7 @@ public class ConnectionSession extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception
 	{
-
+		
 		if (msg instanceof ConnectionSessionMessage.HasSenderPathMessage)
 		{
 			clusterUid = ((ConnectionSessionMessage.HasSenderPathMessage) msg).clusterUid;
@@ -82,19 +82,27 @@ public class ConnectionSession extends UntypedActor {
 						SystemEnvironment.APP_SESSION_LISTENER, ClientSessionLinenter.class, new Class[] {});
 			}
 			sessionLinenter.receivedMessage(clientSession, message);
-
+			return;
 		}
 		// 获得remote的Actor消息
 		else if (msg instanceof ConnectionSessionMessage.DirectSessionMessage)
 		{
 			Object message = ((ConnectionSessionMessage.DirectSessionMessage) msg).origins;
 			sessionLinenter.receivedMessage(clientSession, message);
+			return;
 		} else if (msg instanceof TopicMessage.ConnectionSessionTopicMessage)
 		{
 
-		} else if (msg instanceof GetLocationMessage)
+		}
+		// 获得Actor之间的消息
+		else if (msg instanceof GetLocationMessage)
 		{
 			sessionLinenter.receivedActorMessage(getSender(), ((GetLocationMessage) msg).getMessage());
+			return;
+		}
+		//失去网络连接的信号
+		else if(msg instanceof ConnectionSessionMessage.LostConnect){
+			sessionLinenter.disconnected(false);
 		}
 
 	}

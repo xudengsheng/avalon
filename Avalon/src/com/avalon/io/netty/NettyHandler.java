@@ -40,6 +40,7 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	{
 		super.handlerRemoved(ctx);
 		nettyServer.handleMessage(new NetWorkMessage.SessionOutline());
+		this.close();
 		if (logger.isDebugEnabled())
 		{
 			logger.debug("解除注册");

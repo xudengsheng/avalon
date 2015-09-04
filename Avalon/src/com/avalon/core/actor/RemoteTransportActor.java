@@ -17,7 +17,6 @@ import com.avalon.core.json.gameserversupervisor.SessionLost;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.ConnectionSessionMessage.DirectSessionMessage;
 import com.avalon.core.message.TopicMessage;
-import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
 import com.avalon.core.message.TopicMessage.TransportTopicMessage;
 import com.avalon.core.message.TransportMessage;
 import com.avalon.core.message.TransportMessage.ConnectionSessionsClosed;
@@ -81,7 +80,7 @@ public class RemoteTransportActor extends UntypedActor {
 		if (msg instanceof TransportMessage.IOSessionBindingTransportMessage)
 		{
 			log.debug("IO绑定");
-			ioSession.setSesssionActorCallBack(new InnerActorCallBack(getSelf()));
+			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf()));
 			return;
 		} else if (msg instanceof TransportMessage.IOSessionReciveMessage)
 		{
@@ -124,7 +123,7 @@ public class RemoteTransportActor extends UntypedActor {
 			log.debug("集群网络绑定");
 			bindingConnectionSession = true;
 			this.connectionSessionsRef = getSender();
-			ioSession.setSesssionActorCallBack(new InnerActorCallBack(getSelf()));
+			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf()));
 			return;
 		} else if (msg instanceof TransportMessage.ConnectionSessionsClosed)
 		{

@@ -61,7 +61,7 @@ public class LocalTransportActor extends UntypedActor {
 
 		if (msg instanceof TransportMessage.IOSessionBindingTransportMessage)
 		{
-			ioSession.setSesssionActorCallBack(new InnerActorCallBack(getSelf()));
+			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf()));
 		} else if (msg instanceof TransportMessage.IOSessionReciveMessage)
 		{
 			if (bindingConnectionSession)
@@ -69,19 +69,22 @@ public class LocalTransportActor extends UntypedActor {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				ConnectionSessionMessage message = new ConnectionSessionMessage.DirectSessionMessage(messagePackage);
 				connectionSessionsRef.tell(message, getSelf());
-			}else{
+			} else
+			{
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				LocalSessionMessage commandSessionProtocol = new LocalSessionMessage(messagePackage);
 				ConnectionSessionSupervisor.tell(commandSessionProtocol, getSelf());
 			}
-			
-		} 
-//		else if (msg instanceof IOSessionReciveDirectMessage)
-//		{
-//			IoMessagePackage messagePackage = ((TransportMessage.IOSessionReciveDirectMessage) msg).messagePackage;
-//			ConnectionSessionMessage message = new ConnectionSessionMessage.DirectSessionMessage(messagePackage);
-//			connectionSessionsRef.tell(message, getSelf());
-//		}
+
+		}
+		// else if (msg instanceof IOSessionReciveDirectMessage)
+		// {
+		// IoMessagePackage messagePackage =
+		// ((TransportMessage.IOSessionReciveDirectMessage) msg).messagePackage;
+		// ConnectionSessionMessage message = new
+		// ConnectionSessionMessage.DirectSessionMessage(messagePackage);
+		// connectionSessionsRef.tell(message, getSelf());
+		// }
 		else if (msg instanceof SessionSessionMessage)
 		{
 			IoMessagePackage messagePackage = ((SessionSessionMessage) msg).messagePackage;
@@ -112,13 +115,11 @@ public class LocalTransportActor extends UntypedActor {
 
 }
 
-class InnerActorCallBack implements ActorCallBack {
+class InnerLocalActorCallBack implements ActorCallBack {
 
 	private final ActorRef self;
 
-//	private boolean sendFristMessage;
-
-	public InnerActorCallBack(ActorRef self)
+	public InnerLocalActorCallBack(ActorRef self)
 	{
 		super();
 		this.self = self;
@@ -135,16 +136,8 @@ class InnerActorCallBack implements ActorCallBack {
 	@Override
 	public void tellMessage(IoMessagePackage messagePackage)
 	{
-		// if (sendFristMessage)
-		// {
-		// IOSessionReciveDirectMessage directMessage = new
-		// IOSessionReciveDirectMessage(messagePackage);
-		// self.tell(directMessage, ActorRef.noSender());
-		// }else{
 		IOSessionReciveMessage message = new IOSessionReciveMessage(messagePackage);
 		self.tell(message, ActorRef.noSender());
-//		sendFristMessage = true;
-		// }
 
 	}
 

@@ -33,7 +33,6 @@ import com.avalon.core.subscribe.TransportSupervisorTopic;
 import com.avalon.core.subscribe.TransportTopic;
 import com.avalon.core.supervision.ConnectionSessionSupervisor;
 import com.avalon.core.supervision.GameServerSupervisor;
-import com.avalon.core.supervision.MetricsListener;
 import com.avalon.core.supervision.RemotingSupsrvisor;
 import com.avalon.core.supervision.TransportSupervisor;
 import com.avalon.setting.AvalonConstant;
@@ -102,50 +101,57 @@ public class Avalon extends UntypedActor {
 	{
 		if (msg instanceof AvalonMessageEvent.InitAvalon)
 		{
+			// 服务器的启动模式
+			String engineMode = ContextResolver.getPropertiesWrapper().getProperty(SystemEnvironment.ENGINE_MODEL,
+					AvalonConstant.SERVER_TYPE_SINGLE);
 
-			String property = ContextResolver.getPropertiesWrapper().getProperty(SystemEnvironment.ENGINE_MODEL,AvalonConstant.SERVER_TYPE_SINGLE);
-
-			if (property.equals(AvalonConstant.SERVER_TYPE_SINGLE))
+			if (engineMode.equals(AvalonConstant.SERVER_TYPE_SINGLE))
 			{
 				log.info("Server model is single");
-				
+
 				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
 				this.getContext().watch(connectionSessionSupervisor);
-				log.info("ConnectionSessionSupervisor path is:"+connectionSessionSupervisor.path().toString());
-				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, connectionSessionSupervisor.path().toString()),TransportSupervisor.IDENTIFY);
+				
+				String connectionSessionSupervisorString = connectionSessionSupervisor.path().toString();
+				log.info("ConnectionSessionSupervisor path is:" + connectionSessionSupervisorString);
+
+				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, connectionSessionSupervisorString), TransportSupervisor.IDENTIFY);
 				this.getContext().watch(transportSupervisorRef);
 			}
-			//如果作为网关服务器启动，需要启动Akka的集群服务
-			else if (property.equals(AvalonConstant.SERVER_TYPE_GATE))
+			// 如果作为网关服务器启动，需要启动Akka的集群服务
+			else if (engineMode.equals(AvalonConstant.SERVER_TYPE_GATE))
 			{
 				log.info("Server model is gate");
 				clusterListener = actorSystem.actorOf(Props.create(AvalonClusterListener.class), SystemEnvironment.AVALON_CLUSTER_NAME);
 				this.getContext().watch(clusterListener);
-				//集群服务
+				// 集群服务
 				ClusterSharding clusterSharding = ClusterSharding.get(actorSystem);
 				Props RegionCreate = Props.create(ClusterConnectionSessions.class);
 				localRegion = clusterSharding.start(ClusterConnectionSessions.shardName, RegionCreate, new MessageExtractor());
 				this.context().watch(localRegion);
 
-				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, localRegion.path().toString()),TransportSupervisor.IDENTIFY);
+				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, localRegion.path().toString()),
+						TransportSupervisor.IDENTIFY);
 				this.getContext().watch(transportSupervisorRef);
 
 				Props gameServerSupervisorProps = Props.create(GameServerSupervisor.class);
 				ActorRef gameServerSupervisorRef = actorSystem.actorOf(gameServerSupervisorProps, GameServerSupervisor.IDENTIFY);
 				this.context().watch(gameServerSupervisorRef);
 			}
-			//逻辑服务器模式
+			// 逻辑服务器模式
 			else
 			{
 				log.info("Server model is game");
-				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
+				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),
+						ConnectionSessionSupervisor.IDENTIFY);
 				this.getContext().watch(connectionSessionSupervisor);
 			}
 			Props avalonDeadLetterProps = Props.create(AvalonDeadLetter.class);
 			ActorRef avalonDeadLetterRef = actorSystem.actorOf(avalonDeadLetterProps);
 			actorSystem.eventStream().subscribe(avalonDeadLetterRef, DeadLetter.class);
 
-//			this.metricsListener = actorSystem.actorOf(Props.create(MetricsListener.class));
+			// this.metricsListener =
+			// actorSystem.actorOf(Props.create(MetricsListener.class));
 			ActorRef actorOf = actorSystem.actorOf(Props.create(RemotingSupsrvisor.class), "Remoting");
 			System.out.println(actorOf.path().toString());
 			System.out.println(actorOf.path().address().toString());
@@ -156,7 +162,8 @@ public class Avalon extends UntypedActor {
 
 			String sessionActorId = randomUUID.toString();
 
-			TransportSupervisorMessage.CreateIOSessionActor message = new TransportSupervisorMessage.CreateIOSessionActor(ioSession,sessionActorId);
+			TransportSupervisorMessage.CreateIOSessionActor message = new TransportSupervisorMessage.CreateIOSessionActor(ioSession,
+					sessionActorId);
 
 			transportSupervisorRef.tell(message, getSelf());
 		}

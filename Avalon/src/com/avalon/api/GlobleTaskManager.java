@@ -1,5 +1,11 @@
 package com.avalon.api;
 
+/**
+ * 全局调度任务管理器
+ * 
+ * @author zero
+ *
+ */
 
 public interface GlobleTaskManager {
 	/**
@@ -31,6 +37,5 @@ public interface GlobleTaskManager {
 	 *            可执行任务
 	 */
 	public CancellableTask scheduleGlobleTask(long delay, long period, Runnable runnable);
-
 
 }

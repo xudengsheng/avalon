@@ -9,7 +9,7 @@ import com.avalon.api.message.Packet;
  *
  */
 public interface IBroadcastManager  {
-
+	
 	public void  broadcastTransport(Packet message);
 	
 	public void  broadcastConnectionSession(Packet message);

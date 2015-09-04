@@ -2,6 +2,12 @@ package com.avalon.api;
 
 import akka.actor.Cancellable;
 
+/**
+ * 单独的任务管理器
+ * 
+ * @author zero
+ *
+ */
 public interface TaskManager {
 	/**
 	 * 执行任务

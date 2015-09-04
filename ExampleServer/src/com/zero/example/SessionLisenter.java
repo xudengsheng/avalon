@@ -18,6 +18,7 @@ public class SessionLisenter implements ClientSessionLinenter {
 	public void receivedMessage(ActorSession clientSession, Object message)
 	{
 		// 收到网络协议的
+		System.out.println("收到网络协议");
 	}
 
 	@Override

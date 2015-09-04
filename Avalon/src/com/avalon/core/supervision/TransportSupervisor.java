@@ -37,22 +37,26 @@ public class TransportSupervisor extends UntypedActor {
 	public static final String IDENTIFY = "TransportSupervisor";
 
 	private final String localRegionPath;
-
-	private final boolean useRemote;
+	//是否是使用网关模式
+	private final boolean netGateMode;
 
 	public TransportSupervisor(String localRegionPath)
 	{
 		super();
+		// akka://AVALON/user/sharding/ClusterConnectionSessions
 		this.localRegionPath = localRegionPath;
+
 		ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
 		mediator.tell(new DistributedPubSubMediator.Subscribe(TransportSupervisorTopic.shardName, getSelf()), getSelf());
-		String property = ContextResolver.getPropertiesWrapper().getProperty(SystemEnvironment.ENGINE_MODEL, AvalonConstant.SERVER_TYPE_SINGLE);
-		if (property.equals("GATE"))
+
+		String property = ContextResolver.getPropertiesWrapper().getProperty(SystemEnvironment.ENGINE_MODEL,
+				AvalonConstant.SERVER_TYPE_SINGLE);
+		if (property.equals(AvalonConstant.SERVER_TYPE_GATE))
 		{
-			useRemote = true;
+			netGateMode = true;
 		} else
 		{
-			useRemote = false;
+			netGateMode = false;
 		}
 	}
 
@@ -65,13 +69,13 @@ public class TransportSupervisor extends UntypedActor {
 
 		if (msg instanceof TransportSupervisorMessage.CreateIOSessionActor)
 		{
-			//be645988-0ff5-4e7a-bcd0-566ec1789cb7
+			// be645988-0ff5-4e7a-bcd0-566ec1789cb7
 			String sessionActorId = ((TransportSupervisorMessage.CreateIOSessionActor) msg).sessionActorId;
 			IoSession ioSession = ((TransportSupervisorMessage.CreateIOSessionActor) msg).ioSession;
-			//akka://AVALON/user/TransportSupervisor
+			// akka://AVALON/user/TransportSupervisor
 			String transportSupervisorPath = getSelf().path().toString();
 			Props create = null;
-			if (useRemote)
+			if (netGateMode)
 			{
 				create = Props.create(RemoteTransportActor.class, sessionActorId, transportSupervisorPath, localRegionPath, ioSession);
 			} else
@@ -103,6 +107,9 @@ public class TransportSupervisor extends UntypedActor {
 		} else if (msg instanceof TransportSupervisorTopicMessage)
 		{
 			// TODO
+		} else if (msg instanceof DistributedPubSubMediator.SubscribeAck)
+		{
+			System.out.println("订阅信息");
 		}
 		// 一个被监听Actor销毁掉了
 		else if (msg instanceof Terminated)
