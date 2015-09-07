@@ -15,7 +15,7 @@ import akka.event.LoggingAdapter;
 import akka.japi.Creator;
 
 import com.avalon.api.IoSession;
-import com.avalon.core.cluster.AvalonClusterListener;
+import com.avalon.core.cluster.ClusterListener;
 import com.avalon.core.cluster.ClusterConnectionSessions;
 import com.avalon.core.cluster.MessageExtractor;
 import com.avalon.core.message.AvalonMessageEvent;
@@ -33,7 +33,6 @@ import com.avalon.core.subscribe.TransportSupervisorTopic;
 import com.avalon.core.subscribe.TransportTopic;
 import com.avalon.core.supervision.ConnectionSessionSupervisor;
 import com.avalon.core.supervision.GameServerSupervisor;
-import com.avalon.core.supervision.RemotingSupsrvisor;
 import com.avalon.core.supervision.TransportSupervisor;
 import com.avalon.setting.AvalonServerMode;
 import com.avalon.setting.SystemEnvironment;
@@ -121,7 +120,7 @@ public class Avalon extends UntypedActor {
 			else if (engineMode.equals(AvalonServerMode.SERVER_TYPE_GATE))
 			{
 				log.info("Server model is gate");
-				clusterListener = actorSystem.actorOf(Props.create(AvalonClusterListener.class), SystemEnvironment.AVALON_CLUSTER_NAME);
+				clusterListener = actorSystem.actorOf(Props.create(ClusterListener.class), SystemEnvironment.AVALON_CLUSTER_NAME);
 				this.getContext().watch(clusterListener);
 				// 集群服务
 				ClusterSharding clusterSharding = ClusterSharding.get(actorSystem);
@@ -129,8 +128,7 @@ public class Avalon extends UntypedActor {
 				localRegion = clusterSharding.start(ClusterConnectionSessions.shardName, RegionCreate, new MessageExtractor());
 				this.context().watch(localRegion);
 
-				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, localRegion.path().toString()),
-						TransportSupervisor.IDENTIFY);
+				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, localRegion.path().toString()),TransportSupervisor.IDENTIFY);
 				this.getContext().watch(transportSupervisorRef);
 
 				Props gameServerSupervisorProps = Props.create(GameServerSupervisor.class);
@@ -141,19 +139,14 @@ public class Avalon extends UntypedActor {
 			else
 			{
 				log.info("Server model is game");
-				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),
-						ConnectionSessionSupervisor.IDENTIFY);
+				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
 				this.getContext().watch(connectionSessionSupervisor);
 			}
 			Props avalonDeadLetterProps = Props.create(AvalonDeadLetter.class);
 			ActorRef avalonDeadLetterRef = actorSystem.actorOf(avalonDeadLetterProps);
 			actorSystem.eventStream().subscribe(avalonDeadLetterRef, DeadLetter.class);
 
-			// this.metricsListener =
-			// actorSystem.actorOf(Props.create(MetricsListener.class));
-			ActorRef actorOf = actorSystem.actorOf(Props.create(RemotingSupsrvisor.class), "Remoting");
-			System.out.println(actorOf.path().toString());
-			System.out.println(actorOf.path().address().toString());
+			// this.metricsListener = actorSystem.actorOf(Props.create(MetricsListener.class));
 		} else if (msg instanceof AvalonMessageEvent.IOSessionRegedit)
 		{
 			UUID randomUUID = UUID.randomUUID();

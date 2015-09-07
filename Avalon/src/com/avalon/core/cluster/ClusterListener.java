@@ -25,7 +25,7 @@ import com.avalon.setting.AvalonServerMode;
  * @author ZERO
  *
  */
-public class AvalonClusterListener extends UntypedActor {
+public class ClusterListener extends UntypedActor {
 
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 	Cluster cluster = Cluster.get(getContext().system());
@@ -47,8 +47,6 @@ public class AvalonClusterListener extends UntypedActor {
 		if (message instanceof MemberUp) {
 			MemberUp mUp = (MemberUp) message;
 			Member member = mUp.member();
-//			System.out.println(this.cluster.selfUniqueAddress().uid());
-//			System.out.println(member.uniqueAddress().uid());
 			boolean hasRole = member.hasRole(AvalonServerMode.SERVER_TYPE_GAME.modeName);
 			if (hasRole) {
 				ActorPath child = getContext().system().child(GameServerSupervisor.IDENTIFY);

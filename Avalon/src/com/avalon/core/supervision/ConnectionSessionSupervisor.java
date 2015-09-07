@@ -39,7 +39,7 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 	{
 		if (msg instanceof CluserSessionMessage)
 		{
-			log.info("获得GATE,网络消息");
+			log.debug("Geting CluserSessionMessage");
 			// TransportSupervisor
 			String supervisorName = ((CluserSessionMessage) msg).supervisorName;
 			// 59eb66d6-9463-43c0-832e-90126295b2f1
@@ -49,12 +49,13 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 
 			if (keyConnectionSession.containsKey(actorUId))
 			{
+				log.debug("keyConnectionSession has key="+actorUId);
 				ActorRef actorRef = keyConnectionSession.get(keyConnectionSession);
-				ConnectionSessionMessage.DirectSessionMessage directSessionMessage = new DirectSessionMessage(
-						((LocalSessionMessage) msg).messagePackage);
+				ConnectionSessionMessage.DirectSessionMessage directSessionMessage = new DirectSessionMessage(((LocalSessionMessage) msg).messagePackage);
 				actorRef.tell(directSessionMessage, getSender());
 			} else
-			{
+			{		
+				log.debug("keyConnectionSession has not key="+actorUId);
 				ActorRef actorOf = getContext().actorOf(Props.create(ConnectionSession.class), actorUId);
 				getContext().watch(actorOf);
 
@@ -65,22 +66,25 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 				actorOf.tell(message, getSelf());
 				sessionNum += 1;
 			}
-
+			return;
 		}
 		// 单服的消息策略
 		else if (msg instanceof LocalSessionMessage)
 		{
+			log.debug("Geting LocalSessionMessage");
 			// 放置延时的策略
 			// be645988-0ff5-4e7a-bcd0-566ec1789cb7
 			String name = getSender().path().name();
 			if (keyConnectionSession.containsKey(name))
 			{
+				log.debug("keyConnectionSession has name="+name);
 				ActorRef actorRef = keyConnectionSession.get(keyConnectionSession);
-				ConnectionSessionMessage.DirectSessionMessage directSessionMessage = new DirectSessionMessage(
-						((LocalSessionMessage) msg).messagePackage);
+				ConnectionSessionMessage.DirectSessionMessage directSessionMessage = new DirectSessionMessage(((LocalSessionMessage) msg).messagePackage);
 				actorRef.tell(directSessionMessage, getSender());
 			} else
 			{
+				log.debug("keyConnectionSession has not name="+name);
+				
 				String Path = getSender().path().toString();
 				ActorRef actorOf = getContext().actorOf(Props.create(ConnectionSession.class), name);
 				getContext().watch(actorOf);
@@ -91,7 +95,7 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 				sessionNum += 1;
 				keyConnectionSession.put(name, actorOf);
 			}
-
+			return;
 		} else if (msg instanceof ConnectionSessionSupervisorTopicMessage)
 		{
 			// TODO
@@ -99,6 +103,7 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 		{
 			// 一个被监听Actor销毁掉了
 			sessionNum -= 1;
+			return;
 		} else
 		{
 			unhandled(msg);

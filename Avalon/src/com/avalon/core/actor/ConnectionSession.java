@@ -16,6 +16,7 @@ import com.avalon.api.internal.IoMessage;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.api.message.GetLocationMessage;
 import com.avalon.core.ContextResolver;
+import com.avalon.core.cluster.ClusterConnectionSessions;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.ConnectionSessionMessage.HasSenderPathMessage;
 import com.avalon.core.message.GetLocationMessageImpl;
@@ -71,18 +72,18 @@ public class ConnectionSession extends UntypedActor {
 
 			Object message = ((ConnectionSessionMessage.HasSenderPathMessage) msg).message;
 			sender.tell(binding, getSelf());
-
+			//如果第一次连接的话，通知下逻辑服务器有新的会话登入
 			if (clientSession == null)
 			{
 				clientSession = new InnerClient(sender, getSelf(), getContext());
 				AppListener appListener = ContextResolver.getAppListener();
 				appListener.actorLogin(clientSession.getSelfPath());
 			}
+			//实例化处理逻辑的监听类
 			if (sessionLinenter == null)
 			{
 				PropertiesWrapper propertiesWrapper = ContextResolver.getPropertiesWrapper();
 				sessionLinenter = (ClientSessionLinenter) propertiesWrapper.getClassInstanceProperty(SystemEnvironment.APP_SESSION_LISTENER, ClientSessionLinenter.class, new Class[] {});
-				
 			}
 			sessionLinenter.receivedMessage(clientSession, message);
 			return;

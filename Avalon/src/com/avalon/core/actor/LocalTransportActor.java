@@ -62,6 +62,7 @@ public class LocalTransportActor extends UntypedActor {
 		if (msg instanceof TransportMessage.IOSessionBindingTransportMessage)
 		{
 			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf()));
+			return;
 		} else if (msg instanceof TransportMessage.IOSessionReciveMessage)
 		{
 			if (bindingConnectionSession)
@@ -75,7 +76,7 @@ public class LocalTransportActor extends UntypedActor {
 				LocalSessionMessage commandSessionProtocol = new LocalSessionMessage(messagePackage);
 				ConnectionSessionSupervisor.tell(commandSessionProtocol, getSelf());
 			}
-
+			return;
 		}
 		// else if (msg instanceof IOSessionReciveDirectMessage)
 		// {
@@ -89,9 +90,11 @@ public class LocalTransportActor extends UntypedActor {
 		{
 			IoMessagePackage messagePackage = ((SessionSessionMessage) msg).messagePackage;
 			ioSession.write(messagePackage);
+			return;
 		} else if (msg instanceof TransportMessage.ConnectionSessionsClosed)
 		{
 			connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
+			return;
 		} else if (msg instanceof TransportTopicMessage)
 		{
 			// TODO
@@ -100,6 +103,7 @@ public class LocalTransportActor extends UntypedActor {
 		{
 			this.connectionSessionsRef = getSender();
 			this.bindingConnectionSession = true;
+			return;
 		} else
 		{
 			unhandled(msg);
@@ -130,7 +134,6 @@ class InnerLocalActorCallBack implements ActorCallBack {
 	{
 		ConnectionSessionsClosed closed = new ConnectionSessionsClosed();
 		self.tell(closed, ActorRef.noSender());
-
 	}
 
 	@Override
@@ -138,7 +141,6 @@ class InnerLocalActorCallBack implements ActorCallBack {
 	{
 		IOSessionReciveMessage message = new IOSessionReciveMessage(messagePackage);
 		self.tell(message, ActorRef.noSender());
-
 	}
 
 }

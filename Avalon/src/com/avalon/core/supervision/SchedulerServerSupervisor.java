@@ -46,13 +46,10 @@ public class SchedulerServerSupervisor extends UntypedActor {
 				scheduleOnceTask = scheduleOnceTask(((SchedulerServerSupervisorMessage.RunTask) arg0).runnable);
 				break;
 			case 2:
-				scheduleOnceTask = scheduleOnceTask(((SchedulerServerSupervisorMessage.RunTask) arg0).delay,
-						((SchedulerServerSupervisorMessage.RunTask) arg0).runnable);
+				scheduleOnceTask = scheduleOnceTask(((SchedulerServerSupervisorMessage.RunTask) arg0).delay,((SchedulerServerSupervisorMessage.RunTask) arg0).runnable);
 				break;
 			case 3:
-				scheduleOnceTask = scheduleTask(((SchedulerServerSupervisorMessage.RunTask) arg0).delay,
-						((SchedulerServerSupervisorMessage.RunTask) arg0).period,
-						((SchedulerServerSupervisorMessage.RunTask) arg0).runnable);
+				scheduleOnceTask = scheduleTask(((SchedulerServerSupervisorMessage.RunTask) arg0).delay,((SchedulerServerSupervisorMessage.RunTask) arg0).period,((SchedulerServerSupervisorMessage.RunTask) arg0).runnable);
 				break;
 			default:
 				break;

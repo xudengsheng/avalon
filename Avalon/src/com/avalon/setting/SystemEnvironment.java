@@ -7,7 +7,7 @@ public class SystemEnvironment {
 	public static final String APP_NAME = APP_ROOT + ".app.name";
 	public static final String APP_LISTENER = APP_ROOT + ".app.listener";
 	public static final String APP_SESSION_LISTENER = APP_ROOT + ".app.session.listener";
-	public static final String AKKA_NAME = APP_ROOT + "akka.name";
+	public static final String AKKA_NAME = APP_ROOT + ".akka.name";
 	public static final String AKKA_CONFIG_NAME = APP_ROOT + "akka.config";
 	public static final String AKKA_CONFIG_PATH = AKKA_CONFIG_NAME + ".config.path";
 	public static final String ENGINE_MODEL = APP_ROOT + ".model";

@@ -22,7 +22,6 @@ import com.avalon.core.message.TransportMessage;
 import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.core.subscribe.TransportSupervisorTopic;
 import com.avalon.setting.AvalonServerMode;
-import com.avalon.setting.SystemEnvironment;
 
 /**
  * 传输监听 分为单机模式和网关模式
