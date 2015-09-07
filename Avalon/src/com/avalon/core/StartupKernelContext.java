@@ -2,14 +2,15 @@ package com.avalon.core;
 
 import com.avalon.api.internal.IService;
 import com.avalon.component.ComponentRegistryImpl;
+import com.avalon.setting.AvalonServerMode;
 import com.avalon.util.PropertiesWrapper;
 
 
 final class StartupKernelContext extends KernelContext {
 
-	public StartupKernelContext(String applicationName, ComponentRegistryImpl systemRegistry,PropertiesWrapper propertieswrapper)
+	public StartupKernelContext(String applicationName, ComponentRegistryImpl systemRegistry,PropertiesWrapper propertieswrapper,AvalonServerMode serverMode)
 	{
-		super(applicationName, systemRegistry, new ComponentRegistryImpl(),propertieswrapper);
+		super(applicationName, systemRegistry, new ComponentRegistryImpl(),propertieswrapper,serverMode);
 	}
 
 	void addManager(IService manager)

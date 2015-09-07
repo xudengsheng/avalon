@@ -102,8 +102,7 @@ public class Avalon extends UntypedActor {
 		if (msg instanceof AvalonMessageEvent.InitAvalon)
 		{
 			// 服务器的启动模式
-			String engineMode = ContextResolver.getPropertiesWrapper().getProperty(SystemEnvironment.ENGINE_MODEL,
-					AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
+			AvalonServerMode engineMode = ContextResolver.getServerMode();
 
 			if (engineMode.equals(AvalonServerMode.SERVER_TYPE_SINGLE))
 			{

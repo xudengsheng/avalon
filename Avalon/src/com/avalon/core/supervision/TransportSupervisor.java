@@ -49,8 +49,7 @@ public class TransportSupervisor extends UntypedActor {
 		ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
 		mediator.tell(new DistributedPubSubMediator.Subscribe(TransportSupervisorTopic.shardName, getSelf()), getSelf());
 
-		String property = ContextResolver.getPropertiesWrapper().getProperty(SystemEnvironment.ENGINE_MODEL,
-				AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
+		AvalonServerMode property = ContextResolver.getServerMode();
 		if (property.equals(AvalonServerMode.SERVER_TYPE_GATE))
 		{
 			netGateMode = true;

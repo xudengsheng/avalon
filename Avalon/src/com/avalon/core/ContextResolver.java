@@ -2,6 +2,7 @@ package com.avalon.core;
 
 
 import com.avalon.api.AppListener;
+import com.avalon.setting.AvalonServerMode;
 import com.avalon.util.PropertiesWrapper;
 
 
@@ -15,6 +16,11 @@ public final class ContextResolver {
 	public static PropertiesWrapper getPropertiesWrapper()
 	{
 		return context.getPropertiesWrapper();
+	}
+	
+	public static AvalonServerMode getServerMode()
+	{
+		return context.getServerMode();
 	}
 	
 	public static AppListener getAppListener()

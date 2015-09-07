@@ -81,7 +81,7 @@ public class AvalonEngine implements EngineMonitorMXBean {
 		// 组件管理器
 		systemRegistry = new ComponentRegistryImpl();
 		// 应用上下文
-		application = new StartupKernelContext(SystemEnvironment.ENGINE_NAME, systemRegistry, propertiesWrapper);
+		application = new StartupKernelContext(SystemEnvironment.ENGINE_NAME, systemRegistry, propertiesWrapper,mode);
 		// 系统级授权
 		createAndStartApplication();
 	}
@@ -178,10 +178,15 @@ public class AvalonEngine implements EngineMonitorMXBean {
 	 */
 	private void startApplication(String appName)
 	{
-		// 启动上层逻辑应用
-		listener = (propertiesWrapper).getClassInstanceProperty(SystemEnvironment.APP_LISTENER, AppListener.class, new Class[] {});
-		listener.initialize();
-		application.setAppListener(listener);
+		//网关服务不需要启动逻辑部分
+		if (!mode.equals(AvalonServerMode.SERVER_TYPE_GATE))
+		{
+			// 启动上层逻辑应用
+			listener = (propertiesWrapper).getClassInstanceProperty(SystemEnvironment.APP_LISTENER, AppListener.class, new Class[] {});
+			listener.initialize();
+			application.setAppListener(listener);
+		}
+	
 	}
 
 	public static void main(String[] args) throws Exception

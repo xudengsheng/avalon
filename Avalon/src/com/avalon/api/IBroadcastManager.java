@@ -9,8 +9,14 @@ import com.avalon.api.message.Packet;
  *
  */
 public interface IBroadcastManager  {
-	
+	/**
+	 * 给传输单元发广播
+	 * @param message
+	 */
 	public void  broadcastTransport(Packet message);
-	
+	/**
+	 * 给链接会话发广播
+	 * @param message
+	 */
 	public void  broadcastConnectionSession(Packet message);
 }
