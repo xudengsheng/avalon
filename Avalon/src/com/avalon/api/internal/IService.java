@@ -38,7 +38,7 @@ public interface IService {
 	/**
 	 * 设置服务名称
 	 * 
-	 * @param name
+	 * @param modeName
 	 */
 	public void setName(String name);
 }

@@ -22,13 +22,13 @@ import com.avalon.component.ComponentRegistryImpl;
 import com.avalon.io.netty.NettyHandler;
 import com.avalon.io.netty.NettyServer;
 import com.avalon.jmx.EngineMonitorMXBean;
-import com.avalon.setting.AvalonConstant;
+import com.avalon.setting.AvalonServerMode;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.PerformanceMonitor;
 import com.avalon.util.PropertiesWrapper;
 
 /**
- * 阿瓦隆
+ * 阿瓦隆，引擎入口
  * 
  * @author ZERO
  *
@@ -54,6 +54,8 @@ public class AvalonEngine implements EngineMonitorMXBean {
 	 */
 	private AppListener listener;
 
+	private AvalonServerMode mode;
+
 	private PropertiesWrapper propertiesWrapper;
 
 	public static String getName()
@@ -72,6 +74,10 @@ public class AvalonEngine implements EngineMonitorMXBean {
 	protected AvalonEngine(Props props) throws Exception
 	{
 		propertiesWrapper = new PropertiesWrapper(props);
+
+		String modelName = propertiesWrapper.getProperty(SystemEnvironment.ENGINE_MODEL, AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
+
+		mode = AvalonServerMode.getSeverMode(modelName);
 		// 组件管理器
 		systemRegistry = new ComponentRegistryImpl();
 		// 应用上下文
@@ -101,11 +107,11 @@ public class AvalonEngine implements EngineMonitorMXBean {
 	private void createServices(String appName)
 	{
 		// 系统级组件
-		String model = propertiesWrapper.getProperty(SystemEnvironment.ENGINE_MODEL, AvalonConstant.SERVER_TYPE_SINGLE);
+
 		IService avalon = new AvalonProxy();
 		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-
-		if (model.equals(AvalonConstant.SERVER_TYPE_SINGLE) || model.equals(AvalonConstant.SERVER_TYPE_GATE))
+		//如果是网关和单幅模式需要启动网络服务
+		if (mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE) || mode.equals(AvalonServerMode.SERVER_TYPE_GATE))
 		{
 			IService netty = new NettyServer(propertiesWrapper.getIntProperty(SystemEnvironment.TCP_PROT, 12345), NettyHandler.class);
 			try
@@ -117,10 +123,6 @@ public class AvalonEngine implements EngineMonitorMXBean {
 				e1.printStackTrace();
 			}
 			systemRegistry.addComponent(netty);
-		}
-		if (model.equals(AvalonConstant.SERVER_TYPE_SINGLE) || model.equals(AvalonConstant.SERVER_TYPE_GAME))
-		{
-
 		}
 
 		try

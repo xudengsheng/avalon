@@ -35,7 +35,7 @@ import com.avalon.core.supervision.ConnectionSessionSupervisor;
 import com.avalon.core.supervision.GameServerSupervisor;
 import com.avalon.core.supervision.RemotingSupsrvisor;
 import com.avalon.core.supervision.TransportSupervisor;
-import com.avalon.setting.AvalonConstant;
+import com.avalon.setting.AvalonServerMode;
 import com.avalon.setting.SystemEnvironment;
 
 /**
@@ -103,9 +103,9 @@ public class Avalon extends UntypedActor {
 		{
 			// 服务器的启动模式
 			String engineMode = ContextResolver.getPropertiesWrapper().getProperty(SystemEnvironment.ENGINE_MODEL,
-					AvalonConstant.SERVER_TYPE_SINGLE);
+					AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
 
-			if (engineMode.equals(AvalonConstant.SERVER_TYPE_SINGLE))
+			if (engineMode.equals(AvalonServerMode.SERVER_TYPE_SINGLE))
 			{
 				log.info("Server model is single");
 
@@ -119,7 +119,7 @@ public class Avalon extends UntypedActor {
 				this.getContext().watch(transportSupervisorRef);
 			}
 			// 如果作为网关服务器启动，需要启动Akka的集群服务
-			else if (engineMode.equals(AvalonConstant.SERVER_TYPE_GATE))
+			else if (engineMode.equals(AvalonServerMode.SERVER_TYPE_GATE))
 			{
 				log.info("Server model is gate");
 				clusterListener = actorSystem.actorOf(Props.create(AvalonClusterListener.class), SystemEnvironment.AVALON_CLUSTER_NAME);

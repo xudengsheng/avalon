@@ -17,7 +17,7 @@ import akka.event.LoggingAdapter;
 
 import com.avalon.core.message.GameServerSupervisorMessage;
 import com.avalon.core.supervision.GameServerSupervisor;
-import com.avalon.setting.AvalonConstant;
+import com.avalon.setting.AvalonServerMode;
 
 /**
  * 集群监听 (理论上说只是监听)
@@ -49,7 +49,7 @@ public class AvalonClusterListener extends UntypedActor {
 			Member member = mUp.member();
 //			System.out.println(this.cluster.selfUniqueAddress().uid());
 //			System.out.println(member.uniqueAddress().uid());
-			boolean hasRole = member.hasRole(AvalonConstant.SERVER_TYPE_GAME);
+			boolean hasRole = member.hasRole(AvalonServerMode.SERVER_TYPE_GAME.modeName);
 			if (hasRole) {
 				ActorPath child = getContext().system().child(GameServerSupervisor.IDENTIFY);
 				ActorSelection actorSelection = getContext().actorSelection(child);

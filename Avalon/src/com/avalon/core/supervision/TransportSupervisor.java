@@ -21,7 +21,7 @@ import com.avalon.core.message.TopicMessage.TransportSupervisorTopicMessage;
 import com.avalon.core.message.TransportMessage;
 import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.core.subscribe.TransportSupervisorTopic;
-import com.avalon.setting.AvalonConstant;
+import com.avalon.setting.AvalonServerMode;
 import com.avalon.setting.SystemEnvironment;
 
 /**
@@ -50,8 +50,8 @@ public class TransportSupervisor extends UntypedActor {
 		mediator.tell(new DistributedPubSubMediator.Subscribe(TransportSupervisorTopic.shardName, getSelf()), getSelf());
 
 		String property = ContextResolver.getPropertiesWrapper().getProperty(SystemEnvironment.ENGINE_MODEL,
-				AvalonConstant.SERVER_TYPE_SINGLE);
-		if (property.equals(AvalonConstant.SERVER_TYPE_GATE))
+				AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
+		if (property.equals(AvalonServerMode.SERVER_TYPE_GATE))
 		{
 			netGateMode = true;
 		} else

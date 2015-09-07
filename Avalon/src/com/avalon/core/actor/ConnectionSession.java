@@ -10,6 +10,7 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
 import com.avalon.api.ActorSession;
+import com.avalon.api.AppListener;
 import com.avalon.api.ClientSessionLinenter;
 import com.avalon.api.internal.IoMessage;
 import com.avalon.api.internal.IoMessagePackage;
@@ -74,12 +75,14 @@ public class ConnectionSession extends UntypedActor {
 			if (clientSession == null)
 			{
 				clientSession = new InnerClient(sender, getSelf(), getContext());
+				AppListener appListener = ContextResolver.getAppListener();
+				appListener.actorLogin(clientSession.getSelfPath());
 			}
 			if (sessionLinenter == null)
 			{
 				PropertiesWrapper propertiesWrapper = ContextResolver.getPropertiesWrapper();
-				sessionLinenter = (ClientSessionLinenter) propertiesWrapper.getClassInstanceProperty(
-						SystemEnvironment.APP_SESSION_LISTENER, ClientSessionLinenter.class, new Class[] {});
+				sessionLinenter = (ClientSessionLinenter) propertiesWrapper.getClassInstanceProperty(SystemEnvironment.APP_SESSION_LISTENER, ClientSessionLinenter.class, new Class[] {});
+				
 			}
 			sessionLinenter.receivedMessage(clientSession, message);
 			return;
@@ -103,6 +106,8 @@ public class ConnectionSession extends UntypedActor {
 		//失去网络连接的信号
 		else if(msg instanceof ConnectionSessionMessage.LostConnect){
 			sessionLinenter.disconnected(false);
+			AppListener appListener = ContextResolver.getAppListener();
+			appListener.actorDisconnect(clientSession.getSelfPath());
 		}
 
 	}

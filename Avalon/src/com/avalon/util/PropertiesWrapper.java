@@ -249,7 +249,7 @@ public class PropertiesWrapper {
 	/**
 	 * 以冒号为分隔符
 	 * 
-	 * @param name
+	 * @param modeName
 	 * @param type
 	 * @param defaultElement
 	 * @return
@@ -257,7 +257,7 @@ public class PropertiesWrapper {
 	public <T> List<T> getListProperty(String name, Class<T> type, T defaultElement)
 	{
 
-		checkNull("name", name);
+		checkNull("modeName", name);
 		checkNull("type", type);
 
 		List<T> list = new ArrayList<T>();
@@ -301,7 +301,7 @@ public class PropertiesWrapper {
 
 	public <T extends Enum<T>> List<T> getEnumListProperty(String name, Class<T> enumType, T defaultElement)
 	{
-		checkNull("name", name);
+		checkNull("modeName", name);
 		checkNull("enumType", enumType);
 
 		List<T> list = new ArrayList<T>();
@@ -335,7 +335,7 @@ public class PropertiesWrapper {
 
 	public List<Class<?>> getClassListProperty(String name)
 	{
-		checkNull("name", name);
+		checkNull("modeName", name);
 
 		List<Class<?>> list = new ArrayList<Class<?>>();
 		String value = properties.getValue(name);
