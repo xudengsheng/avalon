@@ -139,6 +139,15 @@ public class Avalon extends UntypedActor {
 			else
 			{
 				log.info("Server model is game");
+				clusterListener = actorSystem.actorOf(Props.create(ClusterListener.class), SystemEnvironment.AVALON_CLUSTER_NAME);
+				this.getContext().watch(clusterListener);
+				
+				// 集群服务
+				ClusterSharding clusterSharding = ClusterSharding.get(actorSystem);
+				Props RegionCreate = Props.create(ClusterConnectionSessions.class);
+				localRegion = clusterSharding.start(ClusterConnectionSessions.shardName, RegionCreate, new MessageExtractor());
+				this.context().watch(localRegion);
+				
 				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
 				this.getContext().watch(connectionSessionSupervisor);
 			}

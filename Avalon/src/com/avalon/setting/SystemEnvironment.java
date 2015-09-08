@@ -5,6 +5,7 @@ public class SystemEnvironment {
 	public static final String ENGINE_NAME = "Avalon";
 	public static final String APP_ROOT = "com.avalon";
 	public static final String APP_NAME = APP_ROOT + ".app.name";
+	public static final String APP_ID = APP_ROOT + ".app.id";
 	public static final String APP_LISTENER = APP_ROOT + ".app.listener";
 	public static final String APP_SESSION_LISTENER = APP_ROOT + ".app.session.listener";
 	public static final String AKKA_NAME = APP_ROOT + ".akka.name";

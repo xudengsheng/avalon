@@ -40,8 +40,17 @@ public class GameServerSupervisor extends UntypedActor {
 	private List<ServerNodeMember> serverNodeMembers = Lists.newArrayList();
 	ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
 
+	@Override
+	public void preStart() throws Exception
+	{
+		super.preStart();
+		ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
+		mediator.tell(new DistributedPubSubMediator.Subscribe(GameServerSupervisorTopic.shardName, getSelf()), getSelf());
+	}
+
 	public void addNewSessionJoin(int Uid)
 	{
+		log.debug("add new session" + Uid);
 		for (ServerNodeMember serverNodeMember : serverNodeMembers)
 		{
 			if (serverNodeMember.uid == Uid)
@@ -53,6 +62,7 @@ public class GameServerSupervisor extends UntypedActor {
 
 	public void subNewSessionJoin(int Uid)
 	{
+		log.debug("sub new session" + Uid);
 		for (ServerNodeMember serverNodeMember : serverNodeMembers)
 		{
 			if (serverNodeMember.uid == Uid)
@@ -69,6 +79,7 @@ public class GameServerSupervisor extends UntypedActor {
 		if (message instanceof GameServerSupervisorMessage.AddGameServerMember)
 		{
 			AddGameServerMember addGameServerMember = (GameServerSupervisorMessage.AddGameServerMember) message;
+
 			for (ServerNodeMember serverNodeMember : serverNodeMembers)
 			{
 				if (serverNodeMember.uid == addGameServerMember.uid)
@@ -109,9 +120,9 @@ public class GameServerSupervisor extends UntypedActor {
 				List<ServerNodeMember> sortedCopy = ServerNodeMember.bySessionOrdering.sortedCopy(serverNodeMembers);
 				for (ServerNodeMember serverNodeMember : sortedCopy)
 				{
-					//akka.tcp://AVALON@192.168.199.200:2552/user/ConnectionSessionSupervisor
+					// akka.tcp://AVALON@192.168.199.200:2552/user/ConnectionSessionSupervisor
 					String path = serverNodeMember.address.toString() + "/user/" + ConnectionSessionSupervisor.IDENTIFY;
-					
+
 					ActorSelection actorSelection = getContext().system().actorSelection(path);
 
 					CluserSessionMessage message2 = ((DistributionCluserSessionMessage) message).message;
@@ -124,6 +135,19 @@ public class GameServerSupervisor extends UntypedActor {
 					return;
 				}
 
+			}
+			return;
+		} else if (message instanceof TopicMessage.GameServerSupervisorTopicMessage)
+		{
+			Packet packet = ((TopicMessage.GameServerSupervisorTopicMessage) message).packet;
+			Byte packetType = packet.getPacketType();
+			if (packetType == Packet.Customize)
+			{
+
+			} else if (packetType == Packet.JSON_TYPE)
+			{
+				JsonMessagePacket messagePacket = (JsonMessagePacket) packet;
+				processJsonMessage(messagePacket);
 			}
 			return;
 		} else if (message instanceof Packet)

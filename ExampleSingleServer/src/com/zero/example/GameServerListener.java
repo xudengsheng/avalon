@@ -17,4 +17,16 @@ public class GameServerListener implements AppListener {
 		return true;
 	}
 
+	@Override
+	public void actorLogin(String actorSessionpath) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actorDisconnect(String actorSessionpath) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

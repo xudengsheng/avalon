@@ -32,23 +32,45 @@ public class ClusterListener extends UntypedActor {
 
 	// 订阅集群改变
 	@Override
-	public void preStart() {
+	public void preStart()
+	{
 		cluster.subscribe(getSelf(), ClusterEvent.initialStateAsEvents(), MemberEvent.class, UnreachableMember.class);
 	}
 
 	// 自己或者集群关闭
 	@Override
-	public void postStop() {
+	public void postStop()
+	{
 		cluster.unsubscribe(getSelf());
 	}
 
 	@Override
-	public void onReceive(Object message) {
-		if (message instanceof MemberUp) {
+	public void onReceive(Object message)
+	{
+		if (message instanceof MemberUp)
+		{
 			MemberUp mUp = (MemberUp) message;
 			Member member = mUp.member();
 			boolean hasRole = member.hasRole(AvalonServerMode.SERVER_TYPE_GAME.modeName);
-			if (hasRole) {
+			if (hasRole)
+			{
+//				PropertiesWrapper propertiesWrapper = ContextResolver.getPropertiesWrapper();
+//				int intProperty = propertiesWrapper.getIntProperty(SystemEnvironment.APP_ID, -1);
+//
+//				Set<String> roles = member.getRoles();
+//				boolean self = false;
+//				for (String string : roles)
+//				{
+//					if (string.equals(propertiesWrapper)&&ContextResolver.getServerMode().equals(AvalonServerMode.SERVER_TYPE_GAME))
+//					{
+//						self = true;
+//					}
+//				}
+//				if (self)
+//				{
+//					
+//				}
+
 				ActorPath child = getContext().system().child(GameServerSupervisor.IDENTIFY);
 				ActorSelection actorSelection = getContext().actorSelection(child);
 
@@ -56,25 +78,25 @@ public class ClusterListener extends UntypedActor {
 				int uid = uniqueAddress.uid();
 				Address address = member.address();
 
-				GameServerSupervisorMessage.AddGameServerMember serverMember = new GameServerSupervisorMessage.AddGameServerMember(uid,address);
+				GameServerSupervisorMessage.AddGameServerMember serverMember = new GameServerSupervisorMessage.AddGameServerMember(uid,	address);
 				actorSelection.tell(serverMember, getSelf());
 			}
 			log.info("Member is Up: {}", member);
-		}
-		else if (message instanceof UnreachableMember) {
+		} else if (message instanceof UnreachableMember)
+		{
 			UnreachableMember mUnreachable = (UnreachableMember) message;
 			Member member = mUnreachable.member();
 			log.info("Member detected as unreachable: {}", member);
-		}
-		else if (message instanceof MemberRemoved) {
+		} else if (message instanceof MemberRemoved)
+		{
 			MemberRemoved mRemoved = (MemberRemoved) message;
 			Member member = mRemoved.member();
 			log.info("Member is Removed: {}", member);
-		}
-		else if (message instanceof MemberEvent) {
+		} else if (message instanceof MemberEvent)
+		{
 			// 非法的消息
-		}
-		else {
+		} else
+		{
 			unhandled(message);
 		}
 

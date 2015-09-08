@@ -16,7 +16,7 @@ import com.avalon.io.netty.filter.DataCodecEncoder;
 public class NettySimpleClient {
 	ChannelFuture f;
 
-	public void connect(String host, int port, MessageTransport messageTransport) throws Exception
+	public void connect(String host, int port, final MessageTransport messageTransport) throws Exception
 	{
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 		try
