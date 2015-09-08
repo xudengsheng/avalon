@@ -32,8 +32,11 @@ public interface ActorSession {
 
 	/**
 	 * 向actor发送消息
-	 * @param actorPath 目标Actor地址
+	 * 
+	 * @param actorPath
+	 *            目标Actor地址
 	 * @param message
 	 */
-	void sendActorMessage(String actorPath,IoMessage message);
+	void sendActorMessage(String actorPath, IoMessage message);
+
 }

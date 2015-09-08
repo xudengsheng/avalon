@@ -11,7 +11,7 @@ import com.avalon.api.message.Packet;
 import com.avalon.core.message.TopicMessage.GameServerSupervisorTopicMessage;
 
 /**
- * 传输管理中心订阅器
+ * 传输管理中心订阅器（广播到所有逻辑服务器的管理节点）
  * 
  * @author zero
  *
@@ -19,17 +19,19 @@ import com.avalon.core.message.TopicMessage.GameServerSupervisorTopicMessage;
 public class GameServerSupervisorTopic extends UntypedActor {
 
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
-	
+
 	ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
 	public static final String shardName = "GAME_SERVER_SUPERVISOR_TOPIC_TOPIC";
 
 	@Override
-	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof GameServerSupervisorTopicMessage) {
+	public void onReceive(Object msg) throws Exception
+	{
+		if (msg instanceof GameServerSupervisorTopicMessage)
+		{
 			Packet packet = ((GameServerSupervisorTopicMessage) msg).packet;
 			mediator.tell(new DistributedPubSubMediator.Publish(shardName, packet), getSelf());
-		}
-		else {
+		} else
+		{
 			unhandled(msg);
 		}
 

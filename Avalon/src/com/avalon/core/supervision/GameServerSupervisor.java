@@ -48,29 +48,6 @@ public class GameServerSupervisor extends UntypedActor {
 		mediator.tell(new DistributedPubSubMediator.Subscribe(GameServerSupervisorTopic.shardName, getSelf()), getSelf());
 	}
 
-	public void addNewSessionJoin(int Uid)
-	{
-		log.debug("add new session" + Uid);
-		for (ServerNodeMember serverNodeMember : serverNodeMembers)
-		{
-			if (serverNodeMember.uid == Uid)
-			{
-				serverNodeMember.setSessionNum(serverNodeMember.getSessionNum() + 1);
-			}
-		}
-	}
-
-	public void subNewSessionJoin(int Uid)
-	{
-		log.debug("sub new session" + Uid);
-		for (ServerNodeMember serverNodeMember : serverNodeMembers)
-		{
-			if (serverNodeMember.uid == Uid)
-			{
-				serverNodeMember.setSessionNum(serverNodeMember.getSessionNum() - 1);
-			}
-		}
-	}
 
 	@Override
 	public void onReceive(Object message) throws Exception
@@ -134,10 +111,10 @@ public class GameServerSupervisor extends UntypedActor {
 					mediator.tell(new DistributedPubSubMediator.Publish(GameServerSupervisorTopic.shardName, topicMessage), getSelf());
 					return;
 				}
-
 			}
 			return;
-		} else if (message instanceof TopicMessage.GameServerSupervisorTopicMessage)
+		}
+		else if (message instanceof TopicMessage.GameServerSupervisorTopicMessage)
 		{
 			Packet packet = ((TopicMessage.GameServerSupervisorTopicMessage) message).packet;
 			Byte packetType = packet.getPacketType();
@@ -169,6 +146,30 @@ public class GameServerSupervisor extends UntypedActor {
 
 	}
 
+	public void addNewSessionJoin(int Uid)
+	{
+		log.debug("add new session" + Uid);
+		for (ServerNodeMember serverNodeMember : serverNodeMembers)
+		{
+			if (serverNodeMember.uid == Uid)
+			{
+				serverNodeMember.setSessionNum(serverNodeMember.getSessionNum() + 1);
+			}
+		}
+	}
+
+	public void subNewSessionJoin(int Uid)
+	{
+		log.debug("sub new session" + Uid);
+		for (ServerNodeMember serverNodeMember : serverNodeMembers)
+		{
+			if (serverNodeMember.uid == Uid)
+			{
+				serverNodeMember.setSessionNum(serverNodeMember.getSessionNum() - 1);
+			}
+		}
+	}
+	
 	private void processJsonMessage(JsonMessagePacket messagePacket)
 	{
 		switch (messagePacket.getCodeId())
