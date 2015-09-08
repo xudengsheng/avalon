@@ -1,4 +1,7 @@
 package com.avalon.api;
+
+import com.avalon.api.message.Packet;
+
 /**
  * 事件监听接口(处理自定义事件)
  * 
@@ -7,6 +10,6 @@ package com.avalon.api;
  */
 public interface IBroadcastEventLinenter {
 
-	public void handleEvent(Object event);
+	public void handleEvent(Packet message);
 	
 }

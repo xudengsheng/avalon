@@ -1,7 +1,13 @@
 package com.avalon.core.actor;
 
+import java.util.concurrent.TimeUnit;
+
+import scala.concurrent.duration.Duration;
 import akka.actor.ActorRef;
 import akka.actor.ActorSelection;
+import akka.actor.ActorSystem;
+import akka.actor.Cancellable;
+import akka.actor.Scheduler;
 import akka.actor.UntypedActor;
 import akka.actor.UntypedActorContext;
 import akka.contrib.pattern.DistributedPubSubExtension;
@@ -12,6 +18,7 @@ import akka.event.LoggingAdapter;
 import com.avalon.api.ActorSession;
 import com.avalon.api.AppListener;
 import com.avalon.api.ClientSessionLinenter;
+import com.avalon.api.TaskManager;
 import com.avalon.api.internal.IoMessage;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.api.message.GetLocationMessage;
@@ -115,10 +122,11 @@ public class ConnectionSession extends UntypedActor {
 
 }
 
-class InnerClient implements ActorSession {
+class InnerClient implements ActorSession ,TaskManager{
 
 	ActorSelection sender;
 
+	
 	final UntypedActorContext context;
 
 	final ActorRef self;
@@ -158,6 +166,38 @@ class InnerClient implements ActorSession {
 		GetLocationMessage messages = new GetLocationMessageImpl(message);
 		actorSelection.tell(messages, self);
 
+	}
+
+	@Override
+	public Cancellable scheduleOnceTask(Runnable runnable)
+	{
+		ActorSystem actorSystem = context.system();
+		Scheduler scheduler = actorSystem.scheduler();
+		return scheduler.scheduleOnce(Duration.Zero(), runnable, actorSystem.dispatcher());
+	}
+
+	@Override
+	public Cancellable scheduleOnceTask(long delay, Runnable runnable)
+	{
+		ActorSystem actorSystem = context.system();
+		Scheduler scheduler = actorSystem.scheduler();
+		return scheduler
+				.scheduleOnce(Duration.create(delay, TimeUnit.MILLISECONDS), runnable, actorSystem.dispatcher());
+	}
+
+	@Override
+	public Cancellable scheduleTask(long delay, long period, Runnable runnable)
+	{
+		ActorSystem actorSystem = context.system();
+		Scheduler scheduler = actorSystem.scheduler();
+		return scheduler.schedule(Duration.create(delay, TimeUnit.MILLISECONDS),
+				Duration.create(period, TimeUnit.MILLISECONDS), runnable, actorSystem.dispatcher());
+	}
+
+	@Override
+	public TaskManager getTaskManager()
+	{
+		return this;
 	}
 
 }
