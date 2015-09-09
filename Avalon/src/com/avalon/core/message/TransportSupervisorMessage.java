@@ -79,5 +79,44 @@ public interface TransportSupervisorMessage extends Serializable {
 
 	}
 	
+	
+	/**
+	 * 本地Transport数量查询
+	 * 
+	 * @author zero
+	 *
+	 */
+	public class localTransportNum implements TransportSupervisorMessage {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -914733653432627246L;
+		public final int transprotNum;
+
+		public localTransportNum(int transprotNum) {
+			super();
+			this.transprotNum = transprotNum;
+		}
+
+	}
+
+
+	/**
+	 * 网络创建会话 发送到代理
+	 * 
+	 * @author ZERO
+	 *
+	 */
+	public static class IOSessionRegedit implements TransportSupervisorMessage {
+		private static final long serialVersionUID = -631426557637927828L;
+		// 网络会话
+		public final IoSession ioSession;
+
+		public IOSessionRegedit(IoSession ioSession) {
+			super();
+			this.ioSession = ioSession;
+		}
+
+	}
 
 }

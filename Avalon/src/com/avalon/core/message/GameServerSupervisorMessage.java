@@ -68,6 +68,7 @@ public interface GameServerSupervisorMessage extends Serializable {
 	}
 	
 	
+	
 	public class LocalSessionMessage implements GameServerSupervisorMessage {
 
 		private static final long serialVersionUID = -4085109230935593066L;

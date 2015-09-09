@@ -2,6 +2,7 @@ package com.avalon.core;
 
 
 import com.avalon.api.AppListener;
+import com.avalon.api.GlobleTaskManager;
 import com.avalon.setting.AvalonServerMode;
 import com.avalon.util.PropertiesWrapper;
 
@@ -46,6 +47,10 @@ public final class ContextResolver {
 	static void setTaskState(KernelContext ctx)
 	{
 		context = ctx;
+	}
+
+	public static GlobleTaskManager getGlobleTaskManager() {
+		return context.getGlobleTaskManager();
 	}
 
 

@@ -37,6 +37,7 @@ public class GameServerSupervisor extends UntypedActor {
 
 	public static final String IDENTIFY = "GameServerSupervisor";
 
+	private ServerNodeMember selfServerNode;
 	private List<ServerNodeMember> serverNodeMembers = Lists.newArrayList();
 	ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
 
@@ -52,7 +53,7 @@ public class GameServerSupervisor extends UntypedActor {
 	@Override
 	public void onReceive(Object message) throws Exception
 	{
-
+		//新加入的节点
 		if (message instanceof GameServerSupervisorMessage.AddGameServerMember)
 		{
 			AddGameServerMember addGameServerMember = (GameServerSupervisorMessage.AddGameServerMember) message;
@@ -68,7 +69,9 @@ public class GameServerSupervisor extends UntypedActor {
 			ServerNodeMember gameServerMember = new ServerNodeMember(addGameServerMember.uid, addGameServerMember.address);
 			serverNodeMembers.add(gameServerMember);
 			return;
-		} else if (message instanceof GameServerSupervisorMessage.BlockGameServerMember)
+		}
+		//节点丢失或者中断连接
+		else if (message instanceof GameServerSupervisorMessage.BlockGameServerMember)
 		{
 			for (ServerNodeMember serverNodeMember : serverNodeMembers)
 			{
@@ -79,7 +82,9 @@ public class GameServerSupervisor extends UntypedActor {
 				}
 			}
 			return;
-		} else if (message instanceof GameServerSupervisorMessage.LostGameServerMember)
+		}
+		//丢失节点 
+		else if (message instanceof GameServerSupervisorMessage.LostGameServerMember)
 		{
 			for (ServerNodeMember serverNodeMember : serverNodeMembers)
 			{
@@ -90,7 +95,9 @@ public class GameServerSupervisor extends UntypedActor {
 				}
 			}
 			return;
-		} else if (message instanceof DistributionCluserSessionMessage)
+		}
+		//发布分布式信息，把当前的连接分发出去
+		else if (message instanceof DistributionCluserSessionMessage)
 		{
 			if (serverNodeMembers.size() > 0)
 			{
@@ -114,6 +121,7 @@ public class GameServerSupervisor extends UntypedActor {
 			}
 			return;
 		}
+		//分布式主题订阅消息
 		else if (message instanceof TopicMessage.GameServerSupervisorTopicMessage)
 		{
 			Packet packet = ((TopicMessage.GameServerSupervisorTopicMessage) message).packet;

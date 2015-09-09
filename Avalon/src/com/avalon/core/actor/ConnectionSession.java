@@ -92,14 +92,26 @@ public class ConnectionSession extends UntypedActor {
 				PropertiesWrapper propertiesWrapper = ContextResolver.getPropertiesWrapper();
 				sessionLinenter = (ClientSessionLinenter) propertiesWrapper.getClassInstanceProperty(SystemEnvironment.APP_SESSION_LISTENER, ClientSessionLinenter.class, new Class[] {});
 			}
-			sessionLinenter.receivedMessage(clientSession, message);
+			try
+			{
+				sessionLinenter.receivedMessage(clientSession, message);
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 			return;
 		}
 		// 获得remote的Actor消息
 		else if (msg instanceof ConnectionSessionMessage.DirectSessionMessage)
 		{
 			Object message = ((ConnectionSessionMessage.DirectSessionMessage) msg).origins;
-			sessionLinenter.receivedMessage(clientSession, message);
+			try
+			{
+				sessionLinenter.receivedMessage(clientSession, message);
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 			return;
 		} else if (msg instanceof TopicMessage.ConnectionSessionTopicMessage)
 		{

@@ -15,6 +15,7 @@ import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.core.AvalonProxy;
 import com.avalon.core.ContextResolver;
 import com.avalon.core.message.AvalonMessageEvent;
+import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.io.message.NetWorkMessage;
 import com.avalon.util.MessageHead;
 import com.google.common.collect.Queues;
@@ -54,7 +55,7 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 		super.channelRegistered(ctx);
 		this.ctx = ctx;
 		// 创建一个新的会话封装
-		AvalonMessageEvent.IOSessionRegedit regedit = new AvalonMessageEvent.IOSessionRegedit(this);
+		TransportSupervisorMessage.IOSessionRegedit regedit = new TransportSupervisorMessage.IOSessionRegedit(this);
 		component.handleMessage(regedit);
 
 		nettyServer.handleMessage(new NetWorkMessage.SessionOnline());

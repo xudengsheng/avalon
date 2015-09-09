@@ -11,13 +11,15 @@ import com.avalon.api.internal.IoMessagePackage;
  * @author mac
  * 
  */
-public interface ActorSession {
+public interface ActorSession{
 	/*
 	 * 获取自己的地址(在当前ActorSystem中，不含有远程地址)
 	 */
 	String getSelfPath();
+
 	/**
 	 * 获得独立的任务调度器
+	 * 
 	 * @return
 	 */
 	TaskManager getTaskManager();

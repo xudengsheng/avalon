@@ -8,6 +8,7 @@ import akka.actor.Props;
 
 import com.avalon.api.internal.IService;
 import com.avalon.core.message.AvalonMessageEvent;
+import com.avalon.core.message.TaskManagerMessage;
 import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.FileUtil;
@@ -28,7 +29,8 @@ public class AvalonProxy implements IService {
 	private int transportnum;
 
 	@Override
-	public void init(Object obj) {
+	public void init(Object obj)
+	{
 		File root = new File("");
 		String searchPath = root.getAbsolutePath() + File.separator + "conf";
 		PropertiesWrapper propertiesWrapper = (PropertiesWrapper) obj;
@@ -47,41 +49,50 @@ public class AvalonProxy implements IService {
 	}
 
 	@Override
-	public void destroy(Object obj) {
+	public void destroy(Object obj)
+	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void handleMessage(Object msg) {
-		if (msg instanceof AvalonMessageEvent.IOSessionRegedit) {
+	public void handleMessage(Object msg)
+	{
+		if (msg instanceof TransportSupervisorMessage.IOSessionRegedit)
+		{
 			avalonActorRef.tell(msg, ActorRef.noSender());
-		}
-		else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage) {
+		} else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage)
+		{
 			avalonActorRef.tell(msg, ActorRef.noSender());
-		}
-		else if (msg instanceof AvalonMessageEvent.BrocastPacket) {
+		} else if (msg instanceof AvalonMessageEvent.BrocastPacket)
+		{
 			avalonActorRef.tell(msg, ActorRef.noSender());
-		}
-		else if (msg instanceof String) {
+		} else if (msg instanceof String)
+		{
 			avalonActorRef.tell("Stt", ActorRef.noSender());
-		}
-		else if (msg instanceof AvalonMessageEvent.localTransportNum) {
-			this.transportnum = ((AvalonMessageEvent.localTransportNum) msg).transprotNum;
+		} else if (msg instanceof TransportSupervisorMessage.localTransportNum)
+		{
+			this.transportnum = ((TransportSupervisorMessage.localTransportNum) msg).transprotNum;
+		} else if (msg instanceof TaskManagerMessage.createTaskMessage)
+		{
+			avalonActorRef.tell(msg, ActorRef.noSender());
 		}
 	}
 
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		return "AvalonProxy";
 	}
 
 	@Override
-	public void setName(String name) {
+	public void setName(String name)
+	{
 		throw new IllegalAccessError();
 	}
 
-	public int transportNum() {
+	public int transportNum()
+	{
 		avalonActorRef.tell(new AvalonMessageEvent.nowTransportNum(), ActorRef.noSender());
 		return transportnum;
 	}

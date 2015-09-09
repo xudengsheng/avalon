@@ -25,6 +25,17 @@ public final class AppContext {
 			throw new ManagerNotFoundException("ManagerLocator is " + "unavailable", ise);
 		}
 	}
-
+	
+	
+	public static GlobleTaskManager getGlobleTaskManager()
+	{
+		try
+		{
+			return InternalContext.getManagerLocator().getGlobleTaskManager();
+		} catch (IllegalStateException ise)
+		{
+			throw new ManagerNotFoundException("ManagerLocator is " + "unavailable", ise);
+		}
+	}
 	
 }

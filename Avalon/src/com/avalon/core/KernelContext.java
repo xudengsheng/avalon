@@ -3,6 +3,7 @@ package com.avalon.core;
 import java.util.MissingResourceException;
 
 import com.avalon.api.AppListener;
+import com.avalon.api.GlobleTaskManager;
 import com.avalon.api.internal.ComponentRegistry;
 import com.avalon.exception.ManagerNotFoundException;
 import com.avalon.setting.AvalonServerMode;
@@ -18,11 +19,14 @@ class KernelContext {
 	private final String applicationName;
 	protected final PropertiesWrapper propertieswrapper;
 	protected final AvalonServerMode serverMode;
+	
+	
 	protected final ComponentRegistry managerComponents;
 	protected final ComponentRegistry serviceComponents;
 
 	private AppListener appListener;
-
+	private GlobleTaskManager globleTaskManager;
+	
 	KernelContext(KernelContext context)
 	{
 		this(context.applicationName, context.serviceComponents, context.managerComponents, context.propertieswrapper,context.serverMode);
@@ -36,6 +40,16 @@ class KernelContext {
 		this.managerComponents = managerComponents;
 		this.propertieswrapper = propertieswrapper;
 		this.serverMode = serverMode;
+		
+		GlobleTaskManager globleTaskManager;
+		try
+		{
+			globleTaskManager = managerComponents.getComponent(GlobleTaskManager.class);
+		} catch (MissingResourceException mre)
+		{
+			globleTaskManager = null;
+		}
+		this.globleTaskManager = globleTaskManager;
 
 	}
 
@@ -78,6 +92,10 @@ class KernelContext {
 	public AvalonServerMode getServerMode()
 	{
 		return serverMode;
+	}
+
+	public GlobleTaskManager getGlobleTaskManager() {
+		return globleTaskManager;
 	}
 
 }

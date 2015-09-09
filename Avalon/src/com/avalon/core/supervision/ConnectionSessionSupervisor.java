@@ -7,6 +7,8 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.Terminated;
 import akka.actor.UntypedActor;
+import akka.contrib.pattern.DistributedPubSubExtension;
+import akka.contrib.pattern.DistributedPubSubMediator;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
@@ -17,10 +19,11 @@ import com.avalon.core.message.ConnectionSessionMessage.HasSenderPathMessage;
 import com.avalon.core.message.ConnectionSessionSupervisorMessage.CluserSessionMessage;
 import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
 import com.avalon.core.message.TopicMessage.ConnectionSessionSupervisorTopicMessage;
+import com.avalon.core.subscribe.ConnectionSessionSupervisorTopic;
 
 /**
  * 连接会话监听 消息会给游戏逻辑使用
- * 
+ * 可以理解成游戏逻辑管理的主节点
  * @author ZERO
  *
  */
@@ -33,6 +36,19 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 	public static final String IDENTIFY = "ConnectionSessionSupervisor";
 
 	private Map<String, ActorRef> keyConnectionSession = new HashMap<String, ActorRef>();
+
+	
+	
+	@Override
+	public void preStart() throws Exception
+	{
+		super.preStart();
+		ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
+		mediator.tell(new DistributedPubSubMediator.Subscribe(ConnectionSessionSupervisorTopic.shardName, getSelf()), getSelf());
+
+	}
+
+
 
 	@Override
 	public void onReceive(Object msg) throws Exception

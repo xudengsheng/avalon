@@ -35,59 +35,19 @@ public interface AvalonMessageEvent extends Serializable {
 	}
 
 	/**
-	 * 本地Transport数量查询
-	 * 
-	 * @author zero
-	 *
-	 */
-	public class localTransportNum implements TransportSupervisorMessage {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = -914733653432627246L;
-		public final int transprotNum;
-
-		public localTransportNum(int transprotNum) {
-			super();
-			this.transprotNum = transprotNum;
-		}
-
-	}
-
-	public static class nowTransportNum implements TransportSupervisorMessage {
-		private static final long serialVersionUID = 5755079188868745944L;
-
-	}
-
-	
-
-	/**
 	 * 初始化Avalon
 	 * 
 	 * @author zero
 	 *
 	 */
-	public static class InitAvalon implements TransportSupervisorMessage {
+	public static class InitAvalon implements AvalonMessageEvent {
 
 		private static final long serialVersionUID = 5353260825760665736L;
 
 	}
 
-	/**
-	 * 网络创建会话 发送到代理
-	 * 
-	 * @author ZERO
-	 *
-	 */
-	public static class IOSessionRegedit implements TransportSupervisorMessage {
-		private static final long serialVersionUID = -631426557637927828L;
-		// 网络会话
-		public final IoSession ioSession;
-
-		public IOSessionRegedit(IoSession ioSession) {
-			super();
-			this.ioSession = ioSession;
-		}
+	public static class nowTransportNum implements AvalonMessageEvent {
+		private static final long serialVersionUID = 5755079188868745944L;
 
 	}
 

@@ -15,9 +15,11 @@ import akka.cluster.UniqueAddress;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
+import com.avalon.core.message.GameEngineMessage.NodeInfo;
 import com.avalon.core.message.GameServerSupervisorMessage;
 import com.avalon.core.supervision.GameServerSupervisor;
 import com.avalon.setting.AvalonServerMode;
+import com.avalon.setting.SystemEnvironment;
 
 /**
  * 集群监听 (理论上说只是监听)
@@ -51,36 +53,25 @@ public class ClusterListener extends UntypedActor {
 		{
 			MemberUp mUp = (MemberUp) message;
 			Member member = mUp.member();
+
 			boolean hasRole = member.hasRole(AvalonServerMode.SERVER_TYPE_GAME.modeName);
+			UniqueAddress uniqueAddress = member.uniqueAddress();
+			int uid = uniqueAddress.uid();
+
+			Address address = member.address();
 			if (hasRole)
 			{
-//				PropertiesWrapper propertiesWrapper = ContextResolver.getPropertiesWrapper();
-//				int intProperty = propertiesWrapper.getIntProperty(SystemEnvironment.APP_ID, -1);
-//
-//				Set<String> roles = member.getRoles();
-//				boolean self = false;
-//				for (String string : roles)
-//				{
-//					if (string.equals(propertiesWrapper)&&ContextResolver.getServerMode().equals(AvalonServerMode.SERVER_TYPE_GAME))
-//					{
-//						self = true;
-//					}
-//				}
-//				if (self)
-//				{
-//					
-//				}
-
 				ActorPath child = getContext().system().child(GameServerSupervisor.IDENTIFY);
 				ActorSelection actorSelection = getContext().actorSelection(child);
 
-				UniqueAddress uniqueAddress = member.uniqueAddress();
-				int uid = uniqueAddress.uid();
-				Address address = member.address();
-
-				GameServerSupervisorMessage.AddGameServerMember serverMember = new GameServerSupervisorMessage.AddGameServerMember(uid,	address);
+				GameServerSupervisorMessage.AddGameServerMember serverMember = new GameServerSupervisorMessage.AddGameServerMember(uid,
+						address);
 				actorSelection.tell(serverMember, getSelf());
 			}
+			String string = member.address().toString();
+			NodeInfo nodeInfo = new NodeInfo(string, uid);
+			ActorSelection actorSelection = getContext().actorSelection(string + "/user/" + SystemEnvironment.AVALON_ENGINE_NAME);
+			actorSelection.tell(nodeInfo, getSelf());
 			log.info("Member is Up: {}", member);
 		} else if (message instanceof UnreachableMember)
 		{

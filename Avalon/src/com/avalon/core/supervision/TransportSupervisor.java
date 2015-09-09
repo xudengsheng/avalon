@@ -101,7 +101,7 @@ public class TransportSupervisor extends UntypedActor {
 		else if (msg instanceof AvalonMessageEvent.nowTransportNum)
 		{
 			AvalonProxy component = ContextResolver.getComponent(AvalonProxy.class);
-			component.handleMessage(new AvalonMessageEvent.localTransportNum(transportNum));
+			component.handleMessage(new TransportSupervisorMessage.localTransportNum(transportNum));
 		} else if (msg instanceof TransportSupervisorTopicMessage)
 		{
 			// TODO
