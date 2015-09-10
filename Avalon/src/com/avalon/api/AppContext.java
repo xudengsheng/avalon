@@ -1,8 +1,8 @@
 package com.avalon.api;
 
+import com.avalon.api.internal.IService;
 import com.avalon.api.internal.InternalContext;
 import com.avalon.exception.ManagerNotFoundException;
-
 
 /**
  * 引擎应用的上下文
@@ -25,8 +25,12 @@ public final class AppContext {
 			throw new ManagerNotFoundException("ManagerLocator is " + "unavailable", ise);
 		}
 	}
-	
-	
+
+	public static void setManager(IService service)
+	{
+		InternalContext.getManagerLocator().setManager(service);
+	}
+
 	public static GlobleTaskManager getGlobleTaskManager()
 	{
 		try
@@ -37,5 +41,5 @@ public final class AppContext {
 			throw new ManagerNotFoundException("ManagerLocator is " + "unavailable", ise);
 		}
 	}
-	
+
 }

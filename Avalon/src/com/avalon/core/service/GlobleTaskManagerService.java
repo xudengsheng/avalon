@@ -7,7 +7,7 @@ import com.avalon.core.AvalonProxy;
 import com.avalon.core.ContextResolver;
 import com.avalon.core.message.TaskManagerMessage;
 
-public class GlobleTaskManagerService implements IService,GlobleTaskManager {
+public class GlobleTaskManagerService implements GlobleTaskManager {
 
 	@Override
 	public CancellableTask scheduleGlobleOnceTask(Runnable runnable)
@@ -31,37 +31,5 @@ public class GlobleTaskManagerService implements IService,GlobleTaskManager {
 		return null;
 	}
 
-	@Override
-	public void init(Object obj)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void destroy(Object obj)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void handleMessage(Object obj)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getName()
-	{
-		return GlobleTaskManagerService.class.getSimpleName();
-	}
-
-	@Override
-	public void setName(String name)
-	{
-		
-	}
 
 }

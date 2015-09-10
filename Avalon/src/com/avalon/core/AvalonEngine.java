@@ -138,10 +138,10 @@ public class AvalonEngine implements EngineMonitorMXBean {
 		systemRegistry.addComponent(avalon);
 		
 		GlobleTaskManagerService globleTaskManagerProxy=new GlobleTaskManagerService();
-		((StartupKernelContext) application).addManager(globleTaskManagerProxy);
+		((StartupKernelContext) application).setGlobleTaskManager(globleTaskManagerProxy);
 
 		SystemInfoService systemInfoService=new SystemInfoService();
-		((StartupKernelContext) application).addManager(systemInfoService);
+		((StartupKernelContext) application).setInfoService(systemInfoService);
 		
 		systemInfoService.setMode(mode);
 		int serverId = propertiesWrapper.getIntProperty(SystemEnvironment.APP_ID, -1);

@@ -5,6 +5,9 @@ import java.util.MissingResourceException;
 import com.avalon.api.AppListener;
 import com.avalon.api.GlobleTaskManager;
 import com.avalon.api.internal.ComponentRegistry;
+import com.avalon.api.internal.IService;
+import com.avalon.component.ComponentRegistryImpl;
+import com.avalon.core.service.SystemInfoService;
 import com.avalon.exception.ManagerNotFoundException;
 import com.avalon.setting.AvalonServerMode;
 import com.avalon.util.PropertiesWrapper;
@@ -18,18 +21,18 @@ class KernelContext {
 
 	private final String applicationName;
 	protected final PropertiesWrapper propertieswrapper;
+	private GlobleTaskManager globleTaskManager;
+	private SystemInfoService infoService;
 	protected final AvalonServerMode serverMode;
-	
-	
+
 	protected final ComponentRegistry managerComponents;
 	protected final ComponentRegistry serviceComponents;
 
 	private AppListener appListener;
-	private GlobleTaskManager globleTaskManager;
-	
+
 	KernelContext(KernelContext context)
 	{
-		this(context.applicationName, context.serviceComponents, context.managerComponents, context.propertieswrapper,context.serverMode);
+		this(context.applicationName, context.serviceComponents, context.managerComponents, context.propertieswrapper, context.serverMode);
 	}
 
 	protected KernelContext(String applicationName, ComponentRegistry serviceComponents, ComponentRegistry managerComponents,
@@ -40,17 +43,6 @@ class KernelContext {
 		this.managerComponents = managerComponents;
 		this.propertieswrapper = propertieswrapper;
 		this.serverMode = serverMode;
-		
-		GlobleTaskManager globleTaskManager;
-		try
-		{
-			globleTaskManager = managerComponents.getComponent(GlobleTaskManager.class);
-		} catch (MissingResourceException mre)
-		{
-			globleTaskManager = null;
-		}
-		this.globleTaskManager = globleTaskManager;
-
 	}
 
 	<T> T getManager(Class<T> type)
@@ -94,8 +86,29 @@ class KernelContext {
 		return serverMode;
 	}
 
-	public GlobleTaskManager getGlobleTaskManager() {
+	public GlobleTaskManager getGlobleTaskManager()
+	{
 		return globleTaskManager;
+	}
+
+	public SystemInfoService getInfoService()
+	{
+		return infoService;
+	}
+
+	public void setInfoService(SystemInfoService infoService)
+	{
+		this.infoService = infoService;
+	}
+
+	public void setGlobleTaskManager(GlobleTaskManager globleTaskManager)
+	{
+		this.globleTaskManager = globleTaskManager;
+	}
+
+	public void setManager(IService type)
+	{
+		((ComponentRegistryImpl) managerComponents).addComponent(type);
 	}
 
 }

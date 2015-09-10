@@ -1,11 +1,10 @@
 package com.avalon.core;
 
-
 import com.avalon.api.AppListener;
 import com.avalon.api.GlobleTaskManager;
+import com.avalon.api.internal.IService;
 import com.avalon.setting.AvalonServerMode;
 import com.avalon.util.PropertiesWrapper;
-
 
 public final class ContextResolver {
 
@@ -13,17 +12,17 @@ public final class ContextResolver {
 
 	private ContextResolver()
 	{}
-	
+
 	public static PropertiesWrapper getPropertiesWrapper()
 	{
 		return context.getPropertiesWrapper();
 	}
-	
+
 	public static AvalonServerMode getServerMode()
 	{
 		return context.getServerMode();
 	}
-	
+
 	public static AppListener getAppListener()
 	{
 		return context.getAppListener();
@@ -49,9 +48,14 @@ public final class ContextResolver {
 		context = ctx;
 	}
 
-	public static GlobleTaskManager getGlobleTaskManager() {
+	public static GlobleTaskManager getGlobleTaskManager()
+	{
 		return context.getGlobleTaskManager();
 	}
 
+	public static void setManager(IService type)
+	{
+		context.setManager(type);
+	}
 
 }

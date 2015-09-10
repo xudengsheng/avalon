@@ -4,7 +4,7 @@ import com.avalon.api.SystemInfo;
 import com.avalon.api.internal.IService;
 import com.avalon.setting.AvalonServerMode;
 
-public class SystemInfoService implements SystemInfo, IService {
+public class SystemInfoService implements SystemInfo {
 
 	private AvalonServerMode mode;
 
@@ -42,39 +42,6 @@ public class SystemInfoService implements SystemInfo, IService {
 		this.servierId = servierId;
 	}
 
-	@Override
-	public void init(Object obj)
-	{
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void destroy(Object obj)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void handleMessage(Object obj)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getName()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setName(String name)
-	{
-		// TODO Auto-generated method stub
-		
-	}
 
 }
