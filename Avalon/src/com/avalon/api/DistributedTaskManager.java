@@ -1,20 +1,20 @@
 package com.avalon.api;
 
 /**
- * 全局调度任务管理器
+ * 分布式调度任务管理器
  * 
  * @author zero
  *
  */
 
-public interface GlobleTaskManager {
+public interface DistributedTaskManager {
 	/**
 	 * 执行任务
 	 * 
 	 * @param runnable
 	 *            可执行任务
 	 */
-	public CancellableTask scheduleGlobleOnceTask(Runnable runnable);
+	public CancellableTask scheduleTask(Runnable runnable);
 
 	/**
 	 * 执行任务
@@ -24,7 +24,7 @@ public interface GlobleTaskManager {
 	 * @param runnable
 	 *            可执行任务
 	 */
-	public CancellableTask scheduleGlobleOnceTask(long delay, Runnable runnable);
+	public CancellableTask scheduleTask(long delay, Runnable runnable);
 
 	/**
 	 * 执行周期任务
@@ -36,6 +36,6 @@ public interface GlobleTaskManager {
 	 * @param runnable
 	 *            可执行任务
 	 */
-	public CancellableTask scheduleGlobleTask(long delay, long period, Runnable runnable);
+	public CancellableTask scheduleTask(long delay, long period, Runnable runnable);
 
 }

@@ -2,19 +2,25 @@ package com.avalon.core.actor;
 
 import java.util.UUID;
 
-import com.avalon.core.ContextResolver;
+import com.avalon.core.AvalonEngine;
 import com.avalon.core.message.GameEngineMessage.NodeInfo;
 import com.avalon.setting.AvalonServerMode;
 
 import akka.actor.UntypedActor;
+
 /**
  * 游戏逻辑的主管理
+ * 
  * @author zero
  *
  */
 public class GameEngineActor extends UntypedActor {
 
 	public static String GEUID = UUID.randomUUID().toString();
+
+	private int ServerId;
+
+	private AvalonServerMode serverMode;
 
 	private String selfRemotePath;
 

@@ -3,7 +3,7 @@ package com.avalon.core;
 import java.util.MissingResourceException;
 
 import com.avalon.api.AppListener;
-import com.avalon.api.GlobleTaskManager;
+import com.avalon.api.DistributedTaskManager;
 import com.avalon.api.internal.ComponentRegistry;
 import com.avalon.api.internal.IService;
 import com.avalon.component.ComponentRegistryImpl;
@@ -21,7 +21,7 @@ class KernelContext {
 
 	private final String applicationName;
 	protected final PropertiesWrapper propertieswrapper;
-	private GlobleTaskManager globleTaskManager;
+	private DistributedTaskManager globleTaskManager;
 	private SystemInfoService infoService;
 	protected final AvalonServerMode serverMode;
 
@@ -86,7 +86,7 @@ class KernelContext {
 		return serverMode;
 	}
 
-	public GlobleTaskManager getGlobleTaskManager()
+	public DistributedTaskManager getGlobleTaskManager()
 	{
 		return globleTaskManager;
 	}
@@ -101,7 +101,7 @@ class KernelContext {
 		this.infoService = infoService;
 	}
 
-	public void setGlobleTaskManager(GlobleTaskManager globleTaskManager)
+	public void setGlobleTaskManager(DistributedTaskManager globleTaskManager)
 	{
 		this.globleTaskManager = globleTaskManager;
 	}

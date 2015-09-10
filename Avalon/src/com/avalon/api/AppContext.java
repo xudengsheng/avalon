@@ -31,7 +31,7 @@ public final class AppContext {
 		InternalContext.getManagerLocator().setManager(service);
 	}
 
-	public static GlobleTaskManager getGlobleTaskManager()
+	public static DistributedTaskManager getGlobleTaskManager()
 	{
 		try
 		{

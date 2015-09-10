@@ -1,6 +1,6 @@
 package com.avalon.api.internal;
 
-import com.avalon.api.GlobleTaskManager;
+import com.avalon.api.DistributedTaskManager;
 
 /**
  * 外层API调用核心
@@ -17,7 +17,7 @@ public interface ManagerLocator {
 	 * 
 	 * @return
 	 */
-	GlobleTaskManager getGlobleTaskManager();
+	DistributedTaskManager getGlobleTaskManager();
 
 	/**
 	 * 放入自定义的服务（公用服务）

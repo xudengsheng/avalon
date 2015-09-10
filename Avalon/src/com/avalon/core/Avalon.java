@@ -14,6 +14,7 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import akka.japi.Creator;
 
+import com.avalon.api.AppContext;
 import com.avalon.api.IoSession;
 import com.avalon.core.actor.GameEngineActor;
 import com.avalon.core.cluster.ClusterListener;
@@ -114,15 +115,13 @@ public class Avalon extends UntypedActor {
 			{
 				log.info("Server model is single");
 
-				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),
-						ConnectionSessionSupervisor.IDENTIFY);
+				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
 				this.getContext().watch(connectionSessionSupervisor);
 
 				String connectionSessionSupervisorString = connectionSessionSupervisor.path().toString();
 				log.info("ConnectionSessionSupervisor path is:" + connectionSessionSupervisorString);
 
-				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, connectionSessionSupervisorString),
-						TransportSupervisor.IDENTIFY);
+				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, connectionSessionSupervisorString),TransportSupervisor.IDENTIFY);
 				this.getContext().watch(transportSupervisorRef);
 			}
 			// 如果作为网关服务器启动，需要启动Akka的集群服务
@@ -137,8 +136,7 @@ public class Avalon extends UntypedActor {
 				localRegion = clusterSharding.start(ClusterConnectionSessions.shardName, RegionCreate, new MessageExtractor());
 				this.context().watch(localRegion);
 
-				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, localRegion.path().toString()),
-						TransportSupervisor.IDENTIFY);
+				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, localRegion.path().toString()),TransportSupervisor.IDENTIFY);
 				this.getContext().watch(transportSupervisorRef);
 
 				Props gameServerSupervisorProps = Props.create(GameServerSupervisor.class);
@@ -152,15 +150,14 @@ public class Avalon extends UntypedActor {
 				clusterListener = actorSystem.actorOf(Props.create(ClusterListener.class), SystemEnvironment.AVALON_CLUSTER_NAME);
 				this.getContext().watch(clusterListener);
 
-				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),
-						ConnectionSessionSupervisor.IDENTIFY);
+				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
 				this.getContext().watch(connectionSessionSupervisor);
 			}
-
+			
 			globleTaskManagerActor = actorSystem.actorOf(Props.create(GlobleTaskManagerActor.class,engineMode),	SystemEnvironment.AVALON_GLOBLE_TASK_NAME);
 			this.getContext().watch(globleTaskManagerActor);
 
-			gameEngine = actorSystem.actorOf(Props.create(GameEngineActor.class),	SystemEnvironment.AVALON_ENGINE_NAME);
+			gameEngine = actorSystem.actorOf(Props.create(GameEngineActor.class),SystemEnvironment.AVALON_ENGINE_NAME);
 			this.getContext().watch(gameEngine);
 			
 			Props avalonDeadLetterProps = Props.create(AvalonDeadLetter.class);

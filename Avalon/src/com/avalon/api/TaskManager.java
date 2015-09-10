@@ -4,7 +4,7 @@ import akka.actor.Cancellable;
 
 /**
  * 单独的任务管理器
- * 
+ * 在单独的节点的任务
  * @author zero
  *
  */

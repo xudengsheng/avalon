@@ -7,7 +7,7 @@ import com.avalon.setting.AvalonServerMode;
  * @author zero
  *
  */
-public interface SystemInfo {
+public interface SystemInformation {
 
 	public AvalonServerMode getServerMode();
 	

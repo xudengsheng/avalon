@@ -1,6 +1,6 @@
 package com.avalon.core;
 
-import com.avalon.api.GlobleTaskManager;
+import com.avalon.api.DistributedTaskManager;
 import com.avalon.api.internal.IService;
 import com.avalon.api.internal.ManagerLocator;
 
@@ -20,7 +20,7 @@ class ManagerLocatorImpl implements ManagerLocator {
 	}
 
 	@Override
-	public GlobleTaskManager getGlobleTaskManager() {
+	public DistributedTaskManager getGlobleTaskManager() {
 		return ContextResolver.getGlobleTaskManager();
 	}
 

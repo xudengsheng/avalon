@@ -19,7 +19,7 @@ import com.avalon.api.AppListener;
 import com.avalon.api.internal.IService;
 import com.avalon.api.internal.InternalContext;
 import com.avalon.component.ComponentRegistryImpl;
-import com.avalon.core.service.GlobleTaskManagerService;
+import com.avalon.core.service.DistributedTaskManagerService;
 import com.avalon.core.service.SystemInfoService;
 import com.avalon.io.netty.NettyHandler;
 import com.avalon.io.netty.NettyServer;
@@ -137,7 +137,7 @@ public class AvalonEngine implements EngineMonitorMXBean {
 
 		systemRegistry.addComponent(avalon);
 		
-		GlobleTaskManagerService globleTaskManagerProxy=new GlobleTaskManagerService();
+		DistributedTaskManagerService globleTaskManagerProxy=new DistributedTaskManagerService();
 		((StartupKernelContext) application).setGlobleTaskManager(globleTaskManagerProxy);
 
 		SystemInfoService systemInfoService=new SystemInfoService();
