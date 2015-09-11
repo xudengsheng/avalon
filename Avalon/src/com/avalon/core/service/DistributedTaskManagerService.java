@@ -5,16 +5,9 @@ import com.avalon.api.DistributedTaskManager;
 import com.avalon.core.AvalonProxy;
 import com.avalon.core.ContextResolver;
 import com.avalon.core.message.TaskManagerMessage;
-import com.avalon.setting.AvalonServerMode;
 
 public class DistributedTaskManagerService implements DistributedTaskManager {
 
-	private final AvalonServerMode serverMode;
-
-	public DistributedTaskManagerService(AvalonServerMode mode)
-	{
-		this.serverMode = mode;
-	}
 
 	@Override
 	public CancellableTask scheduleTask(Runnable runnable)

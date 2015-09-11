@@ -10,7 +10,6 @@ import com.avalon.core.actor.GameEngineActor;
 import com.avalon.core.command.ConnectionSessionsProtocol;
 import com.avalon.core.message.ConnectionSessionSupervisorMessage;
 import com.avalon.core.message.GameServerSupervisorMessage.DistributionCluserSessionMessage;
-import com.avalon.core.supervision.GameServerSupervisor;
 
 /**
  * 集群网络会话，处理分布信息

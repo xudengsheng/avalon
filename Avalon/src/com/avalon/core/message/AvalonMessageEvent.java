@@ -2,7 +2,6 @@ package com.avalon.core.message;
 
 import java.io.Serializable;
 
-import com.avalon.api.IoSession;
 import com.avalon.api.message.Packet;
 
 /**

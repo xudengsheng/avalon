@@ -23,7 +23,6 @@ import com.avalon.api.internal.IoMessage;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.api.message.GetLocationMessage;
 import com.avalon.core.ContextResolver;
-import com.avalon.core.cluster.ClusterConnectionSessions;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.ConnectionSessionMessage.HasSenderPathMessage;
 import com.avalon.core.message.GetLocationMessageImpl;

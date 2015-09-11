@@ -136,10 +136,10 @@ public class AvalonEngine implements EngineMonitorMXBean {
 		}
 
 		systemRegistry.addComponent(avalon);
-		
-		DistributedTaskManagerService globleTaskManagerProxy=new DistributedTaskManagerService(mode);
+		//初始化分布任务管理器
+		DistributedTaskManagerService globleTaskManagerProxy=new DistributedTaskManagerService();
 		((StartupKernelContext) application).setGlobleTaskManager(globleTaskManagerProxy);
-
+		//初始化系统信息服务器
 		SystemInfoService systemInfoService=new SystemInfoService();
 		((StartupKernelContext) application).setInfoService(systemInfoService);
 		
@@ -231,13 +231,6 @@ public class AvalonEngine implements EngineMonitorMXBean {
 	public boolean getEnableJMX()
 	{
 		return false;
-	}
-
-	@Override
-	public void doSomeThing()
-	{
-		AvalonProxy component = systemRegistry.getComponent(AvalonProxy.class);
-		component.handleMessage("");
 	}
 
 	@Override

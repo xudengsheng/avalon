@@ -14,7 +14,6 @@ import com.avalon.api.internal.ActorCallBack;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.core.AvalonProxy;
 import com.avalon.core.ContextResolver;
-import com.avalon.core.message.AvalonMessageEvent;
 import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.io.message.NetWorkMessage;
 import com.avalon.util.MessageHead;

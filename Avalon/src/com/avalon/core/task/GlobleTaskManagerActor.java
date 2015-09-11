@@ -1,12 +1,11 @@
 package com.avalon.core.task;
 
-import com.avalon.core.message.TaskManagerMessage;
-import com.avalon.setting.AvalonServerMode;
-
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 import akka.contrib.pattern.DistributedPubSubExtension;
 import akka.contrib.pattern.DistributedPubSubMediator;
+
+import com.avalon.core.message.TaskManagerMessage;
 
 /**
  * 全局任务管理器

@@ -16,8 +16,8 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
 import com.avalon.core.actor.GameEngineActor;
-import com.avalon.core.message.GameEngineMessage.CheckNodeInfo;
 import com.avalon.core.message.GameEngineMessage.AddNodeInfo;
+import com.avalon.core.message.GameEngineMessage.CheckNodeInfo;
 import com.avalon.core.message.GameServerSupervisorMessage;
 import com.avalon.core.supervision.GameServerSupervisor;
 import com.avalon.setting.AvalonServerMode;
