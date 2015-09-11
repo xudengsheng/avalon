@@ -6,6 +6,7 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import akka.persistence.UntypedPersistentActor;
 
+import com.avalon.core.actor.GameEngineActor;
 import com.avalon.core.command.ConnectionSessionsProtocol;
 import com.avalon.core.message.ConnectionSessionSupervisorMessage;
 import com.avalon.core.message.GameServerSupervisorMessage.DistributionCluserSessionMessage;
@@ -28,7 +29,7 @@ public class ClusterConnectionSessions extends UntypedPersistentActor {
 	{
 		if (msg instanceof ConnectionSessionsProtocol)
 		{
-			ActorPath child = getContext().system().child(GameServerSupervisor.IDENTIFY);
+			ActorPath child = getContext().system().child(GameEngineActor.IDENTIFY);
 			ActorSelection actorSelection = getContext().actorSelection(child);
 
 			int clusterUid = ((ConnectionSessionsProtocol) msg).ClusterUid;
@@ -50,7 +51,7 @@ public class ClusterConnectionSessions extends UntypedPersistentActor {
 	{
 		if (msg instanceof ConnectionSessionsProtocol)
 		{
-			ActorPath child = getContext().system().child(GameServerSupervisor.IDENTIFY);
+			ActorPath child = getContext().system().child(GameEngineActor.IDENTIFY);
 			ActorSelection actorSelection = getContext().actorSelection(child);
 
 			int clusterUid = ((ConnectionSessionsProtocol) msg).ClusterUid;

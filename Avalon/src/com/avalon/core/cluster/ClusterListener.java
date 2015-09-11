@@ -15,11 +15,12 @@ import akka.cluster.UniqueAddress;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
-import com.avalon.core.message.GameEngineMessage.NodeInfo;
+import com.avalon.core.actor.GameEngineActor;
+import com.avalon.core.message.GameEngineMessage.CheckNodeInfo;
+import com.avalon.core.message.GameEngineMessage.AddNodeInfo;
 import com.avalon.core.message.GameServerSupervisorMessage;
 import com.avalon.core.supervision.GameServerSupervisor;
 import com.avalon.setting.AvalonServerMode;
-import com.avalon.setting.SystemEnvironment;
 
 /**
  * 集群监听 (理论上说只是监听)
@@ -53,7 +54,6 @@ public class ClusterListener extends UntypedActor {
 		{
 			MemberUp mUp = (MemberUp) message;
 			Member member = mUp.member();
-
 			boolean hasRole = member.hasRole(AvalonServerMode.SERVER_TYPE_GAME.modeName);
 			UniqueAddress uniqueAddress = member.uniqueAddress();
 			int uid = uniqueAddress.uid();
@@ -64,14 +64,22 @@ public class ClusterListener extends UntypedActor {
 				ActorPath child = getContext().system().child(GameServerSupervisor.IDENTIFY);
 				ActorSelection actorSelection = getContext().actorSelection(child);
 
-				GameServerSupervisorMessage.AddGameServerMember serverMember = new GameServerSupervisorMessage.AddGameServerMember(uid,
-						address);
+				GameServerSupervisorMessage.AddGameServerMember serverMember = new GameServerSupervisorMessage.AddGameServerMember(uid,address);
 				actorSelection.tell(serverMember, getSelf());
 			}
+			{
+			//通知对方节点，并带有自己的唯一UID
 			String string = member.address().toString();
-			NodeInfo nodeInfo = new NodeInfo(string, uid);
-			ActorSelection actorSelection = getContext().actorSelection(string + "/user/" + SystemEnvironment.AVALON_ENGINE_NAME);
+			CheckNodeInfo nodeInfo = new CheckNodeInfo(member);
+			ActorSelection actorSelection = getContext().actorSelection(string + "/user/" + GameEngineActor.IDENTIFY);
 			actorSelection.tell(nodeInfo, getSelf());
+			}
+			//添加到自己的管理
+			{
+				AddNodeInfo nodeInfo = new AddNodeInfo(member);
+				ActorSelection actorSelection =  getContext().actorSelection(getContext().system().child(GameEngineActor.IDENTIFY));
+				actorSelection.tell(nodeInfo, getSelf());
+			}
 			log.info("Member is Up: {}", member);
 		} else if (message instanceof UnreachableMember)
 		{

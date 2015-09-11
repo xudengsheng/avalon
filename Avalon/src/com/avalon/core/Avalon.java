@@ -157,7 +157,8 @@ public class Avalon extends UntypedActor {
 			globleTaskManagerActor = actorSystem.actorOf(Props.create(GlobleTaskManagerActor.class,engineMode),	SystemEnvironment.AVALON_GLOBLE_TASK_NAME);
 			this.getContext().watch(globleTaskManagerActor);
 
-			gameEngine = actorSystem.actorOf(Props.create(GameEngineActor.class),SystemEnvironment.AVALON_ENGINE_NAME);
+			gameEngine = actorSystem.actorOf(Props.create(GameEngineActor.class),GameEngineActor.IDENTIFY);
+			System.out.println(gameEngine.path().toString());
 			this.getContext().watch(gameEngine);
 			
 			Props avalonDeadLetterProps = Props.create(AvalonDeadLetter.class);

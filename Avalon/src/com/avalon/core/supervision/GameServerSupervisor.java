@@ -27,7 +27,7 @@ import com.google.common.collect.Lists;
 
 /**
  * 游戏逻辑服务器监听 （动态分配）
- * 
+ * Gate模式独有,主要负责对逻辑Server的分配
  * @author ZERO
  *
  */

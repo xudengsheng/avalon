@@ -8,6 +8,7 @@ import java.util.EnumSet;
  */
 public enum AvalonServerMode
 {
+	UNKNOW("UNKNOW"),
 	/**
 	 * 单服务器模式
 	 */

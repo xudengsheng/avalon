@@ -1,11 +1,9 @@
 package com.avalon.core.service;
 
-import akka.actor.UntypedActor;
-
 import com.avalon.api.SystemInformation;
 import com.avalon.setting.AvalonServerMode;
 
-public class SystemInfoService extends UntypedActor implements SystemInformation {
+public class SystemInfoService  implements SystemInformation {
 
 	private AvalonServerMode mode;
 
@@ -43,12 +41,6 @@ public class SystemInfoService extends UntypedActor implements SystemInformation
 		this.servierId = servierId;
 	}
 
-	@Override
-	public void onReceive(Object arg0) throws Exception
-	{
-		// TODO Auto-generated method stub
-		
-	}
 
 
 
