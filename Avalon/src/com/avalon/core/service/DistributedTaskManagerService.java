@@ -1,35 +1,36 @@
 package com.avalon.core.service;
 
-import com.avalon.api.CancellableTask;
 import com.avalon.api.DistributedTaskManager;
 import com.avalon.core.AvalonProxy;
 import com.avalon.core.ContextResolver;
+import com.avalon.core.actor.GameEngineActor;
 import com.avalon.core.message.TaskManagerMessage;
 
 public class DistributedTaskManagerService implements DistributedTaskManager {
 
 
 	@Override
-	public CancellableTask scheduleTask(Runnable runnable)
+	public void scheduleTask(Runnable runnable)
 	{
-		
 		AvalonProxy component = ContextResolver.getComponent(AvalonProxy.class);
-		component.handleMessage(new TaskManagerMessage.createTaskMessage(runnable));
-		return null;
+		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,GameEngineActor.GEUID,-1,-1);
+		component.handleMessage(createTaskMessage);
 	}
 
 	@Override
-	public CancellableTask scheduleTask(long delay, Runnable runnable)
+	public void scheduleTask(long delay, Runnable runnable)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		AvalonProxy component = ContextResolver.getComponent(AvalonProxy.class);
+		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,GameEngineActor.GEUID,delay,-1);
+		component.handleMessage(createTaskMessage);
 	}
 
 	@Override
-	public CancellableTask scheduleTask(long delay, long period, Runnable runnable)
+	public void scheduleTask(long delay, long period, Runnable runnable)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		AvalonProxy component = ContextResolver.getComponent(AvalonProxy.class);
+		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,GameEngineActor.GEUID,delay,period);
+		component.handleMessage(createTaskMessage);
 	}
 
 }

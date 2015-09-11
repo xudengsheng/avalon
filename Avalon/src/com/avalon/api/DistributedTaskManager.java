@@ -14,7 +14,7 @@ public interface DistributedTaskManager {
 	 * @param runnable
 	 *            可执行任务
 	 */
-	public CancellableTask scheduleTask(Runnable runnable);
+	public void scheduleTask(Runnable runnable);
 
 	/**
 	 * 执行任务
@@ -24,7 +24,7 @@ public interface DistributedTaskManager {
 	 * @param runnable
 	 *            可执行任务
 	 */
-	public CancellableTask scheduleTask(long delay, Runnable runnable);
+	public void scheduleTask(long delay, Runnable runnable);
 
 	/**
 	 * 执行周期任务
@@ -36,6 +36,6 @@ public interface DistributedTaskManager {
 	 * @param runnable
 	 *            可执行任务
 	 */
-	public CancellableTask scheduleTask(long delay, long period, Runnable runnable);
+	public void scheduleTask(long delay, long period, Runnable runnable);
 
 }

@@ -3,9 +3,12 @@ package com.avalon.core.actor;
 import java.util.List;
 import java.util.UUID;
 
+import akka.actor.ActorRef;
 import akka.actor.ActorSelection;
 import akka.actor.UntypedActor;
 import akka.cluster.Member;
+import akka.contrib.pattern.DistributedPubSubExtension;
+import akka.contrib.pattern.DistributedPubSubMediator;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
@@ -104,16 +107,17 @@ public class GameEngineActor extends UntypedActor {
 		
 		//处理任务的
 		else if(arg0 instanceof TaskManagerMessage.createTaskMessage){
-			List<Member> gameServers = getGameServers();
-			for (Member member : gameServers)
-			{
-				String path = member.address().toString() + "/user/" + GlobleTaskManagerActor.IDENTIFY;
-
-				ActorSelection actorSelection = getContext().system().actorSelection(path);
-
-				CluserSessionMessage message2 = ((DistributionCluserSessionMessage) arg0).message;
-				actorSelection.tell(message2, getSelf());
-			}
+			ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
+			mediator.tell(new DistributedPubSubMediator.Publish(GlobleTaskManagerActor.shardName, arg0), ActorRef.noSender());
+//			List<Member> gameServers = getGameServers();
+//			for (Member member : gameServers)
+//			{
+//				String path = member.address().toString() + "/user/" + GlobleTaskManagerActor.IDENTIFY;
+//
+//				ActorSelection actorSelection = getContext().system().actorSelection(path);
+//
+//				actorSelection.tell(arg0, getSelf());
+//			}
 		}
 	}
 
@@ -126,6 +130,10 @@ public class GameEngineActor extends UntypedActor {
 			{
 				members.add(member.member);
 			}
+		}
+		if (selfEngine.serverMode.equals(AvalonServerMode.SERVER_TYPE_GAME))
+		{
+			members.add(selfEngine.member);
 		}
 		return members;
 	}

@@ -155,13 +155,13 @@ public class Avalon extends UntypedActor {
 				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),
 						ConnectionSessionSupervisor.IDENTIFY);
 				this.getContext().watch(connectionSessionSupervisor);
+				
+				globleTaskManagerActor = actorSystem.actorOf(Props.create(GlobleTaskManagerActor.class), GlobleTaskManagerActor.IDENTIFY);
+				this.getContext().watch(globleTaskManagerActor);
 			}
 
-			globleTaskManagerActor = actorSystem.actorOf(Props.create(GlobleTaskManagerActor.class), GlobleTaskManagerActor.IDENTIFY);
-			this.getContext().watch(globleTaskManagerActor);
-
+		
 			gameEngine = actorSystem.actorOf(Props.create(GameEngineActor.class), GameEngineActor.IDENTIFY);
-			System.out.println(gameEngine.path().toString());
 			this.getContext().watch(gameEngine);
 
 			Props avalonDeadLetterProps = Props.create(AvalonDeadLetter.class);
