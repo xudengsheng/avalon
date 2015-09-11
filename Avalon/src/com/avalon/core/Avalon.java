@@ -2,7 +2,9 @@ package com.avalon.core;
 
 import java.util.UUID;
 
+import akka.actor.ActorPath;
 import akka.actor.ActorRef;
+import akka.actor.ActorSelection;
 import akka.actor.ActorSystem;
 import akka.actor.DeadLetter;
 import akka.actor.Props;
@@ -88,7 +90,7 @@ public class Avalon extends UntypedActor {
 	private ActorRef clusterListener;
 	// 全局任务管理
 	private ActorRef globleTaskManagerActor;
-	//游戏引擎的actor
+	// 游戏引擎的actor
 	private ActorRef gameEngine;
 	// 性能指标
 	private ActorRef metricsListener;
@@ -101,6 +103,8 @@ public class Avalon extends UntypedActor {
 
 	private final ActorSystem actorSystem;
 
+	AvalonServerMode engineMode;
+
 	ActorRef lastSender = getContext().system().deadLetters();
 
 	@Override
@@ -109,19 +113,21 @@ public class Avalon extends UntypedActor {
 		if (msg instanceof AvalonMessageEvent.InitAvalon)
 		{
 			// 服务器的启动模式
-			AvalonServerMode engineMode = ContextResolver.getServerMode();
+			engineMode = ContextResolver.getServerMode();
 
 			if (engineMode.equals(AvalonServerMode.SERVER_TYPE_SINGLE))
 			{
 				log.info("Server model is single");
 
-				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
+				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),
+						ConnectionSessionSupervisor.IDENTIFY);
 				this.getContext().watch(connectionSessionSupervisor);
 
 				String connectionSessionSupervisorString = connectionSessionSupervisor.path().toString();
 				log.info("ConnectionSessionSupervisor path is:" + connectionSessionSupervisorString);
 
-				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, connectionSessionSupervisorString),TransportSupervisor.IDENTIFY);
+				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, connectionSessionSupervisorString),
+						TransportSupervisor.IDENTIFY);
 				this.getContext().watch(transportSupervisorRef);
 			}
 			// 如果作为网关服务器启动，需要启动Akka的集群服务
@@ -136,7 +142,8 @@ public class Avalon extends UntypedActor {
 				localRegion = clusterSharding.start(ClusterConnectionSessions.shardName, RegionCreate, new MessageExtractor());
 				this.context().watch(localRegion);
 
-				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, localRegion.path().toString()),TransportSupervisor.IDENTIFY);
+				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, localRegion.path().toString()),
+						TransportSupervisor.IDENTIFY);
 				this.getContext().watch(transportSupervisorRef);
 
 				Props gameServerSupervisorProps = Props.create(GameServerSupervisor.class);
@@ -150,17 +157,18 @@ public class Avalon extends UntypedActor {
 				clusterListener = actorSystem.actorOf(Props.create(ClusterListener.class), SystemEnvironment.AVALON_CLUSTER_NAME);
 				this.getContext().watch(clusterListener);
 
-				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
+				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),
+						ConnectionSessionSupervisor.IDENTIFY);
 				this.getContext().watch(connectionSessionSupervisor);
 			}
-			
-			globleTaskManagerActor = actorSystem.actorOf(Props.create(GlobleTaskManagerActor.class,engineMode),	SystemEnvironment.AVALON_GLOBLE_TASK_NAME);
+
+			globleTaskManagerActor = actorSystem.actorOf(Props.create(GlobleTaskManagerActor.class), GlobleTaskManagerActor.IDENTIFY);
 			this.getContext().watch(globleTaskManagerActor);
 
-			gameEngine = actorSystem.actorOf(Props.create(GameEngineActor.class),GameEngineActor.IDENTIFY);
+			gameEngine = actorSystem.actorOf(Props.create(GameEngineActor.class), GameEngineActor.IDENTIFY);
 			System.out.println(gameEngine.path().toString());
 			this.getContext().watch(gameEngine);
-			
+
 			Props avalonDeadLetterProps = Props.create(AvalonDeadLetter.class);
 			ActorRef avalonDeadLetterRef = actorSystem.actorOf(avalonDeadLetterProps);
 			actorSystem.eventStream().subscribe(avalonDeadLetterRef, DeadLetter.class);
@@ -205,7 +213,16 @@ public class Avalon extends UntypedActor {
 		// 任务创建消息
 		else if (msg instanceof TaskManagerMessage.createTaskMessage)
 		{
-			globleTaskManagerActor.tell(msg, ActorRef.noSender());
+			if (engineMode.equals(AvalonServerMode.SERVER_TYPE_GAME))
+			{
+				ActorPath child = getContext().system().child(GameEngineActor.IDENTIFY);
+				ActorSelection actorSelection = getContext().system().actorSelection(child);
+				actorSelection.tell(msg, ActorRef.noSender());
+			} else if (engineMode.equals(AvalonServerMode.SERVER_TYPE_SINGLE))
+			{
+				globleTaskManagerActor.tell(msg, ActorRef.noSender());
+			}
+
 		}
 
 		else if (msg instanceof AvalonMessageEvent.BrocastPacket)

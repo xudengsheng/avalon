@@ -18,13 +18,7 @@ public class GlobleTaskManagerActor extends UntypedActor {
 
 	public static final String shardName = "GLOBLE_TASK_MANAGER_TOPIC";
 
-	public final AvalonServerMode serverMode;
-
-	public GlobleTaskManagerActor(AvalonServerMode serverMode)
-	{
-		super();
-		this.serverMode = serverMode;
-	}
+	public static final String IDENTIFY = "GlobleTaskManagerActor";
 
 	@Override
 	public void preStart() throws Exception
@@ -40,13 +34,7 @@ public class GlobleTaskManagerActor extends UntypedActor {
 	{
 		if (msg instanceof TaskManagerMessage.createTaskMessage)
 		{
-			if (serverMode.equals(AvalonServerMode.SERVER_TYPE_GATE))
-			{
-
-			} else if (serverMode.equals(AvalonServerMode.SERVER_TYPE_GATE))
-			{
-
-			}
+			
 		}
 	}
 

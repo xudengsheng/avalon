@@ -12,6 +12,7 @@ import akka.event.LoggingAdapter;
 
 import com.avalon.core.ContextResolver;
 import com.avalon.core.json.gameserversupervisor.SessionJoin;
+import com.avalon.core.message.TaskManagerMessage;
 import com.avalon.core.message.TopicMessage;
 import com.avalon.core.message.ConnectionSessionSupervisorMessage.CluserSessionMessage;
 import com.avalon.core.message.GameEngineMessage.AddNodeInfo;
@@ -22,6 +23,7 @@ import com.avalon.core.model.EngineNodeInfo;
 import com.avalon.core.model.ServerNodeMember;
 import com.avalon.core.subscribe.GameServerSupervisorTopic;
 import com.avalon.core.supervision.ConnectionSessionSupervisor;
+import com.avalon.core.task.GlobleTaskManagerActor;
 import com.avalon.setting.AvalonServerMode;
 import com.google.common.collect.Lists;
 
@@ -104,8 +106,35 @@ public class GameEngineActor extends UntypedActor {
 //				mediator.tell(new DistributedPubSubMediator.Publish(GameServerSupervisorTopic.shardName, topicMessage), getSelf());
 			}
 		}
+		
+		//处理任务的
+		else if(arg0 instanceof TaskManagerMessage.createTaskMessage){
+			List<Member> gameServers = getGameServers();
+			for (Member member : gameServers)
+			{
+				String path = member.address().toString() + "/user/" + GlobleTaskManagerActor.IDENTIFY;
+
+				ActorSelection actorSelection = getContext().system().actorSelection(path);
+
+				CluserSessionMessage message2 = ((DistributionCluserSessionMessage) arg0).message;
+				actorSelection.tell(message2, getSelf());
+			}
+		}
 	}
 
+	private List<Member> getGameServers()
+	{
+		List<Member> members = Lists.newArrayList();
+		for (EngineNodeInfo member : otherNodes)
+		{
+			if (member.serverMode.equals(AvalonServerMode.SERVER_TYPE_GAME))
+			{
+				members.add(member.member);
+			}
+		}
+		return members;
+	}
+	
 	private Member getGameServer()
 	{
 		List<Member> members = Lists.newArrayList();

@@ -15,7 +15,6 @@ public class SystemEnvironment {
 
 	public static final String AVALON_NAME = "AVALON_ACTOR";
 	public static final String AVALON_CLUSTER_NAME = "AVALON_ACTOR_CLUSTER";
-	public static final String AVALON_GLOBLE_TASK_NAME = "AVALON_ACTOR_GLOBLE_TASK";
 
 	public static final String NETTY_BOSS_GROUP_NUM = APP_ROOT + "netty.bossgroup";
 	public static final String NETTY_WORKER_GROUP_NUM = APP_ROOT + "netty.workergroup";

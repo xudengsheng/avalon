@@ -137,7 +137,7 @@ public class AvalonEngine implements EngineMonitorMXBean {
 
 		systemRegistry.addComponent(avalon);
 		
-		DistributedTaskManagerService globleTaskManagerProxy=new DistributedTaskManagerService();
+		DistributedTaskManagerService globleTaskManagerProxy=new DistributedTaskManagerService(mode);
 		((StartupKernelContext) application).setGlobleTaskManager(globleTaskManagerProxy);
 
 		SystemInfoService systemInfoService=new SystemInfoService();

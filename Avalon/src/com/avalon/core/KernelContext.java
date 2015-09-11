@@ -33,6 +33,8 @@ class KernelContext {
 	KernelContext(KernelContext context)
 	{
 		this(context.applicationName, context.serviceComponents, context.managerComponents, context.propertieswrapper, context.serverMode);
+		this.globleTaskManager = context.globleTaskManager;
+		this.infoService = context.infoService;
 	}
 
 	protected KernelContext(String applicationName, ComponentRegistry serviceComponents, ComponentRegistry managerComponents,
