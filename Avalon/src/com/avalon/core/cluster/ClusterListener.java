@@ -19,7 +19,6 @@ import com.avalon.core.actor.GameEngineActor;
 import com.avalon.core.message.GameEngineMessage.AddNodeInfo;
 import com.avalon.core.message.GameEngineMessage.CheckNodeInfo;
 import com.avalon.core.message.GameServerSupervisorMessage;
-import com.avalon.core.supervision.GameServerSupervisor;
 import com.avalon.setting.AvalonServerMode;
 
 /**
@@ -59,14 +58,6 @@ public class ClusterListener extends UntypedActor {
 			int uid = uniqueAddress.uid();
 
 			Address address = member.address();
-			if (hasRole)
-			{
-				ActorPath child = getContext().system().child(GameServerSupervisor.IDENTIFY);
-				ActorSelection actorSelection = getContext().actorSelection(child);
-
-				GameServerSupervisorMessage.AddGameServerMember serverMember = new GameServerSupervisorMessage.AddGameServerMember(uid,address);
-				actorSelection.tell(serverMember, getSelf());
-			}
 			{
 			//通知对方节点，并带有自己的唯一UID
 			String string = member.address().toString();

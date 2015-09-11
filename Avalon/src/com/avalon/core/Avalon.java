@@ -36,7 +36,6 @@ import com.avalon.core.subscribe.ConnectionSessionTopic;
 import com.avalon.core.subscribe.TransportSupervisorTopic;
 import com.avalon.core.subscribe.TransportTopic;
 import com.avalon.core.supervision.ConnectionSessionSupervisor;
-import com.avalon.core.supervision.GameServerSupervisor;
 import com.avalon.core.supervision.TransportSupervisor;
 import com.avalon.core.task.GlobleTaskManagerActor;
 import com.avalon.setting.AvalonServerMode;
@@ -145,9 +144,6 @@ public class Avalon extends UntypedActor {
 						TransportSupervisor.IDENTIFY);
 				this.getContext().watch(transportSupervisorRef);
 
-				Props gameServerSupervisorProps = Props.create(GameServerSupervisor.class);
-				ActorRef gameServerSupervisorRef = actorSystem.actorOf(gameServerSupervisorProps, GameServerSupervisor.IDENTIFY);
-				this.context().watch(gameServerSupervisorRef);
 			}
 			// 逻辑服务器模式
 			else

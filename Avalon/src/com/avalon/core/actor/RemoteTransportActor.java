@@ -13,7 +13,6 @@ import com.avalon.api.IoSession;
 import com.avalon.api.internal.ActorCallBack;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.core.command.ConnectionSessionsProtocol;
-import com.avalon.core.json.gameserversupervisor.SessionLost;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.ConnectionSessionMessage.DirectSessionMessage;
 import com.avalon.core.message.TopicMessage;
@@ -142,10 +141,8 @@ public class RemoteTransportActor extends UntypedActor {
 
 	private void LostSession()
 	{
-		SessionLost packet = new SessionLost(clusterUid);
-		TopicMessage topicMessage = new TopicMessage.GameServerSupervisorTopicMessage(packet);
-		ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
-		mediator.tell(new DistributedPubSubMediator.Publish(GameServerSupervisorTopic.shardName, topicMessage), getSelf());
+//		ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
+//		mediator.tell(new DistributedPubSubMediator.Publish(GameServerSupervisorTopic.shardName, topicMessage), getSelf());
 	}
 
 	@Override
