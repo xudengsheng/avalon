@@ -1,0 +1,30 @@
+option java_package = "com.zero.example.protobuf";
+//输出的java类名
+option java_outer_classname = "ScenePro";
+import "Structure.proto";
+message CS_Move {
+	required int32 toNode = 1;
+}
+
+message SC_Move {
+	//1：可通行
+	repeated SceneNodeInfoProtocol sceneNodeInfo = 1;
+	//到达路点Id
+	required int32 toNode = 2;
+}
+
+message SC_MoveError {
+	required int32 resutlCode = 1;
+}
+
+message SC_SomeOneEnter {
+	required SceneNodeInfoProtocol sceneNodeInfo = 1;
+}
+
+message SC_SomeOneLeft {
+	required int64 uid = 1;
+}
+
+message SC_SomeOneStateChange {
+	repeated SceneNodeInfoProtocol sceneNodeInfo = 1;
+}

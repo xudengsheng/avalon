@@ -1,0 +1,29 @@
+package com.avalon.protobuff;
+
+import java.io.File;
+import java.io.IOException;
+
+import com.google.protobuf.WireFormat;
+import com.google.protobuf.WireFormat.JavaType;
+
+import jodd.props.Props;
+/**
+ * 生成入口
+ * @author zero
+ *
+ */
+public class BuilMessageUtil {
+	public static void main(String[] args) throws IOException
+	{
+		Props props=new Props();
+		props.load(new File("./conf/app.properties"));
+		
+		String freeMakeSource = props.getValue("FreeMakerTemplate");
+		String protonbufSource = props.getValue("Protonbuf");
+		
+		ProtonbufReadUtil readUtil=new ProtonbufReadUtil(protonbufSource);
+		readUtil.searchFile();
+		readUtil.readFileInfo();
+		
+	}
+}

@@ -2,6 +2,7 @@ package com.avalon.jmx;
 
 public interface EngineMonitorMXBean {
 
+	public void stopEngine();
 	
 	public double getCpuUsage();
 	

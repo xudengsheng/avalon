@@ -1,0 +1,49 @@
+option java_package = "com.zero.example.protobuf";
+import "Structure.proto";
+//输出的java类名
+option java_outer_classname = "BattlePro";
+//发起对NPC的战斗
+message CS_BattleAttack {
+	required int64 targetId = 1;
+}
+
+//是否发起成功
+message SC_BattleState {
+	//是否发起成功
+	required int32 battleState = 1;
+	//模板Id
+	required int32 prompt = 2;
+	//如果成功则是战斗对象信息
+	repeated BattleFighterInfoProtocol battleFighterInfo = 3;
+}
+
+//使用技能
+message CS_BattleCommond{
+	required int64 commondId = 1;
+}
+
+//战斗过程战报
+message SC_BattleRoundReport{
+	required BattleAttackFireInfoProtocol battleAttackFireInfo = 1;
+	repeated BattleAttackBackInfoProtocol battleAttackBackInfo = 2;
+	repeated BattleAttackCalculateInfoProtocol battleAttackCalculateInfo = 3;
+	repeated BattleAttackStateInfoProtocol battleAttackStateInfo = 4;
+}	
+
+//战斗结束
+message SC_BattleOver{
+	required int64 winnerId = 1;
+}
+
+//新的玩家加入到战斗列表
+message SC_OneAddBattleState{
+	//新加入的那个人
+	required BattleFighterInfoProtocol battleFighterInfo = 1;
+	//没值时为 -1
+	required int32 deathNoed = 2;
+}
+
+message SC_SomeOneLive{
+	
+	required int64 soneId =1;
+}

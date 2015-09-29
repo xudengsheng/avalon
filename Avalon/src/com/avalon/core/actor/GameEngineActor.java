@@ -104,39 +104,13 @@ public class GameEngineActor extends UntypedActor {
 //				mediator.tell(new DistributedPubSubMediator.Publish(GameServerSupervisorTopic.shardName, topicMessage), getSelf());
 			}
 		}
-		
 		//处理任务的
 		else if(arg0 instanceof TaskManagerMessage.createTaskMessage){
 			ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
 			mediator.tell(new DistributedPubSubMediator.Publish(GlobleTaskManagerActor.shardName, arg0), ActorRef.noSender());
-//			List<Member> gameServers = getGameServers();
-//			for (Member member : gameServers)
-//			{
-//				String path = member.address().toString() + "/user/" + GlobleTaskManagerActor.IDENTIFY;
-//
-//				ActorSelection actorSelection = getContext().system().actorSelection(path);
-//
-//				actorSelection.tell(arg0, getSelf());
-//			}
 		}
 	}
 
-	private List<Member> getGameServers()
-	{
-		List<Member> members = Lists.newArrayList();
-		for (EngineNodeInfo member : otherNodes)
-		{
-			if (member.serverMode.equals(AvalonServerMode.SERVER_TYPE_GAME))
-			{
-				members.add(member.member);
-			}
-		}
-		if (selfEngine.serverMode.equals(AvalonServerMode.SERVER_TYPE_GAME))
-		{
-			members.add(selfEngine.member);
-		}
-		return members;
-	}
 	
 	private Member getGameServer()
 	{

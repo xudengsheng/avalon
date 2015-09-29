@@ -45,13 +45,14 @@ public class TransportSupervisor extends UntypedActor {
 		// akka://AVALON/user/sharding/ClusterConnectionSessions
 		this.localRegionPath = localRegionPath;
 
-		ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
-		mediator.tell(new DistributedPubSubMediator.Subscribe(TransportSupervisorTopic.shardName, getSelf()), getSelf());
+		
 
 		AvalonServerMode property = ContextResolver.getServerMode();
 		if (property.equals(AvalonServerMode.SERVER_TYPE_GATE))
 		{
 			netGateMode = true;
+			ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
+			mediator.tell(new DistributedPubSubMediator.Subscribe(TransportSupervisorTopic.shardName, getSelf()), getSelf());
 		} else
 		{
 			netGateMode = false;

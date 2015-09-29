@@ -246,4 +246,11 @@ public class AvalonEngine implements EngineMonitorMXBean {
 		return component.transportNum();
 	}
 
+	@Override
+	public void stopEngine()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
 }

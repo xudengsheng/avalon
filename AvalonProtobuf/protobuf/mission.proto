@@ -1,0 +1,49 @@
+option java_package = "com.zero.example.protobuf";
+import "Structure.proto";
+//输出的java类名
+option java_outer_classname = "MissionPro";
+
+//任务测试
+message CS_ReceiveMission{
+	required int32 missionId = 1;
+}
+
+message SC_ReceiveMission{
+	required int32 missionId = 1;
+	required bool canReceive = 2;
+	repeated MissionTargetProtocol missionTarget = 3;
+}
+
+message SC_AutoReceiveMissions{
+	repeated MissionInfoProtocol missionInfo = 1;
+}
+
+message CS_CompleteMission{
+	required int32 missionId = 1;
+}
+
+message SC_CompleteMission{
+	required int32 missionId = 1;
+	required bool canComplete = 2;
+	optional MissionRewardInfoProtocol missonRewardInfo = 3;
+}
+
+message CS_MissionReward{
+	required int32 missionId = 1;
+}
+
+message SC_MissionReward{
+	required int32 missionId = 1;
+	required bool canGetReward = 2;
+	optional MissionRewardInfoProtocol missonRewardInfo = 3;
+}
+
+message SC_MissionUpdate{
+	required int32 missionId = 1;
+	repeated MissionTargetProtocol missionTarget = 2;
+	required int32 state = 3;
+}
+
+message SC_ChapterOpen{
+	required int32 chapterId = 1;
+}
