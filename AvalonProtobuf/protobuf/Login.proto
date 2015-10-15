@@ -1,38 +1,11 @@
-option java_package = "com.zero.example.protobuf";
-import "Structure.proto";
-//输出的java类名
+option java_package = "com.example.protocol";
 option java_outer_classname = "LoginPro";
 message CS_Login {
 //角色登入
 	required string name = 1;
 }
 
-message CS_GuestLogin {
-//角色登入
-	required string name = 1;
+message SC_Login {
+	required int32 stats = 1;
+	required string name = 2;
 }
-//没有角色
-message SC_CreateRole {
-}
-
-message CS_CreateRole {
-//创建角色
-	required string name = 1;
-	required int32 sex = 2;
-}
-//角色进入
-message SC_RoleLogin {
-	required PlayerInfoProtocol playerInfo = 1;
-	repeated MissionInfoProtocol missionInfo = 2;
-	repeated int32 chapterOpen = 3;
-	repeated int32 gotRewardMissions = 4;
-	repeated MissionInfoProtocol autoReceiveMissions = 6; 
-	//玩家学习技能,挂机打工信息
-	required StayOnlineInfoProtocol stayOnlineInfo = 7;
-	//时间戳,服务器当前时间
-	required int64 currentTimestamp = 8;
-}
-
-
-
-

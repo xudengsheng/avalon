@@ -65,6 +65,7 @@ public class ProtonbufReadUtil {
 			try {
 				ProtoBufFileBean extracted = extracted(file);
 				freeMakerUtil.process(extracted);
+				freeMakerUtil.processHelper(extracted);
 			} catch (IOException | TemplateException e) {
 				e.printStackTrace();
 			}

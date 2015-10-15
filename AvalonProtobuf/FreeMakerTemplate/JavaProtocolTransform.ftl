@@ -1,4 +1,4 @@
-package ${java_package};
+package ${java_package}.${namePix};
 
 import com.google.protobuf.Message;
 import com.google.protobuf.InvalidProtocolBufferException;
