@@ -341,22 +341,50 @@ Public License instead of this License.
  */
 package com.avalon.extensions.request;
 
+// TODO: Auto-generated Javadoc
 /**
- * 请求的Hander接口
- * 
- * @author zero
+ * 请求的Hander接口.
  *
+ * @author zero
  */
 public interface IHandlerFactory {
 
+	/**
+	 * Adds the handler.
+	 *
+	 * @param handlerKey the handler key
+	 * @param class1 the class1
+	 */
 	public void addHandler(int handlerKey, Class<?> class1);
 
+	/**
+	 * Adds the handler.
+	 *
+	 * @param handlerKey the handler key
+	 * @param obj the obj
+	 */
 	public void addHandler(int handlerKey, Object obj);
 
+	/**
+	 * Removes the handler.
+	 *
+	 * @param handlerKey the handler key
+	 */
 	public void removeHandler(int handlerKey);
 
+	/**
+	 * Find handler.
+	 *
+	 * @param handlerKey the handler key
+	 * @return the object
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	public Object findHandler(int handlerKey) throws InstantiationException, IllegalAccessException;
 
+	/**
+	 * Clear all.
+	 */
 	public void clearAll();
 
 }

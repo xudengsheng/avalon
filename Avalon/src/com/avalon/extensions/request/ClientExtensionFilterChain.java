@@ -352,17 +352,33 @@ import com.avalon.extensions.request.filter.ClientExtensionFilter;
 import com.avalon.extensions.request.filter.FilterAction;
 import com.avalon.extensions.request.filter.IFilterChain;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ClientExtensionFilterChain.
+ */
 public class ClientExtensionFilterChain implements IFilterChain {
 
+	/** The filters. */
 	private final Collection<ClientExtensionFilter> filters = new ConcurrentLinkedQueue<ClientExtensionFilter>();
 
+	/** The player. */
 	private final ClientExtension player;
+	
+	/** The log. */
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
+	/**
+	 * Instantiates a new client extension filter chain.
+	 *
+	 * @param clientExtension the client extension
+	 */
 	public ClientExtensionFilterChain(ClientExtension clientExtension) {
 		this.player = clientExtension;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.extensions.request.filter.IFilterChain#addFilter(int, com.avalon.extensions.request.filter.ClientExtensionFilter)
+	 */
 	public void addFilter(int filterId, ClientExtensionFilter filter) {
 		if (filters.contains(filter)) {
 			// throw new
@@ -376,6 +392,9 @@ public class ClientExtensionFilterChain implements IFilterChain {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.extensions.request.filter.IFilterChain#remove(int)
+	 */
 	public void remove(int filterId) {
 		for (Iterator<ClientExtensionFilter> it = filters.iterator(); it.hasNext();) {
 			ClientExtensionFilter filter = it.next();
@@ -387,6 +406,9 @@ public class ClientExtensionFilterChain implements IFilterChain {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.extensions.request.filter.IFilterChain#runRequestInChain(int, com.avalon.extensions.request.ClientExtension, java.lang.Object)
+	 */
 	public FilterAction runRequestInChain(int requestId, ClientExtension clientExtension, Object params) {
 		FilterAction filterAction = FilterAction.CONTINUE;
 		for (Iterator<ClientExtensionFilter> iterator = filters.iterator(); iterator.hasNext();) {
@@ -405,10 +427,16 @@ public class ClientExtensionFilterChain implements IFilterChain {
 		return filterAction;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.extensions.request.filter.IFilterChain#size()
+	 */
 	public int size() {
 		return filters.size();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.extensions.request.filter.IFilterChain#destroy()
+	 */
 	public void destroy() {
 		ClientExtensionFilter filter;
 		for (Iterator<ClientExtensionFilter> iterator = filters.iterator(); iterator.hasNext(); filter.destroy()) {

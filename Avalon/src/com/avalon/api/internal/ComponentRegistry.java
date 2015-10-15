@@ -342,18 +342,20 @@ Public License instead of this License.
 package com.avalon.api.internal;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * 系统组件管理器
- * 
+ * 系统组件管理器.
+ *
  * @author ZERO
- * 
  */
 public interface ComponentRegistry extends Iterable<IService> {
+	
 	/**
-	 * 根据CLASS类型获得已经注册的组件
-	 * 
-	 * @param type
-	 * @return
+	 * 根据CLASS类型获得已经注册的组件.
+	 *
+	 * @param <T> the generic type
+	 * @param type the type
+	 * @return the component
 	 */
 	<T> T getComponent(Class<T> type);
 

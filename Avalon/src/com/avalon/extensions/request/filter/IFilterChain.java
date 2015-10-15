@@ -343,44 +343,48 @@ package com.avalon.extensions.request.filter;
 
 import com.avalon.extensions.request.ClientExtension;
 
+// TODO: Auto-generated Javadoc
 /**
- * 过滤链
- * 
- * @author zero
+ * 过滤链.
  *
+ * @author zero
  */
 public interface IFilterChain {
+	
 	/**
-	 * 对一个filterName添加一个过滤器
-	 * 
-	 * @param filterName
-	 * @param aLawsExtensionFilter
+	 * 对一个filterName添加一个过滤器.
+	 *
+	 * @param filterId the filter id
+	 * @param clientExtensionFilter the client extension filter
 	 */
 	public void addFilter(int filterId, ClientExtensionFilter clientExtensionFilter);
 
 	/**
-	 * 
-	 * @param filterId
+	 * Removes the.
+	 *
+	 * @param filterId the filter id
 	 */
 	public void remove(int filterId);
 
 	/**
-	 * 
-	 * @param requestId
-	 * @param extension
-	 * @param object
-	 * @return
+	 * Run request in chain.
+	 *
+	 * @param requestId the request id
+	 * @param extension the extension
+	 * @param object the object
+	 * @return the filter action
 	 */
 	public FilterAction runRequestInChain(int requestId, ClientExtension extension, Object object);
 
 	/**
-	 * 
-	 * @return
+	 * Size.
+	 *
+	 * @return the int
 	 */
 	public int size();
 
 	/**
-	 * 
+	 * Destroy.
 	 */
 	public void destroy();
 }

@@ -341,22 +341,23 @@ Public License instead of this License.
  */
 package com.avalon.api.internal;
 
+// TODO: Auto-generated Javadoc
 /**
- * Actor的回调
- * 
- * @author zero
+ * Actor的回调.
  *
+ * @author zero
  */
 public interface ActorCallBack {
+	
 	/**
-	 * 发送Io消息
-	 * 
-	 * @param messagePackage
+	 * 发送Io消息.
+	 *
+	 * @param messagePackage the message package
 	 */
 	public void tellMessage(IoMessagePackage messagePackage);
 
 	/**
-	 * 网络关闭
+	 * 网络关闭.
 	 */
 	public void closed();
 

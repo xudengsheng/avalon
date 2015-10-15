@@ -341,14 +341,18 @@ Public License instead of this License.
  */
 package com.avalon.extensions.request.filter;
 
+// TODO: Auto-generated Javadoc
 /**
- * 过滤链条的下面是否执行
- * 
- * @Code{FilterAction.HALT 挂起状态，对应的handler不执行
- * @author 小龙
+ * 过滤链条的下面是否执行.
  *
+ * @author 小龙
+ * @Code{FilterAction.HALT 挂起状态，对应的handler不执行
  */
 public enum FilterAction
 {
-	CONTINUE, HALT;
+	
+	/** The continue. */
+	CONTINUE, 
+ /** The halt. */
+ HALT;
 }

@@ -343,18 +343,34 @@ package com.avalon.extensions.request.filter;
 
 import com.avalon.extensions.request.ClientExtension;
 
+// TODO: Auto-generated Javadoc
 /**
- * 过滤器
- * 
- * @author 小龙
+ * 过滤器.
  *
+ * @author 小龙
  */
 public interface IFilter {
 
+	/**
+	 * Inits the.
+	 *
+	 * @param clientExtension the client extension
+	 */
 	public void init(ClientExtension clientExtension);
 
+	/**
+	 * Destroy.
+	 */
 	public void destroy();
 
+	/**
+	 * Handle client request.
+	 *
+	 * @param handlerKey the handler key
+	 * @param clientExtension the client extension
+	 * @param object the object
+	 * @return the filter action
+	 */
 	public FilterAction handleClientRequest(int handlerKey, ClientExtension clientExtension, Object object);
 
 }

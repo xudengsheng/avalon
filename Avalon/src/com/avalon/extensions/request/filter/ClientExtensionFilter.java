@@ -343,20 +343,39 @@ package com.avalon.extensions.request.filter;
 
 import com.avalon.extensions.request.ClientExtension;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ClientExtensionFilter.
+ */
 public abstract class ClientExtensionFilter implements IFilter {
 
+	/** The filter id. */
 	private int filterId;
 
+	/** The player. */
 	protected ClientExtension player;
 
+	/* (non-Javadoc)
+	 * @see com.avalon.extensions.request.filter.IFilter#init(com.avalon.extensions.request.ClientExtension)
+	 */
 	public void init(ClientExtension player) {
 		this.player = player;
 	}
 
+	/**
+	 * Gets the filter id.
+	 *
+	 * @return the filter id
+	 */
 	public int getFilterId() {
 		return filterId;
 	}
 
+	/**
+	 * Sets the filter id.
+	 *
+	 * @param filterId the new filter id
+	 */
 	public void setFilterId(int filterId) {
 		this.filterId = filterId;
 	}

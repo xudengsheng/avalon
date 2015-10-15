@@ -346,14 +346,22 @@ import com.avalon.api.internal.IoMessagePackage;
 import akka.protobuf.InvalidProtocolBufferException;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * 处理客户端的请求
- * 
- * @author 小龙
+ * 处理客户端的请求.
  *
+ * @author 小龙
  */
 public interface IClientRequestHandler {
 
+	/**
+	 * Handle client request.
+	 *
+	 * @param listener the listener
+	 * @param message the message
+	 * @return the io message package
+	 * @throws InvalidProtocolBufferException the invalid protocol buffer exception
+	 */
 	public IoMessagePackage handleClientRequest(Object listener, Object message) throws InvalidProtocolBufferException;
 
 }
