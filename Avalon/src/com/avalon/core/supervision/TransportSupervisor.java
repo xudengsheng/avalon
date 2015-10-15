@@ -364,22 +364,31 @@ import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.core.subscribe.TransportSupervisorTopic;
 import com.avalon.setting.AvalonServerMode;
 
+// TODO: Auto-generated Javadoc
 /**
- * 传输监听 分为单机模式和网关模式
- * 
- * @author ZERO
+ * 传输监听 分为单机模式和网关模式.
  *
+ * @author ZERO
  */
 public class TransportSupervisor extends UntypedActor {
 
+	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
+	/** The Constant IDENTIFY. */
 	public static final String IDENTIFY = "TransportSupervisor";
 
+	/** The local region path. */
 	private final String localRegionPath;
 	//是否是使用网关模式
+	/** The net gate mode. */
 	private final boolean netGateMode;
 
+	/**
+	 * Instantiates a new transport supervisor.
+	 *
+	 * @param localRegionPath the local region path
+	 */
 	public TransportSupervisor(String localRegionPath)
 	{
 		super();
@@ -401,8 +410,12 @@ public class TransportSupervisor extends UntypedActor {
 	}
 
 	// 当前创建的会话数量
+	/** The transport num. */
 	private int transportNum = 0;
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object msg) throws Exception
 	{

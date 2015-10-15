@@ -354,13 +354,23 @@ import com.avalon.io.MessagePackImpl;
 import com.avalon.util.IobufferUtil;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DataCodecDecoder.
+ */
 public class DataCodecDecoder extends ProtocolDecoderAdapter {
 
+	/**
+	 * Instantiates a new data codec decoder.
+	 */
 	public DataCodecDecoder()
 	{
 		super();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.apache.mina.filter.codec.ProtocolDecoder#decode(org.apache.mina.core.session.IoSession, org.apache.mina.core.buffer.IoBuffer, org.apache.mina.filter.codec.ProtocolDecoderOutput)
+	 */
 	@Override
 	public void decode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception
 	{
@@ -374,22 +384,36 @@ public class DataCodecDecoder extends ProtocolDecoderAdapter {
 	}
 
 	// Flash的跨域请求
+	/** The Constant FLEX_POLICY. */
 	public final static String FLEX_POLICY = "<policy-file-request/>\0";
 
 	// Flash的跨域请求回复（全域，全端口）
+	/** The Constant FLEX_RESP. */
 	public final static String FLEX_RESP = "<?xml version='1.0'?>" + "<cross-domain-policy>"
 			+ "<allow-access-from domain='*' to-ports='*'/>" + "</cross-domain-policy>\0";
 
+	/** The Constant FLEX_POLICY_BYTE. */
 	public final static byte[] FLEX_POLICY_BYTE = FLEX_POLICY.getBytes();
 
+	/** The Constant FlEX_RESP_BYTE. */
 	public final static byte[] FlEX_RESP_BYTE = FLEX_RESP.getBytes();
 
 	// 通讯的缓存
+	/** The Constant SOCKET_CACHE_DATA. */
 	public final static String SOCKET_CACHE_DATA = "SOCKET_CACHE_DATA";
 
 	// 消息头长度的字节数
+	/** The Constant PREFIXED_LENGTH. */
 	public final static int PREFIXED_LENGTH = 4;
 
+	/**
+	 * Decode data.
+	 *
+	 * @param session the session
+	 * @param in the in
+	 * @param out the out
+	 * @throws Exception the exception
+	 */
 	private void decodeData(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception
 	{
 		// 获得上次剩余的并把这次的放进去
@@ -415,6 +439,14 @@ public class DataCodecDecoder extends ProtocolDecoderAdapter {
 		}
 	}
 
+	/**
+	 * Prefixed data available.
+	 *
+	 * @param buffer the buffer
+	 * @param prefixLength the prefix length
+	 * @param maxDataLength the max data length
+	 * @return true, if successful
+	 */
 	public boolean prefixedDataAvailable(IoBuffer buffer, int prefixLength, int maxDataLength)
 	{
 		if (buffer.remaining() < prefixLength)
@@ -447,10 +479,10 @@ public class DataCodecDecoder extends ProtocolDecoderAdapter {
 	}
 
 	/**
-	 * 处理剩余的缓存
-	 * 
-	 * @param session
-	 * @param size
+	 * 处理剩余的缓存.
+	 *
+	 * @param buffer the buffer
+	 * @param size the size
 	 */
 	private void resetDate(IoBuffer buffer, int size)
 	{
@@ -469,11 +501,11 @@ public class DataCodecDecoder extends ProtocolDecoderAdapter {
 	}
 
 	/**
-	 * 获取上次的缓存并把这次的写入
-	 * 
-	 * @param session
-	 * @param in
-	 * @return
+	 * 获取上次的缓存并把这次的写入.
+	 *
+	 * @param session the session
+	 * @param in the in
+	 * @return the last cache
 	 */
 	private IoBuffer getLastCache(IoSession session, IoBuffer in)
 	{

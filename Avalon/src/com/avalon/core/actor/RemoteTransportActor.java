@@ -365,37 +365,47 @@ import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
 import com.avalon.core.message.TransportMessage.SessionSessionMessage;
 import com.avalon.core.subscribe.TransportTopic;
 
+// TODO: Auto-generated Javadoc
 /**
- * 网络会话传输actor封装 在网络会话和actor中作为桥接
- * 
- * @author ZERO
+ * 网络会话传输actor封装 在网络会话和actor中作为桥接.
  *
+ * @author ZERO
  */
 public class RemoteTransportActor extends UntypedActor {
 
+	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
 	// 本次会话的唯一Id，用于分布式中的分组Id
+	/** The session actor id. */
 	public final String sessionActorId;
 
+	/** The local region. */
 	private final ActorSelection localRegion;
 
+	/** The transport supervisor. */
 	public final ActorSelection transportSupervisor;
 
+	/** The connection sessions ref. */
 	public ActorRef connectionSessionsRef;
 
+	/** The cluster uid. */
 	private final int clusterUid;
 
+	/** The io session. */
 	private final IoSession ioSession;
 
 	// 是否绑定Session连接会话
+	/** The binding connection session. */
 	private boolean bindingConnectionSession;
+	
 	/**
-	 * 
-	 * @param sessionid					c826f710-2c42-4901-a8c0-4c68daf159aa
+	 * Instantiates a new remote transport actor.
+	 *
+	 * @param sessionid 				c826f710-2c42-4901-a8c0-4c68daf159aa
 	 * @param transportSupervisorPath 	akka://AVALON/user/TransportSupervisor
-	 * @param localRegionPath			akka://AVALON/user/sharding/ClusterConnectionSessions
-	 * @param ioSession
+	 * @param localRegionPath 		akka://AVALON/user/sharding/ClusterConnectionSessions
+	 * @param ioSession the io session
 	 */
 	public RemoteTransportActor(String sessionid, String transportSupervisorPath, String localRegionPath, IoSession ioSession)
 	{
@@ -413,6 +423,9 @@ public class RemoteTransportActor extends UntypedActor {
 		getSelf().tell(new TransportMessage.IOSessionBindingTransportMessage(), ActorRef.noSender());
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object msg) throws Exception
 	{
@@ -479,12 +492,18 @@ public class RemoteTransportActor extends UntypedActor {
 
 	}
 
+	/**
+	 * Lost session.
+	 */
 	private void LostSession()
 	{
 //		ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
 //		mediator.tell(new DistributedPubSubMediator.Publish(GameServerSupervisorTopic.shardName, topicMessage), getSelf());
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#postStop()
+	 */
 	@Override
 	public void postStop() throws Exception
 	{

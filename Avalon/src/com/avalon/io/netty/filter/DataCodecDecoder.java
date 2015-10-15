@@ -349,16 +349,21 @@ import java.util.List;
 
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.io.MessagePackImpl;
+// TODO: Auto-generated Javadoc
+
 /**
  * 网络数据包解析
  * |4|          |4|     |……|
- * 数据包长度            操作码                数据
- * @author ZERO
+ * 数据包长度            操作码                数据.
  *
+ * @author ZERO
  */
 
 public class DataCodecDecoder extends ByteToMessageDecoder {
 
+	/* (non-Javadoc)
+	 * @see io.netty.handler.codec.ByteToMessageDecoder#decode(io.netty.channel.ChannelHandlerContext, io.netty.buffer.ByteBuf, java.util.List)
+	 */
 	@Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception
 	{

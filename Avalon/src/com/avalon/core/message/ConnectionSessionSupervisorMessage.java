@@ -343,16 +343,40 @@ package com.avalon.core.message;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface ConnectionSessionSupervisorMessage.
+ */
 public interface ConnectionSessionSupervisorMessage extends Serializable {
 
+	/**
+	 * The Class CluserSessionMessage.
+	 */
 	public class CluserSessionMessage implements ConnectionSessionSupervisorMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 4143946258710301150L;
+		
+		/** The uid. */
 		public final int uid;
+		
+		/** The supervisor name. */
 		public final String supervisorName;
+		
+		/** The actor id. */
 		public final String actorId;
+		
+		/** The origins. */
 		public final Object origins;
 
+		/**
+		 * Instantiates a new cluser session message.
+		 *
+		 * @param uid the uid
+		 * @param supervisorName the supervisor name
+		 * @param actorId the actor id
+		 * @param origins the origins
+		 */
 		public CluserSessionMessage(int uid, String supervisorName, String actorId, Object origins)
 		{
 			super();

@@ -344,11 +344,21 @@ package com.avalon.core.message;
 import com.avalon.api.internal.IoMessage;
 import com.avalon.api.message.GetLocationMessage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GetLocationMessageImpl.
+ */
 public class GetLocationMessageImpl implements GetLocationMessage {
 
 
+	/** The message. */
 	private final IoMessage message;
 
+	/**
+	 * Instantiates a new gets the location message impl.
+	 *
+	 * @param message the message
+	 */
 	public GetLocationMessageImpl(IoMessage message)
 	{
 		super();
@@ -356,6 +366,9 @@ public class GetLocationMessageImpl implements GetLocationMessage {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.message.GetLocationMessage#getMessage()
+	 */
 	@Override
 	public IoMessage getMessage()
 	{

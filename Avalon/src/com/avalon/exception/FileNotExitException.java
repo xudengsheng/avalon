@@ -340,13 +340,16 @@ library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.
  */
 package com.avalon.exception;
+// TODO: Auto-generated Javadoc
+
 /**
- * 查找指定文件不存在
- * @author ZERO
+ * 查找指定文件不存在.
  *
+ * @author ZERO
  */
 public class FileNotExitException extends RuntimeException{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -4819934004199096254L;
 
 	

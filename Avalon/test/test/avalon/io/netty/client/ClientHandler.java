@@ -349,29 +349,51 @@ import test.avalon.io.netty.jmx.NettyClientMXBean;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.io.MessagePackImpl;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ClientHandler.
+ */
 public class ClientHandler extends ChannelHandlerAdapter implements NettyClientMXBean {
+	
+	/** The ctx. */
 	private ChannelHandlerContext ctx;
+	
+	/* (non-Javadoc)
+	 * @see io.netty.channel.ChannelHandlerAdapter#handlerAdded(io.netty.channel.ChannelHandlerContext)
+	 */
 	@Override
 	public void handlerAdded(ChannelHandlerContext ctx) {
 		this.ctx=ctx;
 		sendMessage(1);
 	}
 
+	/* (non-Javadoc)
+	 * @see io.netty.channel.ChannelHandlerAdapter#handlerRemoved(io.netty.channel.ChannelHandlerContext)
+	 */
 	@Override
 	public void handlerRemoved(ChannelHandlerContext ctx) {
 	}
 
+	/* (non-Javadoc)
+	 * @see io.netty.channel.ChannelHandlerAdapter#channelRead(io.netty.channel.ChannelHandlerContext, java.lang.Object)
+	 */
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
 		System.out.println(msg);
 	}
 
+	/* (non-Javadoc)
+	 * @see io.netty.channel.ChannelHandlerAdapter#exceptionCaught(io.netty.channel.ChannelHandlerContext, java.lang.Throwable)
+	 */
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
 		cause.printStackTrace();
 		ctx.close();
 	}
 
+	/* (non-Javadoc)
+	 * @see test.avalon.io.netty.jmx.NettyClientMXBean#sendMessage(int)
+	 */
 	@Override
 	public void sendMessage(int command) {
 		switch (command) {

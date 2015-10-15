@@ -351,28 +351,42 @@ import akka.cluster.StandardMetrics.Cpu;
 import akka.cluster.StandardMetrics.HeapMemory;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
+// TODO: Auto-generated Javadoc
+
 /**
- * 性能检测
- * @author ZERO
+ * 性能检测.
  *
+ * @author ZERO
  */
 public class MetricsListener extends UntypedActor {
+	
+	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
+	/** The cluster. */
 	Cluster cluster = Cluster.get(getContext().system());
 
 	// subscribe to ClusterMetricsChanged
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#preStart()
+	 */
 	@Override
 	public void preStart() {
 		cluster.subscribe(getSelf(), ClusterMetricsChanged.class);
 	}
 
 	// re-subscribe when restart
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#postStop()
+	 */
 	@Override
 	public void postStop() {
 		cluster.unsubscribe(getSelf());
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object message) {
 		if (message instanceof ClusterMetricsChanged) {
@@ -394,6 +408,11 @@ public class MetricsListener extends UntypedActor {
 		}
 	}
 
+	/**
+	 * Log heap.
+	 *
+	 * @param nodeMetrics the node metrics
+	 */
 	void logHeap(NodeMetrics nodeMetrics) {
 		HeapMemory heap = StandardMetrics.extractHeapMemory(nodeMetrics);
 		if (heap != null) {
@@ -401,6 +420,11 @@ public class MetricsListener extends UntypedActor {
 		}
 	}
 
+	/**
+	 * Log cpu.
+	 *
+	 * @param nodeMetrics the node metrics
+	 */
 	void logCpu(NodeMetrics nodeMetrics) {
 		Cpu cpu = StandardMetrics.extractCpu(nodeMetrics);
 		if (cpu != null && cpu.systemLoadAverage().isDefined()) {

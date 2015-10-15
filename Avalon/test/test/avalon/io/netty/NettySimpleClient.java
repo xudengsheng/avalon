@@ -354,9 +354,23 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import com.avalon.io.netty.filter.DataCodecDecoder;
 import com.avalon.io.netty.filter.DataCodecEncoder;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NettySimpleClient.
+ */
 public class NettySimpleClient {
+	
+	/** The f. */
 	ChannelFuture f;
 
+	/**
+	 * Connect.
+	 *
+	 * @param host the host
+	 * @param port the port
+	 * @param messageTransport the message transport
+	 * @throws Exception the exception
+	 */
 	public void connect(String host, int port, final MessageTransport messageTransport) throws Exception
 	{
 		EventLoopGroup workerGroup = new NioEventLoopGroup();

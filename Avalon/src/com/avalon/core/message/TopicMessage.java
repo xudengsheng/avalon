@@ -345,20 +345,30 @@ import java.io.Serializable;
 
 import com.avalon.api.message.Packet;
 
+// TODO: Auto-generated Javadoc
 /**
- * 订阅消息
- * 
- * @author ZERO
+ * 订阅消息.
  *
+ * @author ZERO
  */
 public interface TopicMessage extends Serializable {
 
+	/**
+	 * The Class ConnectionSessionSupervisorTopicMessage.
+	 */
 	public class ConnectionSessionSupervisorTopicMessage implements TopicMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1777458262966587266L;
 
+		/** The packet. */
 		public final Packet packet;
 
+		/**
+		 * Instantiates a new connection session supervisor topic message.
+		 *
+		 * @param packet the packet
+		 */
 		public ConnectionSessionSupervisorTopicMessage(Packet packet) {
 			super();
 			this.packet = packet;
@@ -366,23 +376,44 @@ public interface TopicMessage extends Serializable {
 
 	}
 
+	/**
+	 * The Class ConnectionSessionTopicMessage.
+	 */
 	public class ConnectionSessionTopicMessage implements TopicMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -7312216090345242754L;
 
+		/** The packet. */
 		public final Packet packet;
 
+		/**
+		 * Instantiates a new connection session topic message.
+		 *
+		 * @param packet the packet
+		 */
 		public ConnectionSessionTopicMessage(Packet packet) {
 			super();
 			this.packet = packet;
 		}
 	}
 
+	/**
+	 * The Class TransportSupervisorTopicMessage.
+	 */
 	public class TransportSupervisorTopicMessage implements TopicMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -6362159272599471094L;
+		
+		/** The packet. */
 		public final Packet packet;
 
+		/**
+		 * Instantiates a new transport supervisor topic message.
+		 *
+		 * @param packet the packet
+		 */
 		public TransportSupervisorTopicMessage(Packet packet) {
 			super();
 			this.packet = packet;
@@ -390,23 +421,45 @@ public interface TopicMessage extends Serializable {
 
 	}
 
+	/**
+	 * The Class TransportTopicMessage.
+	 */
 	public class TransportTopicMessage implements TopicMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -2680777997214859898L;
+		
+		/** The packet. */
 		public final Packet packet;
 
+		/**
+		 * Instantiates a new transport topic message.
+		 *
+		 * @param packet the packet
+		 */
 		public TransportTopicMessage(Packet packet) {
 			super();
 			this.packet = packet;
 		}
 
 	}
+	
+	/**
+	 * The Class GameServerSupervisorTopicMessage.
+	 */
 	public class GameServerSupervisorTopicMessage implements TopicMessage {
 		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -8412306264483793449L;
 		
+		/** The packet. */
 		public final Packet packet;
 		
+		/**
+		 * Instantiates a new game server supervisor topic message.
+		 *
+		 * @param packet the packet
+		 */
 		public GameServerSupervisorTopicMessage(Packet packet) {
 			super();
 			this.packet = packet;

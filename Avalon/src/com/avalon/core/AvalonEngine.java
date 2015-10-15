@@ -370,49 +370,53 @@ import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.PerformanceMonitor;
 import com.avalon.util.PropertiesWrapper;
 
+// TODO: Auto-generated Javadoc
 /**
- * 阿瓦隆，引擎入口
- * 
- * @author ZERO
+ * 阿瓦隆，引擎入口.
  *
+ * @author ZERO
  */
 public class AvalonEngine implements EngineMonitorMXBean {
 
+	/** The name. */
 	private static String name;
 
+	/** The logger. */
 	private static Logger logger = LoggerFactory.getLogger(AvalonEngine.class);
 
-	/**
-	 * 应用上下文
-	 */
+	/** 应用上下文. */
 	private KernelContext application;
 
-	/**
-	 * 系统服务器组件(集合)
-	 */
+	/** 系统服务器组件(集合). */
 	private final ComponentRegistryImpl systemRegistry;
 
-	/**
-	 * 应用逻辑
-	 */
+	/** 应用逻辑. */
 	private AppListener listener;
 
+	/** The mode. */
 	private AvalonServerMode mode;
 
+	/** The properties wrapper. */
 	private PropertiesWrapper propertiesWrapper;
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public static String getName()
 	{
 		return name;
 	}
 
+	/** The performance monitor. */
 	private PerformanceMonitor performanceMonitor;
 
 	/**
-	 * 启动引擎的入口
-	 * 
-	 * @param props
-	 * @throws Exception
+	 * 启动引擎的入口.
+	 *
+	 * @param props the props
+	 * @throws Exception the exception
 	 */
 	protected AvalonEngine(Props props) throws Exception
 	{
@@ -430,7 +434,7 @@ public class AvalonEngine implements EngineMonitorMXBean {
 	}
 
 	/**
-	 * 创建并启动应用
+	 * 创建并启动应用.
 	 */
 	private void createAndStartApplication()
 	{
@@ -443,9 +447,9 @@ public class AvalonEngine implements EngineMonitorMXBean {
 	}
 
 	/**
-	 * 创建对上层逻辑的服务
-	 * 
-	 * @param appName
+	 * 创建对上层逻辑的服务.
+	 *
+	 * @param appName the app name
 	 */
 	private void createServices(String appName)
 	{
@@ -524,10 +528,9 @@ public class AvalonEngine implements EngineMonitorMXBean {
 	}
 
 	/**
-	 * 启动逻辑层
-	 * 
-	 * @param name2
-	 * @param owner
+	 * 启动逻辑层.
+	 *
+	 * @param appName the app name
 	 */
 	private void startApplication(String appName)
 	{
@@ -542,6 +545,12 @@ public class AvalonEngine implements EngineMonitorMXBean {
 	
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws Exception the exception
+	 */
 	public static void main(String[] args) throws Exception
 	{
 		File root = new File("");
@@ -564,22 +573,38 @@ public class AvalonEngine implements EngineMonitorMXBean {
 		new AvalonEngine(props);
 	}
 
+	/**
+	 * Gets the system registry.
+	 *
+	 * @return the system registry
+	 */
 	public ComponentRegistryImpl getSystemRegistry()
 	{
 		return systemRegistry;
 	}
 
+	/**
+	 * Gets the enable jmx.
+	 *
+	 * @return the enable jmx
+	 */
 	public boolean getEnableJMX()
 	{
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.jmx.EngineMonitorMXBean#getCpuUsage()
+	 */
 	@Override
 	public double getCpuUsage()
 	{
 		return performanceMonitor.getCpuUsage();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.jmx.EngineMonitorMXBean#transportActorNum()
+	 */
 	@Override
 	public int transportActorNum()
 	{
@@ -587,6 +612,9 @@ public class AvalonEngine implements EngineMonitorMXBean {
 		return component.transportNum();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.jmx.EngineMonitorMXBean#stopEngine()
+	 */
 	@Override
 	public void stopEngine()
 	{

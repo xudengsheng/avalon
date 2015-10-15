@@ -347,18 +347,40 @@ import com.avalon.setting.AvalonServerMode;
 import com.avalon.util.PropertiesWrapper;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StartupKernelContext.
+ */
 final class StartupKernelContext extends KernelContext {
 
+	/**
+	 * Instantiates a new startup kernel context.
+	 *
+	 * @param applicationName the application name
+	 * @param systemRegistry the system registry
+	 * @param propertieswrapper the propertieswrapper
+	 * @param serverMode the server mode
+	 */
 	public StartupKernelContext(String applicationName, ComponentRegistryImpl systemRegistry,PropertiesWrapper propertieswrapper,AvalonServerMode serverMode)
 	{
 		super(applicationName, systemRegistry, new ComponentRegistryImpl(),propertieswrapper,serverMode);
 	}
 
+	/**
+	 * Adds the manager.
+	 *
+	 * @param manager the manager
+	 */
 	void addManager(IService manager)
 	{
 		((ComponentRegistryImpl) managerComponents).addComponent(manager);
 	}
 
+	/**
+	 * Adds the service.
+	 *
+	 * @param service the service
+	 */
 	void addService(IService service)
 	{
 		((ComponentRegistryImpl) serviceComponents).addComponent(service);

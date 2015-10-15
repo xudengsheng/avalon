@@ -347,35 +347,41 @@ import akka.actor.UntypedActor;
 import com.avalon.api.internal.IoMessage;
 import com.avalon.api.internal.IoMessagePackage;
 
+// TODO: Auto-generated Javadoc
 /**
- * 对于开发着所能使用到得和客户端相连通的接口
- * 
+ * 对于开发着所能使用到得和客户端相连通的接口.
+ *
  * @author mac
- * 
  */
 public interface ActorSession{
 	/*
 	 * 获取自己的地址(在当前ActorSystem中，不含有远程地址)
 	 */
+	/**
+	 * Gets the self untyped actor.
+	 *
+	 * @return the self untyped actor
+	 */
 	UntypedActor getSelfUntypedActor();
 
 	/**
-	 * 获得独立的任务调度器
-	 * 
-	 * @return
+	 * 获得独立的任务调度器.
+	 *
+	 * @return the task manager
 	 */
 	TaskManager getTaskManager();
 
 	/**
-	 * 更换传输的Actor
-	 * 
-	 * @param untypedActor
+	 * 更换传输的Actor.
+	 *
+	 * @param untypActorSelection the new transport
 	 */
 	void setTransport(ActorSelection untypActorSelection);
 
 	/**
-	 * 发送消息(会话直接发到连接客户端)
-	 * 
+	 * 发送消息(会话直接发到连接客户端).
+	 *
+	 * @param message the message
 	 */
 	void sendIoMessage(IoMessagePackage message);
 

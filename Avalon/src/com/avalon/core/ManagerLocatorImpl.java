@@ -348,31 +348,43 @@ import com.avalon.api.internal.IService;
 import com.avalon.api.internal.ManagerLocator;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * 开放给逻辑层的内容管理器
- * 
+ * 开放给逻辑层的内容管理器.
+ *
  * @author zhaoxiaolong
- * 
  */
 class ManagerLocatorImpl implements ManagerLocator {
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.ManagerLocator#getManager(java.lang.Class)
+	 */
 	@Override
 	public <T> T getManager(Class<T> type)
 	{
 		return ContextResolver.getManager(type);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.ManagerLocator#getGlobleTaskManager()
+	 */
 	@Override
 	public DistributedTaskManager getGlobleTaskManager() {
 		return ContextResolver.getGlobleTaskManager();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.ManagerLocator#setManager(com.avalon.api.internal.IService)
+	 */
 	@Override
 	public void setManager(IService type)
 	{
 		 ContextResolver.setManager(type);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.ManagerLocator#getActorSystem()
+	 */
 	@Override
 	public ActorSystem getActorSystem() {
 		// TODO Auto-generated method stub

@@ -344,39 +344,71 @@ package com.avalon.core.service;
 import com.avalon.api.SystemInformation;
 import com.avalon.setting.AvalonServerMode;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SystemInfoService.
+ */
 public class SystemInfoService  implements SystemInformation {
 
+	/** The mode. */
 	private AvalonServerMode mode;
 
+	/** The servier id. */
 	private int servierId;
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.SystemInformation#getServerMode()
+	 */
 	@Override
 	public AvalonServerMode getServerMode()
 	{
 		return mode;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.SystemInformation#getServerId()
+	 */
 	@Override
 	public int getServerId()
 	{
 		return servierId;
 	}
 
+	/**
+	 * Gets the mode.
+	 *
+	 * @return the mode
+	 */
 	public AvalonServerMode getMode()
 	{
 		return mode;
 	}
 
+	/**
+	 * Sets the mode.
+	 *
+	 * @param mode the new mode
+	 */
 	public void setMode(AvalonServerMode mode)
 	{
 		this.mode = mode;
 	}
 
+	/**
+	 * Gets the servier id.
+	 *
+	 * @return the servier id
+	 */
 	public int getServierId()
 	{
 		return servierId;
 	}
 
+	/**
+	 * Sets the servier id.
+	 *
+	 * @param servierId the new servier id
+	 */
 	public void setServierId(int servierId)
 	{
 		this.servierId = servierId;

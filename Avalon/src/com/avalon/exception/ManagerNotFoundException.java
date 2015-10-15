@@ -340,20 +340,34 @@ library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.
  */
 package com.avalon.exception;
+// TODO: Auto-generated Javadoc
+
 /**
- * 无法找到对应的管理器
- * @author ZERO
+ * 无法找到对应的管理器.
  *
+ * @author ZERO
  */
 public class ManagerNotFoundException extends RuntimeException {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3861547344642024902L;
 
+	/**
+	 * Instantiates a new manager not found exception.
+	 *
+	 * @param message the message
+	 */
 	public ManagerNotFoundException(String message)
 	{
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new manager not found exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public ManagerNotFoundException(String message, Throwable cause)
 	{
 		super(message, cause);

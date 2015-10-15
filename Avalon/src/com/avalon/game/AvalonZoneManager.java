@@ -351,21 +351,39 @@ import akka.actor.UntypedActor;
 import akka.actor.UntypedActorContext;
 import akka.japi.Creator;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AvalonZoneManager.
+ */
 public class AvalonZoneManager extends UntypedActor {
 
+	/** The Constant IDENTITY. */
 	public static final String IDENTITY = AvalonZoneManager.class.getSimpleName();
 
+	/**
+	 * The Class selfCreator.
+	 */
 	static class selfCreator implements Creator<AvalonZoneManager> {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -4506944735716145059L;
 
+		/** The extended control. */
 		private final IAvalonExtendedControl extendedControl;
 
+		/**
+		 * Instantiates a new self creator.
+		 *
+		 * @param extendedControl the extended control
+		 */
 		public selfCreator(IAvalonExtendedControl extendedControl) {
 			super();
 			this.extendedControl = extendedControl;
 		}
 
+		/* (non-Javadoc)
+		 * @see akka.japi.Creator#create()
+		 */
 		@Override
 		public AvalonZoneManager create() throws Exception {
 			return new AvalonZoneManager(extendedControl);
@@ -373,36 +391,60 @@ public class AvalonZoneManager extends UntypedActor {
 
 	}
 
+	/**
+	 * Props.
+	 *
+	 * @param customMessageHandler the custom message handler
+	 * @return the props
+	 */
 	public static Props props(IAvalonExtendedControl customMessageHandler) {
 		Props create = Props.create(new selfCreator(customMessageHandler));
 		create.withDispatcher("session-default-dispatcher");
 		return create;
 	}
 
+	/**
+	 * Instantiates a new avalon zone manager.
+	 *
+	 * @param extendedControl the extended control
+	 */
 	public AvalonZoneManager(IAvalonExtendedControl extendedControl) {
 		super();
 		this.extendedControl = extendedControl;
 	}
 
+	/** The extended control. */
 	private final IAvalonExtendedControl extendedControl;
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#postRestart(java.lang.Throwable)
+	 */
 	@Override
 	public void postRestart(Throwable reason) throws Exception {
 		super.postRestart(reason);
 
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#postStop()
+	 */
 	@Override
 	public void postStop() throws Exception {
 		super.postStop();
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#preStart()
+	 */
 	@Override
 	public void preStart() throws Exception {
 		super.preStart();
 		extendedControl.actorExtendedStart(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object message) throws Exception {
 		if (message instanceof AkkaEvent.CreateZoneManager) {

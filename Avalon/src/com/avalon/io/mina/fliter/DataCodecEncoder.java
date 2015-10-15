@@ -350,8 +350,15 @@ import com.avalon.util.IobufferUtil;
 import com.avalon.util.MessageHead;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DataCodecEncoder.
+ */
 public class DataCodecEncoder extends ProtocolEncoderAdapter {
 
+	/* (non-Javadoc)
+	 * @see org.apache.mina.filter.codec.ProtocolEncoder#encode(org.apache.mina.core.session.IoSession, java.lang.Object, org.apache.mina.filter.codec.ProtocolEncoderOutput)
+	 */
 	@Override
 	public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception
 	{

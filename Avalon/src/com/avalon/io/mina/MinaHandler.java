@@ -345,44 +345,69 @@ import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MinaHandler.
+ */
 public class MinaHandler extends IoHandlerAdapter {
 
+	/* (non-Javadoc)
+	 * @see org.apache.mina.core.service.IoHandlerAdapter#exceptionCaught(org.apache.mina.core.session.IoSession, java.lang.Throwable)
+	 */
 	@Override
 	public void exceptionCaught(IoSession session, Throwable cause) throws Exception
 	{
 		super.exceptionCaught(session, cause);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.apache.mina.core.service.IoHandlerAdapter#messageReceived(org.apache.mina.core.session.IoSession, java.lang.Object)
+	 */
 	@Override
 	public void messageReceived(IoSession session, Object message) throws Exception
 	{
 		super.messageReceived(session, message);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.apache.mina.core.service.IoHandlerAdapter#messageSent(org.apache.mina.core.session.IoSession, java.lang.Object)
+	 */
 	@Override
 	public void messageSent(IoSession session, Object message) throws Exception
 	{
 		super.messageSent(session, message);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.apache.mina.core.service.IoHandlerAdapter#sessionClosed(org.apache.mina.core.session.IoSession)
+	 */
 	@Override
 	public void sessionClosed(IoSession session) throws Exception
 	{
 		super.sessionClosed(session);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.apache.mina.core.service.IoHandlerAdapter#sessionCreated(org.apache.mina.core.session.IoSession)
+	 */
 	@Override
 	public void sessionCreated(IoSession session) throws Exception
 	{
 		super.sessionCreated(session);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.apache.mina.core.service.IoHandlerAdapter#sessionIdle(org.apache.mina.core.session.IoSession, org.apache.mina.core.session.IdleStatus)
+	 */
 	@Override
 	public void sessionIdle(IoSession session, IdleStatus status) throws Exception
 	{
 		super.sessionIdle(session, status);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.apache.mina.core.service.IoHandlerAdapter#sessionOpened(org.apache.mina.core.session.IoSession)
+	 */
 	@Override
 	public void sessionOpened(IoSession session) throws Exception
 	{

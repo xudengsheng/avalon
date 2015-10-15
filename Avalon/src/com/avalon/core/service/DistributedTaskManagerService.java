@@ -347,9 +347,16 @@ import com.avalon.core.ContextResolver;
 import com.avalon.core.actor.GameEngineActor;
 import com.avalon.core.message.TaskManagerMessage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DistributedTaskManagerService.
+ */
 public class DistributedTaskManagerService implements DistributedTaskManager {
 
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.DistributedTaskManager#scheduleTask(java.lang.Runnable)
+	 */
 	@Override
 	public void scheduleTask(Runnable runnable)
 	{
@@ -358,6 +365,9 @@ public class DistributedTaskManagerService implements DistributedTaskManager {
 		component.handleMessage(createTaskMessage);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.DistributedTaskManager#scheduleTask(long, java.lang.Runnable)
+	 */
 	@Override
 	public void scheduleTask(long delay, Runnable runnable)
 	{
@@ -366,6 +376,9 @@ public class DistributedTaskManagerService implements DistributedTaskManager {
 		component.handleMessage(createTaskMessage);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.DistributedTaskManager#scheduleTask(long, long, java.lang.Runnable)
+	 */
 	@Override
 	public void scheduleTask(long delay, long period, Runnable runnable)
 	{

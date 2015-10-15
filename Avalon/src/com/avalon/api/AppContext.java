@@ -347,17 +347,27 @@ import com.avalon.api.internal.IService;
 import com.avalon.api.internal.InternalContext;
 import com.avalon.exception.ManagerNotFoundException;
 
+// TODO: Auto-generated Javadoc
 /**
- * 引擎应用的上下文
- * 
+ * 引擎应用的上下文.
+ *
  * @author zhaoxiaolong
- * 
  */
 public final class AppContext {
 
+	/**
+	 * Instantiates a new app context.
+	 */
 	private AppContext()
 	{}
 
+	/**
+	 * Gets the manager.
+	 *
+	 * @param <T> the generic type
+	 * @param type the type
+	 * @return the manager
+	 */
 	public static <T> T getManager(Class<T> type)
 	{
 		try
@@ -369,11 +379,21 @@ public final class AppContext {
 		}
 	}
 
+	/**
+	 * Sets the manager.
+	 *
+	 * @param service the new manager
+	 */
 	public static void setManager(IService service)
 	{
 		InternalContext.getManagerLocator().setManager(service);
 	}
 	
+	/**
+	 * Gets the actor system.
+	 *
+	 * @return the actor system
+	 */
 	public static ActorSystem getActorSystem(){
 		try
 		{
@@ -384,6 +404,11 @@ public final class AppContext {
 		}
 	}
 
+	/**
+	 * Gets the globle task manager.
+	 *
+	 * @return the globle task manager
+	 */
 	public static DistributedTaskManager getGlobleTaskManager()
 	{
 		try

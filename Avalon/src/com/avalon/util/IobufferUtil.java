@@ -345,24 +345,24 @@ import java.nio.ByteBuffer;
 
 import org.apache.mina.core.buffer.IoBuffer;
 
+// TODO: Auto-generated Javadoc
 /**
- * IObuffer工具类
- * @author ZERO
+ * IObuffer工具类.
  *
+ * @author ZERO
  */
 public class IobufferUtil {
 
-    /**
-     * 默认1024个字节（1k）
-     */
+    /** 默认1024个字节（1k）. */
     private static final int DEFAUL_SIZE = 1024;
 
+    /** The Constant DEFAUL_HEAD_SIZE. */
     private static final int DEFAUL_HEAD_SIZE = 4;
 
     /**
-     * 获取一个4个字节起始的IoBuffer
-     * 
-     * @return
+     * 获取一个4个字节起始的IoBuffer.
+     *
+     * @return the def io buffer
      */
     public static IoBuffer getDefIoBuffer() {
         IoBuffer buffer = IoBuffer.allocate(DEFAUL_HEAD_SIZE);
@@ -372,16 +372,21 @@ public class IobufferUtil {
     }
 
     /**
-     * 获取一个封装好指令的IoBuffer
-     * 
-     * @param Command
-     *            指令号
-     * @return
+     * 获取一个封装好指令的IoBuffer.
+     *
+     * @param Command            指令号
+     * @return the io buffer with command id
      */
     public static IoBuffer getIoBufferWithCommandId(int Command) {
         return getDefIoBuffer().putInt(Command);
     }
 
+    /**
+     * Gets the byte.
+     *
+     * @param buffer the buffer
+     * @return the byte
+     */
     public static byte[] getByte(IoBuffer buffer) {
         byte[] b = new byte[buffer.limit()-4];
         buffer.get(b);
@@ -389,10 +394,10 @@ public class IobufferUtil {
     }
 
     /**
-     * 舍弃一个int位
-     * 
-     * @param buffer
-     * @return
+     * 舍弃一个int位.
+     *
+     * @param buffer the buffer
+     * @return the byte
      */
     public static byte[] getByte(ByteBuffer buffer) {
         byte[] b = new byte[buffer.limit() - 4];
@@ -400,6 +405,12 @@ public class IobufferUtil {
         return b;
     }
 
+    /**
+     * Gets the byte.
+     *
+     * @param message the message
+     * @return the byte
+     */
     public static byte[] getByte(int message) {
         IoBuffer buffer = getDefIoBuffer();
         buffer.putInt(message);
@@ -410,6 +421,12 @@ public class IobufferUtil {
     }
 
 
+    /**
+     * Gets the bytes.
+     *
+     * @param buffer the buffer
+     * @return the bytes
+     */
     public static byte[] getBytes(IoBuffer buffer) {
         byte[] bytes = new byte[buffer.remaining()];
         buffer.get(bytes);

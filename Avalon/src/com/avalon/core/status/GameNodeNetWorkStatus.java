@@ -340,18 +340,29 @@ library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.
  */
 package com.avalon.core.status;
+// TODO: Auto-generated Javadoc
+
 /**
- *  网络状态
- * @author ZERO
+ *  网络状态.
  *
+ * @author ZERO
  */
 public enum GameNodeNetWorkStatus {
 	//联通，阻塞
-	UNICOM(1), BLOCK(0);
+	/** The unicom. */
+	UNICOM(1), 
+ /** The block. */
+ BLOCK(0);
 
+	/**
+	 * Instantiates a new game node net work status.
+	 *
+	 * @param state the state
+	 */
 	private GameNodeNetWorkStatus(int state) {
 		State = state;
 	}
 
+	/** The State. */
 	public final int State;
 }

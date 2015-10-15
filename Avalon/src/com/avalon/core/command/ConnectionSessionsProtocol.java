@@ -343,24 +343,37 @@ package com.avalon.core.command;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
 /**
- * 协议发送到 ClusterConnectionSessions 可能会在网络服务器之间传输
- * 
- * @author ZERO
+ * 协议发送到 ClusterConnectionSessions 可能会在网络服务器之间传输.
  *
+ * @author ZERO
  */
 public class ConnectionSessionsProtocol implements Serializable{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8818237764034275011L;
 	// 远程地址，用于消息返回使用
+	/** The remote address. */
 	public final String remoteAddress;
 	// 会话ID
+	/** The session id. */
 	public final String sessionId;
 	//集群网管唯一ID
+	/** The Cluster uid. */
 	public final int ClusterUid;
 	// 获取内容数据源 IoMessagePackage
+	/** The origins. */
 	public final Object origins;
 	
+	/**
+	 * Instantiates a new connection sessions protocol.
+	 *
+	 * @param remoteAddress the remote address
+	 * @param sessionId the session id
+	 * @param uid the uid
+	 * @param origins the origins
+	 */
 	public ConnectionSessionsProtocol(String remoteAddress, String sessionId,int uid, Object origins) {
 		super();
 		this.remoteAddress = remoteAddress;

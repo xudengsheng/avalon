@@ -343,14 +343,16 @@ package com.avalon.api;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
 /**
- * 取消任务
- * @author zero
+ * 取消任务.
  *
+ * @author zero
  */
 public interface CancellableTask extends Serializable{
+	
 	/**
-	 * 取消任务
+	 * 取消任务.
 	 */
 	void cancel();
 

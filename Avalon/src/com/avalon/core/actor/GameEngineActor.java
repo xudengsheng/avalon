@@ -366,22 +366,32 @@ import com.avalon.core.task.GlobleTaskManagerActor;
 import com.avalon.setting.AvalonServerMode;
 import com.google.common.collect.Lists;
 
+// TODO: Auto-generated Javadoc
 /**
- * 游戏逻辑的主管理
- * 
- * @author zero
+ * 游戏逻辑的主管理.
  *
+ * @author zero
  */
 public class GameEngineActor extends UntypedActor {
+	
+	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+	
+	/** The geuid. */
 	public static String GEUID = UUID.randomUUID().toString();
 
+	/** The Constant IDENTIFY. */
 	public static final String IDENTIFY = "GameEngineActor";
 
+	/** The self engine. */
 	private EngineNodeInfo selfEngine;
 
+	/** The other nodes. */
 	private List<EngineNodeInfo> otherNodes = Lists.newArrayList();
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object arg0) throws Exception
 	{
@@ -453,6 +463,11 @@ public class GameEngineActor extends UntypedActor {
 	}
 
 	
+	/**
+	 * Gets the game server.
+	 *
+	 * @return the game server
+	 */
 	private Member getGameServer()
 	{
 		List<Member> members = Lists.newArrayList();
@@ -466,6 +481,9 @@ public class GameEngineActor extends UntypedActor {
 		return members.get(0);
 	}
 
+	/**
+	 * Check same node.
+	 */
 	private void checkSameNode()
 	{
 		if (selfEngine == null)
@@ -484,6 +502,9 @@ public class GameEngineActor extends UntypedActor {
 		}
 	}
 
+	/**
+	 * Sys node info notice.
+	 */
 	private void sysNodeInfoNotice()
 	{
 		if (selfEngine == null)

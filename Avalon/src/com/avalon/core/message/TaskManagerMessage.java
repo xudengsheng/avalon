@@ -344,25 +344,48 @@ package com.avalon.core.message;
 import java.io.Serializable;
 import java.util.UUID;
 
+// TODO: Auto-generated Javadoc
 /**
- * 任务调度信息
- * 
- * @author zero
+ * 任务调度信息.
  *
+ * @author zero
  */
 public interface TaskManagerMessage extends Serializable {
 
+	/**
+	 * The Class createTaskMessage.
+	 */
 	public class createTaskMessage implements TaskManagerMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 4186679889031004209L;
 
+		/** The runnable. */
 		public final Runnable runnable;
+		
+		/** The Server uuid. */
 		public final String ServerUUID;
+		
+		/** The delay. */
 		public final long delay;
+		
+		/** The period. */
 		public final long period;
+		
+		/** The create time. */
 		public final long createTime = System.currentTimeMillis();
+		
+		/** The Task uid. */
 		public final String TaskUid=UUID.randomUUID().toString();
 
+		/**
+		 * Instantiates a new creates the task message.
+		 *
+		 * @param runnable the runnable
+		 * @param serverUUID the server uuid
+		 * @param delay the delay
+		 * @param period the period
+		 */
 		public createTaskMessage(Runnable runnable, String serverUUID, long delay, long period)
 		{
 			super();

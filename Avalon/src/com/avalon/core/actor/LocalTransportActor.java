@@ -361,29 +361,44 @@ import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
 import com.avalon.core.message.TransportMessage.SessionSessionMessage;
 import com.avalon.core.subscribe.TransportTopic;
 
+// TODO: Auto-generated Javadoc
 /**
- * 网络会话传输actor封装 在网络会话和actor中作为桥接
- * 
- * @author ZERO
+ * 网络会话传输actor封装 在网络会话和actor中作为桥接.
  *
+ * @author ZERO
  */
 public class LocalTransportActor extends UntypedActor {
 
+	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
 	// 本次会话的唯一Id，用于分布式中的分组Id
+	/** The session actor id. */
 	public final String sessionActorId;
 
+	/** The Connection session supervisor. */
 	private final ActorSelection ConnectionSessionSupervisor;
 
+	/** The transport supervisor. */
 	public final ActorSelection transportSupervisor;
 
+	/** The connection sessions ref. */
 	public ActorRef connectionSessionsRef;
 
+	/** The io session. */
 	private final IoSession ioSession;
 	// 是否绑定Session连接会话
+	/** The binding connection session. */
 	private boolean bindingConnectionSession;
 
+	/**
+	 * Instantiates a new local transport actor.
+	 *
+	 * @param sessionid the sessionid
+	 * @param transportSupervisorPath the transport supervisor path
+	 * @param gameServerSupervisor the game server supervisor
+	 * @param ioSession the io session
+	 */
 	public LocalTransportActor(String sessionid, String transportSupervisorPath, String gameServerSupervisor, IoSession ioSession)
 	{
 		super();
@@ -396,6 +411,9 @@ public class LocalTransportActor extends UntypedActor {
 		getSelf().tell(new TransportMessage.IOSessionBindingTransportMessage(), ActorRef.noSender());
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object msg) throws Exception
 	{
@@ -452,6 +470,9 @@ public class LocalTransportActor extends UntypedActor {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#postStop()
+	 */
 	@Override
 	public void postStop() throws Exception
 	{

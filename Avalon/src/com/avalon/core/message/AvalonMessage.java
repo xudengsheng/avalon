@@ -343,20 +343,22 @@ package com.avalon.core.message;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
 /**
- * 操作avalon的事件消息
- * 
- * @author zero
+ * 操作avalon的事件消息.
  *
+ * @author zero
  */
 public interface AvalonMessage extends Serializable {
+	
 	/**
-	 * 初始化Avalon
-	 * @author zero
+	 * 初始化Avalon.
 	 *
+	 * @author zero
 	 */
 	public static class InitAvalon implements TransportSupervisorMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 5353260825760665736L;
 		
 	}

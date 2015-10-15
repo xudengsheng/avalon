@@ -360,20 +360,26 @@ import com.avalon.core.message.SchedulerServerSupervisorMessage;
 import com.avalon.core.message.SchedulerServerSupervisorMessage.RunTaskInfo;
 import com.avalon.core.model.CancellabTaskImpl;
 
+// TODO: Auto-generated Javadoc
 /**
- * 游戏逻辑服务器监听 （动态分配）
- * 
- * @author ZERO
+ * 游戏逻辑服务器监听 （动态分配）.
  *
+ * @author ZERO
  */
 public class SchedulerServerSupervisor extends UntypedActor {
 
+	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
+	/** The Constant IDENTIFY. */
 	public static final String IDENTIFY = "SchedulerServerSupervisor";
 
+	/** The cancellable info. */
 	private Map<String, Cancellable> cancellableInfo = new HashMap<String, Cancellable>();
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object arg0) throws Exception
 	{
@@ -408,6 +414,12 @@ public class SchedulerServerSupervisor extends UntypedActor {
 
 	}
 
+	/**
+	 * Schedule once task.
+	 *
+	 * @param runnable the runnable
+	 * @return the cancellable task
+	 */
 	public CancellableTask scheduleOnceTask(Runnable runnable)
 	{
 		ActorSystem actorSystem = getContext().system();
@@ -420,6 +432,13 @@ public class SchedulerServerSupervisor extends UntypedActor {
 		return cancellabTaskImpl;
 	}
 
+	/**
+	 * Schedule once task.
+	 *
+	 * @param delay the delay
+	 * @param runnable the runnable
+	 * @return the cancellable task
+	 */
 	public CancellableTask scheduleOnceTask(long delay, Runnable runnable)
 	{
 		ActorSystem actorSystem = getContext().system();
@@ -433,6 +452,14 @@ public class SchedulerServerSupervisor extends UntypedActor {
 		return cancellabTaskImpl;
 	}
 
+	/**
+	 * Schedule task.
+	 *
+	 * @param delay the delay
+	 * @param period the period
+	 * @param runnable the runnable
+	 * @return the cancellable task
+	 */
 	public CancellableTask scheduleTask(long delay, long period, Runnable runnable)
 	{
 		ActorSystem actorSystem = getContext().system();

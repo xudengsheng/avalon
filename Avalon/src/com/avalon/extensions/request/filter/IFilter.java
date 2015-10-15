@@ -351,10 +351,10 @@ import com.avalon.extensions.request.ClientExtension;
  */
 public interface IFilter {
 
-	public void init(ClientExtension player);
+	public void init(ClientExtension clientExtension);
 
 	public void destroy();
 
-	public FilterAction handleClientRequest(int handlerKey, ClientExtension player, Object object);
+	public FilterAction handleClientRequest(int handlerKey, ClientExtension clientExtension, Object object);
 
 }

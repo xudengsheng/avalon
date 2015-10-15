@@ -346,28 +346,41 @@ import java.io.Serializable;
 import com.avalon.api.IoSession;
 import com.avalon.api.internal.IoMessagePackage;
 
+// TODO: Auto-generated Javadoc
 /**
- * 网络通讯消息
- * 
- * @author ZERO
+ * 网络通讯消息.
  *
+ * @author ZERO
  */
 public interface TransportMessage extends Serializable {
+	
 	/**
-	 * IOSession绑定TransportActor
-	 * @author zero
+	 * IOSession绑定TransportActor.
 	 *
+	 * @author zero
 	 */
 	public static class IOSessionBindingTransportMessage implements TransportMessage {
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 3434098146106631131L;
 	}
 
+	/**
+	 * The Class IOSessionReciveMessage.
+	 */
 	public static class IOSessionReciveMessage implements TransportMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -7851710747490260982L;
 
+		/** The message package. */
 		public final IoMessagePackage messagePackage;
 
+		/**
+		 * Instantiates a new IO session recive message.
+		 *
+		 * @param messagePackage the message package
+		 */
 		public IOSessionReciveMessage(IoMessagePackage messagePackage)
 		{
 			super();
@@ -376,12 +389,22 @@ public interface TransportMessage extends Serializable {
 
 	}
 
+	/**
+	 * The Class IOSessionReciveDirectMessage.
+	 */
 	public static class IOSessionReciveDirectMessage implements TransportMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 3525622018824124228L;
 
+		/** The message package. */
 		public final IoMessagePackage messagePackage;
 
+		/**
+		 * Instantiates a new IO session recive direct message.
+		 *
+		 * @param messagePackage the message package
+		 */
 		public IOSessionReciveDirectMessage(IoMessagePackage messagePackage)
 		{
 			super();
@@ -390,12 +413,22 @@ public interface TransportMessage extends Serializable {
 
 	}
 
+	/**
+	 * The Class SessionSessionMessage.
+	 */
 	public static class SessionSessionMessage implements TransportMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -5044288418273438309L;
 
+		/** The message package. */
 		public final IoMessagePackage messagePackage;
 
+		/**
+		 * Instantiates a new session session message.
+		 *
+		 * @param messagePackage the message package
+		 */
 		public SessionSessionMessage(IoMessagePackage messagePackage)
 		{
 			super();
@@ -404,12 +437,22 @@ public interface TransportMessage extends Serializable {
 
 	}
 
+	/**
+	 * The Class IoSessionBinding.
+	 */
 	public static class IoSessionBinding implements TransportMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -8058485203708928666L;
 
+		/** The io session. */
 		public final IoSession ioSession;
 
+		/**
+		 * Instantiates a new io session binding.
+		 *
+		 * @param ioSession the io session
+		 */
 		public IoSessionBinding(IoSession ioSession)
 		{
 			super();
@@ -418,12 +461,22 @@ public interface TransportMessage extends Serializable {
 
 	}
 
+	/**
+	 * The Class ConnectionSessionsBinding.
+	 */
 	public static class ConnectionSessionsBinding implements TransportMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -7851710747490260982L;
 
+		/** The cluster uid. */
 		public final int clusterUid;
 
+		/**
+		 * Instantiates a new connection sessions binding.
+		 *
+		 * @param clusterUid the cluster uid
+		 */
 		public ConnectionSessionsBinding(int clusterUid)
 		{
 			super();
@@ -432,8 +485,12 @@ public interface TransportMessage extends Serializable {
 
 	}
 
+	/**
+	 * The Class ConnectionSessionsClosed.
+	 */
 	public static class ConnectionSessionsClosed implements TransportMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 5621353783623408296L;
 
 	}

@@ -348,8 +348,15 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import com.avalon.util.MessageHead;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DataCodecEncoder.
+ */
 public class DataCodecEncoder extends MessageToByteEncoder<MessageHead> {
 
+	/* (non-Javadoc)
+	 * @see io.netty.handler.codec.MessageToByteEncoder#encode(io.netty.channel.ChannelHandlerContext, java.lang.Object, io.netty.buffer.ByteBuf)
+	 */
 	@Override
 	protected void encode(ChannelHandlerContext ctx, MessageHead msg, ByteBuf out) throws Exception
 	{

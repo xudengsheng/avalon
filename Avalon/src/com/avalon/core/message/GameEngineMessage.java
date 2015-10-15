@@ -348,21 +348,33 @@ import akka.cluster.Member;
 import com.avalon.core.actor.GameEngineActor;
 import com.avalon.setting.AvalonServerMode;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface GameEngineMessage.
+ */
 public interface GameEngineMessage extends Serializable {
+	
 	/**
-	 * 检测这个节点是否是自己
-	 * 
-	 * @author zero
+	 * 检测这个节点是否是自己.
 	 *
+	 * @author zero
 	 */
 	public class CheckNodeInfo implements GameEngineMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -8384317080422337000L;
 
+		/** The member. */
 		public final Member member;
 
+		/** The geuid. */
 		public final String GEUID = GameEngineActor.GEUID;
 
+		/**
+		 * Instantiates a new check node info.
+		 *
+		 * @param member the member
+		 */
 		public CheckNodeInfo(Member member)
 		{
 			super();
@@ -371,17 +383,23 @@ public interface GameEngineMessage extends Serializable {
 	}
 
 	/**
-	 * 添加一个节点
-	 * 
-	 * @author zero
+	 * 添加一个节点.
 	 *
+	 * @author zero
 	 */
 	public class AddNodeInfo implements GameEngineMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -8384317080422337000L;
 
+		/** The member. */
 		public final Member member;
 
+		/**
+		 * Instantiates a new adds the node info.
+		 *
+		 * @param member the member
+		 */
 		public AddNodeInfo(Member member)
 		{
 			super();
@@ -391,21 +409,31 @@ public interface GameEngineMessage extends Serializable {
 	}
 
 	/**
-	 * 同步节点信息
-	 * 
-	 * @author zero
+	 * 同步节点信息.
 	 *
+	 * @author zero
 	 */
 	public class SysNodeInfo implements GameEngineMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -8384317080422337000L;
 
+		/** The member uid. */
 		public final int memberUID;
 
+		/** The server mode. */
 		public final AvalonServerMode serverMode;
 
+		/** The server uuid. */
 		public final String serverUUID;
 
+		/**
+		 * Instantiates a new sys node info.
+		 *
+		 * @param memberUID the member uid
+		 * @param serverMode the server mode
+		 * @param serverUUID the server uuid
+		 */
 		public SysNodeInfo(int memberUID, AvalonServerMode serverMode, String serverUUID)
 		{
 			super();

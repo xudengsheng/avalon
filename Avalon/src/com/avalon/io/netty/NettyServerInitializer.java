@@ -349,14 +349,27 @@ import io.netty.channel.socket.SocketChannel;
 import com.avalon.io.netty.filter.DataCodecDecoder;
 import com.avalon.io.netty.filter.DataCodecEncoder;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NettyServerInitializer.
+ */
 public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
 
+	/** The channel handler. */
 	private final Class<?> channelHandler;
 
+	/**
+	 * Instantiates a new netty server initializer.
+	 *
+	 * @param channelHandler the channel handler
+	 */
 	public NettyServerInitializer(Class<?> channelHandler) {
 		this.channelHandler = channelHandler;
 	}
 
+	/* (non-Javadoc)
+	 * @see io.netty.channel.ChannelInitializer#initChannel(io.netty.channel.Channel)
+	 */
 	@Override
 	protected void initChannel(SocketChannel ch) throws Exception {
 //		long transportId = NettyServer.sessionId.getAndIncrement();

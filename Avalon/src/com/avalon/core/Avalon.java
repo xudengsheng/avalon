@@ -387,28 +387,42 @@ import com.avalon.core.task.GlobleTaskManagerActor;
 import com.avalon.setting.AvalonServerMode;
 import com.avalon.setting.SystemEnvironment;
 
+// TODO: Auto-generated Javadoc
 /**
- * 阿瓦隆 核心
- * 
- * @author ZERO
+ * 阿瓦隆 核心.
  *
+ * @author ZERO
  */
 public class Avalon extends UntypedActor {
 
+	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
+	/**
+	 * The Class selfCreator.
+	 */
 	static class selfCreator implements Creator<Avalon> {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -4506944735716145059L;
 
+		/** The actor system. */
 		private final ActorSystem actorSystem;
 
+		/**
+		 * Instantiates a new self creator.
+		 *
+		 * @param actorSystem the actor system
+		 */
 		public selfCreator(ActorSystem actorSystem)
 		{
 			super();
 			this.actorSystem = actorSystem;
 		}
 
+		/* (non-Javadoc)
+		 * @see akka.japi.Creator#create()
+		 */
 		@Override
 		public Avalon create() throws Exception
 		{
@@ -417,6 +431,12 @@ public class Avalon extends UntypedActor {
 
 	}
 
+	/**
+	 * Props.
+	 *
+	 * @param actorSystem the actor system
+	 * @return the props
+	 */
 	public static Props props(ActorSystem actorSystem)
 	{
 		Props create = Props.create(new selfCreator(actorSystem));
@@ -424,6 +444,11 @@ public class Avalon extends UntypedActor {
 		return create;
 	}
 
+	/**
+	 * Instantiates a new avalon.
+	 *
+	 * @param actorSystem the actor system
+	 */
 	public Avalon(ActorSystem actorSystem)
 	{
 		super();
@@ -431,26 +456,39 @@ public class Avalon extends UntypedActor {
 	}
 
 	// 集群事件监听
+	/** The cluster listener. */
 	private ActorRef clusterListener;
 	// 全局任务管理
+	/** The globle task manager actor. */
 	private ActorRef globleTaskManagerActor;
 	// 游戏引擎的actor
+	/** The game engine. */
 	private ActorRef gameEngine;
 	// 性能指标
+	/** The metrics listener. */
 	private ActorRef metricsListener;
 	// 本地的region
+	/** The local region. */
 	private ActorRef localRegion;
 
+	/** The transport supervisor ref. */
 	private ActorRef transportSupervisorRef;
 
+	/** The connection session supervisor. */
 	private ActorRef connectionSessionSupervisor;
 
+	/** The actor system. */
 	private final ActorSystem actorSystem;
 
+	/** The engine mode. */
 	AvalonServerMode engineMode;
 
+	/** The last sender. */
 	ActorRef lastSender = getContext().system().deadLetters();
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object msg) throws Exception
 	{
@@ -589,6 +627,11 @@ public class Avalon extends UntypedActor {
 		}
 	}
 
+	/**
+	 * Tell transport supervisor topic.
+	 *
+	 * @param msg the msg
+	 */
 	private void tellTransportSupervisorTopic(Object msg)
 	{
 		ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
@@ -596,6 +639,11 @@ public class Avalon extends UntypedActor {
 		mediator.tell(new DistributedPubSubMediator.Publish(TransportSupervisorTopic.shardName, message), getSelf());
 	}
 
+	/**
+	 * Tell connection supervisor topic.
+	 *
+	 * @param msg the msg
+	 */
 	private void tellConnectionSupervisorTopic(Object msg)
 	{
 		ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
@@ -604,6 +652,11 @@ public class Avalon extends UntypedActor {
 		mediator.tell(new DistributedPubSubMediator.Publish(ConnectionSessionSupervisorTopic.shardName, message), getSelf());
 	}
 
+	/**
+	 * Tell transport topic.
+	 *
+	 * @param msg the msg
+	 */
 	private void tellTransportTopic(Object msg)
 	{
 		ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
@@ -611,6 +664,11 @@ public class Avalon extends UntypedActor {
 		mediator.tell(new DistributedPubSubMediator.Publish(TransportTopic.shardName, message), getSelf());
 	}
 
+	/**
+	 * Tell connection topic.
+	 *
+	 * @param msg the msg
+	 */
 	private void tellConnectionTopic(Object msg)
 	{
 		ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
@@ -618,6 +676,7 @@ public class Avalon extends UntypedActor {
 		mediator.tell(new DistributedPubSubMediator.Publish(ConnectionSessionTopic.shardName, message), getSelf());
 	}
 
+	/** The message extractor. */
 	ShardRegion.MessageExtractor messageExtractor = new ShardRegion.MessageExtractor() {
 
 		@Override

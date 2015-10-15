@@ -341,9 +341,23 @@ Public License instead of this License.
  */
 package test.avalon.io.netty;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface MessageTransport.
+ */
 public interface MessageTransport {
 
+	/**
+	 * Handle message.
+	 *
+	 * @param message the message
+	 */
 	public void handleMessage(Object message);
 	
+	/**
+	 * Sets the message transport.
+	 *
+	 * @param messageTransport the new message transport
+	 */
 	public void setMessageTransport(MessageTransport messageTransport);
 }

@@ -355,23 +355,43 @@ import com.avalon.exception.ManagerNotFoundException;
 import com.avalon.setting.AvalonServerMode;
 import com.avalon.util.PropertiesWrapper;
 
+// TODO: Auto-generated Javadoc
 /**
- * 
- * @author ZERO
+ * The Class KernelContext.
  *
+ * @author ZERO
  */
 class KernelContext {
 
+	/** The application name. */
 	private final String applicationName;
+	
+	/** The propertieswrapper. */
 	protected final PropertiesWrapper propertieswrapper;
+	
+	/** The globle task manager. */
 	private DistributedTaskManager globleTaskManager;
+	
+	/** The info service. */
 	private SystemInfoService infoService;
+	
+	/** The server mode. */
 	protected final AvalonServerMode serverMode;
+	
+	/** The manager components. */
 	protected final ComponentRegistry managerComponents;
+	
+	/** The service components. */
 	protected final ComponentRegistry serviceComponents;
 
+	/** The app listener. */
 	private AppListener appListener;
 
+	/**
+	 * Instantiates a new kernel context.
+	 *
+	 * @param context the context
+	 */
 	KernelContext(KernelContext context) {
 		this(context.applicationName, context.serviceComponents, context.managerComponents, context.propertieswrapper,
 				context.serverMode);
@@ -379,6 +399,15 @@ class KernelContext {
 		this.infoService = context.infoService;
 	}
 
+	/**
+	 * Instantiates a new kernel context.
+	 *
+	 * @param applicationName the application name
+	 * @param serviceComponents the service components
+	 * @param managerComponents the manager components
+	 * @param propertieswrapper the propertieswrapper
+	 * @param serverMode the server mode
+	 */
 	protected KernelContext(String applicationName, ComponentRegistry serviceComponents,
 			ComponentRegistry managerComponents, PropertiesWrapper propertieswrapper, AvalonServerMode serverMode) {
 		this.applicationName = applicationName;
@@ -388,6 +417,13 @@ class KernelContext {
 		this.serverMode = serverMode;
 	}
 
+	/**
+	 * Gets the manager.
+	 *
+	 * @param <T> the generic type
+	 * @param type the type
+	 * @return the manager
+	 */
 	<T> T getManager(Class<T> type) {
 		try {
 			return managerComponents.getComponent(type);
@@ -396,50 +432,110 @@ class KernelContext {
 		}
 	}
 
+	/**
+	 * Gets the component.
+	 *
+	 * @param <T> the generic type
+	 * @param type the type
+	 * @return the component
+	 */
 	<T> T getComponent(Class<T> type) {
 		return serviceComponents.getComponent(type);
 	}
 
+	/**
+	 * Gets the app listener.
+	 *
+	 * @return the app listener
+	 */
 	public AppListener getAppListener() {
 		return appListener;
 	}
 
+	/**
+	 * Sets the app listener.
+	 *
+	 * @param appListener the new app listener
+	 */
 	public void setAppListener(AppListener appListener) {
 		this.appListener = appListener;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return applicationName;
 	}
 
+	/**
+	 * Gets the properties wrapper.
+	 *
+	 * @return the properties wrapper
+	 */
 	public PropertiesWrapper getPropertiesWrapper() {
 		return propertieswrapper;
 	}
 
+	/**
+	 * Gets the server mode.
+	 *
+	 * @return the server mode
+	 */
 	public AvalonServerMode getServerMode() {
 		return serverMode;
 	}
 
+	/**
+	 * Gets the globle task manager.
+	 *
+	 * @return the globle task manager
+	 */
 	public DistributedTaskManager getGlobleTaskManager() {
 		return globleTaskManager;
 	}
 
+	/**
+	 * Gets the info service.
+	 *
+	 * @return the info service
+	 */
 	public SystemInfoService getInfoService() {
 		return infoService;
 	}
 
+	/**
+	 * Sets the info service.
+	 *
+	 * @param infoService the new info service
+	 */
 	public void setInfoService(SystemInfoService infoService) {
 		this.infoService = infoService;
 	}
 
+	/**
+	 * Sets the globle task manager.
+	 *
+	 * @param globleTaskManager the new globle task manager
+	 */
 	public void setGlobleTaskManager(DistributedTaskManager globleTaskManager) {
 		this.globleTaskManager = globleTaskManager;
 	}
 
+	/**
+	 * Sets the manager.
+	 *
+	 * @param type the new manager
+	 */
 	public void setManager(IService type) {
 		((ComponentRegistryImpl) managerComponents).addComponent(type);
 	}
 
+	/**
+	 * Gets the actor system.
+	 *
+	 * @return the actor system
+	 */
 	public ActorSystem getActorSystem() {
 		AvalonProxy component = getComponent(AvalonProxy.class);
 		return component.getSystem();

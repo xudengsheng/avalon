@@ -343,12 +343,27 @@ package com.avalon.io.message;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface NetWorkMessage.
+ */
 public interface NetWorkMessage extends Serializable {
+	
+	/**
+	 * The Class SessionOnline.
+	 */
 	public class SessionOnline implements NetWorkMessage {
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -5827345826280076750L;
 	}
 	
+	/**
+	 * The Class SessionOutline.
+	 */
 	public class SessionOutline implements NetWorkMessage {
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -6858332163554289611L;
 	}
 }

@@ -341,45 +341,46 @@ Public License instead of this License.
  */
 package com.avalon.api.internal;
 
+// TODO: Auto-generated Javadoc
 /**
- * 系统级组件服务
- * 
- * @author ZERO
+ * 系统级组件服务.
  *
+ * @author ZERO
  */
 public interface IService {
+	
 	/**
-	 * 初始化
-	 * 
-	 * @param obj
+	 * 初始化.
+	 *
+	 * @param obj the obj
 	 */
 	public void init(Object obj);
 
 	/**
-	 * 销毁
-	 * 
-	 * @param obj
+	 * 销毁.
+	 *
+	 * @param obj the obj
 	 */
 	public void destroy(Object obj);
 
 	/**
-	 * 处理消息
-	 * 
-	 * @param obj
+	 * 处理消息.
+	 *
+	 * @param obj the obj
 	 */
 	public void handleMessage(Object obj);
 
 	/**
-	 * 获得服务名称
-	 * 
-	 * @return
+	 * 获得服务名称.
+	 *
+	 * @return the name
 	 */
 	public String getName();
 
 	/**
-	 * 设置服务名称
-	 * 
-	 * @param modeName
+	 * 设置服务名称.
+	 *
+	 * @param name the new name
 	 */
 	public void setName(String name);
 }

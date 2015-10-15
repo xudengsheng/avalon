@@ -345,33 +345,41 @@ import akka.actor.ActorSystem;
 
 import com.avalon.api.DistributedTaskManager;
 
+// TODO: Auto-generated Javadoc
 /**
- * 外层API调用核心
- * 
+ * 外层API调用核心.
+ *
  * @author ZERO
- * 
  */
 public interface ManagerLocator {
 
+	/**
+	 * Gets the manager.
+	 *
+	 * @param <T> the generic type
+	 * @param type the type
+	 * @return the manager
+	 */
 	<T> T getManager(Class<T> type);
 
 	/**
-	 * 获得全局任务管理器
-	 * 
-	 * @return
+	 * 获得全局任务管理器.
+	 *
+	 * @return the globle task manager
 	 */
 	DistributedTaskManager getGlobleTaskManager();
 
 	/**
-	 * 放入自定义的服务（公用服务）
-	 * 
-	 * @param type
-	 * @return
+	 * 放入自定义的服务（公用服务）.
+	 *
+	 * @param type the new manager
 	 */
 	void setManager(IService type);
+	
 	/**
-	 * 获得Actor系统
-	 * @return
+	 * 获得Actor系统.
+	 *
+	 * @return the actor system
 	 */
 	ActorSystem getActorSystem();
 }

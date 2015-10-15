@@ -355,20 +355,26 @@ import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.FileUtil;
 import com.avalon.util.PropertiesWrapper;
 
+// TODO: Auto-generated Javadoc
 /**
- * 阿瓦隆 的代理 基本的逻辑函数无法按照actor的形式使用，所以构建这个代理操作类
- * 
- * @author ZERO
+ * 阿瓦隆 的代理 基本的逻辑函数无法按照actor的形式使用，所以构建这个代理操作类.
  *
+ * @author ZERO
  */
 public class AvalonProxy implements IService {
 
+	/** The system. */
 	private ActorSystem system;
 	// avalone Actor
+	/** The avalon actor ref. */
 	private ActorRef avalonActorRef;
 
+	/** The transportnum. */
 	private int transportnum;
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#init(java.lang.Object)
+	 */
 	@Override
 	public void init(Object obj)
 	{
@@ -389,6 +395,9 @@ public class AvalonProxy implements IService {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#destroy(java.lang.Object)
+	 */
 	@Override
 	public void destroy(Object obj)
 	{
@@ -396,6 +405,9 @@ public class AvalonProxy implements IService {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#handleMessage(java.lang.Object)
+	 */
 	@Override
 	public void handleMessage(Object msg)
 	{
@@ -420,24 +432,40 @@ public class AvalonProxy implements IService {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#getName()
+	 */
 	@Override
 	public String getName()
 	{
 		return "AvalonProxy";
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#setName(java.lang.String)
+	 */
 	@Override
 	public void setName(String name)
 	{
 		throw new IllegalAccessError();
 	}
 
+	/**
+	 * Transport num.
+	 *
+	 * @return the int
+	 */
 	public int transportNum()
 	{
 		avalonActorRef.tell(new AvalonMessageEvent.nowTransportNum(), ActorRef.noSender());
 		return transportnum;
 	}
 
+	/**
+	 * Gets the system.
+	 *
+	 * @return the system
+	 */
 	public ActorSystem getSystem() {
 		return system;
 	}

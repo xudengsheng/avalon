@@ -341,10 +341,18 @@ Public License instead of this License.
  */
 package com.avalon.setting;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AvalonProtocolType.
+ */
 public class AvalonProtocolType {
+	
+	/** The Constant GREEN. */
 	public static final byte GREEN = 0B0000011;
 	
+	/** The Constant BULE. */
 	public static final byte BULE  = 0B0000001;
 
+	/** The Constant RED. */
 	public static final byte RED   = 0B0000010;
 }

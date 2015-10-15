@@ -354,11 +354,12 @@ public class ClientExtensionFilterChain implements IFilterChain {
 
 	private final Collection<ClientExtensionFilter> filters = new ConcurrentLinkedQueue<ClientExtensionFilter>();
 
-	private final ClientExtension player;
+	private final ClientExtension clientExtension;
+	
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	public ClientExtensionFilterChain(ClientExtension extension) {
-		this.player = extension;
+		this.clientExtension = extension;
 	}
 
 	public void addFilter(int filterId, ClientExtensionFilter filter) {

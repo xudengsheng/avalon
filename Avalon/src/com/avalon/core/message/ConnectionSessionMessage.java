@@ -343,18 +343,36 @@ package com.avalon.core.message;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface ConnectionSessionMessage.
+ */
 public interface ConnectionSessionMessage extends Serializable {
 
+	/**
+	 * The Class HasSenderPathMessage.
+	 */
 	public class HasSenderPathMessage implements ConnectionSessionMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -4904126255787744156L;
 
+		/** The cluster uid. */
 		public final int clusterUid;
 
+		/** The sender path. */
 		public final String senderPath;
 
+		/** The message. */
 		public final Object message;
 
+		/**
+		 * Instantiates a new checks for sender path message.
+		 *
+		 * @param clusterUid the cluster uid
+		 * @param senderPath the sender path
+		 * @param message the message
+		 */
 		public HasSenderPathMessage(int clusterUid, String senderPath, Object message)
 		{
 			super();
@@ -365,12 +383,22 @@ public interface ConnectionSessionMessage extends Serializable {
 
 	}
 
+	/**
+	 * The Class DirectSessionMessage.
+	 */
 	public class DirectSessionMessage implements ConnectionSessionMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 4143946258710301150L;
 
+		/** The origins. */
 		public Object origins;
 
+		/**
+		 * Instantiates a new direct session message.
+		 *
+		 * @param origins the origins
+		 */
 		public DirectSessionMessage(Object origins)
 		{
 			super();
@@ -379,14 +407,15 @@ public interface ConnectionSessionMessage extends Serializable {
 
 	}
 
-	/***
-	 * 失去网络连接
-	 * 
-	 * @author zero
+	/**
+	 * *
+	 * 失去网络连接.
 	 *
+	 * @author zero
 	 */
 	public class LostConnect implements ConnectionSessionMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 6040366211875133483L;
 
 	}

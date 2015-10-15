@@ -355,20 +355,26 @@ import akka.cluster.pubsub.DistributedPubSubMediator;
 import com.avalon.core.message.TaskManagerMessage;
 import com.google.common.collect.Maps;
 
+// TODO: Auto-generated Javadoc
 /**
- * 全局任务管理器
- * 
- * @author zero
+ * 全局任务管理器.
  *
+ * @author zero
  */
 public class GlobleTaskManagerActor extends UntypedActor {
 
+	/** The Constant shardName. */
 	public static final String shardName = "GLOBLE_TASK_MANAGER_TOPIC";
 
+	/** The Constant IDENTIFY. */
 	public static final String IDENTIFY = "GlobleTaskManagerActor";
 	// 周期性任务的管理
+	/** The periodic task. */
 	Map<String, Map<String, Cancellable>> periodicTask = Maps.newTreeMap();
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#preStart()
+	 */
 	@Override
 	public void preStart() throws Exception
 	{
@@ -378,6 +384,9 @@ public class GlobleTaskManagerActor extends UntypedActor {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object msg) throws Exception
 	{

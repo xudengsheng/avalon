@@ -343,8 +343,15 @@ package com.avalon.core.supervision;
 
 import akka.actor.UntypedActor;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TaskServerSupervisor.
+ */
 public class TaskServerSupervisor  extends UntypedActor {
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object arg0) throws Exception
 	{

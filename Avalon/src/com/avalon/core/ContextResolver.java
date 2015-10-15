@@ -349,58 +349,120 @@ import com.avalon.api.internal.IService;
 import com.avalon.setting.AvalonServerMode;
 import com.avalon.util.PropertiesWrapper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ContextResolver.
+ */
 public final class ContextResolver {
 
+	/** The context. */
 	private static KernelContext context;
 
+	/**
+	 * Instantiates a new context resolver.
+	 */
 	private ContextResolver()
 	{}
 
+	/**
+	 * Gets the properties wrapper.
+	 *
+	 * @return the properties wrapper
+	 */
 	public static PropertiesWrapper getPropertiesWrapper()
 	{
 		return context.getPropertiesWrapper();
 	}
 
+	/**
+	 * Gets the server mode.
+	 *
+	 * @return the server mode
+	 */
 	public static AvalonServerMode getServerMode()
 	{
 		return context.getServerMode();
 	}
 
+	/**
+	 * Gets the app listener.
+	 *
+	 * @return the app listener
+	 */
 	public static AppListener getAppListener()
 	{
 		return context.getAppListener();
 	}
 
+	/**
+	 * Gets the manager.
+	 *
+	 * @param <T> the generic type
+	 * @param type the type
+	 * @return the manager
+	 */
 	public static <T> T getManager(Class<T> type)
 	{
 		return context.getManager(type);
 	}
 
+	/**
+	 * Gets the component.
+	 *
+	 * @param <T> the generic type
+	 * @param type the type
+	 * @return the component
+	 */
 	public static <T> T getComponent(Class<T> type)
 	{
 		return context.getComponent(type);
 	}
 
+	/**
+	 * Gets the context.
+	 *
+	 * @return the context
+	 */
 	static KernelContext getContext()
 	{
 		return context;
 	}
 
+	/**
+	 * Sets the task state.
+	 *
+	 * @param ctx the new task state
+	 */
 	static void setTaskState(KernelContext ctx)
 	{
 		context = ctx;
 	}
 
+	/**
+	 * Gets the globle task manager.
+	 *
+	 * @return the globle task manager
+	 */
 	public static DistributedTaskManager getGlobleTaskManager()
 	{
 		return context.getGlobleTaskManager();
 	}
 
+	/**
+	 * Sets the manager.
+	 *
+	 * @param type the new manager
+	 */
 	public static void setManager(IService type)
 	{
 		context.setManager(type);
 	}
 
+	/**
+	 * Gets the actor system.
+	 *
+	 * @return the actor system
+	 */
 	public static ActorSystem getActorSystem() {
 		return context.getActorSystem();
 	}

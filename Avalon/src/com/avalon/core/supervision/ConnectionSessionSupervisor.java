@@ -362,22 +362,29 @@ import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
 import com.avalon.core.message.TopicMessage.ConnectionSessionSupervisorTopicMessage;
 import com.avalon.core.subscribe.ConnectionSessionSupervisorTopic;
 
+// TODO: Auto-generated Javadoc
 /**
- * 连接会话监听 消息会给游戏逻辑使用 可以理解成游戏逻辑管理的主节点
- * 
- * @author ZERO
+ * 连接会话监听 消息会给游戏逻辑使用 可以理解成游戏逻辑管理的主节点.
  *
+ * @author ZERO
  */
 public class ConnectionSessionSupervisor extends UntypedActor {
 
+	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
+	/** The session num. */
 	int sessionNum = 0;
 
+	/** The Constant IDENTIFY. */
 	public static final String IDENTIFY = "ConnectionSessionSupervisor";
 
+	/** The key connection session. */
 	private Map<String, ActorRef> keyConnectionSession = new HashMap<String, ActorRef>();
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#preStart()
+	 */
 	@Override
 	public void preStart() throws Exception
 	{
@@ -387,6 +394,9 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object msg) throws Exception
 	{

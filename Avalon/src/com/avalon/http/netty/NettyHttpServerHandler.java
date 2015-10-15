@@ -358,14 +358,26 @@ import io.netty.handler.codec.http.HttpHeaderValues;
 import io.netty.handler.codec.http.HttpRequest;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NettyHttpServerHandler.
+ */
 public class NettyHttpServerHandler extends ChannelHandlerAdapter {
+    
+    /** The Constant CONTENT. */
     private static final byte[] CONTENT = { 'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd' };
 
+    /* (non-Javadoc)
+     * @see io.netty.channel.ChannelHandlerAdapter#channelReadComplete(io.netty.channel.ChannelHandlerContext)
+     */
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
         ctx.flush();
     }
 
+    /* (non-Javadoc)
+     * @see io.netty.channel.ChannelHandlerAdapter#channelRead(io.netty.channel.ChannelHandlerContext, java.lang.Object)
+     */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         if (msg instanceof HttpRequest) {
@@ -388,6 +400,9 @@ public class NettyHttpServerHandler extends ChannelHandlerAdapter {
         }
     }
 
+    /* (non-Javadoc)
+     * @see io.netty.channel.ChannelHandlerAdapter#exceptionCaught(io.netty.channel.ChannelHandlerContext, java.lang.Throwable)
+     */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();

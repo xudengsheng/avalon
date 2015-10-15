@@ -341,11 +341,28 @@ Public License instead of this License.
  */
 package com.avalon.jmx;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface EngineMonitorMXBean.
+ */
 public interface EngineMonitorMXBean {
 
+	/**
+	 * Stop engine.
+	 */
 	public void stopEngine();
 	
+	/**
+	 * Gets the cpu usage.
+	 *
+	 * @return the cpu usage
+	 */
 	public double getCpuUsage();
 	
+	/**
+	 * Transport actor num.
+	 *
+	 * @return the int
+	 */
 	public int transportActorNum();
 }

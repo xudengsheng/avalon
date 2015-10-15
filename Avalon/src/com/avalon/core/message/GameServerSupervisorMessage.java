@@ -348,22 +348,34 @@ import akka.actor.Address;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.core.message.ConnectionSessionSupervisorMessage.CluserSessionMessage;
 
+// TODO: Auto-generated Javadoc
 /**
- * 集群事件
- * 
- * @author ZERO
+ * 集群事件.
  *
+ * @author ZERO
  */
 public interface GameServerSupervisorMessage extends Serializable {
 
+	/**
+	 * The Class AddGameServerMember.
+	 */
 	public class AddGameServerMember implements GameServerSupervisorMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 3596913193246469014L;
 
+		/** The uid. */
 		public int uid;
 
+		/** The address. */
 		public Address address;
 
+		/**
+		 * Instantiates a new adds the game server member.
+		 *
+		 * @param uid the uid
+		 * @param address the address
+		 */
 		public AddGameServerMember(int uid, Address address) {
 			super();
 			this.uid = uid;
@@ -372,11 +384,22 @@ public interface GameServerSupervisorMessage extends Serializable {
 
 	}
 
+	/**
+	 * The Class BlockGameServerMember.
+	 */
 	public class BlockGameServerMember implements GameServerSupervisorMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 8294984165358324668L;
+		
+		/** The uid. */
 		public int uid;
 
+		/**
+		 * Instantiates a new block game server member.
+		 *
+		 * @param uid the uid
+		 */
 		public BlockGameServerMember(int uid) {
 			super();
 			this.uid = uid;
@@ -384,11 +407,22 @@ public interface GameServerSupervisorMessage extends Serializable {
 
 	}
 
+	/**
+	 * The Class LostGameServerMember.
+	 */
 	public class LostGameServerMember implements GameServerSupervisorMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -3747289567829245653L;
+		
+		/** The uid. */
 		public final int uid;
 
+		/**
+		 * Instantiates a new lost game server member.
+		 *
+		 * @param uid the uid
+		 */
 		public LostGameServerMember(int uid) {
 			super();
 			this.uid = uid;
@@ -396,11 +430,22 @@ public interface GameServerSupervisorMessage extends Serializable {
 
 	}
 
+	/**
+	 * The Class DistributionCluserSessionMessage.
+	 */
 	public class DistributionCluserSessionMessage implements GameServerSupervisorMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -650248906569656268L;
+		
+		/** The message. */
 		public final CluserSessionMessage message;
 
+		/**
+		 * Instantiates a new distribution cluser session message.
+		 *
+		 * @param message the message
+		 */
 		public DistributionCluserSessionMessage(CluserSessionMessage message) {
 			super();
 			this.message = message;
@@ -410,12 +455,22 @@ public interface GameServerSupervisorMessage extends Serializable {
 	
 	
 	
+	/**
+	 * The Class LocalSessionMessage.
+	 */
 	public class LocalSessionMessage implements GameServerSupervisorMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -4085109230935593066L;
 
+		/** The message package. */
 		public final IoMessagePackage messagePackage;
 
+		/**
+		 * Instantiates a new local session message.
+		 *
+		 * @param messagePackage the message package
+		 */
 		public LocalSessionMessage(IoMessagePackage messagePackage) {
 			super();
 			this.messagePackage = messagePackage;

@@ -344,13 +344,27 @@ package com.avalon.io;
 import com.avalon.api.internal.IoMessagePackage;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MessagePackImpl.
+ */
 public class MessagePackImpl implements IoMessagePackage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2782139668607241252L;
 	
+	/** The opcode. */
 	protected int opcode;
+	
+	/** The Raw data. */
 	protected byte[] RawData;
 
+	/**
+	 * Instantiates a new message pack impl.
+	 *
+	 * @param opcode the opcode
+	 * @param rawData the raw data
+	 */
 	public MessagePackImpl(int opcode, byte[] rawData)
 	{
 		super();
@@ -358,17 +372,26 @@ public class MessagePackImpl implements IoMessagePackage {
 		RawData = rawData;
 	}
 
+	/**
+	 * Instantiates a new message pack impl.
+	 */
 	public MessagePackImpl()
 	{
 		super();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IoMessagePackage#getOpCode()
+	 */
 	@Override
 	public int getOpCode()
 	{
 		return opcode;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IoMessagePackage#getRawData()
+	 */
 	@Override
 	public byte[] getRawData()
 	{

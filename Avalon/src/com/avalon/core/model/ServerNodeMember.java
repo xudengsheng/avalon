@@ -346,23 +346,33 @@ import akka.actor.Address;
 import com.avalon.core.status.GameNodeNetWorkStatus;
 import com.google.common.collect.Ordering;
 
+// TODO: Auto-generated Javadoc
 /**
- * 游戏逻辑服务器节点封装对象
- * 
- * @author ZERO
+ * 游戏逻辑服务器节点封装对象.
  *
+ * @author ZERO
  */
 public class ServerNodeMember {
 
 	// 节点的唯一ID
+	/** The uid. */
 	public final int uid;
 	// 节点地址
+	/** The address. */
 	public final Address address;
 	// 当前节点拥有会话数量
+	/** The session num. */
 	private int sessionNum = 0;
 	// 当前节点网络联通状态
+	/** The state. */
 	private GameNodeNetWorkStatus state;
 
+	/**
+	 * Instantiates a new server node member.
+	 *
+	 * @param uid the uid
+	 * @param address the address
+	 */
 	public ServerNodeMember(int uid, Address address) {
 		super();
 		this.uid = uid;
@@ -370,22 +380,43 @@ public class ServerNodeMember {
 		this.state = GameNodeNetWorkStatus.UNICOM;
 	}
 
+	/**
+	 * Gets the session num.
+	 *
+	 * @return the session num
+	 */
 	public int getSessionNum() {
 		return sessionNum;
 	}
 
+	/**
+	 * Sets the session num.
+	 *
+	 * @param sessionNum the new session num
+	 */
 	public void setSessionNum(int sessionNum) {
 		this.sessionNum = sessionNum;
 	}
 
+	/**
+	 * Gets the state.
+	 *
+	 * @return the state
+	 */
 	public GameNodeNetWorkStatus getState() {
 		return state;
 	}
 
+	/**
+	 * Sets the state.
+	 *
+	 * @param state the new state
+	 */
 	public void setState(GameNodeNetWorkStatus state) {
 		this.state = state;
 	}
 
+	/** The by session ordering. */
 	public static Ordering<ServerNodeMember> bySessionOrdering = new Ordering<ServerNodeMember>() {
 		@Override
 		public int compare(ServerNodeMember left, ServerNodeMember right) {

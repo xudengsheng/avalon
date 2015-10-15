@@ -346,24 +346,39 @@ import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.apache.mina.filter.codec.ProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolEncoder;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating DataCodec objects.
+ */
 public class DataCodecFactory implements ProtocolCodecFactory {
 
 	// 编码器
+	/** The encoder. */
 	private final DataCodecEncoder encoder;
 	// 解码器（通讯消息的完整）
+	/** The decoder. */
 	private final DataCodecDecoder decoder;
 
+	/**
+	 * Instantiates a new data codec factory.
+	 */
 	public DataCodecFactory() {
 		super();
 		this.encoder = new DataCodecEncoder();
 		this.decoder = new DataCodecDecoder();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.apache.mina.filter.codec.ProtocolCodecFactory#getEncoder(org.apache.mina.core.session.IoSession)
+	 */
 	@Override
 	public ProtocolEncoder getEncoder(IoSession session) throws Exception {
 		return encoder;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.apache.mina.filter.codec.ProtocolCodecFactory#getDecoder(org.apache.mina.core.session.IoSession)
+	 */
 	@Override
 	public ProtocolDecoder getDecoder(IoSession session) throws Exception {
 		return decoder;

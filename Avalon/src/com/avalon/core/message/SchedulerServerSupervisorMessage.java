@@ -345,14 +345,28 @@ import java.io.Serializable;
 
 import com.avalon.api.CancellableTask;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface SchedulerServerSupervisorMessage.
+ */
 public interface SchedulerServerSupervisorMessage extends Serializable {
 
+	/**
+	 * The Class CancelTask.
+	 */
 	public class CancelTask implements SchedulerServerSupervisorMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1707407755003680335L;
 
+		/** The task id. */
 		public final String taskId;
 
+		/**
+		 * Instantiates a new cancel task.
+		 *
+		 * @param taskId the task id
+		 */
 		public CancelTask(String taskId)
 		{
 			super();
@@ -361,16 +375,31 @@ public interface SchedulerServerSupervisorMessage extends Serializable {
 
 	}
 
+	/**
+	 * The Class RunTask.
+	 */
 	public class RunTask implements SchedulerServerSupervisorMessage {
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 6127176435840350220L;
+		
+		/** The delay. */
 		public final long delay;
+		
+		/** The period. */
 		public final long period;
+		
+		/** The runnable. */
 		public final Runnable runnable;
+		
+		/** The type. */
 		public final int type;
 
+		/**
+		 * Instantiates a new run task.
+		 *
+		 * @param runnable the runnable
+		 */
 		public RunTask(Runnable runnable)
 		{
 			super();
@@ -380,6 +409,12 @@ public interface SchedulerServerSupervisorMessage extends Serializable {
 			this.runnable = runnable;
 		}
 
+		/**
+		 * Instantiates a new run task.
+		 *
+		 * @param delay the delay
+		 * @param runnable the runnable
+		 */
 		public RunTask(long delay, Runnable runnable)
 		{
 			super();
@@ -389,6 +424,13 @@ public interface SchedulerServerSupervisorMessage extends Serializable {
 			this.runnable = runnable;
 		}
 
+		/**
+		 * Instantiates a new run task.
+		 *
+		 * @param delay the delay
+		 * @param period the period
+		 * @param runnable the runnable
+		 */
 		public RunTask(long delay, long period, Runnable runnable)
 		{
 			super();
@@ -400,12 +442,22 @@ public interface SchedulerServerSupervisorMessage extends Serializable {
 
 	}
 
+	/**
+	 * The Class RunTaskInfo.
+	 */
 	public class RunTaskInfo implements SchedulerServerSupervisorMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -7933769848996824390L;
 
+		/** The cancellable task. */
 		public final CancellableTask cancellableTask;
 
+		/**
+		 * Instantiates a new run task info.
+		 *
+		 * @param cancellableTask the cancellable task
+		 */
 		public RunTaskInfo(CancellableTask cancellableTask)
 		{
 			super();

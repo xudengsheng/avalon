@@ -346,27 +346,36 @@ import java.io.Serializable;
 import com.avalon.api.IoSession;
 import com.avalon.api.internal.IoMessagePackage;
 
+// TODO: Auto-generated Javadoc
 /**
- * 网络通讯消息
- * 
- * @author ZERO
+ * 网络通讯消息.
  *
+ * @author ZERO
  */
 public interface TransportSupervisorMessage extends Serializable {
 
 	/**
-	 * 网络创建会话
-	 * 
-	 * @author ZERO
+	 * 网络创建会话.
 	 *
+	 * @author ZERO
 	 */
 	public static class CreateIOSessionActor implements TransportSupervisorMessage {
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -631426557637927828L;
 		// 网络会话
+		/** The io session. */
 		public final IoSession ioSession;
 		// 会话ID，IoSession和Actor绑定
+		/** The session actor id. */
 		public final String sessionActorId;
 
+		/**
+		 * Instantiates a new creates the io session actor.
+		 *
+		 * @param ioSession the io session
+		 * @param sessionActorId the session actor id
+		 */
 		public CreateIOSessionActor(IoSession ioSession, String sessionActorId) {
 			super();
 			this.ioSession = ioSession;
@@ -375,16 +384,23 @@ public interface TransportSupervisorMessage extends Serializable {
 	}
 
 	/**
-	 * 网络关闭会话
-	 * 
-	 * @author ZERO
+	 * 网络关闭会话.
 	 *
+	 * @author ZERO
 	 */
 	public static class Closing implements TransportSupervisorMessage {
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -631426557337927828L;
 
+		/** The session id. */
 		public final String sessionId;
 
+		/**
+		 * Instantiates a new closing.
+		 *
+		 * @param sessionId the session id
+		 */
 		public Closing(String sessionId) {
 			super();
 			this.sessionId = sessionId;
@@ -392,26 +408,39 @@ public interface TransportSupervisorMessage extends Serializable {
 
 	}
 
+	/**
+	 * The Class Connecting.
+	 */
 	public static class Connecting implements TransportSupervisorMessage {
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -631426517637927828L;
 
 	}
 
 
 	/**
-	 * 收到网络消息
-	 * 
-	 * @author ZERO
+	 * 收到网络消息.
 	 *
+	 * @author ZERO
 	 */
 	public static class ReciveIOSessionMessage implements TransportSupervisorMessage {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -631426557637927828L;
 		// 网络会话
+		/** The transport path. */
 		public final String transportPath;
 
+		/** The message package. */
 		public final IoMessagePackage messagePackage;
 
+		/**
+		 * Instantiates a new recive io session message.
+		 *
+		 * @param transportPath the transport path
+		 * @param messagePackage the message package
+		 */
 		public ReciveIOSessionMessage(String transportPath, IoMessagePackage messagePackage) {
 			super();
 			this.transportPath = transportPath;
@@ -422,18 +451,23 @@ public interface TransportSupervisorMessage extends Serializable {
 	
 	
 	/**
-	 * 本地Transport数量查询
-	 * 
-	 * @author zero
+	 * 本地Transport数量查询.
 	 *
+	 * @author zero
 	 */
 	public class localTransportNum implements TransportSupervisorMessage {
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -914733653432627246L;
+		
+		/** The transprot num. */
 		public final int transprotNum;
 
+		/**
+		 * Instantiates a new local transport num.
+		 *
+		 * @param transprotNum the transprot num
+		 */
 		public localTransportNum(int transprotNum) {
 			super();
 			this.transprotNum = transprotNum;
@@ -443,16 +477,23 @@ public interface TransportSupervisorMessage extends Serializable {
 
 
 	/**
-	 * 网络创建会话 发送到代理
-	 * 
-	 * @author ZERO
+	 * 网络创建会话 发送到代理.
 	 *
+	 * @author ZERO
 	 */
 	public static class IOSessionRegedit implements TransportSupervisorMessage {
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -631426557637927828L;
 		// 网络会话
+		/** The io session. */
 		public final IoSession ioSession;
 
+		/**
+		 * Instantiates a new IO session regedit.
+		 *
+		 * @param ioSession the io session
+		 */
 		public IOSessionRegedit(IoSession ioSession) {
 			super();
 			this.ioSession = ioSession;

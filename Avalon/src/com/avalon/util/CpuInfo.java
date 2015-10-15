@@ -348,25 +348,43 @@ import org.hyperic.sigar.SigarLoader;
 import org.hyperic.sigar.cmd.Shell;
 import org.hyperic.sigar.cmd.SigarCommandBase;
 
+// TODO: Auto-generated Javadoc
 /**
  * Display cpu information for each cpu found on the system.
  */
 public class CpuInfo extends SigarCommandBase {
 
+    /** The display times. */
     public boolean displayTimes = true;
     
+    /**
+     * Instantiates a new cpu info.
+     *
+     * @param shell the shell
+     */
     public CpuInfo(Shell shell) {
         super(shell);
     }
 
+    /**
+     * Instantiates a new cpu info.
+     */
     public CpuInfo() {
         super();
     }
 
+    /* (non-Javadoc)
+     * @see org.hyperic.sigar.shell.ShellCommandBase#getUsageShort()
+     */
     public String getUsageShort() {
         return "Display cpu information";
     }
 
+    /**
+     * Output.
+     *
+     * @param cpu the cpu
+     */
     private void output(CpuPerc cpu) {
         println("User Time....." + CpuPerc.format(cpu.getUser()));
         println("Sys Time......" + CpuPerc.format(cpu.getSys()));
@@ -382,6 +400,9 @@ public class CpuInfo extends SigarCommandBase {
         println("");
     }
 
+    /* (non-Javadoc)
+     * @see org.hyperic.sigar.cmd.SigarCommandBase#output(java.lang.String[])
+     */
     public void output(String[] args) throws SigarException {
         org.hyperic.sigar.CpuInfo[] infos =
             this.sigar.getCpuInfoList();
@@ -420,6 +441,12 @@ public class CpuInfo extends SigarCommandBase {
         output(this.sigar.getCpuPerc());
     }
 
+    /**
+     * The main method.
+     *
+     * @param args the arguments
+     * @throws Exception the exception
+     */
     public static void main(String[] args) throws Exception {
         new CpuInfo().processCommand(args);
     }

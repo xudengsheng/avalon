@@ -346,8 +346,15 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpServerCodec;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NettyHttpServerInitializer.
+ */
 public class NettyHttpServerInitializer extends ChannelInitializer<SocketChannel> {
 
+    /* (non-Javadoc)
+     * @see io.netty.channel.ChannelInitializer#initChannel(io.netty.channel.Channel)
+     */
     @Override
     public void initChannel(SocketChannel ch) {
         ChannelPipeline p = ch.pipeline();

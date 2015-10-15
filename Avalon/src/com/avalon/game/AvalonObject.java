@@ -349,19 +349,25 @@ import com.avalon.game.extended.IAvalonExtendedHandler;
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 
+// TODO: Auto-generated Javadoc
 /**
- * 抽象对象
- * 
- * @author zero
+ * 抽象对象.
  *
+ * @author zero
  */
 public abstract class AvalonObject extends UntypedActor implements IAvalonExtendedHandler {
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#preRestart(java.lang.Throwable, scala.Option)
+	 */
 	@Override
 	public void preRestart(Throwable reason, Option<Object> message) throws Exception {
 		super.preRestart(reason, message);
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object arg0) throws Exception {
 		if (arg0 instanceof ExtendedMessage) {
@@ -369,11 +375,17 @@ public abstract class AvalonObject extends UntypedActor implements IAvalonExtend
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#postStop()
+	 */
 	@Override
 	public void postStop() throws Exception {
 		super.postStop();
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#preStart()
+	 */
 	@Override
 	public void preStart() throws Exception {
 		super.preStart();

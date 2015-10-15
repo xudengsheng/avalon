@@ -346,15 +346,21 @@ import akka.actor.DeadLetter;
 import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
+// TODO: Auto-generated Javadoc
+
 /**
- * 自定义无效信件接收器
- * @author ZERO
+ * 自定义无效信件接收器.
  *
+ * @author ZERO
  */
 public class AvalonDeadLetter extends UntypedActor {
 
+	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 	
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object arg0) throws Exception {
 		if (arg0 instanceof DeadLetter) {

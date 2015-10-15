@@ -349,8 +349,17 @@ import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.io.MessagePackImpl;
 import com.avalon.util.MessageHead;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NettySimpleHandler.
+ */
 public class NettySimpleHandler extends ChannelHandlerAdapter implements MessageTransport {
 
+	/**
+	 * Instantiates a new netty simple handler.
+	 *
+	 * @param transport the transport
+	 */
 	public NettySimpleHandler(MessageTransport transport)
 	{
 		super();
@@ -358,10 +367,15 @@ public class NettySimpleHandler extends ChannelHandlerAdapter implements Message
 		transport.setMessageTransport(this);
 	}
 
+	/** The transport. */
 	private final MessageTransport transport;
 
+	/** The ctx. */
 	private ChannelHandlerContext ctx;
 
+	/* (non-Javadoc)
+	 * @see io.netty.channel.ChannelHandlerAdapter#channelRegistered(io.netty.channel.ChannelHandlerContext)
+	 */
 	@Override
 	public void channelRegistered(ChannelHandlerContext ctx) throws Exception
 	{
@@ -369,12 +383,18 @@ public class NettySimpleHandler extends ChannelHandlerAdapter implements Message
 		this.ctx = ctx;
 	}
 
+	/* (non-Javadoc)
+	 * @see io.netty.channel.ChannelHandlerAdapter#handlerRemoved(io.netty.channel.ChannelHandlerContext)
+	 */
 	@Override
 	public void handlerRemoved(ChannelHandlerContext ctx)
 	{
 
 	}
 
+	/* (non-Javadoc)
+	 * @see io.netty.channel.ChannelHandlerAdapter#channelRead(io.netty.channel.ChannelHandlerContext, java.lang.Object)
+	 */
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg)
 	{
@@ -387,6 +407,9 @@ public class NettySimpleHandler extends ChannelHandlerAdapter implements Message
 		transport.handleMessage(msg);
 	}
 
+	/* (non-Javadoc)
+	 * @see io.netty.channel.ChannelHandlerAdapter#exceptionCaught(io.netty.channel.ChannelHandlerContext, java.lang.Throwable)
+	 */
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 	{
@@ -394,6 +417,9 @@ public class NettySimpleHandler extends ChannelHandlerAdapter implements Message
 		ctx.close();
 	}
 
+	/* (non-Javadoc)
+	 * @see test.avalon.io.netty.MessageTransport#handleMessage(java.lang.Object)
+	 */
 	@Override
 	public void handleMessage(Object message)
 	{
@@ -405,6 +431,9 @@ public class NettySimpleHandler extends ChannelHandlerAdapter implements Message
 
 	}
 
+	/* (non-Javadoc)
+	 * @see test.avalon.io.netty.MessageTransport#setMessageTransport(test.avalon.io.netty.MessageTransport)
+	 */
 	@Override
 	public void setMessageTransport(MessageTransport messageTransport)
 	{}

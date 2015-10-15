@@ -362,37 +362,65 @@ import com.avalon.jmx.IoMonitorMXBean;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.PropertiesWrapper;
 
+// TODO: Auto-generated Javadoc
 /**
- * NETTY网络服务
- * 
- * @author ZERO
+ * NETTY网络服务.
  *
+ * @author ZERO
  */
 public class NettyServer implements IoMonitorMXBean, IService {
 
+	/** The logger. */
 	Logger logger = LoggerFactory.getLogger(NettyServer.class);
 
+	/** The backlog. */
 	private final int BACKLOG = 1024;
 
+	/**
+	 * Instantiates a new netty server.
+	 *
+	 * @param port the port
+	 * @param clazz the clazz
+	 */
 	public NettyServer(int port, Class<?> clazz) {
 		super();
 		this.port = port;
 		this.channelHandler = clazz;
 	}
 
+	/** The port. */
 	private final int port;
+	
+	/** The channel handler. */
 	private final Class<?> channelHandler;
 
+	/** The bootstrap. */
 	private ServerBootstrap bootstrap;
+	
+	/** The boss group. */
 	private EventLoopGroup bossGroup;
+	
+	/** The worker group. */
 	private EventLoopGroup workerGroup;
+	
+	/** The name. */
 	private String name;
+	
+	/** The boss group num. */
 	int bossGroupNum;
+	
+	/** The worker group num. */
 	int workerGroupNum;
+	
+	/** The backlog. */
 	int backlog;
 
+	/** The session num. */
 	private AtomicInteger sessionNum = new AtomicInteger(0);
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#init(java.lang.Object)
+	 */
 	@Override
 	public void init(Object object) {
 		logger.info("初始化Netty 开始");
@@ -430,11 +458,17 @@ public class NettyServer implements IoMonitorMXBean, IService {
 		logger.info("初始化Netty 线程启动");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#destroy(java.lang.Object)
+	 */
 	public void destroy(Object o) {
 		bossGroup.shutdownGracefully();
 		workerGroup.shutdownGracefully();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#handleMessage(java.lang.Object)
+	 */
 	@Override
 	public void handleMessage(Object obj) {
 		if (obj instanceof SessionOnline) {
@@ -445,21 +479,33 @@ public class NettyServer implements IoMonitorMXBean, IService {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#getName()
+	 */
 	@Override
 	public String getName() {
 		return name;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#setName(java.lang.String)
+	 */
 	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.jmx.IoMonitorMXBean#getSessionNum()
+	 */
 	@Override
 	public int getSessionNum() {
 		return sessionNum.get();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.jmx.IoMonitorMXBean#disConnect(long)
+	 */
 	@Override
 	public boolean disConnect(long sessionId) {
 		return false;

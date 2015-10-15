@@ -343,14 +343,19 @@ package com.avalon.api;
 
 import com.avalon.api.message.Packet;
 
+// TODO: Auto-generated Javadoc
 /**
- * 事件监听接口(处理自定义事件)
- * 
- * @author zero
+ * 事件监听接口(处理自定义事件).
  *
+ * @author zero
  */
 public interface IBroadcastEventLinenter {
 
+	/**
+	 * Handle event.
+	 *
+	 * @param message the message
+	 */
 	public void handleEvent(Packet message);
 	
 }

@@ -347,17 +347,37 @@ import java.io.Serializable;
 import com.avalon.game.extended.IAvalonExtendedHandler;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface AkkaEvent.
+ */
 public interface AkkaEvent extends Serializable {
 
+	/**
+	 * The Class WorldRestart.
+	 */
 	public class WorldRestart implements AkkaEvent {
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -4092811106070497832L;
 	}
 
+	/**
+	 * The Class CreateZoneManager.
+	 */
 	public class CreateZoneManager implements AkkaEvent {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -5052817758295923370L;
+		
+		/** The handler. */
 		public final IAvalonExtendedHandler handler;
 
+		/**
+		 * Instantiates a new creates the zone manager.
+		 *
+		 * @param handler the handler
+		 */
 		public CreateZoneManager(IAvalonExtendedHandler handler) {
 			super();
 			this.handler = handler;
@@ -365,11 +385,22 @@ public interface AkkaEvent extends Serializable {
 
 	}
 
+	/**
+	 * The Class CreateObjectManager.
+	 */
 	public class CreateObjectManager implements AkkaEvent {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -5052817758295923370L;
+		
+		/** The handler. */
 		public final IAvalonExtendedHandler handler;
 
+		/**
+		 * Instantiates a new creates the object manager.
+		 *
+		 * @param handler the handler
+		 */
 		public CreateObjectManager( IAvalonExtendedHandler handler) {
 			super();
 			this.handler = handler;

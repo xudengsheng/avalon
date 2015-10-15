@@ -344,11 +344,21 @@ package test.avalon.io.netty;
 import java.io.IOException;
 import java.util.Scanner;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NettyClientConsole.
+ */
 public class NettyClientConsole implements MessageTransport {
 
+	/** The transport. */
 	private MessageTransport transport;
+	
+	/** The netty simple client. */
 	private NettySimpleClient nettySimpleClient;
 
+	/* (non-Javadoc)
+	 * @see test.avalon.io.netty.MessageTransport#handleMessage(java.lang.Object)
+	 */
 	@Override
 	public void handleMessage(Object message)
 	{
@@ -378,6 +388,11 @@ public class NettyClientConsole implements MessageTransport {
 
 	}
 
+	/**
+	 * Start client.
+	 *
+	 * @param message the message
+	 */
 	private void startClient(Object message)
 	{
 		nettySimpleClient = new NettySimpleClient();
@@ -390,12 +405,21 @@ public class NettyClientConsole implements MessageTransport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see test.avalon.io.netty.MessageTransport#setMessageTransport(test.avalon.io.netty.MessageTransport)
+	 */
 	@Override
 	public void setMessageTransport(MessageTransport messageTransport)
 	{
 		this.transport = messageTransport;
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void main(String[] args) throws IOException
 	{
 		NettyClientConsole clientConsole = new NettyClientConsole();

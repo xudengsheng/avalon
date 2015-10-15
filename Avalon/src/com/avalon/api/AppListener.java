@@ -343,28 +343,32 @@ package com.avalon.api;
 
 import akka.actor.ActorRef;
 
+// TODO: Auto-generated Javadoc
 /**
- * 游戏应用登入的入口
- * 
+ * 游戏应用登入的入口.
+ *
  * @author ZERO
- * 
  */
 public interface AppListener {
+	
 	/**
-	 * 初始化上层游戏逻辑服务器相关
-	 * 
-	 * @param props
+	 * 初始化上层游戏逻辑服务器相关.
+	 *
+	 * @return true, if successful
 	 */
 	boolean initialize();
+	
 	/**
-	 * 新的会话登入
-	 * @param actorSessionpath
+	 * 新的会话登入.
+	 *
+	 * @param ref the ref
 	 */
 	void actorLogin(ActorRef ref);
 	
 	/**
-	 * 会话失去网络连接
-	 * @param actorSessionpath
+	 * 会话失去网络连接.
+	 *
+	 * @param actorSessionpath the actor sessionpath
 	 */
 	void actorDisconnect(String actorSessionpath);
 }

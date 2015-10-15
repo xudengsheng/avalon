@@ -354,52 +354,90 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.japi.Creator;
 
+// TODO: Auto-generated Javadoc
 /**
- * 顶级世界
- * 
- * @author zero
+ * 顶级世界.
  *
+ * @author zero
  */
 public class AvalonWorld extends UntypedActor {
 
+	/** The Constant IDENTITY. */
 	public static final String IDENTITY = AvalonWorld.class.getSimpleName();
+	
+	/** The Constant ZONE_IDENTITY. */
 	public static final String ZONE_IDENTITY = "World_Zone";
+	
+	/** The Constant OBJECT_MASTER_IDENTITY. */
 	public static final String OBJECT_MASTER_IDENTITY = "World_Object_Master";
+	
+	/** The zone ref. */
 	public static ActorRef zoneRef;
+	
+	/** The object ref. */
 	public static ActorRef objectRef;
 
+	/** The avalon world. */
 	public static ActorRef avalonWorld;
 
+	/**
+	 * The Class selfCreator.
+	 */
 	static class selfCreator implements Creator<AvalonWorld> {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -4506944735716145059L;
 
+		/** The extended. */
 		private final IAvalonExtendedControl extended;
 
+		/**
+		 * Instantiates a new self creator.
+		 *
+		 * @param extended the extended
+		 */
 		public selfCreator(IAvalonExtendedControl extended) {
 			super();
 			this.extended = extended;
 		}
 
+		/* (non-Javadoc)
+		 * @see akka.japi.Creator#create()
+		 */
 		@Override
 		public AvalonWorld create() throws Exception {
 			return new AvalonWorld(extended);
 		}
 	}
 
+	/**
+	 * Props.
+	 *
+	 * @param extended the extended
+	 * @return the props
+	 */
 	public static Props props(IAvalonExtendedControl extended) {
 		Props create = Props.create(new selfCreator(extended));
 		create.withDispatcher("session-default-dispatcher");
 		return create;
 	}
 
+	/**
+	 * Instantiates a new avalon world.
+	 *
+	 * @param extended the extended
+	 */
 	public AvalonWorld(IAvalonExtendedControl extended) {
 		super();
 		this.extended = extended;
 	}
 
+	/** The extended. */
 	private final IAvalonExtendedControl extended;
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object message) throws Exception {
 
@@ -421,6 +459,9 @@ public class AvalonWorld extends UntypedActor {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#postRestart(java.lang.Throwable)
+	 */
 	@Override
 	public void postRestart(Throwable reason) throws Exception {
 		super.postRestart(reason);
@@ -433,12 +474,18 @@ public class AvalonWorld extends UntypedActor {
 		extended.actorExtendedRestart();
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#postStop()
+	 */
 	@Override
 	public void postStop() throws Exception {
 		super.postStop();
 		extended.actorExtendedStop();
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#preStart()
+	 */
 	@Override
 	public void preStart() throws Exception {
 		super.preStart();

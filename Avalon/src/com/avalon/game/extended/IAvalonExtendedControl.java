@@ -343,23 +343,30 @@ package com.avalon.game.extended;
 
 
 import akka.actor.UntypedActor;
+// TODO: Auto-generated Javadoc
+
 /**
- * 扩展接口
- * @author zero
+ * 扩展接口.
  *
+ * @author zero
  */
 public interface IAvalonExtendedControl extends IAvalonExtendedHandler{
+	
 	/**
-	 * 启动初始化的时候
-	 * @param self 
+	 * 启动初始化的时候.
+	 *
+	 * @param self the self
+	 * @param args the args
 	 */
 	void actorExtendedStart(UntypedActor self,Object... args);
+	
 	/**
-	 * 游戏世界关闭
+	 * 游戏世界关闭.
 	 */
 	void actorExtendedStop();
+	
 	/**
-	 * 从新启动
+	 * 从新启动.
 	 */
 	void actorExtendedRestart();
 

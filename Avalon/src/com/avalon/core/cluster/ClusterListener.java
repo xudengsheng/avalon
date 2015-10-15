@@ -362,18 +362,24 @@ import com.avalon.core.message.GameEngineMessage.CheckNodeInfo;
 import com.avalon.core.message.GameServerSupervisorMessage;
 import com.avalon.setting.AvalonServerMode;
 
+// TODO: Auto-generated Javadoc
 /**
- * 集群监听 (理论上说只是监听)
- * 
- * @author ZERO
+ * 集群监听 (理论上说只是监听).
  *
+ * @author ZERO
  */
 public class ClusterListener extends UntypedActor {
 
+	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+	
+	/** The cluster. */
 	Cluster cluster = Cluster.get(getContext().system());
 
 	// 订阅集群改变
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#preStart()
+	 */
 	@Override
 	public void preStart()
 	{
@@ -381,12 +387,18 @@ public class ClusterListener extends UntypedActor {
 	}
 
 	// 自己或者集群关闭
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#postStop()
+	 */
 	@Override
 	public void postStop()
 	{
 		cluster.unsubscribe(getSelf());
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object message)
 	{

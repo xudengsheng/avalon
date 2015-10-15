@@ -350,21 +350,39 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.japi.Creator;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AvalonObjectManager.
+ */
 public class AvalonObjectManager extends UntypedActor {
 
+	/** The Constant IDENTITY. */
 	public static final String IDENTITY = AvalonObjectManager.class.getSimpleName();
 
+	/**
+	 * The Class selfCreator.
+	 */
 	static class selfCreator implements Creator<AvalonObjectManager> {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -4506944735716145059L;
 
+		/** The custom message handler. */
 		private final IAvalonExtendedControl customMessageHandler;
 
+		/**
+		 * Instantiates a new self creator.
+		 *
+		 * @param extendedControl the extended control
+		 */
 		public selfCreator(IAvalonExtendedControl extendedControl) {
 			super();
 			this.customMessageHandler = extendedControl;
 		}
 
+		/* (non-Javadoc)
+		 * @see akka.japi.Creator#create()
+		 */
 		@Override
 		public AvalonObjectManager create() throws Exception {
 			return new AvalonObjectManager(customMessageHandler);
@@ -372,37 +390,61 @@ public class AvalonObjectManager extends UntypedActor {
 
 	}
 
+	/**
+	 * Props.
+	 *
+	 * @param extendedControl the extended control
+	 * @return the props
+	 */
 	public static Props props(IAvalonExtendedControl extendedControl) {
 		Props create = Props.create(new selfCreator(extendedControl));
 		create.withDispatcher("session-default-dispatcher");
 		return create;
 	}
 
+	/**
+	 * Instantiates a new avalon object manager.
+	 *
+	 * @param extendedControl the extended control
+	 */
 	public AvalonObjectManager(IAvalonExtendedControl extendedControl) {
 		super();
 		this.extendedControl = extendedControl;
 	}
 
+	/** The extended control. */
 	private final IAvalonExtendedControl extendedControl;
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#postStop()
+	 */
 	@Override
 	public void postStop() throws Exception {
 		super.postStop();
 		extendedControl.actorExtendedStop();
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#preRestart(java.lang.Throwable, scala.Option)
+	 */
 	@Override
 	public void preRestart(Throwable reason, Option<Object> message) throws Exception {
 		super.preRestart(reason, message);
 		extendedControl.actorExtendedRestart();
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#preStart()
+	 */
 	@Override
 	public void preStart() throws Exception {
 		super.preStart();
 		extendedControl.actorExtendedStart(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object message) throws Exception {
 		if (message instanceof ExtendedMessage) {

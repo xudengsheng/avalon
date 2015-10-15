@@ -354,31 +354,40 @@ import com.avalon.api.internal.IService;
 import com.google.common.collect.Sets;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * 组件管理器的基本实现
- * 
+ * 组件管理器的基本实现.
+ *
  * @author ZERO
- * 
  */
 public class ComponentRegistryImpl implements ComponentRegistry {
 
+	/** The logger. */
 	private Logger logger = LoggerFactory.getLogger(getClass());
-	/**
-	 * 存放组件
-	 */
+	
+	/** 存放组件. */
 	private LinkedHashSet<IService> componentSet;
 
+	/**
+	 * Instantiates a new component registry impl.
+	 */
 	public ComponentRegistryImpl()
 	{
 		componentSet = Sets.newLinkedHashSet();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Iterable#iterator()
+	 */
 	@Override
 	public Iterator<IService> iterator()
 	{
 		return Collections.unmodifiableSet(componentSet).iterator();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.ComponentRegistry#getComponent(java.lang.Class)
+	 */
 	@Override
 	public <T> T getComponent(Class<T> type)
 	{
@@ -405,6 +414,11 @@ public class ComponentRegistryImpl implements ComponentRegistry {
 		return type.cast(matchComponent);
 	}
 
+	/**
+	 * Adds the component.
+	 *
+	 * @param component the component
+	 */
 	public void addComponent(IService component)
 	{
 		componentSet.add(component);

@@ -387,7 +387,7 @@ public class ClientExtensionFilterChain implements IFilterChain {
 
 	}
 
-	public FilterAction runRequestInChain(int requestId, ClientExtension player, Object params) {
+	public FilterAction runRequestInChain(int requestId, ClientExtension clientExtension, Object params) {
 		FilterAction filterAction = FilterAction.CONTINUE;
 		for (Iterator<ClientExtensionFilter> iterator = filters.iterator(); iterator.hasNext();) {
 			ClientExtensionFilter filter = iterator.next();

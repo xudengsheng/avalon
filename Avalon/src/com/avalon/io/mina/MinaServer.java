@@ -360,10 +360,21 @@ import com.avalon.io.mina.fliter.DataCodecFactory;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.PropertiesWrapper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MinaServer.
+ */
 public class MinaServer implements IService {
 
+	/** The logger. */
 	protected Logger logger = LoggerFactory.getLogger(MinaServer.class);
 
+	/**
+	 * Instantiates a new mina server.
+	 *
+	 * @param port the port
+	 * @param handler the handler
+	 */
 	public MinaServer(int port, IoHandler handler)
 	{
 		super();
@@ -372,6 +383,13 @@ public class MinaServer implements IService {
 		this.codec = new ProtocolCodecFilter(new DataCodecFactory());
 	}
 
+	/**
+	 * Instantiates a new mina server.
+	 *
+	 * @param port the port
+	 * @param handler the handler
+	 * @param protocolCodecFilter the protocol codec filter
+	 */
 	public MinaServer(int port, IoHandler handler, ProtocolCodecFilter protocolCodecFilter)
 	{
 		super();
@@ -381,12 +399,24 @@ public class MinaServer implements IService {
 
 	}
 
+	/** The port. */
 	private final int port;
+	
+	/** The handler. */
 	private final IoHandler handler;
+	
+	/** The codec. */
 	private IoFilter codec;
+	
+	/** The acceptor. */
 	private IoAcceptor acceptor;
+	
+	/** The name. */
 	private String name;
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#init(java.lang.Object)
+	 */
 	@Override
 	public void init(Object object)
 	{
@@ -413,6 +443,9 @@ public class MinaServer implements IService {
 		logger.info(getClass().getName() + ":Start");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#destroy(java.lang.Object)
+	 */
 	@Override
 	public void destroy(Object o)
 	{
@@ -420,6 +453,9 @@ public class MinaServer implements IService {
 		logger.info(getClass().getName() + ":Stop");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#handleMessage(java.lang.Object)
+	 */
 	@Override
 	public void handleMessage(Object obj)
 	{
@@ -427,12 +463,18 @@ public class MinaServer implements IService {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#getName()
+	 */
 	@Override
 	public String getName()
 	{
 		return name;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#setName(java.lang.String)
+	 */
 	@Override
 	public void setName(String name)
 	{

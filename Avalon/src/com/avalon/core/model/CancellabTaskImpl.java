@@ -343,15 +343,28 @@ package com.avalon.core.model;
 
 import com.avalon.api.CancellableTask;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CancellabTaskImpl.
+ */
 public class CancellabTaskImpl implements CancellableTask {
 
+	/** The uuid. */
 	public String UUID;
 
+	/**
+	 * Instantiates a new cancellab task impl.
+	 *
+	 * @param string the string
+	 */
 	public CancellabTaskImpl(String string)
 	{
 		this.UUID = string;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.CancellableTask#cancel()
+	 */
 	@Override
 	public void cancel()
 	{

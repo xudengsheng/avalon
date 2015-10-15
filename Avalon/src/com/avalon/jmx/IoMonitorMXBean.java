@@ -341,15 +341,26 @@ Public License instead of this License.
  */
 package com.avalon.jmx;
 
+// TODO: Auto-generated Javadoc
 /**
- * 网络监控
- * 
- * @author ZERO
+ * 网络监控.
  *
+ * @author ZERO
  */
 public interface IoMonitorMXBean {
 	
+	/**
+	 * Gets the session num.
+	 *
+	 * @return the session num
+	 */
 	public int getSessionNum();
 
+	/**
+	 * Dis connect.
+	 *
+	 * @param sessionId the session id
+	 * @return true, if successful
+	 */
 	public boolean disConnect(long sessionId);
 }

@@ -356,7 +356,7 @@ public interface IFilterChain {
 	 * @param filterName
 	 * @param aLawsExtensionFilter
 	 */
-	public void addFilter(int filterId, ClientExtensionFilter aLawsExtensionFilter);
+	public void addFilter(int filterId, ClientExtensionFilter clientExtensionFilter);
 
 	/**
 	 * 

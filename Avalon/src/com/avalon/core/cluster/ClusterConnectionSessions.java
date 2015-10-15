@@ -352,18 +352,23 @@ import com.avalon.core.command.ConnectionSessionsProtocol;
 import com.avalon.core.message.ConnectionSessionSupervisorMessage;
 import com.avalon.core.message.GameServerSupervisorMessage.DistributionCluserSessionMessage;
 
+// TODO: Auto-generated Javadoc
 /**
- * 集群网络会话，处理分布信息
- * 
- * @author ZERO
+ * 集群网络会话，处理分布信息.
  *
+ * @author ZERO
  */
 public class ClusterConnectionSessions extends UntypedPersistentActor {
 
+	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
+	/** The Constant shardName. */
 	public final static String shardName = "ClusterConnectionSessions";
 
+	/* (non-Javadoc)
+	 * @see akka.persistence.UntypedPersistentActor#onReceiveRecover(java.lang.Object)
+	 */
 	@Override
 	public void onReceiveRecover(Object msg)
 	{
@@ -386,6 +391,9 @@ public class ClusterConnectionSessions extends UntypedPersistentActor {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.persistence.UntypedPersistentActor#onReceiveCommand(java.lang.Object)
+	 */
 	@Override
 	public void onReceiveCommand(Object msg)
 	{
@@ -407,6 +415,9 @@ public class ClusterConnectionSessions extends UntypedPersistentActor {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.persistence.PersistenceIdentity#persistenceId()
+	 */
 	@Override
 	public String persistenceId()
 	{

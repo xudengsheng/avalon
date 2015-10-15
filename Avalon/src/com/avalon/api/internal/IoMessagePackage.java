@@ -342,21 +342,26 @@ Public License instead of this License.
 package com.avalon.api.internal;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * 网络封包 获取操作码及数据内容
- * 
- * @author ZERO
+ * 网络封包 获取操作码及数据内容.
  *
+ * @author ZERO
  */
 public interface IoMessagePackage extends IoMessage {
+	
 	/**
-	 * 获取操作码
-	 * @return
+	 * 获取操作码.
+	 *
+	 * @return the op code
 	 */
 	public int getOpCode();
-	/***
-	 * 获得元数据
-	 * @return
+	
+	/**
+	 * *
+	 * 获得元数据.
+	 *
+	 * @return the raw data
 	 */
 	public byte[] getRawData();
 

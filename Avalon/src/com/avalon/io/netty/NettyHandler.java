@@ -360,22 +360,37 @@ import com.avalon.io.message.NetWorkMessage;
 import com.avalon.util.MessageHead;
 import com.google.common.collect.Queues;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NettyHandler.
+ */
 @Sharable
 public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 
+	/** The logger. */
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	// Channel上下文
+	/** The ctx. */
 	private ChannelHandlerContext ctx;
 	// 是否绑定TransportActor
+	/** The binding transport actor. */
 	private boolean bindingTransportActor = false;
 	// 绑定TransportActor,不是连接的ConnectionSession
+	/** The transport actor call back. */
 	private ActorCallBack transportActorCallBack;
 
+	/** The component. */
 	static AvalonProxy component = ContextResolver.getComponent(AvalonProxy.class);
+	
+	/** The netty server. */
 	static NettyServer nettyServer = ContextResolver.getComponent(NettyServer.class);
 
+	/** The no process message. */
 	private Queue<Object> noProcessMessage = Queues.newLinkedBlockingDeque();
 
+	/* (non-Javadoc)
+	 * @see io.netty.channel.ChannelHandlerAdapter#handlerRemoved(io.netty.channel.ChannelHandlerContext)
+	 */
 	@Override
 	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception
 	{
@@ -389,6 +404,9 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see io.netty.channel.ChannelHandlerAdapter#channelRegistered(io.netty.channel.ChannelHandlerContext)
+	 */
 	@Override
 	public void channelRegistered(ChannelHandlerContext ctx) throws Exception
 	{
@@ -406,6 +424,9 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see io.netty.channel.ChannelHandlerAdapter#channelReadComplete(io.netty.channel.ChannelHandlerContext)
+	 */
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx)
 	{
@@ -413,7 +434,11 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	}
 
 	/**
-	 * 这里的msg是MessagePack
+	 * 这里的msg是MessagePack.
+	 *
+	 * @param ctx the ctx
+	 * @param msg the msg
+	 * @throws Exception the exception
 	 */
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception
@@ -428,12 +453,20 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 		}
 	}
 
+	/**
+	 * Send message to transport.
+	 *
+	 * @param msg the msg
+	 */
 	private void sendMessageToTransport(Object msg)
 	{
 		IoMessagePackage ioMessagePackage = (IoMessagePackage) msg;
 		transportActorCallBack.tellMessage(ioMessagePackage);
 	}
 
+	/* (non-Javadoc)
+	 * @see io.netty.channel.ChannelHandlerAdapter#exceptionCaught(io.netty.channel.ChannelHandlerContext, java.lang.Throwable)
+	 */
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 	{
@@ -441,6 +474,9 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 		ctx.close();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.IoSession#write(java.lang.Object)
+	 */
 	@Override
 	public void write(Object msg)
 	{
@@ -452,12 +488,18 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.IoSession#isConnection()
+	 */
 	@Override
 	public boolean isConnection()
 	{
 		return ctx.channel().isActive();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.IoSession#close()
+	 */
 	@Override
 	public void close()
 	{
@@ -468,6 +510,9 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.IoSession#setSesssionActorCallBack(com.avalon.api.internal.ActorCallBack)
+	 */
 	@Override
 	public void setSesssionActorCallBack(ActorCallBack actorCallBack)
 	{

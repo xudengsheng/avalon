@@ -349,13 +349,20 @@ import java.util.List;
 
 import jodd.props.Props;
 
+// TODO: Auto-generated Javadoc
 /**
- * 配置文件读取包装器
+ * 配置文件读取包装器.
  */
 public class PropertiesWrapper {
 
+	/** The properties. */
 	private final Props properties;
 
+	/**
+	 * Instantiates a new properties wrapper.
+	 *
+	 * @param properties the properties
+	 */
 	public PropertiesWrapper(Props properties)
 	{
 		if (properties == null)
@@ -365,28 +372,60 @@ public class PropertiesWrapper {
 		this.properties = properties;
 	}
 
+	/**
+	 * Gets the properties.
+	 *
+	 * @return the properties
+	 */
 	public Props getProperties()
 	{
 		return properties;
 	}
 
+	/**
+	 * Gets the property.
+	 *
+	 * @param name the name
+	 * @return the property
+	 */
 	public String getProperty(String name)
 	{
 		return properties.getValue(name);
 	}
 
+	/**
+	 * Gets the property.
+	 *
+	 * @param name the name
+	 * @param defaultValue the default value
+	 * @return the property
+	 */
 	public String getProperty(String name, String defaultValue)
 	{
 		String value = properties.getValue(name);
 		return value == null ? defaultValue : value;
 	}
 
+	/**
+	 * Gets the boolean property.
+	 *
+	 * @param name the name
+	 * @param defaultValue the default value
+	 * @return the boolean property
+	 */
 	public boolean getBooleanProperty(String name, boolean defaultValue)
 	{
 		String value = properties.getValue(name);
 		return value == null ? defaultValue : Boolean.valueOf(value);
 	}
 
+	/**
+	 * Gets the int property.
+	 *
+	 * @param name the name
+	 * @param defaultValue the default value
+	 * @return the int property
+	 */
 	public int getIntProperty(String name, int defaultValue)
 	{
 		String value = properties.getValue(name);
@@ -404,6 +443,12 @@ public class PropertiesWrapper {
 		}
 	}
 
+	/**
+	 * Gets the required int property.
+	 *
+	 * @param name the name
+	 * @return the required int property
+	 */
 	public int getRequiredIntProperty(String name)
 	{
 		String value = properties.getValue(name);
@@ -421,6 +466,15 @@ public class PropertiesWrapper {
 		}
 	}
 
+	/**
+	 * Gets the int property.
+	 *
+	 * @param name the name
+	 * @param defaultValue the default value
+	 * @param min the min
+	 * @param max the max
+	 * @return the int property
+	 */
 	public int getIntProperty(String name, int defaultValue, int min, int max)
 	{
 		if (min > max)
@@ -443,6 +497,14 @@ public class PropertiesWrapper {
 		return result;
 	}
 
+	/**
+	 * Gets the required int property.
+	 *
+	 * @param name the name
+	 * @param min the min
+	 * @param max the max
+	 * @return the required int property
+	 */
 	public int getRequiredIntProperty(String name, int min, int max)
 	{
 		if (min > max)
@@ -462,6 +524,13 @@ public class PropertiesWrapper {
 		return result;
 	}
 
+	/**
+	 * Gets the long property.
+	 *
+	 * @param name the name
+	 * @param defaultValue the default value
+	 * @return the long property
+	 */
 	public long getLongProperty(String name, long defaultValue)
 	{
 		String value = properties.getValue(name);
@@ -479,6 +548,15 @@ public class PropertiesWrapper {
 		}
 	}
 
+	/**
+	 * Gets the long property.
+	 *
+	 * @param name the name
+	 * @param defaultValue the default value
+	 * @param min the min
+	 * @param max the max
+	 * @return the long property
+	 */
 	public long getLongProperty(String name, long defaultValue, long min, long max)
 	{
 		if (min > max)
@@ -501,6 +579,16 @@ public class PropertiesWrapper {
 		return result;
 	}
 
+	/**
+	 * Gets the class instance property.
+	 *
+	 * @param <T> the generic type
+	 * @param name the name
+	 * @param type the type
+	 * @param paramTypes the param types
+	 * @param args the args
+	 * @return the class instance property
+	 */
 	public <T> T getClassInstanceProperty(String name, Class<T> type, Class<?>[] paramTypes, Object... args)
 	{
 		String className = properties.getValue(name);
@@ -511,6 +599,17 @@ public class PropertiesWrapper {
 		return getClassInstance(name, className, type, paramTypes, args);
 	}
 
+	/**
+	 * Gets the class instance property.
+	 *
+	 * @param <T> the generic type
+	 * @param name the name
+	 * @param defaultClass the default class
+	 * @param type the type
+	 * @param paramTypes the param types
+	 * @param args the args
+	 * @return the class instance property
+	 */
 	@SuppressWarnings("unchecked")
 	public <T> T getClassInstanceProperty(String name, String defaultClass, Class<T> type, Class<?>[] paramTypes,
 			Object... args)
@@ -528,6 +627,17 @@ public class PropertiesWrapper {
 		return getClassInstance(name, defaultClass, type, paramTypes, args);
 	}
 
+	/**
+	 * Gets the class instance.
+	 *
+	 * @param <T> the generic type
+	 * @param name the name
+	 * @param className the class name
+	 * @param type the type
+	 * @param paramTypes the param types
+	 * @param args the args
+	 * @return the class instance
+	 */
 	private <T> T getClassInstance(String name, String className, Class<T> type, Class<?>[] paramTypes, Object... args)
 	{
 		if (className == null)
@@ -582,18 +692,25 @@ public class PropertiesWrapper {
 		}
 	}
 
+	/**
+	 * Gets the property text.
+	 *
+	 * @param name the name
+	 * @return the property text
+	 */
 	private String getPropertyText(String name)
 	{
 		return name != null ? ", specified by the property: " + name + "," : "";
 	}
 
 	/**
-	 * 以冒号为分隔符
-	 * 
-	 * @param modeName
-	 * @param type
-	 * @param defaultElement
-	 * @return
+	 * 以冒号为分隔符.
+	 *
+	 * @param <T> the generic type
+	 * @param name the name
+	 * @param type the type
+	 * @param defaultElement the default element
+	 * @return the list property
 	 */
 	public <T> List<T> getListProperty(String name, Class<T> type, T defaultElement)
 	{
@@ -640,6 +757,15 @@ public class PropertiesWrapper {
 		return list;
 	}
 
+	/**
+	 * Gets the enum list property.
+	 *
+	 * @param <T> the generic type
+	 * @param name the name
+	 * @param enumType the enum type
+	 * @param defaultElement the default element
+	 * @return the enum list property
+	 */
 	public <T extends Enum<T>> List<T> getEnumListProperty(String name, Class<T> enumType, T defaultElement)
 	{
 		checkNull("modeName", name);
@@ -674,6 +800,12 @@ public class PropertiesWrapper {
 		return list;
 	}
 
+	/**
+	 * Gets the class list property.
+	 *
+	 * @param name the name
+	 * @return the class list property
+	 */
 	public List<Class<?>> getClassListProperty(String name)
 	{
 		checkNull("modeName", name);
@@ -707,6 +839,12 @@ public class PropertiesWrapper {
 		return list;
 	}
 
+	/**
+	 * Check null.
+	 *
+	 * @param variableName the variable name
+	 * @param value the value
+	 */
 	public static void checkNull(String variableName, Object value)
 	{
 		if (value == null)

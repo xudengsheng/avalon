@@ -348,19 +348,26 @@ import akka.cluster.pubsub.DistributedPubSubMediator;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
+// TODO: Auto-generated Javadoc
 /**
- * 传输管理中心订阅器
- * 
- * @author zero
+ * 传输管理中心订阅器.
  *
+ * @author zero
  */
 public class ConnectionSessionSupervisorTopic extends UntypedActor {
 
+	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
+	/** The mediator. */
 	ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
+	
+	/** The Constant shardName. */
 	public static final String shardName = "CONNECTION_SESSION_SUPERVISOR_TOPIC";
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object msg) throws Exception
 	{

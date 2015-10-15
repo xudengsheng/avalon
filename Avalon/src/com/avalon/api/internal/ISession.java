@@ -341,36 +341,37 @@ Public License instead of this License.
  */
 package com.avalon.api.internal;
 
+// TODO: Auto-generated Javadoc
 /**
- * 网络会话
- * 
- * @author ZERO
+ * 网络会话.
  *
+ * @author ZERO
  */
 public interface ISession {
+	
 	/**
-	 * 获得会话连接唯一ID
-	 * 
-	 * @return
+	 * 获得会话连接唯一ID.
+	 *
+	 * @return the session id
 	 */
 	long getSessionId();
 
 	/**
-	 * 数据写入
-	 * 
-	 * @param msg
+	 * 数据写入.
+	 *
+	 * @param msg the msg
 	 */
 	void write(Object msg);
 
 	/**
-	 * 连接是否正常
-	 * 
-	 * @return
+	 * 连接是否正常.
+	 *
+	 * @return true, if is connection
 	 */
 	boolean isConnection();
 
 	/**
-	 * 关闭连接
+	 * 关闭连接.
 	 */
 	void close();
 }

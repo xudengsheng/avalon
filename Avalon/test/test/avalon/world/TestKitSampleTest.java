@@ -352,11 +352,23 @@ import akka.actor.UntypedActor;
 import akka.testkit.JavaTestKit;
 import scala.concurrent.duration.Duration;
  
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestKitSampleTest.
+ */
 public class TestKitSampleTest {
   
+  /**
+   * The Class SomeActor.
+   */
   public static class SomeActor extends UntypedActor {
+    
+    /** The target. */
     ActorRef target = null;
     
+    /* (non-Javadoc)
+     * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+     */
     public void onReceive(Object msg) {
     
       if (msg.equals("hello")) {
@@ -370,19 +382,29 @@ public class TestKitSampleTest {
     }
   }
   
+  /** The system. */
   static ActorSystem system;
   
+  /**
+   * Setup.
+   */
   @BeforeClass
   public static void setup() {
     system = ActorSystem.create();
   }
   
+  /**
+   * Teardown.
+   */
   @AfterClass
   public static void teardown() {
     JavaTestKit.shutdownActorSystem(system);
     system = null;
   }
  
+  /**
+   * Test it.
+   */
   @Test
   public void testIt() {
     /*

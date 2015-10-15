@@ -343,16 +343,34 @@ package com.avalon.api.message;
 
 import com.alibaba.fastjson.JSON;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class JsonMessagePacket.
+ */
 public abstract class JsonMessagePacket implements Packet {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7983382200652497855L;
 
+	/**
+	 * Gets the code id.
+	 *
+	 * @return the code id
+	 */
 	public abstract int getCodeId();
 
+	/**
+	 * To json message packet.
+	 *
+	 * @return the string
+	 */
 	public String toJsonMessagePacket() {
 		return JSON.toJSONString(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.message.Packet#getPacketType()
+	 */
 	@Override
 	public Byte getPacketType() {
 		return Packet.JSON_TYPE;

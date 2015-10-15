@@ -343,6 +343,7 @@ package com.avalon.extensions.request;
 
 import akka.protobuf.InvalidProtocolBufferException;
 
+import com.avalon.api.ClientSessionLinenter;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.extensions.request.filter.ClientExtensionFilter;
 import com.avalon.extensions.request.filter.FilterAction;
@@ -386,7 +387,7 @@ public abstract class ClientExtension {
 		handlerFactory.clearAll();
 	}
 
-	public IoMessagePackage handleClientRequest(int requestId, byte[] params) {
+	public IoMessagePackage handleClientRequest(ClientSessionLinenter clientSessionLinenter,int requestId, byte[] params) {
 		if (filterChain.size() > 0 && filterChain.runRequestInChain(requestId, this, params) == FilterAction.HALT) {
 			return null;
 		}

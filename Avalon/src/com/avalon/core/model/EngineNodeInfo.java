@@ -345,23 +345,21 @@ import akka.cluster.Member;
 
 import com.avalon.setting.AvalonServerMode;
 
+// TODO: Auto-generated Javadoc
 /**
- * 节点信息
- * @author zero
+ * 节点信息.
  *
+ * @author zero
  */
 public class EngineNodeInfo {
-	/**
-	 * 节点唯一的UUID
-	 */
+	
+	/** 节点唯一的UUID. */
 	public String engineUUID;
-	/**
-	 * 节点的网络信息
-	 */
+	
+	/** 节点的网络信息. */
 	public	Member member;
-	/**
-	 * 节点的服务模式
-	 */
+	
+	/** 节点的服务模式. */
 	public AvalonServerMode serverMode=AvalonServerMode.UNKNOW;
 	
 }

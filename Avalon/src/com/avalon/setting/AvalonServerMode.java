@@ -342,36 +342,50 @@ Public License instead of this License.
 package com.avalon.setting;
 
 import java.util.EnumSet;
+// TODO: Auto-generated Javadoc
+
 /**
- * 服务器状态的枚举
- * @author zero
+ * 服务器状态的枚举.
  *
+ * @author zero
  */
 public enum AvalonServerMode
 {
+	
+	/** The unknow. */
 	UNKNOW("UNKNOW"),
-	/**
-	 * 单服务器模式
-	 */
+	
+	/** 单服务器模式. */
 	SERVER_TYPE_SINGLE("SINGLE"),
-	/**
-	 * 逻辑服务器模式
-	 */
+	
+	/** 逻辑服务器模式. */
 	SERVER_TYPE_GAME("GAME"),
-	/**
-	 * 网关服务器模式
-	 */
+	
+	/** 网关服务器模式. */
 	SERVER_TYPE_GATE("GATE");
 
+	/** The enums. */
 	public static EnumSet<AvalonServerMode> enums = EnumSet.allOf(AvalonServerMode.class);
 
+	/**
+	 * Instantiates a new avalon server mode.
+	 *
+	 * @param name the name
+	 */
 	private AvalonServerMode(String name)
 	{
 		this.modeName = name;
 	}
 
+	/** The mode name. */
 	public final String modeName;
 
+	/**
+	 * Gets the sever mode.
+	 *
+	 * @param modelName the model name
+	 * @return the sever mode
+	 */
 	public static AvalonServerMode getSeverMode(String modelName)
 	{
 		for (AvalonServerMode iterable_element : enums)

@@ -343,14 +343,17 @@ package com.avalon.game.extended;
 
 import akka.actor.ActorRef;
 
+// TODO: Auto-generated Javadoc
 /**
- * 用户处理自己的定义的消息的
- * @author zero
+ * 用户处理自己的定义的消息的.
  *
+ * @author zero
  */
 public interface IAvalonExtendedHandler {
+	
 	/**
-	 * 处理用户自定义消息
+	 * 处理用户自定义消息.
+	 *
 	 * @param self      收到消息的Actor
 	 * @param sender    发送消息的Actor
 	 * @param message   用户自己定义的消息

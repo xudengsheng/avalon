@@ -343,14 +343,25 @@ package com.avalon.api;
 
 import com.avalon.setting.AvalonServerMode;
 
+// TODO: Auto-generated Javadoc
 /**
- * 获取系统信息
- * @author zero
+ * 获取系统信息.
  *
+ * @author zero
  */
 public interface SystemInformation {
 
+	/**
+	 * Gets the server mode.
+	 *
+	 * @return the server mode
+	 */
 	public AvalonServerMode getServerMode();
 	
+	/**
+	 * Gets the server id.
+	 *
+	 * @return the server id
+	 */
 	public int getServerId();
 }

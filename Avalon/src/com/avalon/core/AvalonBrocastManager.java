@@ -346,32 +346,56 @@ import com.avalon.api.internal.IService;
 import com.avalon.api.message.Packet;
 import com.avalon.core.message.AvalonMessageEvent;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AvalonBrocastManager.
+ */
 public class AvalonBrocastManager implements IService, IBroadcastManager {
+	
+	/** The component. */
 	AvalonProxy component;
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#init(java.lang.Object)
+	 */
 	@Override
 	public void init(Object obj) {
 		component = ContextResolver.getComponent(AvalonProxy.class);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#destroy(java.lang.Object)
+	 */
 	@Override
 	public void destroy(Object obj) {}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#handleMessage(java.lang.Object)
+	 */
 	@Override
 	public void handleMessage(Object obj) {
 		throw new IllegalAccessError();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#getName()
+	 */
 	@Override
 	public String getName() {
 		return "AvalonBrocastManager";
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#setName(java.lang.String)
+	 */
 	@Override
 	public void setName(String name) {
 		throw new IllegalAccessError();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.IBroadcastManager#broadcastTransport(com.avalon.api.message.Packet)
+	 */
 	@Override
 	public void broadcastTransport(Packet message) {
 		AvalonMessageEvent.BrocastPacket msg = new AvalonMessageEvent.BrocastPacket(
@@ -380,6 +404,9 @@ public class AvalonBrocastManager implements IService, IBroadcastManager {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.IBroadcastManager#broadcastConnectionSession(com.avalon.api.message.Packet)
+	 */
 	@Override
 	public void broadcastConnectionSession(Packet message) {
 		AvalonMessageEvent.BrocastPacket msg = new AvalonMessageEvent.BrocastPacket(

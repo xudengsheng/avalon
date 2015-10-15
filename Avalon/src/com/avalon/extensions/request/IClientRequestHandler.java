@@ -354,6 +354,6 @@ import akka.protobuf.InvalidProtocolBufferException;
  */
 public interface IClientRequestHandler {
 
-	public IoMessagePackage handleClientRequest(Object player, Object message) throws InvalidProtocolBufferException;
+	public IoMessagePackage handleClientRequest(Object listener, Object message) throws InvalidProtocolBufferException;
 
 }

@@ -347,14 +347,15 @@ import com.avalon.api.internal.IoMessage;
 import com.avalon.api.internal.IoMessagePackage;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * 管理网络层的数据完整度，不包含具体操作码
- * 
- * @author zero
+ * 管理网络层的数据完整度，不包含具体操作码.
  *
+ * @author zero
  */
 public class MessageHead implements IoMessage {
 
+	/** The raw data. */
 	private byte[] rawData;
 
 //	public MessageHead(IoBuffer buffer)
@@ -365,7 +366,12 @@ public class MessageHead implements IoMessage {
 //		rawData = bytes;
 //	}
 
-	public MessageHead(IoMessagePackage messagePack)
+	/**
+ * Instantiates a new message head.
+ *
+ * @param messagePack the message pack
+ */
+public MessageHead(IoMessagePackage messagePack)
 	{
 		super();
 		ByteBuffer buffer=ByteBuffer.allocate(4+messagePack.getRawData().length);
@@ -377,9 +383,9 @@ public class MessageHead implements IoMessage {
 	}
 
 	/**
-	 * 获取数据包长度
-	 * 
-	 * @return
+	 * 获取数据包长度.
+	 *
+	 * @return the package legth
 	 */
 	public int getPackageLegth()
 	{
@@ -387,9 +393,9 @@ public class MessageHead implements IoMessage {
 	}
 
 	/**
-	 * 获得数据源
-	 * 
-	 * @return
+	 * 获得数据源.
+	 *
+	 * @return the raw data
 	 */
 	public byte[] getRawData()
 	{

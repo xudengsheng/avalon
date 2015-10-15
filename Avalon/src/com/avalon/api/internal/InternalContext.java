@@ -341,19 +341,28 @@ Public License instead of this License.
  */
 package com.avalon.api.internal;
 
+// TODO: Auto-generated Javadoc
 /**
- * 内部上下文
- * 
+ * 内部上下文.
+ *
  * @author ZERO
- * 
  */
 public class InternalContext {
 
+	/** The manager locator. */
 	private static volatile ManagerLocator managerLocator;
 
+	/**
+	 * Instantiates a new internal context.
+	 */
 	private InternalContext()
 	{}
 
+	/**
+	 * Gets the manager locator.
+	 *
+	 * @return the manager locator
+	 */
 	public static ManagerLocator getManagerLocator()
 	{
 		ManagerLocator locator = managerLocator;
@@ -364,6 +373,11 @@ public class InternalContext {
 		return locator;
 	}
 
+	/**
+	 * Sets the manager locator.
+	 *
+	 * @param managerLocator the new manager locator
+	 */
 	public static synchronized void setManagerLocator(ManagerLocator managerLocator)
 	{
 		InternalContext.managerLocator = managerLocator;

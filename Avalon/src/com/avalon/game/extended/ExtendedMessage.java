@@ -344,10 +344,9 @@ package com.avalon.game.extended;
 import java.io.Serializable;
 
 /**
- * 用户自定义信息
- * 
- * @author zero
+ * 用户自定义信息.
  *
+ * @author zero
  */
 public interface ExtendedMessage extends Serializable {
 

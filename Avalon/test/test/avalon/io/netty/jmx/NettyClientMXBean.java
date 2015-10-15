@@ -341,8 +341,17 @@ Public License instead of this License.
  */
 package test.avalon.io.netty.jmx;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface NettyClientMXBean.
+ */
 public interface NettyClientMXBean {
 
+	/**
+	 * Send message.
+	 *
+	 * @param command the command
+	 */
 	public void sendMessage(int command);
 	
 }

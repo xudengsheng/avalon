@@ -361,8 +361,5 @@ public abstract class ClientExtensionFilter implements IFilter {
 		this.filterId = filterId;
 	}
 
-	protected void trace(Object args[]) {
-		// parentExtension.trace(args);
-	}
 
 }

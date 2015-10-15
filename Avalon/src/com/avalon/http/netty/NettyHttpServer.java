@@ -362,28 +362,47 @@ import com.avalon.io.netty.NettyServer;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.PropertiesWrapper;
 
+// TODO: Auto-generated Javadoc
 /**
- * netty http 组件的
- * 
- * @author ZERO
+ * netty http 组件的.
  *
+ * @author ZERO
  */
 public final class NettyHttpServer implements IService {
 
+	/** The logger. */
 	Logger logger = LoggerFactory.getLogger(NettyServer.class);
 
+	/** The backlog. */
 	private final int BACKLOG = 1024;
 
+	/** The bootstrap. */
 	private ServerBootstrap bootstrap;
+	
+	/** The boss group. */
 	private EventLoopGroup bossGroup;
+	
+	/** The worker group. */
 	private EventLoopGroup workerGroup;
+	
+	/** The name. */
 	private String name;
+	
+	/** The boss group num. */
 	int bossGroupNum;
+	
+	/** The worker group num. */
 	int workerGroupNum;
+	
+	/** The backlog. */
 	int backlog;
 
+	/** The session num. */
 	private AtomicInteger sessionNum = new AtomicInteger(0);
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#init(java.lang.Object)
+	 */
 	@Override
 	public void init(Object object)
 	{
@@ -423,12 +442,18 @@ public final class NettyHttpServer implements IService {
 		logger.info("初始化Netty 线程启动");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#destroy(java.lang.Object)
+	 */
 	public void destroy(Object o)
 	{
 		bossGroup.shutdownGracefully();
 		workerGroup.shutdownGracefully();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#handleMessage(java.lang.Object)
+	 */
 	@Override
 	public void handleMessage(Object obj)
 	{
@@ -441,12 +466,18 @@ public final class NettyHttpServer implements IService {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#getName()
+	 */
 	@Override
 	public String getName()
 	{
 		return name;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.avalon.api.internal.IService#setName(java.lang.String)
+	 */
 	@Override
 	public void setName(String name)
 	{

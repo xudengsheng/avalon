@@ -343,7 +343,16 @@ package com.avalon.api.message;
 
 import com.avalon.api.internal.IoMessage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface GetLocationMessage.
+ */
 public interface GetLocationMessage {
 	
+	/**
+	 * Gets the message.
+	 *
+	 * @return the message
+	 */
 	IoMessage getMessage();
 }

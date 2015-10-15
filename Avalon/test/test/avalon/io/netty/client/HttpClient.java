@@ -357,7 +357,19 @@ import java.util.List;
 import com.avalon.io.netty.filter.DataCodecDecoder;
 import com.avalon.io.netty.filter.DataCodecEncoder;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class HttpClient.
+ */
 public class HttpClient {
+	
+	/**
+	 * Connect.
+	 *
+	 * @param host the host
+	 * @param port the port
+	 * @throws Exception the exception
+	 */
 	public void connect(String host, int port) throws Exception {
 		
 		List<ChannelFuture> channelFutures=new ArrayList<ChannelFuture>();
@@ -390,6 +402,12 @@ public class HttpClient {
 
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws Exception the exception
+	 */
 	public static void main(String[] args) throws Exception {
 		HttpClient client = new HttpClient();
 		client.connect("127.0.0.1", 12345);

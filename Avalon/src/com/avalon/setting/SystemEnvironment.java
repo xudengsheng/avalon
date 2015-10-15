@@ -341,30 +341,67 @@ Public License instead of this License.
  */
 package com.avalon.setting;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SystemEnvironment.
+ */
 public class SystemEnvironment {
 
+	/** The Constant ENGINE_NAME. */
 	public static final String ENGINE_NAME = "Avalon";
+	
+	/** The Constant APP_ROOT. */
 	public static final String APP_ROOT = "com.avalon";
+	
+	/** The Constant APP_NAME. */
 	public static final String APP_NAME = APP_ROOT + ".app.name";
+	
+	/** The Constant APP_ID. */
 	public static final String APP_ID = APP_ROOT + ".app.id";
+	
+	/** The Constant APP_LISTENER. */
 	public static final String APP_LISTENER = APP_ROOT + ".app.listener";
+	
+	/** The Constant APP_SESSION_LISTENER. */
 	public static final String APP_SESSION_LISTENER = APP_ROOT + ".app.session.listener";
+	
+	/** The Constant AKKA_NAME. */
 	public static final String AKKA_NAME = APP_ROOT + ".akka.name";
+	
+	/** The Constant AKKA_CONFIG_NAME. */
 	public static final String AKKA_CONFIG_NAME = APP_ROOT + "akka.config";
+	
+	/** The Constant AKKA_CONFIG_PATH. */
 	public static final String AKKA_CONFIG_PATH = AKKA_CONFIG_NAME + ".config.path";
+	
+	/** The Constant ENGINE_MODEL. */
 	public static final String ENGINE_MODEL = APP_ROOT + ".model";
 
+	/** The Constant AVALON_NAME. */
 	public static final String AVALON_NAME = "AVALON_ACTOR";
+	
+	/** The Constant AVALON_CLUSTER_NAME. */
 	public static final String AVALON_CLUSTER_NAME = "AVALON_ACTOR_CLUSTER";
 
+	/** The Constant NETTY_BOSS_GROUP_NUM. */
 	public static final String NETTY_BOSS_GROUP_NUM = APP_ROOT + "netty.bossgroup";
+	
+	/** The Constant NETTY_WORKER_GROUP_NUM. */
 	public static final String NETTY_WORKER_GROUP_NUM = APP_ROOT + "netty.workergroup";
+	
+	/** The Constant NETTY_BACKLOG. */
 	public static final String NETTY_BACKLOG = APP_ROOT + "netty.backlog";
 
+	/** The Constant NETTY_SERVER_NAME. */
 	public static final String NETTY_SERVER_NAME = APP_ROOT + ".netty.server.name";
 
+	/** The Constant TCP_PROT. */
 	public static final String TCP_PROT = APP_ROOT + ".tcp.port";
+	
+	/** The Constant NETTY_HTTP_PORT. */
 	public static final String NETTY_HTTP_PORT = "netty.http.port";
+	
+	/** The Constant MINA_SERVER_NAME. */
 	public static final String MINA_SERVER_NAME = APP_ROOT + ".mina.server.name";
 
 }

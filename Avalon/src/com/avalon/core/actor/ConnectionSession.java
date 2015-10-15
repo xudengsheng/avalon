@@ -374,29 +374,40 @@ import com.avalon.core.subscribe.ConnectionSessionTopic;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.PropertiesWrapper;
 
+// TODO: Auto-generated Javadoc
 /**
- * 客户端连接会话
- * 
- * @author ZERO
+ * 客户端连接会话.
  *
+ * @author ZERO
  */
 public class ConnectionSession extends UntypedActor {
 
+	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
+	/** The sender. */
 	private ActorSelection sender;
 
+	/** The cluster uid. */
 	private int clusterUid;
 
+	/** The client session. */
 	private ActorSession clientSession;
 
+	/** The session linenter. */
 	private ClientSessionLinenter sessionLinenter;
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#postStop()
+	 */
 	@Override
 	public void postStop() throws Exception {
 		super.postStop();
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#preStart()
+	 */
 	@Override
 	public void preStart() throws Exception {
 		super.preStart();
@@ -404,6 +415,9 @@ public class ConnectionSession extends UntypedActor {
 		mediator.tell(new DistributedPubSubMediator.Subscribe(ConnectionSessionTopic.shardName, getSelf()), getSelf());
 	}
 
+	/* (non-Javadoc)
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
 	@Override
 	public void onReceive(Object msg) throws Exception {
 

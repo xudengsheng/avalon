@@ -346,10 +346,20 @@ import org.apache.mina.core.buffer.IoBuffer;
 import com.avalon.io.MessagePackImpl;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MinaMessagePackImpl.
+ */
 public class MinaMessagePackImpl extends MessagePackImpl {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3450452341890081638L;
 
+	/**
+	 * Instantiates a new mina message pack impl.
+	 *
+	 * @param buffer the buffer
+	 */
 	public MinaMessagePackImpl(IoBuffer buffer)
 	{
 		super();
