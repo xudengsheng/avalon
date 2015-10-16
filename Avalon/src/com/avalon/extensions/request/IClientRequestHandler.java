@@ -342,8 +342,8 @@ Public License instead of this License.
 package com.avalon.extensions.request;
 
 import com.avalon.api.internal.IoMessagePackage;
+import com.google.protobuf.InvalidProtocolBufferException;
 
-import akka.protobuf.InvalidProtocolBufferException;
 
 
 // TODO: Auto-generated Javadoc

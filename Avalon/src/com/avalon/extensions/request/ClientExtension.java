@@ -341,13 +341,12 @@ Public License instead of this License.
  */
 package com.avalon.extensions.request;
 
-import akka.protobuf.InvalidProtocolBufferException;
-
 import com.avalon.api.ClientSessionLinenter;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.extensions.request.filter.ClientExtensionFilter;
 import com.avalon.extensions.request.filter.FilterAction;
 import com.avalon.extensions.request.filter.IFilterChain;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -359,14 +358,15 @@ public abstract class ClientExtension {
 
 	/** The handler factory. */
 	private final IHandlerFactory handlerFactory = new ClientHandlerFactory();
-	
+
 	/** The filter chain. */
 	private final IFilterChain filterChain = new ClientExtensionFilterChain(this);
 
 	/**
 	 * Destroy.
 	 *
-	 * @param obj the obj
+	 * @param obj
+	 *            the obj
 	 */
 	public void destroy(Object obj) {
 		handlerFactory.clearAll();
@@ -376,8 +376,10 @@ public abstract class ClientExtension {
 	/**
 	 * Adds the request handler.
 	 *
-	 * @param requestId the request id
-	 * @param theClass the the class
+	 * @param requestId
+	 *            the request id
+	 * @param theClass
+	 *            the the class
 	 */
 	protected void addRequestHandler(int requestId, Class<?> theClass) {
 		if (!(IClientRequestHandler.class).isAssignableFrom(theClass)) {
@@ -392,8 +394,10 @@ public abstract class ClientExtension {
 	/**
 	 * Adds the request handler.
 	 *
-	 * @param requestId the request id
-	 * @param requestHandler the request handler
+	 * @param requestId
+	 *            the request id
+	 * @param requestHandler
+	 *            the request handler
 	 */
 	protected void addRequestHandler(int requestId, IClientRequestHandler requestHandler) {
 		handlerFactory.addHandler(requestId, requestHandler);
@@ -402,7 +406,8 @@ public abstract class ClientExtension {
 	/**
 	 * Removes the request handler.
 	 *
-	 * @param requestId the request id
+	 * @param requestId
+	 *            the request id
 	 */
 	protected void removeRequestHandler(int requestId) {
 		handlerFactory.removeHandler(requestId);
@@ -418,12 +423,16 @@ public abstract class ClientExtension {
 	/**
 	 * Handle client request.
 	 *
-	 * @param clientSessionLinenter the client session linenter
-	 * @param requestId the request id
-	 * @param params the params
+	 * @param clientSessionLinenter
+	 *            the client session linenter
+	 * @param requestId
+	 *            the request id
+	 * @param params
+	 *            the params
 	 * @return the io message package
 	 */
-	public IoMessagePackage handleClientRequest(ClientSessionLinenter clientSessionLinenter,int requestId, byte[] params) {
+	public IoMessagePackage handleClientRequest(ClientSessionLinenter clientSessionLinenter, int requestId,
+			byte[] params) {
 		if (filterChain.size() > 0 && filterChain.runRequestInChain(requestId, this, params) == FilterAction.HALT) {
 			return null;
 		}
@@ -447,8 +456,10 @@ public abstract class ClientExtension {
 	/**
 	 * Adds the filter.
 	 *
-	 * @param filterId the filter id
-	 * @param filter the filter
+	 * @param filterId
+	 *            the filter id
+	 * @param filter
+	 *            the filter
 	 */
 	public final void addFilter(int filterId, ClientExtensionFilter filter) {
 		filterChain.addFilter(filterId, filter);
@@ -457,7 +468,8 @@ public abstract class ClientExtension {
 	/**
 	 * Removes the filter.
 	 *
-	 * @param filterId the filter id
+	 * @param filterId
+	 *            the filter id
 	 */
 	public void removeFilter(int filterId) {
 		filterChain.remove(filterId);
