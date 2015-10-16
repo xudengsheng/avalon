@@ -1,20 +1,35 @@
-package com.tang.logic.${java_outer_classname?uncap_first?replace("Pro","")};
+package ${package}.${handler}.${fileName};
 
-import com.zero.engine.extensions.IClientRequestHandler;
+
+import ${package}.${fileName}${protoName}.${java_class_name};
+import ${package}.${helpPix}.${fileName}${helperpfix};
+import ${package}.${namePix}.${java_class_name}${beanpfix};
+
+import com.avalon.protobuff.JavaProtocolTransform;
+import com.avalon.api.internal.IoMessagePackage;
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.tang.protocol.${java_outer_classname}.${protoName};
-import com.zero.engine.core.akka.model.player.UntypePlayer;
-import com.tang.logic.player.GamePlayerProxy;
-import com.tang.logic.${java_outer_classname?uncap_first?replace("Pro","")}.${java_name}Decorate;
-public class ${java_name}Handler implements IClientRequestHandler {
+import com.zero.example.core.AbstractClientRequestHandler;
+
+public class ${java_class_name}Handler extends AbstractClientRequestHandler {
 
 	@Override
-	public void handleClientRequest(Object player, Object message) throws InvalidProtocolBufferException
-	{
-		UntypePlayer gamePlayer = (UntypePlayer) player;
-		${protoName} parseFrom = ${protoName}.parseFrom((byte[]) message);
-		//如果有需求可以在这里加
-		${java_name}Decorate.handleClientRequest((GamePlayerProxy)gamePlayer, parseFrom);
+	public JavaProtocolTransform decode(Object message) throws InvalidProtocolBufferException {
+		${java_class_name}${beanpfix} decodeBean = ${fileName}CodecHelper.decode${java_class_name}${beanpfix}((byte[]) message);
+		return decodeBean;
+	}
+
+	@Override
+	public boolean verifyParams(JavaProtocolTransform javaBean) {
+		${java_class_name}${beanpfix} decodeBean = (${java_class_name}${beanpfix}) javaBean;
+		//需要校验的数据在这里
+		return true;
+	}
+
+	@Override
+	public IoMessagePackage handleClientRequest(Object listener, JavaProtocolTransform message) {
+		${java_class_name}${beanpfix} decodeBean = (${java_class_name}${beanpfix}) message;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

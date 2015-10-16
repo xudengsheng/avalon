@@ -9,7 +9,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 public class ${protoName}CodecHelper {
 
 	<#list FieldSeqence as item>
-	public ${item.java_class_name} decode${item.java_class_name}(byte[] message) throws InvalidProtocolBufferException
+	public static ${item.java_class_name} decode${item.java_class_name}(byte[] message) throws InvalidProtocolBufferException
 	{
 		${item.java_class_name} bean = new  ${item.java_class_name}();
 		${item.proto_class_name} bytesToProtocol = bean.bytesToProtocol(message);
@@ -17,7 +17,7 @@ public class ${protoName}CodecHelper {
 		return bean;
 	}
 
-	public ${item.proto_class_name} ecode${item.java_class_name}( ${item.java_class_name} bean)
+	public static ${item.proto_class_name} ecode${item.java_class_name}( ${item.java_class_name} bean)
 	{
 		${item.proto_class_name} bytesToProtocol = bean.javaBeanToProtocol();
 		return bytesToProtocol;

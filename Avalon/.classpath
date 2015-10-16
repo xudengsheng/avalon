@@ -33,7 +33,6 @@
 	<classpathentry kind="lib" path="lib/akka/test-interface-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/akka/akka-contrib_2.11-2.4.0.jar"/>
 	<classpathentry kind="lib" path="lib/akka/akka-persistence_2.11-2.4.0.jar"/>
-	<classpathentry kind="lib" path="lib/akka/akka-protobuf_2.11-2.4.0.jar"/>
 	<classpathentry kind="lib" path="lib/akka/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="lib/akka/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/akka/commons-math-2.2.jar"/>
@@ -45,5 +44,6 @@
 	<classpathentry kind="lib" path="lib/akka/akka-remote_2.11-2.4.0.jar"/>
 	<classpathentry kind="lib" path="lib/akka/akka-persistence-query-experimental_2.11-2.4.0.jar"/>
 	<classpathentry kind="lib" path="lib/akka/akka-persistence-tck_2.11-2.4.0.jar"/>
+	<classpathentry kind="lib" path="lib/protobuf-java-2.5.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

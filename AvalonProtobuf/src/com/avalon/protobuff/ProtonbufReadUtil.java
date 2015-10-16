@@ -17,6 +17,7 @@ import com.google.protobuf.WireFormat.JavaType;
 import freemarker.template.TemplateException;
 import jodd.io.FileUtil;
 import jodd.io.findfile.FindFile;
+import jodd.props.Props;
 import jodd.util.StringUtil;
 
 /**
@@ -30,12 +31,15 @@ public class ProtonbufReadUtil {
 	private static final String PROTO = ".proto";
 
 	private final String protobufPath;
+	
+	public final Props props;
 
 	private List<File> files = new ArrayList<File>();
 
-	public ProtonbufReadUtil(String protobufPath) {
+	public ProtonbufReadUtil(String protobufPath, Props props) {
 		super();
 		this.protobufPath = protobufPath;
+		this.props = props;
 	}
 
 	public void searchFile() {
@@ -57,7 +61,7 @@ public class ProtonbufReadUtil {
 	public void readFileInfo() {
 		FreeMakerUtil freeMakerUtil = new FreeMakerUtil();
 		try {
-			freeMakerUtil.init();
+			freeMakerUtil.init(props);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -66,6 +70,7 @@ public class ProtonbufReadUtil {
 				ProtoBufFileBean extracted = extracted(file);
 				freeMakerUtil.process(extracted);
 				freeMakerUtil.processHelper(extracted);
+				freeMakerUtil.processHandlerr(extracted);
 			} catch (IOException | TemplateException e) {
 				e.printStackTrace();
 			}
@@ -181,7 +186,6 @@ public class ProtonbufReadUtil {
 	private void addProFieldType(ProtoBufMessageBean messageBean, String substring, NestedTypes nestedTypes) {
 		String gtype = substring.substring(0, substring.indexOf(" "));
 		String context = substring.substring(substring.indexOf(" "), substring.length()).trim();
-		System.out.println("");
 		String[] split = context.split("=");
 		JavaType javaTypeByString = JavaTypeUtil.getJavaTypeByString(gtype);
 		if (javaTypeByString.equals(JavaType.MESSAGE) || javaTypeByString.equals(JavaType.ENUM)) {

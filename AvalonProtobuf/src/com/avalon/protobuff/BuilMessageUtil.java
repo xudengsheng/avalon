@@ -18,10 +18,8 @@ public class BuilMessageUtil {
 		Props props=new Props();
 		props.load(new File("./conf/app.properties"));
 		
-		String freeMakeSource = props.getValue("FreeMakerTemplate");
 		String protonbufSource = props.getValue("Protonbuf");
-		
-		ProtonbufReadUtil readUtil=new ProtonbufReadUtil(protonbufSource);
+		ProtonbufReadUtil readUtil=new ProtonbufReadUtil(protonbufSource,props);
 		readUtil.searchFile();
 		readUtil.readFileInfo();
 		
