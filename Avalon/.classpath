@@ -45,5 +45,6 @@
 	<classpathentry kind="lib" path="lib/akka/akka-persistence-query-experimental_2.11-2.4.0.jar"/>
 	<classpathentry kind="lib" path="lib/akka/akka-persistence-tck_2.11-2.4.0.jar"/>
 	<classpathentry kind="lib" path="lib/protobuf-java-2.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/akka/akka-protobuf_2.11-2.4.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,0 +1,30 @@
+option java_package = "com.example.protocol";
+option java_outer_classname = "HallPro";
+
+message CS_JoinHall{
+	required string name = 1;
+}
+
+message SC_JoinHall{
+	required string name = 1;
+}
+
+message SC_LeaveHall{
+	required string name = 1;
+}
+
+message SC_HallInfo{
+	required int32 hallId= 1;
+	repeated string usersName = 2;
+
+}
+
+message CS_HallMessage{
+	required string usersName= 1;
+	required string context = 2;
+}
+
+message SC_HallMessage{
+	required string usersName= 1;
+	required string context = 2;
+}

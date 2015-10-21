@@ -14,29 +14,32 @@ public final class LoginPro {
     // required string name = 1;
     /**
      * <code>required string name = 1;</code>
-     *
-     * <pre>
-     *角色登入
-     * </pre>
      */
     boolean hasName();
     /**
      * <code>required string name = 1;</code>
-     *
-     * <pre>
-     *角色登入
-     * </pre>
      */
     java.lang.String getName();
     /**
      * <code>required string name = 1;</code>
-     *
-     * <pre>
-     *角色登入
-     * </pre>
      */
     com.google.protobuf.ByteString
         getNameBytes();
+
+    // required string password = 2;
+    /**
+     * <code>required string password = 2;</code>
+     */
+    boolean hasPassword();
+    /**
+     * <code>required string password = 2;</code>
+     */
+    java.lang.String getPassword();
+    /**
+     * <code>required string password = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getPasswordBytes();
   }
   /**
    * Protobuf type {@code CS_Login}
@@ -94,6 +97,11 @@ public final class LoginPro {
               name_ = input.readBytes();
               break;
             }
+            case 18: {
+              bitField0_ |= 0x00000002;
+              password_ = input.readBytes();
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -139,20 +147,12 @@ public final class LoginPro {
     private java.lang.Object name_;
     /**
      * <code>required string name = 1;</code>
-     *
-     * <pre>
-     *角色登入
-     * </pre>
      */
     public boolean hasName() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
      * <code>required string name = 1;</code>
-     *
-     * <pre>
-     *角色登入
-     * </pre>
      */
     public java.lang.String getName() {
       java.lang.Object ref = name_;
@@ -170,10 +170,6 @@ public final class LoginPro {
     }
     /**
      * <code>required string name = 1;</code>
-     *
-     * <pre>
-     *角色登入
-     * </pre>
      */
     public com.google.protobuf.ByteString
         getNameBytes() {
@@ -189,8 +185,52 @@ public final class LoginPro {
       }
     }
 
+    // required string password = 2;
+    public static final int PASSWORD_FIELD_NUMBER = 2;
+    private java.lang.Object password_;
+    /**
+     * <code>required string password = 2;</code>
+     */
+    public boolean hasPassword() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string password = 2;</code>
+     */
+    public java.lang.String getPassword() {
+      java.lang.Object ref = password_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          password_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string password = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPasswordBytes() {
+      java.lang.Object ref = password_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        password_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       name_ = "";
+      password_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -198,6 +238,10 @@ public final class LoginPro {
       if (isInitialized != -1) return isInitialized == 1;
 
       if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPassword()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -211,6 +255,9 @@ public final class LoginPro {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getNameBytes());
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getPasswordBytes());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -223,6 +270,10 @@ public final class LoginPro {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getPasswordBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -342,6 +393,8 @@ public final class LoginPro {
         super.clear();
         name_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
+        password_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -374,6 +427,10 @@ public final class LoginPro {
           to_bitField0_ |= 0x00000001;
         }
         result.name_ = name_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.password_ = password_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -395,12 +452,21 @@ public final class LoginPro {
           name_ = other.name_;
           onChanged();
         }
+        if (other.hasPassword()) {
+          bitField0_ |= 0x00000002;
+          password_ = other.password_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
 
       public final boolean isInitialized() {
         if (!hasName()) {
+          
+          return false;
+        }
+        if (!hasPassword()) {
           
           return false;
         }
@@ -430,20 +496,12 @@ public final class LoginPro {
       private java.lang.Object name_ = "";
       /**
        * <code>required string name = 1;</code>
-       *
-       * <pre>
-       *角色登入
-       * </pre>
        */
       public boolean hasName() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>required string name = 1;</code>
-       *
-       * <pre>
-       *角色登入
-       * </pre>
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -458,10 +516,6 @@ public final class LoginPro {
       }
       /**
        * <code>required string name = 1;</code>
-       *
-       * <pre>
-       *角色登入
-       * </pre>
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -478,10 +532,6 @@ public final class LoginPro {
       }
       /**
        * <code>required string name = 1;</code>
-       *
-       * <pre>
-       *角色登入
-       * </pre>
        */
       public Builder setName(
           java.lang.String value) {
@@ -495,10 +545,6 @@ public final class LoginPro {
       }
       /**
        * <code>required string name = 1;</code>
-       *
-       * <pre>
-       *角色登入
-       * </pre>
        */
       public Builder clearName() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -508,10 +554,6 @@ public final class LoginPro {
       }
       /**
        * <code>required string name = 1;</code>
-       *
-       * <pre>
-       *角色登入
-       * </pre>
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -520,6 +562,80 @@ public final class LoginPro {
   }
   bitField0_ |= 0x00000001;
         name_ = value;
+        onChanged();
+        return this;
+      }
+
+      // required string password = 2;
+      private java.lang.Object password_ = "";
+      /**
+       * <code>required string password = 2;</code>
+       */
+      public boolean hasPassword() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string password = 2;</code>
+       */
+      public java.lang.String getPassword() {
+        java.lang.Object ref = password_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          password_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string password = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPasswordBytes() {
+        java.lang.Object ref = password_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          password_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string password = 2;</code>
+       */
+      public Builder setPassword(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        password_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string password = 2;</code>
+       */
+      public Builder clearPassword() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        password_ = getDefaultInstance().getPassword();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string password = 2;</code>
+       */
+      public Builder setPasswordBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        password_ = value;
         onChanged();
         return this;
       }
@@ -535,53 +651,58 @@ public final class LoginPro {
     // @@protoc_insertion_point(class_scope:CS_Login)
   }
 
-  public interface SC_LoginOrBuilder
+  public interface CS_RegeditOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // required int32 stats = 1;
+    // required string name = 1;
     /**
-     * <code>required int32 stats = 1;</code>
-     */
-    boolean hasStats();
-    /**
-     * <code>required int32 stats = 1;</code>
-     */
-    int getStats();
-
-    // required string name = 2;
-    /**
-     * <code>required string name = 2;</code>
+     * <code>required string name = 1;</code>
      */
     boolean hasName();
     /**
-     * <code>required string name = 2;</code>
+     * <code>required string name = 1;</code>
      */
     java.lang.String getName();
     /**
-     * <code>required string name = 2;</code>
+     * <code>required string name = 1;</code>
      */
     com.google.protobuf.ByteString
         getNameBytes();
+
+    // required string password = 2;
+    /**
+     * <code>required string password = 2;</code>
+     */
+    boolean hasPassword();
+    /**
+     * <code>required string password = 2;</code>
+     */
+    java.lang.String getPassword();
+    /**
+     * <code>required string password = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getPasswordBytes();
   }
   /**
-   * Protobuf type {@code SC_Login}
+   * Protobuf type {@code CS_Regedit}
    */
-  public static final class SC_Login extends
+  public static final class CS_Regedit extends
       com.google.protobuf.GeneratedMessage
-      implements SC_LoginOrBuilder {
-    // Use SC_Login.newBuilder() to construct.
-    private SC_Login(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      implements CS_RegeditOrBuilder {
+    // Use CS_Regedit.newBuilder() to construct.
+    private CS_Regedit(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
       this.unknownFields = builder.getUnknownFields();
     }
-    private SC_Login(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private CS_Regedit(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
 
-    private static final SC_Login defaultInstance;
-    public static SC_Login getDefaultInstance() {
+    private static final CS_Regedit defaultInstance;
+    public static CS_Regedit getDefaultInstance() {
       return defaultInstance;
     }
 
-    public SC_Login getDefaultInstanceForType() {
+    public CS_Regedit getDefaultInstanceForType() {
       return defaultInstance;
     }
 
@@ -591,7 +712,655 @@ public final class LoginPro {
         getUnknownFields() {
       return this.unknownFields;
     }
-    private SC_Login(
+    private CS_Regedit(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              name_ = input.readBytes();
+              break;
+            }
+            case 18: {
+              bitField0_ |= 0x00000002;
+              password_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.example.protocol.LoginPro.internal_static_CS_Regedit_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.example.protocol.LoginPro.internal_static_CS_Regedit_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.example.protocol.LoginPro.CS_Regedit.class, com.example.protocol.LoginPro.CS_Regedit.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<CS_Regedit> PARSER =
+        new com.google.protobuf.AbstractParser<CS_Regedit>() {
+      public CS_Regedit parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CS_Regedit(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CS_Regedit> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // required string name = 1;
+    public static final int NAME_FIELD_NUMBER = 1;
+    private java.lang.Object name_;
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // required string password = 2;
+    public static final int PASSWORD_FIELD_NUMBER = 2;
+    private java.lang.Object password_;
+    /**
+     * <code>required string password = 2;</code>
+     */
+    public boolean hasPassword() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string password = 2;</code>
+     */
+    public java.lang.String getPassword() {
+      java.lang.Object ref = password_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          password_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string password = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPasswordBytes() {
+      java.lang.Object ref = password_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        password_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      name_ = "";
+      password_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPassword()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getPasswordBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getPasswordBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.example.protocol.LoginPro.CS_Regedit parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.protocol.LoginPro.CS_Regedit parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.protocol.LoginPro.CS_Regedit parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.protocol.LoginPro.CS_Regedit parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.protocol.LoginPro.CS_Regedit parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.example.protocol.LoginPro.CS_Regedit parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.example.protocol.LoginPro.CS_Regedit parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.example.protocol.LoginPro.CS_Regedit parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.example.protocol.LoginPro.CS_Regedit parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.example.protocol.LoginPro.CS_Regedit parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.example.protocol.LoginPro.CS_Regedit prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code CS_Regedit}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.example.protocol.LoginPro.CS_RegeditOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.example.protocol.LoginPro.internal_static_CS_Regedit_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.example.protocol.LoginPro.internal_static_CS_Regedit_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.example.protocol.LoginPro.CS_Regedit.class, com.example.protocol.LoginPro.CS_Regedit.Builder.class);
+      }
+
+      // Construct using com.example.protocol.LoginPro.CS_Regedit.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        password_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.example.protocol.LoginPro.internal_static_CS_Regedit_descriptor;
+      }
+
+      public com.example.protocol.LoginPro.CS_Regedit getDefaultInstanceForType() {
+        return com.example.protocol.LoginPro.CS_Regedit.getDefaultInstance();
+      }
+
+      public com.example.protocol.LoginPro.CS_Regedit build() {
+        com.example.protocol.LoginPro.CS_Regedit result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.example.protocol.LoginPro.CS_Regedit buildPartial() {
+        com.example.protocol.LoginPro.CS_Regedit result = new com.example.protocol.LoginPro.CS_Regedit(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.name_ = name_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.password_ = password_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.example.protocol.LoginPro.CS_Regedit) {
+          return mergeFrom((com.example.protocol.LoginPro.CS_Regedit)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.example.protocol.LoginPro.CS_Regedit other) {
+        if (other == com.example.protocol.LoginPro.CS_Regedit.getDefaultInstance()) return this;
+        if (other.hasName()) {
+          bitField0_ |= 0x00000001;
+          name_ = other.name_;
+          onChanged();
+        }
+        if (other.hasPassword()) {
+          bitField0_ |= 0x00000002;
+          password_ = other.password_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasName()) {
+          
+          return false;
+        }
+        if (!hasPassword()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.example.protocol.LoginPro.CS_Regedit parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.example.protocol.LoginPro.CS_Regedit) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // required string name = 1;
+      private java.lang.Object name_ = "";
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder clearName() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      // required string password = 2;
+      private java.lang.Object password_ = "";
+      /**
+       * <code>required string password = 2;</code>
+       */
+      public boolean hasPassword() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string password = 2;</code>
+       */
+      public java.lang.String getPassword() {
+        java.lang.Object ref = password_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          password_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string password = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPasswordBytes() {
+        java.lang.Object ref = password_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          password_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string password = 2;</code>
+       */
+      public Builder setPassword(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        password_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string password = 2;</code>
+       */
+      public Builder clearPassword() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        password_ = getDefaultInstance().getPassword();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string password = 2;</code>
+       */
+      public Builder setPasswordBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        password_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:CS_Regedit)
+    }
+
+    static {
+      defaultInstance = new CS_Regedit(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:CS_Regedit)
+  }
+
+  public interface SC_Globle_messageOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // required int32 key = 1;
+    /**
+     * <code>required int32 key = 1;</code>
+     */
+    boolean hasKey();
+    /**
+     * <code>required int32 key = 1;</code>
+     */
+    int getKey();
+
+    // required int32 stats = 2;
+    /**
+     * <code>required int32 stats = 2;</code>
+     */
+    boolean hasStats();
+    /**
+     * <code>required int32 stats = 2;</code>
+     */
+    int getStats();
+
+    // required string context = 3;
+    /**
+     * <code>required string context = 3;</code>
+     */
+    boolean hasContext();
+    /**
+     * <code>required string context = 3;</code>
+     */
+    java.lang.String getContext();
+    /**
+     * <code>required string context = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getContextBytes();
+  }
+  /**
+   * Protobuf type {@code SC_Globle_message}
+   */
+  public static final class SC_Globle_message extends
+      com.google.protobuf.GeneratedMessage
+      implements SC_Globle_messageOrBuilder {
+    // Use SC_Globle_message.newBuilder() to construct.
+    private SC_Globle_message(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private SC_Globle_message(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final SC_Globle_message defaultInstance;
+    public static SC_Globle_message getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public SC_Globle_message getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SC_Globle_message(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -616,12 +1385,17 @@ public final class LoginPro {
             }
             case 8: {
               bitField0_ |= 0x00000001;
+              key_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
               stats_ = input.readInt32();
               break;
             }
-            case 18: {
-              bitField0_ |= 0x00000002;
-              name_ = input.readBytes();
+            case 26: {
+              bitField0_ |= 0x00000004;
+              context_ = input.readBytes();
               break;
             }
           }
@@ -638,62 +1412,78 @@ public final class LoginPro {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.example.protocol.LoginPro.internal_static_SC_Login_descriptor;
+      return com.example.protocol.LoginPro.internal_static_SC_Globle_message_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.example.protocol.LoginPro.internal_static_SC_Login_fieldAccessorTable
+      return com.example.protocol.LoginPro.internal_static_SC_Globle_message_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.example.protocol.LoginPro.SC_Login.class, com.example.protocol.LoginPro.SC_Login.Builder.class);
+              com.example.protocol.LoginPro.SC_Globle_message.class, com.example.protocol.LoginPro.SC_Globle_message.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<SC_Login> PARSER =
-        new com.google.protobuf.AbstractParser<SC_Login>() {
-      public SC_Login parsePartialFrom(
+    public static com.google.protobuf.Parser<SC_Globle_message> PARSER =
+        new com.google.protobuf.AbstractParser<SC_Globle_message>() {
+      public SC_Globle_message parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new SC_Login(input, extensionRegistry);
+        return new SC_Globle_message(input, extensionRegistry);
       }
     };
 
     @java.lang.Override
-    public com.google.protobuf.Parser<SC_Login> getParserForType() {
+    public com.google.protobuf.Parser<SC_Globle_message> getParserForType() {
       return PARSER;
     }
 
     private int bitField0_;
-    // required int32 stats = 1;
-    public static final int STATS_FIELD_NUMBER = 1;
-    private int stats_;
+    // required int32 key = 1;
+    public static final int KEY_FIELD_NUMBER = 1;
+    private int key_;
     /**
-     * <code>required int32 stats = 1;</code>
+     * <code>required int32 key = 1;</code>
      */
-    public boolean hasStats() {
+    public boolean hasKey() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required int32 stats = 1;</code>
+     * <code>required int32 key = 1;</code>
+     */
+    public int getKey() {
+      return key_;
+    }
+
+    // required int32 stats = 2;
+    public static final int STATS_FIELD_NUMBER = 2;
+    private int stats_;
+    /**
+     * <code>required int32 stats = 2;</code>
+     */
+    public boolean hasStats() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 stats = 2;</code>
      */
     public int getStats() {
       return stats_;
     }
 
-    // required string name = 2;
-    public static final int NAME_FIELD_NUMBER = 2;
-    private java.lang.Object name_;
+    // required string context = 3;
+    public static final int CONTEXT_FIELD_NUMBER = 3;
+    private java.lang.Object context_;
     /**
-     * <code>required string name = 2;</code>
+     * <code>required string context = 3;</code>
      */
-    public boolean hasName() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+    public boolean hasContext() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required string name = 2;</code>
+     * <code>required string context = 3;</code>
      */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
+    public java.lang.String getContext() {
+      java.lang.Object ref = context_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -701,22 +1491,22 @@ public final class LoginPro {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          name_ = s;
+          context_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>required string name = 2;</code>
+     * <code>required string context = 3;</code>
      */
     public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
+        getContextBytes() {
+      java.lang.Object ref = context_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        name_ = b;
+        context_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -724,19 +1514,24 @@ public final class LoginPro {
     }
 
     private void initFields() {
+      key_ = 0;
       stats_ = 0;
-      name_ = "";
+      context_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
 
+      if (!hasKey()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       if (!hasStats()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasName()) {
+      if (!hasContext()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -748,10 +1543,13 @@ public final class LoginPro {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, stats_);
+        output.writeInt32(1, key_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getNameBytes());
+        output.writeInt32(2, stats_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getContextBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -764,11 +1562,15 @@ public final class LoginPro {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, stats_);
+          .computeInt32Size(1, key_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getNameBytes());
+          .computeInt32Size(2, stats_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getContextBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -782,53 +1584,53 @@ public final class LoginPro {
       return super.writeReplace();
     }
 
-    public static com.example.protocol.LoginPro.SC_Login parseFrom(
+    public static com.example.protocol.LoginPro.SC_Globle_message parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.example.protocol.LoginPro.SC_Login parseFrom(
+    public static com.example.protocol.LoginPro.SC_Globle_message parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.example.protocol.LoginPro.SC_Login parseFrom(byte[] data)
+    public static com.example.protocol.LoginPro.SC_Globle_message parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.example.protocol.LoginPro.SC_Login parseFrom(
+    public static com.example.protocol.LoginPro.SC_Globle_message parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.example.protocol.LoginPro.SC_Login parseFrom(java.io.InputStream input)
+    public static com.example.protocol.LoginPro.SC_Globle_message parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static com.example.protocol.LoginPro.SC_Login parseFrom(
+    public static com.example.protocol.LoginPro.SC_Globle_message parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static com.example.protocol.LoginPro.SC_Login parseDelimitedFrom(java.io.InputStream input)
+    public static com.example.protocol.LoginPro.SC_Globle_message parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static com.example.protocol.LoginPro.SC_Login parseDelimitedFrom(
+    public static com.example.protocol.LoginPro.SC_Globle_message parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static com.example.protocol.LoginPro.SC_Login parseFrom(
+    public static com.example.protocol.LoginPro.SC_Globle_message parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static com.example.protocol.LoginPro.SC_Login parseFrom(
+    public static com.example.protocol.LoginPro.SC_Globle_message parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -837,7 +1639,7 @@ public final class LoginPro {
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.example.protocol.LoginPro.SC_Login prototype) {
+    public static Builder newBuilder(com.example.protocol.LoginPro.SC_Globle_message prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -849,24 +1651,24 @@ public final class LoginPro {
       return builder;
     }
     /**
-     * Protobuf type {@code SC_Login}
+     * Protobuf type {@code SC_Globle_message}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.example.protocol.LoginPro.SC_LoginOrBuilder {
+       implements com.example.protocol.LoginPro.SC_Globle_messageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.example.protocol.LoginPro.internal_static_SC_Login_descriptor;
+        return com.example.protocol.LoginPro.internal_static_SC_Globle_message_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.example.protocol.LoginPro.internal_static_SC_Login_fieldAccessorTable
+        return com.example.protocol.LoginPro.internal_static_SC_Globle_message_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.example.protocol.LoginPro.SC_Login.class, com.example.protocol.LoginPro.SC_Login.Builder.class);
+                com.example.protocol.LoginPro.SC_Globle_message.class, com.example.protocol.LoginPro.SC_Globle_message.Builder.class);
       }
 
-      // Construct using com.example.protocol.LoginPro.SC_Login.newBuilder()
+      // Construct using com.example.protocol.LoginPro.SC_Globle_message.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -886,10 +1688,12 @@ public final class LoginPro {
 
       public Builder clear() {
         super.clear();
-        stats_ = 0;
+        key_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        name_ = "";
+        stats_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
+        context_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -899,31 +1703,594 @@ public final class LoginPro {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.example.protocol.LoginPro.internal_static_SC_Login_descriptor;
+        return com.example.protocol.LoginPro.internal_static_SC_Globle_message_descriptor;
       }
 
-      public com.example.protocol.LoginPro.SC_Login getDefaultInstanceForType() {
-        return com.example.protocol.LoginPro.SC_Login.getDefaultInstance();
+      public com.example.protocol.LoginPro.SC_Globle_message getDefaultInstanceForType() {
+        return com.example.protocol.LoginPro.SC_Globle_message.getDefaultInstance();
       }
 
-      public com.example.protocol.LoginPro.SC_Login build() {
-        com.example.protocol.LoginPro.SC_Login result = buildPartial();
+      public com.example.protocol.LoginPro.SC_Globle_message build() {
+        com.example.protocol.LoginPro.SC_Globle_message result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public com.example.protocol.LoginPro.SC_Login buildPartial() {
-        com.example.protocol.LoginPro.SC_Login result = new com.example.protocol.LoginPro.SC_Login(this);
+      public com.example.protocol.LoginPro.SC_Globle_message buildPartial() {
+        com.example.protocol.LoginPro.SC_Globle_message result = new com.example.protocol.LoginPro.SC_Globle_message(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.stats_ = stats_;
+        result.key_ = key_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
+        }
+        result.stats_ = stats_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.context_ = context_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.example.protocol.LoginPro.SC_Globle_message) {
+          return mergeFrom((com.example.protocol.LoginPro.SC_Globle_message)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.example.protocol.LoginPro.SC_Globle_message other) {
+        if (other == com.example.protocol.LoginPro.SC_Globle_message.getDefaultInstance()) return this;
+        if (other.hasKey()) {
+          setKey(other.getKey());
+        }
+        if (other.hasStats()) {
+          setStats(other.getStats());
+        }
+        if (other.hasContext()) {
+          bitField0_ |= 0x00000004;
+          context_ = other.context_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasKey()) {
+          
+          return false;
+        }
+        if (!hasStats()) {
+          
+          return false;
+        }
+        if (!hasContext()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.example.protocol.LoginPro.SC_Globle_message parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.example.protocol.LoginPro.SC_Globle_message) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // required int32 key = 1;
+      private int key_ ;
+      /**
+       * <code>required int32 key = 1;</code>
+       */
+      public boolean hasKey() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 key = 1;</code>
+       */
+      public int getKey() {
+        return key_;
+      }
+      /**
+       * <code>required int32 key = 1;</code>
+       */
+      public Builder setKey(int value) {
+        bitField0_ |= 0x00000001;
+        key_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 key = 1;</code>
+       */
+      public Builder clearKey() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        key_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // required int32 stats = 2;
+      private int stats_ ;
+      /**
+       * <code>required int32 stats = 2;</code>
+       */
+      public boolean hasStats() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 stats = 2;</code>
+       */
+      public int getStats() {
+        return stats_;
+      }
+      /**
+       * <code>required int32 stats = 2;</code>
+       */
+      public Builder setStats(int value) {
+        bitField0_ |= 0x00000002;
+        stats_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 stats = 2;</code>
+       */
+      public Builder clearStats() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        stats_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // required string context = 3;
+      private java.lang.Object context_ = "";
+      /**
+       * <code>required string context = 3;</code>
+       */
+      public boolean hasContext() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required string context = 3;</code>
+       */
+      public java.lang.String getContext() {
+        java.lang.Object ref = context_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          context_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string context = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getContextBytes() {
+        java.lang.Object ref = context_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          context_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string context = 3;</code>
+       */
+      public Builder setContext(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        context_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string context = 3;</code>
+       */
+      public Builder clearContext() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        context_ = getDefaultInstance().getContext();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string context = 3;</code>
+       */
+      public Builder setContextBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        context_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:SC_Globle_message)
+    }
+
+    static {
+      defaultInstance = new SC_Globle_message(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:SC_Globle_message)
+  }
+
+  public interface CS_LoginNewNameOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // required string name = 1;
+    /**
+     * <code>required string name = 1;</code>
+     */
+    boolean hasName();
+    /**
+     * <code>required string name = 1;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>required string name = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+  }
+  /**
+   * Protobuf type {@code CS_LoginNewName}
+   */
+  public static final class CS_LoginNewName extends
+      com.google.protobuf.GeneratedMessage
+      implements CS_LoginNewNameOrBuilder {
+    // Use CS_LoginNewName.newBuilder() to construct.
+    private CS_LoginNewName(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private CS_LoginNewName(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final CS_LoginNewName defaultInstance;
+    public static CS_LoginNewName getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public CS_LoginNewName getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CS_LoginNewName(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              name_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.example.protocol.LoginPro.internal_static_CS_LoginNewName_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.example.protocol.LoginPro.internal_static_CS_LoginNewName_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.example.protocol.LoginPro.CS_LoginNewName.class, com.example.protocol.LoginPro.CS_LoginNewName.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<CS_LoginNewName> PARSER =
+        new com.google.protobuf.AbstractParser<CS_LoginNewName>() {
+      public CS_LoginNewName parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CS_LoginNewName(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CS_LoginNewName> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // required string name = 1;
+    public static final int NAME_FIELD_NUMBER = 1;
+    private java.lang.Object name_;
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      name_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getNameBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getNameBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.example.protocol.LoginPro.CS_LoginNewName parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.protocol.LoginPro.CS_LoginNewName parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.protocol.LoginPro.CS_LoginNewName parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.protocol.LoginPro.CS_LoginNewName parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.protocol.LoginPro.CS_LoginNewName parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.example.protocol.LoginPro.CS_LoginNewName parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.example.protocol.LoginPro.CS_LoginNewName parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.example.protocol.LoginPro.CS_LoginNewName parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.example.protocol.LoginPro.CS_LoginNewName parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.example.protocol.LoginPro.CS_LoginNewName parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.example.protocol.LoginPro.CS_LoginNewName prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code CS_LoginNewName}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.example.protocol.LoginPro.CS_LoginNewNameOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.example.protocol.LoginPro.internal_static_CS_LoginNewName_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.example.protocol.LoginPro.internal_static_CS_LoginNewName_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.example.protocol.LoginPro.CS_LoginNewName.class, com.example.protocol.LoginPro.CS_LoginNewName.Builder.class);
+      }
+
+      // Construct using com.example.protocol.LoginPro.CS_LoginNewName.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.example.protocol.LoginPro.internal_static_CS_LoginNewName_descriptor;
+      }
+
+      public com.example.protocol.LoginPro.CS_LoginNewName getDefaultInstanceForType() {
+        return com.example.protocol.LoginPro.CS_LoginNewName.getDefaultInstance();
+      }
+
+      public com.example.protocol.LoginPro.CS_LoginNewName build() {
+        com.example.protocol.LoginPro.CS_LoginNewName result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.example.protocol.LoginPro.CS_LoginNewName buildPartial() {
+        com.example.protocol.LoginPro.CS_LoginNewName result = new com.example.protocol.LoginPro.CS_LoginNewName(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
         }
         result.name_ = name_;
         result.bitField0_ = to_bitField0_;
@@ -932,21 +2299,18 @@ public final class LoginPro {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.example.protocol.LoginPro.SC_Login) {
-          return mergeFrom((com.example.protocol.LoginPro.SC_Login)other);
+        if (other instanceof com.example.protocol.LoginPro.CS_LoginNewName) {
+          return mergeFrom((com.example.protocol.LoginPro.CS_LoginNewName)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.example.protocol.LoginPro.SC_Login other) {
-        if (other == com.example.protocol.LoginPro.SC_Login.getDefaultInstance()) return this;
-        if (other.hasStats()) {
-          setStats(other.getStats());
-        }
+      public Builder mergeFrom(com.example.protocol.LoginPro.CS_LoginNewName other) {
+        if (other == com.example.protocol.LoginPro.CS_LoginNewName.getDefaultInstance()) return this;
         if (other.hasName()) {
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000001;
           name_ = other.name_;
           onChanged();
         }
@@ -955,10 +2319,6 @@ public final class LoginPro {
       }
 
       public final boolean isInitialized() {
-        if (!hasStats()) {
-          
-          return false;
-        }
         if (!hasName()) {
           
           return false;
@@ -970,11 +2330,11 @@ public final class LoginPro {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.example.protocol.LoginPro.SC_Login parsedMessage = null;
+        com.example.protocol.LoginPro.CS_LoginNewName parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.example.protocol.LoginPro.SC_Login) e.getUnfinishedMessage();
+          parsedMessage = (com.example.protocol.LoginPro.CS_LoginNewName) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -985,49 +2345,16 @@ public final class LoginPro {
       }
       private int bitField0_;
 
-      // required int32 stats = 1;
-      private int stats_ ;
+      // required string name = 1;
+      private java.lang.Object name_ = "";
       /**
-       * <code>required int32 stats = 1;</code>
+       * <code>required string name = 1;</code>
        */
-      public boolean hasStats() {
+      public boolean hasName() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required int32 stats = 1;</code>
-       */
-      public int getStats() {
-        return stats_;
-      }
-      /**
-       * <code>required int32 stats = 1;</code>
-       */
-      public Builder setStats(int value) {
-        bitField0_ |= 0x00000001;
-        stats_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required int32 stats = 1;</code>
-       */
-      public Builder clearStats() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        stats_ = 0;
-        onChanged();
-        return this;
-      }
-
-      // required string name = 2;
-      private java.lang.Object name_ = "";
-      /**
-       * <code>required string name = 2;</code>
-       */
-      public boolean hasName() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>required string name = 2;</code>
+       * <code>required string name = 1;</code>
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -1041,7 +2368,7 @@ public final class LoginPro {
         }
       }
       /**
-       * <code>required string name = 2;</code>
+       * <code>required string name = 1;</code>
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -1057,50 +2384,529 @@ public final class LoginPro {
         }
       }
       /**
-       * <code>required string name = 2;</code>
+       * <code>required string name = 1;</code>
        */
       public Builder setName(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000001;
         name_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string name = 2;</code>
+       * <code>required string name = 1;</code>
        */
       public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         name_ = getDefaultInstance().getName();
         onChanged();
         return this;
       }
       /**
-       * <code>required string name = 2;</code>
+       * <code>required string name = 1;</code>
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000001;
         name_ = value;
         onChanged();
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:SC_Login)
+      // @@protoc_insertion_point(builder_scope:CS_LoginNewName)
     }
 
     static {
-      defaultInstance = new SC_Login(true);
+      defaultInstance = new CS_LoginNewName(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:SC_Login)
+    // @@protoc_insertion_point(class_scope:CS_LoginNewName)
+  }
+
+  public interface SC_LoginInfoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // required string name = 1;
+    /**
+     * <code>required string name = 1;</code>
+     */
+    boolean hasName();
+    /**
+     * <code>required string name = 1;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>required string name = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+  }
+  /**
+   * Protobuf type {@code SC_LoginInfo}
+   */
+  public static final class SC_LoginInfo extends
+      com.google.protobuf.GeneratedMessage
+      implements SC_LoginInfoOrBuilder {
+    // Use SC_LoginInfo.newBuilder() to construct.
+    private SC_LoginInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private SC_LoginInfo(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final SC_LoginInfo defaultInstance;
+    public static SC_LoginInfo getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public SC_LoginInfo getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SC_LoginInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              name_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.example.protocol.LoginPro.internal_static_SC_LoginInfo_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.example.protocol.LoginPro.internal_static_SC_LoginInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.example.protocol.LoginPro.SC_LoginInfo.class, com.example.protocol.LoginPro.SC_LoginInfo.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<SC_LoginInfo> PARSER =
+        new com.google.protobuf.AbstractParser<SC_LoginInfo>() {
+      public SC_LoginInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SC_LoginInfo(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SC_LoginInfo> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // required string name = 1;
+    public static final int NAME_FIELD_NUMBER = 1;
+    private java.lang.Object name_;
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      name_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getNameBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getNameBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.example.protocol.LoginPro.SC_LoginInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.protocol.LoginPro.SC_LoginInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.protocol.LoginPro.SC_LoginInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.protocol.LoginPro.SC_LoginInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.protocol.LoginPro.SC_LoginInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.example.protocol.LoginPro.SC_LoginInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.example.protocol.LoginPro.SC_LoginInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.example.protocol.LoginPro.SC_LoginInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.example.protocol.LoginPro.SC_LoginInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.example.protocol.LoginPro.SC_LoginInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.example.protocol.LoginPro.SC_LoginInfo prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code SC_LoginInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.example.protocol.LoginPro.SC_LoginInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.example.protocol.LoginPro.internal_static_SC_LoginInfo_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.example.protocol.LoginPro.internal_static_SC_LoginInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.example.protocol.LoginPro.SC_LoginInfo.class, com.example.protocol.LoginPro.SC_LoginInfo.Builder.class);
+      }
+
+      // Construct using com.example.protocol.LoginPro.SC_LoginInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.example.protocol.LoginPro.internal_static_SC_LoginInfo_descriptor;
+      }
+
+      public com.example.protocol.LoginPro.SC_LoginInfo getDefaultInstanceForType() {
+        return com.example.protocol.LoginPro.SC_LoginInfo.getDefaultInstance();
+      }
+
+      public com.example.protocol.LoginPro.SC_LoginInfo build() {
+        com.example.protocol.LoginPro.SC_LoginInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.example.protocol.LoginPro.SC_LoginInfo buildPartial() {
+        com.example.protocol.LoginPro.SC_LoginInfo result = new com.example.protocol.LoginPro.SC_LoginInfo(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.name_ = name_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.example.protocol.LoginPro.SC_LoginInfo) {
+          return mergeFrom((com.example.protocol.LoginPro.SC_LoginInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.example.protocol.LoginPro.SC_LoginInfo other) {
+        if (other == com.example.protocol.LoginPro.SC_LoginInfo.getDefaultInstance()) return this;
+        if (other.hasName()) {
+          bitField0_ |= 0x00000001;
+          name_ = other.name_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasName()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.example.protocol.LoginPro.SC_LoginInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.example.protocol.LoginPro.SC_LoginInfo) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // required string name = 1;
+      private java.lang.Object name_ = "";
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder clearName() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:SC_LoginInfo)
+    }
+
+    static {
+      defaultInstance = new SC_LoginInfo(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:SC_LoginInfo)
   }
 
   private static com.google.protobuf.Descriptors.Descriptor
@@ -1109,10 +2915,25 @@ public final class LoginPro {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_CS_Login_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_SC_Login_descriptor;
+    internal_static_CS_Regedit_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_SC_Login_fieldAccessorTable;
+      internal_static_CS_Regedit_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_SC_Globle_message_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_SC_Globle_message_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_CS_LoginNewName_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_CS_LoginNewName_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_SC_LoginInfo_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_SC_LoginInfo_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1122,9 +2943,13 @@ public final class LoginPro {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013Login.proto\"\030\n\010CS_Login\022\014\n\004name\030\001 \002(\t\"" +
-      "\'\n\010SC_Login\022\r\n\005stats\030\001 \002(\005\022\014\n\004name\030\002 \002(\t" +
-      "B \n\024com.example.protocolB\010LoginPro"
+      "\n\013Login.proto\"*\n\010CS_Login\022\014\n\004name\030\001 \002(\t\022" +
+      "\020\n\010password\030\002 \002(\t\",\n\nCS_Regedit\022\014\n\004name\030" +
+      "\001 \002(\t\022\020\n\010password\030\002 \002(\t\"@\n\021SC_Globle_mes" +
+      "sage\022\013\n\003key\030\001 \002(\005\022\r\n\005stats\030\002 \002(\005\022\017\n\007cont" +
+      "ext\030\003 \002(\t\"\037\n\017CS_LoginNewName\022\014\n\004name\030\001 \002" +
+      "(\t\"\034\n\014SC_LoginInfo\022\014\n\004name\030\001 \002(\tB \n\024com." +
+      "example.protocolB\010LoginPro"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1136,13 +2961,31 @@ public final class LoginPro {
           internal_static_CS_Login_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_CS_Login_descriptor,
-              new java.lang.String[] { "Name", });
-          internal_static_SC_Login_descriptor =
+              new java.lang.String[] { "Name", "Password", });
+          internal_static_CS_Regedit_descriptor =
             getDescriptor().getMessageTypes().get(1);
-          internal_static_SC_Login_fieldAccessorTable = new
+          internal_static_CS_Regedit_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_SC_Login_descriptor,
-              new java.lang.String[] { "Stats", "Name", });
+              internal_static_CS_Regedit_descriptor,
+              new java.lang.String[] { "Name", "Password", });
+          internal_static_SC_Globle_message_descriptor =
+            getDescriptor().getMessageTypes().get(2);
+          internal_static_SC_Globle_message_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_SC_Globle_message_descriptor,
+              new java.lang.String[] { "Key", "Stats", "Context", });
+          internal_static_CS_LoginNewName_descriptor =
+            getDescriptor().getMessageTypes().get(3);
+          internal_static_CS_LoginNewName_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_CS_LoginNewName_descriptor,
+              new java.lang.String[] { "Name", });
+          internal_static_SC_LoginInfo_descriptor =
+            getDescriptor().getMessageTypes().get(4);
+          internal_static_SC_LoginInfo_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_SC_LoginInfo_descriptor,
+              new java.lang.String[] { "Name", });
           return null;
         }
       };

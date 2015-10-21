@@ -10,6 +10,12 @@ import com.avalon.api.internal.IoMessagePackage;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.zero.example.core.AbstractClientRequestHandler;
 
+import akka.actor.ActorRef;
+import akka.actor.ActorPath;
+import com.avalon.api.AppContext;
+import akka.actor.ActorSelection;
+import com.zero.example.SessionLisenter;
+
 public class ${java_class_name}Handler extends AbstractClientRequestHandler {
 
 	@Override
@@ -26,10 +32,13 @@ public class ${java_class_name}Handler extends AbstractClientRequestHandler {
 	}
 
 	@Override
-	public IoMessagePackage handleClientRequest(Object listener, JavaProtocolTransform message) {
+	public void handleClientRequest(Object listener, JavaProtocolTransform message) {
 		${java_class_name}${beanpfix} decodeBean = (${java_class_name}${beanpfix}) message;
 		// TODO Auto-generated method stub
-		return null;
+		SessionLisenter sessionLisenter=(SessionLisenter) listener;
+		//ActorPath actorPath = AppContext.pathCache.get(LoginManager.class.getSimpleName());
+		//ActorSelection actorSelection = AppContext.getActorSystem().actorSelection(actorPath);
+		//actorSelection.tell(decodeBean, ActorRef.noSender());
 	}
 
 }

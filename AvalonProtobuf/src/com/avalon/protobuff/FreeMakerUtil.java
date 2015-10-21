@@ -6,16 +6,19 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.apache.commons.io.FileUtils;
-
 import jodd.props.Props;
+import jodd.props.PropsEntry;
 import jodd.util.StringUtil;
+
+import org.apache.commons.io.FileUtils;
 
 import com.avalon.protobuff.bean.HelperInfoBean;
 import com.avalon.protobuff.bean.JavaTypeUtil;
@@ -23,6 +26,9 @@ import com.avalon.protobuff.bean.NestedTypes;
 import com.avalon.protobuff.bean.ProtoBufFileBean;
 import com.avalon.protobuff.bean.ProtoBufMessageBean;
 import com.avalon.protobuff.bean.ProtobufFieldType;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Sets;
 import com.google.protobuf.WireFormat.JavaType;
 
 import freemarker.core.ParseException;
@@ -33,6 +39,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
 
 public class FreeMakerUtil {
+	private static final String COM_EXAMPLE_PROTOCOL_PACKAGE = "com.example.protocol";
 	// FreeMaker模板所在的文件路径
 	public static final String FREE_MAKER_TEMPLATE = "/FreeMakerTemplate";
 	// Java文件名称的尾缀
@@ -158,7 +165,7 @@ public class FreeMakerUtil {
 		template.process(dataModel, out);
 	}
 
-	public void processHandlerr(ProtoBufFileBean bufFileBean) throws TemplateNotFoundException,
+	public void processHandler(ProtoBufFileBean bufFileBean) throws TemplateNotFoundException,
 			MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		template = configuration.getTemplate("GameLogicHandler.ftl");
 		List<ProtoBufMessageBean> protoBufMessageBean = bufFileBean.getProtoBufMessageBean();
@@ -189,4 +196,134 @@ public class FreeMakerUtil {
 		}
 
 	}
+
+	BiMap<Integer, String> mapKey = HashBiMap.create();
+	Set<String> protobufName = Sets.newHashSet();
+
+	public void findMessageHead() throws IOException {
+		File file = FileUtils.getFile("key.properties");
+		if (file.exists()) {
+			readMessageHead(file);
+		}
+	}
+
+	private void readMessageHead(File file) throws IOException {
+		Props props = new Props();
+		props.load(file);
+		Iterator<PropsEntry> iterator = props.iterator();
+		while (iterator.hasNext()) {
+			PropsEntry next = iterator.next();
+			mapKey.put(Integer.parseInt(next.getKey()), next.getValue());
+		}
+	}
+
+	public void processAddOPCode(ProtoBufFileBean extracted) {
+		List<ProtoBufMessageBean> protoBufMessageBean = extracted.getProtoBufMessageBean();
+		for (ProtoBufMessageBean protoBufMessageBean2 : protoBufMessageBean) {
+			String name = protoBufMessageBean2.getName();
+			protobufName.add(name);
+		}
+	}
+
+	public void processOPCode() {
+		try {
+			findMessageHead();
+			writeKeyFile();
+			writeEnumClass();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TemplateException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void writeEnumClass() throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+		Template template = configuration.getTemplate("OPcodeJava.ftl");
+		List<OPCode> items = new ArrayList<OPCode>();
+		for (Entry<Integer, String> iterable_element : mapKey.entrySet()) {
+			Integer oPCode = iterable_element.getKey();
+			String pname = iterable_element.getValue();
+			OPCode item = new OPCode(pname, oPCode);
+			System.out.println("添加" + item.toString());
+			items.add(item);
+		}
+		Map<String, Object> dataModel = new HashMap<String, Object>();
+		dataModel.put("package", COM_EXAMPLE_PROTOCOL_PACKAGE);
+		dataModel.put("FieldSequence", items);
+		File file=new File("MessageKey.java");
+		FileUtils.write(file, "");
+		Writer out = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
+		template.process(dataModel, out);
+
+		
+	}
+
+	private void writeKeyFile() throws IOException {
+		for (String string : protobufName) {
+			boolean containsKey = mapKey.inverse().containsKey(string);
+			if (!containsKey) {
+				mapKey.put(mapKey.size() + 1, string);
+			}
+		}
+		File file = FileUtils.getFile("key.properties");
+		List<String> lines = new ArrayList<String>();
+		for (Entry<Integer, String> entry : mapKey.entrySet()) {
+			lines.add(entry.getKey() + " = " + entry.getValue() );
+		}
+		Collections.sort(lines);
+		FileUtils.writeLines(file, lines);
+	}
+
+	public void process() throws IOException, TemplateException {
+	
+		// processNext();
+	}
+
+	private void processNext() throws IOException, TemplateException {
+		Template template = configuration.getTemplate("InitOperateCode.ftl");
+		List<OPCode> items = new ArrayList<OPCode>();
+		for (Entry<Integer, String> iterable_element : mapKey.entrySet()) {
+			Integer oPCode = iterable_element.getKey();
+			String pname = iterable_element.getValue();
+			OPCode item = new OPCode(pname, oPCode);
+			items.add(item);
+		}
+		Map<String, Object> dataModel = new HashMap<String, Object>();
+
+		dataModel.put("FieldSequence", items);
+
+		Writer out = new OutputStreamWriter(new FileOutputStream(
+				"/Users/zero/Documents/workspace/ALaws-Util/src/com/tang/init/InitOperateCode.java"), "UTF-8");
+		template.process(dataModel, out);
+	}
+
+}
+
+class Item {
+	String pname;
+	int opcode;
+
+	public Item(String pname, int opcode) {
+		super();
+		this.pname = pname;
+		this.opcode = opcode;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public int getOpcode() {
+		return opcode;
+	}
+
+	public void setOpcode(int opcode) {
+		this.opcode = opcode;
+	}
+
 }

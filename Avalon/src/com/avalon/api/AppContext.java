@@ -341,6 +341,10 @@ Public License instead of this License.
  */
 package com.avalon.api;
 
+import java.util.Map;
+import java.util.TreeMap;
+
+import akka.actor.ActorPath;
 import akka.actor.ActorSystem;
 
 import com.avalon.api.internal.IService;
@@ -361,6 +365,8 @@ public final class AppContext {
 	private AppContext()
 	{}
 
+	
+	public static Map<String, ActorPath> pathCache=new TreeMap<String, ActorPath>();
 	/**
 	 * Gets the manager.
 	 *

@@ -1,13 +1,13 @@
 package com.example.protocol.javabean;
 
 import com.avalon.protobuff.JavaProtocolTransform;
-import com.example.protocol.LoginPro.CS_Login;
-import com.example.protocol.LoginPro.CS_Login.Builder;
+import com.example.protocol.LoginPro.CS_Regedit;
+import com.example.protocol.LoginPro.CS_Regedit.Builder;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 
 
-public class CS_LoginJavaBean implements JavaProtocolTransform {
+public class CS_RegeditJavaBean implements JavaProtocolTransform {
 
 	private java.lang.String name;
 	private java.lang.String password;
@@ -31,14 +31,14 @@ public class CS_LoginJavaBean implements JavaProtocolTransform {
 	
 	@Override
 	public void protocolToJavaBean(Message message) {
-		CS_Login protocal = (CS_Login) message;
+		CS_Regedit protocal = (CS_Regedit) message;
 		this.setName(protocal.getName());
 		this.setPassword(protocal.getPassword());
 	}
 
 	@Override
-	public CS_Login javaBeanToProtocol() {
-		Builder newBuilder = CS_Login.newBuilder();
+	public CS_Regedit javaBeanToProtocol() {
+		Builder newBuilder = CS_Regedit.newBuilder();
 		newBuilder.setName(this.getName());
 		newBuilder.setPassword(this.getPassword());
 		return newBuilder.build();
@@ -50,7 +50,7 @@ public class CS_LoginJavaBean implements JavaProtocolTransform {
 	}
 
 	@Override
-	public CS_Login bytesToProtocol(byte[] bytes) throws InvalidProtocolBufferException {
-		return CS_Login.parseFrom(bytes);
+	public CS_Regedit bytesToProtocol(byte[] bytes) throws InvalidProtocolBufferException {
+		return CS_Regedit.parseFrom(bytes);
 	}
 }

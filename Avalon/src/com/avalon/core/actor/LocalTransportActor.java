@@ -452,7 +452,9 @@ public class LocalTransportActor extends UntypedActor {
 			return;
 		} else if (msg instanceof TransportMessage.ConnectionSessionsClosed)
 		{
-			connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
+			if (bindingConnectionSession) {
+				connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
+			}
 			return;
 		} else if (msg instanceof TransportTopicMessage)
 		{

@@ -431,10 +431,9 @@ public abstract class ClientExtension {
 	 *            the params
 	 * @return the io message package
 	 */
-	public IoMessagePackage handleClientRequest(ClientSessionLinenter clientSessionLinenter, int requestId,
-			byte[] params) {
+	public void handleClientRequest(ClientSessionLinenter clientSessionLinenter, int requestId, byte[] params) {
 		if (filterChain.size() > 0 && filterChain.runRequestInChain(requestId, this, params) == FilterAction.HALT) {
-			return null;
+			return;
 		}
 		try {
 			IClientRequestHandler handler = (IClientRequestHandler) handlerFactory.findHandler(requestId);
@@ -444,13 +443,12 @@ public abstract class ClientExtension {
 				// requestId +
 				// "'. Make sure the handler is registered in your extension using addRequestHandler()");
 			}
-			return handler.handleClientRequest(this, params);
+			handler.handleClientRequest(clientSessionLinenter, params);
 		} catch (InstantiationException err) {
 		} catch (IllegalAccessException err) {
 		} catch (InvalidProtocolBufferException e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 
 	/**

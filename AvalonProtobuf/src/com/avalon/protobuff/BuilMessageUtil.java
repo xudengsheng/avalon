@@ -3,9 +3,6 @@ package com.avalon.protobuff;
 import java.io.File;
 import java.io.IOException;
 
-import com.google.protobuf.WireFormat;
-import com.google.protobuf.WireFormat.JavaType;
-
 import jodd.props.Props;
 /**
  * 生成入口

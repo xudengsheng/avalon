@@ -3,9 +3,12 @@ package com.avalon.protobuff;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import jodd.io.FileUtil;
+import jodd.io.findfile.FindFile;
+import jodd.props.Props;
+import jodd.util.StringUtil;
 
 import com.avalon.protobuff.bean.JavaTypeUtil;
 import com.avalon.protobuff.bean.NestedTypes;
@@ -15,10 +18,6 @@ import com.avalon.protobuff.bean.ProtobufFieldType;
 import com.google.protobuf.WireFormat.JavaType;
 
 import freemarker.template.TemplateException;
-import jodd.io.FileUtil;
-import jodd.io.findfile.FindFile;
-import jodd.props.Props;
-import jodd.util.StringUtil;
 
 /**
  * protobuf文件读取工具
@@ -70,11 +69,13 @@ public class ProtonbufReadUtil {
 				ProtoBufFileBean extracted = extracted(file);
 				freeMakerUtil.process(extracted);
 				freeMakerUtil.processHelper(extracted);
-				freeMakerUtil.processHandlerr(extracted);
+				freeMakerUtil.processHandler(extracted);
+				freeMakerUtil.processAddOPCode(extracted);
 			} catch (IOException | TemplateException e) {
 				e.printStackTrace();
 			}
 		}
+		freeMakerUtil.processOPCode();
 	}
 
 	private ProtoBufFileBean extracted(File file) throws IOException {

@@ -341,12 +341,8 @@ Public License instead of this License.
  */
 package com.avalon.extensions.request;
 
-import com.avalon.api.internal.IoMessagePackage;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-
-
-// TODO: Auto-generated Javadoc
 /**
  * 处理客户端的请求.
  *
@@ -357,11 +353,14 @@ public interface IClientRequestHandler {
 	/**
 	 * Handle client request.
 	 *
-	 * @param listener the listener
-	 * @param message the message
+	 * @param listener
+	 *            the listener
+	 * @param message
+	 *            the message
 	 * @return the io message package
-	 * @throws InvalidProtocolBufferException the invalid protocol buffer exception
+	 * @throws InvalidProtocolBufferException
+	 *             the invalid protocol buffer exception
 	 */
-	public IoMessagePackage handleClientRequest(Object listener, Object message) throws InvalidProtocolBufferException;
+	public void handleClientRequest(Object listener, Object message) throws InvalidProtocolBufferException;
 
 }

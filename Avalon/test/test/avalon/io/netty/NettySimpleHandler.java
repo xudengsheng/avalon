@@ -358,10 +358,10 @@ public class NettySimpleHandler extends ChannelHandlerAdapter implements Message
 	/**
 	 * Instantiates a new netty simple handler.
 	 *
-	 * @param transport the transport
+	 * @param transport
+	 *            the transport
 	 */
-	public NettySimpleHandler(MessageTransport transport)
-	{
+	public NettySimpleHandler(MessageTransport transport) {
 		super();
 		this.transport = transport;
 		transport.setMessageTransport(this);
@@ -373,69 +373,89 @@ public class NettySimpleHandler extends ChannelHandlerAdapter implements Message
 	/** The ctx. */
 	private ChannelHandlerContext ctx;
 
-	/* (non-Javadoc)
-	 * @see io.netty.channel.ChannelHandlerAdapter#channelRegistered(io.netty.channel.ChannelHandlerContext)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * io.netty.channel.ChannelHandlerAdapter#channelRegistered(io.netty.channel
+	 * .ChannelHandlerContext)
 	 */
 	@Override
-	public void channelRegistered(ChannelHandlerContext ctx) throws Exception
-	{
+	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
 		super.channelRegistered(ctx);
 		this.ctx = ctx;
 	}
 
-	/* (non-Javadoc)
-	 * @see io.netty.channel.ChannelHandlerAdapter#handlerRemoved(io.netty.channel.ChannelHandlerContext)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * io.netty.channel.ChannelHandlerAdapter#handlerRemoved(io.netty.channel
+	 * .ChannelHandlerContext)
 	 */
 	@Override
-	public void handlerRemoved(ChannelHandlerContext ctx)
-	{
+	public void handlerRemoved(ChannelHandlerContext ctx) {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see io.netty.channel.ChannelHandlerAdapter#channelRead(io.netty.channel.ChannelHandlerContext, java.lang.Object)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see io.netty.channel.ChannelHandlerAdapter#channelRead(io.netty.channel.
+	 * ChannelHandlerContext, java.lang.Object)
 	 */
 	@Override
-	public void channelRead(ChannelHandlerContext ctx, Object msg)
-	{
-		if (msg instanceof IoMessagePackage)
-		{
-			System.out.println("GET OP CODE ="+((IoMessagePackage) msg).getOpCode());
+	public void channelRead(ChannelHandlerContext ctx, Object msg) {
+		if (msg instanceof IoMessagePackage) {
+			System.out.println("GET OP CODE =" + ((IoMessagePackage) msg).getOpCode());
 			System.out.println(msg);
 		}
-		
+
 		transport.handleMessage(msg);
 	}
 
-	/* (non-Javadoc)
-	 * @see io.netty.channel.ChannelHandlerAdapter#exceptionCaught(io.netty.channel.ChannelHandlerContext, java.lang.Throwable)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * io.netty.channel.ChannelHandlerAdapter#exceptionCaught(io.netty.channel
+	 * .ChannelHandlerContext, java.lang.Throwable)
 	 */
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
-	{
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
 		cause.printStackTrace();
 		ctx.close();
 	}
 
-	/* (non-Javadoc)
-	 * @see test.avalon.io.netty.MessageTransport#handleMessage(java.lang.Object)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * test.avalon.io.netty.MessageTransport#handleMessage(java.lang.Object)
 	 */
 	@Override
-	public void handleMessage(Object message)
-	{
-		// TODO Auto-generated method stub
-		String hello = "Hello";
-		IoMessagePackage ioMessagePackage = new MessagePackImpl(1, hello.getBytes());
-		MessageHead head=new MessageHead(ioMessagePackage);
-		ChannelFuture writeAndFlush = this.ctx.writeAndFlush(head);
-
+	public void handleMessage(Object message) {
+		if (message instanceof IoMessagePackage) {
+			MessageHead head = new MessageHead((IoMessagePackage) message);
+			ChannelFuture writeAndFlush = this.ctx.writeAndFlush(head);
+		} else {
+			// TODO Auto-generated method stub
+			String hello = "Hello";
+			IoMessagePackage ioMessagePackage = new MessagePackImpl(1, hello.getBytes());
+			MessageHead head = new MessageHead(ioMessagePackage);
+			ChannelFuture writeAndFlush = this.ctx.writeAndFlush(head);
+		}
 	}
 
-	/* (non-Javadoc)
-	 * @see test.avalon.io.netty.MessageTransport#setMessageTransport(test.avalon.io.netty.MessageTransport)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * test.avalon.io.netty.MessageTransport#setMessageTransport(test.avalon
+	 * .io.netty.MessageTransport)
 	 */
 	@Override
-	public void setMessageTransport(MessageTransport messageTransport)
-	{}
+	public void setMessageTransport(MessageTransport messageTransport) {
+	}
 
 }
