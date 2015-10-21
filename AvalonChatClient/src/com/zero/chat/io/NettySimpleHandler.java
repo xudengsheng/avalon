@@ -339,141 +339,182 @@ consider it more useful to permit linking proprietary applications with the
 library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.
  */
-package com.avalon.extensions.request;
+package com.zero.chat.io;
 
-import com.avalon.api.ClientSessionLinenter;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandlerAdapter;
+import io.netty.channel.ChannelHandlerContext;
+
 import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.extensions.request.filter.ClientExtensionFilter;
-import com.avalon.extensions.request.filter.FilterAction;
-import com.avalon.extensions.request.filter.IFilterChain;
+import com.avalon.io.MessagePackImpl;
+import com.avalon.util.MessageHead;
+import com.example.protocol.HallPro.SC_HallInfo;
+import com.example.protocol.HallPro.SC_HallMessage;
+import com.example.protocol.HallPro.SC_JoinHall;
+import com.example.protocol.HallPro.SC_LeaveHall;
+import com.example.protocol.LoginPro.SC_Globle_message;
+import com.example.protocol.MessageKey;
+import com.example.protocol.javabean.SC_Globle_messageJavaBean;
+import com.example.protocol.javabean.SC_HallInfoJavaBean;
+import com.example.protocol.javabean.SC_HallMessageJavaBean;
+import com.example.protocol.javabean.SC_JoinHallJavaBean;
+import com.example.protocol.javabean.SC_LeaveHallJavaBean;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.zero.chat.ChatMain;
 
 // TODO: Auto-generated Javadoc
 /**
- * 请求拓展接口.
- *
- * @author zero
+ * The Class NettySimpleHandler.
  */
-public abstract class ClientExtension {
-
-	/** The handler factory. */
-	private final IHandlerFactory handlerFactory = new ClientHandlerFactory();
-
-	/** The filter chain. */
-	private final IFilterChain filterChain = new ClientExtensionFilterChain(this);
+public class NettySimpleHandler extends ChannelHandlerAdapter implements MessageTransport {
 
 	/**
-	 * Destroy.
+	 * Instantiates a new netty simple handler.
 	 *
-	 * @param obj
-	 *            the obj
+	 * @param transport
+	 *            the transport
 	 */
-	public void destroy(Object obj) {
-		handlerFactory.clearAll();
-		filterChain.destroy();
+	public NettySimpleHandler(MessageTransport transport) {
+		super();
+		this.transport = transport;
+		transport.setMessageTransport(this);
 	}
 
-	/**
-	 * Adds the request handler.
-	 *
-	 * @param requestId
-	 *            the request id
-	 * @param theClass
-	 *            the the class
+	/** The transport. */
+	private final MessageTransport transport;
+
+	/** The ctx. */
+	private ChannelHandlerContext ctx;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * io.netty.channel.ChannelHandlerAdapter#channelRegistered(io.netty.channel
+	 * .ChannelHandlerContext)
 	 */
-	protected void addRequestHandler(int requestId, Class<?> theClass) {
-		if (!(IClientRequestHandler.class).isAssignableFrom(theClass)) {
-			// throw new
-			// ALawsRuntimeException(String.format("Provided Request Handler does not implement IClientRequestHandler: %s, Cmd: %s",
-			// new Object[] {theClass, requestId }));
-		} else {
-			handlerFactory.addHandler(requestId, theClass);
-		}
+	@Override
+	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+		super.channelRegistered(ctx);
+		this.ctx = ctx;
 	}
 
-	/**
-	 * Adds the request handler.
-	 *
-	 * @param requestId
-	 *            the request id
-	 * @param requestHandler
-	 *            the request handler
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * io.netty.channel.ChannelHandlerAdapter#handlerRemoved(io.netty.channel
+	 * .ChannelHandlerContext)
 	 */
-	protected void addRequestHandler(int requestId, IClientRequestHandler requestHandler) {
-		handlerFactory.addHandler(requestId, requestHandler);
+	@Override
+	public void handlerRemoved(ChannelHandlerContext ctx) {
+
 	}
 
-	/**
-	 * Removes the request handler.
-	 *
-	 * @param requestId
-	 *            the request id
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see io.netty.channel.ChannelHandlerAdapter#channelRead(io.netty.channel.
+	 * ChannelHandlerContext, java.lang.Object)
 	 */
-	protected void removeRequestHandler(int requestId) {
-		handlerFactory.removeHandler(requestId);
-	}
-
-	/**
-	 * Clear all handlers.
-	 */
-	protected void clearAllHandlers() {
-		handlerFactory.clearAll();
-	}
-
-	/**
-	 * Handle client request.
-	 *
-	 * @param clientSessionLinenter
-	 *            the client session linenter
-	 * @param requestId
-	 *            the request id
-	 * @param params
-	 *            the params
-	 * @return the io message package
-	 */
-	public void handleClientRequest(ClientSessionLinenter clientSessionLinenter, int requestId, byte[] params) {
-		if (filterChain.size() > 0 && filterChain.runRequestInChain(requestId, this, params) == FilterAction.HALT) {
-			return;
-		}
-		try {
-			IClientRequestHandler handler = (IClientRequestHandler) handlerFactory.findHandler(requestId);
-			if (handler == null) {
-				System.out.println(requestId);
+	@Override
+	public void channelRead(ChannelHandlerContext ctx, Object msg) {
+		if (msg instanceof IoMessagePackage) {
+			if (((IoMessagePackage) msg).getOpCode() == MessageKey.SC_Globle_message) {
+				try {
+					SC_Globle_messageJavaBean bean = new SC_Globle_messageJavaBean();
+					SC_Globle_message bytesToProtocol = bean.bytesToProtocol(((IoMessagePackage) msg).getRawData());
+					bean.protocolToJavaBean(bytesToProtocol);
+					ChatMain.showDialog(bean.getKey(), bean.getStats(), bean.getContext());
+				} catch (InvalidProtocolBufferException e) {
+					e.printStackTrace();
+				}
+			} else if (((IoMessagePackage) msg).getOpCode() == MessageKey.SC_HallInfo) {
+				try {
+					SC_HallInfoJavaBean bean = new SC_HallInfoJavaBean();
+					SC_HallInfo bytesToProtocol = bean.bytesToProtocol(((IoMessagePackage) msg).getRawData());
+					bean.protocolToJavaBean(bytesToProtocol);
+					ChatMain.enterHallMain(bean.getHallId(), bean.getUsersName());
+				} catch (InvalidProtocolBufferException e) {
+					e.printStackTrace();
+				}
+			} else if (((IoMessagePackage) msg).getOpCode() == MessageKey.SC_JoinHall) {
+				try {
+					SC_JoinHallJavaBean bean = new SC_JoinHallJavaBean();
+					SC_JoinHall bytesToProtocol = bean.bytesToProtocol(((IoMessagePackage) msg).getRawData());
+					bean.protocolToJavaBean(bytesToProtocol);
+					ChatMain.clientHall.addNewMember(bean.getName());
+				} catch (InvalidProtocolBufferException e) {
+					e.printStackTrace();
+				}
 			}
-			handler.handleClientRequest(clientSessionLinenter, params);
-		} catch (InstantiationException | IllegalAccessException | InvalidProtocolBufferException e) {
-			e.printStackTrace();
+			else if (((IoMessagePackage) msg).getOpCode() == MessageKey.SC_LeaveHall) {
+				try {
+					SC_LeaveHallJavaBean bean = new SC_LeaveHallJavaBean();
+					SC_LeaveHall bytesToProtocol = bean.bytesToProtocol(((IoMessagePackage) msg).getRawData());
+					bean.protocolToJavaBean(bytesToProtocol);
+					ChatMain.clientHall.removeMember(bean.getName());
+				} catch (InvalidProtocolBufferException e) {
+					e.printStackTrace();
+				}
+			}
+			else if (((IoMessagePackage) msg).getOpCode() == MessageKey.SC_HallMessage) {
+				try {
+					SC_HallMessageJavaBean bean = new SC_HallMessageJavaBean();
+					SC_HallMessage bytesToProtocol = bean.bytesToProtocol(((IoMessagePackage) msg).getRawData());
+					bean.protocolToJavaBean(bytesToProtocol);
+					ChatMain.clientHall.addMessage(bean.getContext());
+				} catch (InvalidProtocolBufferException e) {
+					e.printStackTrace();
+				}
+			}
+			System.out.println("GET OP CODE =" + 2);
+			System.out.println(msg);
 		}
-
 	}
 
-	/**
-	 * Adds the filter.
-	 *
-	 * @param filterId
-	 *            the filter id
-	 * @param filter
-	 *            the filter
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * io.netty.channel.ChannelHandlerAdapter#exceptionCaught(io.netty.channel
+	 * .ChannelHandlerContext, java.lang.Throwable)
 	 */
-	public final void addFilter(int filterId, ClientExtensionFilter filter) {
-		filterChain.addFilter(filterId, filter);
+	@Override
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+		cause.printStackTrace();
+		ctx.close();
 	}
 
-	/**
-	 * Removes the filter.
-	 *
-	 * @param filterId
-	 *            the filter id
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * test.avalon.io.netty.MessageTransport#handleMessage(java.lang.Object)
 	 */
-	public void removeFilter(int filterId) {
-		filterChain.remove(filterId);
+	@Override
+	public void handleMessage(Object message) {
+		if (message instanceof IoMessagePackage) {
+			MessageHead head = new MessageHead((IoMessagePackage) message);
+			ChannelFuture writeAndFlush = this.ctx.writeAndFlush(head);
+		} else {
+			// TODO Auto-generated method stub
+			String hello = "Hello";
+			IoMessagePackage ioMessagePackage = new MessagePackImpl(1, hello.getBytes());
+			MessageHead head = new MessageHead(ioMessagePackage);
+			ChannelFuture writeAndFlush = this.ctx.writeAndFlush(head);
+		}
 	}
 
-	/**
-	 * Clear filters.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * test.avalon.io.netty.MessageTransport#setMessageTransport(test.avalon
+	 * .io.netty.MessageTransport)
 	 */
-	public void clearFilters() {
-		filterChain.destroy();
+	@Override
+	public void setMessageTransport(MessageTransport messageTransport) {
 	}
 
 }

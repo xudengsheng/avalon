@@ -339,141 +339,25 @@ consider it more useful to permit linking proprietary applications with the
 library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.
  */
-package com.avalon.extensions.request;
-
-import com.avalon.api.ClientSessionLinenter;
-import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.extensions.request.filter.ClientExtensionFilter;
-import com.avalon.extensions.request.filter.FilterAction;
-import com.avalon.extensions.request.filter.IFilterChain;
-import com.google.protobuf.InvalidProtocolBufferException;
+package com.zero.chat.io;
 
 // TODO: Auto-generated Javadoc
 /**
- * 请求拓展接口.
- *
- * @author zero
+ * The Interface MessageTransport.
  */
-public abstract class ClientExtension {
-
-	/** The handler factory. */
-	private final IHandlerFactory handlerFactory = new ClientHandlerFactory();
-
-	/** The filter chain. */
-	private final IFilterChain filterChain = new ClientExtensionFilterChain(this);
+public interface MessageTransport {
 
 	/**
-	 * Destroy.
+	 * Handle message.
 	 *
-	 * @param obj
-	 *            the obj
+	 * @param message the message
 	 */
-	public void destroy(Object obj) {
-		handlerFactory.clearAll();
-		filterChain.destroy();
-	}
-
+	public void handleMessage(Object message);
+	
 	/**
-	 * Adds the request handler.
+	 * Sets the message transport.
 	 *
-	 * @param requestId
-	 *            the request id
-	 * @param theClass
-	 *            the the class
+	 * @param messageTransport the new message transport
 	 */
-	protected void addRequestHandler(int requestId, Class<?> theClass) {
-		if (!(IClientRequestHandler.class).isAssignableFrom(theClass)) {
-			// throw new
-			// ALawsRuntimeException(String.format("Provided Request Handler does not implement IClientRequestHandler: %s, Cmd: %s",
-			// new Object[] {theClass, requestId }));
-		} else {
-			handlerFactory.addHandler(requestId, theClass);
-		}
-	}
-
-	/**
-	 * Adds the request handler.
-	 *
-	 * @param requestId
-	 *            the request id
-	 * @param requestHandler
-	 *            the request handler
-	 */
-	protected void addRequestHandler(int requestId, IClientRequestHandler requestHandler) {
-		handlerFactory.addHandler(requestId, requestHandler);
-	}
-
-	/**
-	 * Removes the request handler.
-	 *
-	 * @param requestId
-	 *            the request id
-	 */
-	protected void removeRequestHandler(int requestId) {
-		handlerFactory.removeHandler(requestId);
-	}
-
-	/**
-	 * Clear all handlers.
-	 */
-	protected void clearAllHandlers() {
-		handlerFactory.clearAll();
-	}
-
-	/**
-	 * Handle client request.
-	 *
-	 * @param clientSessionLinenter
-	 *            the client session linenter
-	 * @param requestId
-	 *            the request id
-	 * @param params
-	 *            the params
-	 * @return the io message package
-	 */
-	public void handleClientRequest(ClientSessionLinenter clientSessionLinenter, int requestId, byte[] params) {
-		if (filterChain.size() > 0 && filterChain.runRequestInChain(requestId, this, params) == FilterAction.HALT) {
-			return;
-		}
-		try {
-			IClientRequestHandler handler = (IClientRequestHandler) handlerFactory.findHandler(requestId);
-			if (handler == null) {
-				System.out.println(requestId);
-			}
-			handler.handleClientRequest(clientSessionLinenter, params);
-		} catch (InstantiationException | IllegalAccessException | InvalidProtocolBufferException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	/**
-	 * Adds the filter.
-	 *
-	 * @param filterId
-	 *            the filter id
-	 * @param filter
-	 *            the filter
-	 */
-	public final void addFilter(int filterId, ClientExtensionFilter filter) {
-		filterChain.addFilter(filterId, filter);
-	}
-
-	/**
-	 * Removes the filter.
-	 *
-	 * @param filterId
-	 *            the filter id
-	 */
-	public void removeFilter(int filterId) {
-		filterChain.remove(filterId);
-	}
-
-	/**
-	 * Clear filters.
-	 */
-	public void clearFilters() {
-		filterChain.destroy();
-	}
-
+	public void setMessageTransport(MessageTransport messageTransport);
 }

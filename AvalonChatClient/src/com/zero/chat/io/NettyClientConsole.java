@@ -339,141 +339,64 @@ consider it more useful to permit linking proprietary applications with the
 library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.
  */
-package com.avalon.extensions.request;
+package com.zero.chat.io;
 
-import com.avalon.api.ClientSessionLinenter;
 import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.extensions.request.filter.ClientExtensionFilter;
-import com.avalon.extensions.request.filter.FilterAction;
-import com.avalon.extensions.request.filter.IFilterChain;
-import com.google.protobuf.InvalidProtocolBufferException;
+
 
 // TODO: Auto-generated Javadoc
 /**
- * 请求拓展接口.
- *
- * @author zero
+ * The Class NettyClientConsole.
  */
-public abstract class ClientExtension {
+public class NettyClientConsole implements MessageTransport {
 
-	/** The handler factory. */
-	private final IHandlerFactory handlerFactory = new ClientHandlerFactory();
+	/** The transport. */
+	private MessageTransport transport;
 
-	/** The filter chain. */
-	private final IFilterChain filterChain = new ClientExtensionFilterChain(this);
+	/** The netty simple client. */
+	private NettySimpleClient nettySimpleClient;
 
-	/**
-	 * Destroy.
-	 *
-	 * @param obj
-	 *            the obj
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * test.avalon.io.netty.MessageTransport#handleMessage(java.lang.Object)
 	 */
-	public void destroy(Object obj) {
-		handlerFactory.clearAll();
-		filterChain.destroy();
-	}
-
-	/**
-	 * Adds the request handler.
-	 *
-	 * @param requestId
-	 *            the request id
-	 * @param theClass
-	 *            the the class
-	 */
-	protected void addRequestHandler(int requestId, Class<?> theClass) {
-		if (!(IClientRequestHandler.class).isAssignableFrom(theClass)) {
-			// throw new
-			// ALawsRuntimeException(String.format("Provided Request Handler does not implement IClientRequestHandler: %s, Cmd: %s",
-			// new Object[] {theClass, requestId }));
-		} else {
-			handlerFactory.addHandler(requestId, theClass);
+	@Override
+	public void handleMessage(Object message) {
+		if (message instanceof ConnnectionMessage) {
+			startClient(((ConnnectionMessage) message).host, ((ConnnectionMessage) message).port);
+		} else if (message instanceof IoMessagePackage) {
+			transport.handleMessage(message);
 		}
+
 	}
 
 	/**
-	 * Adds the request handler.
+	 * Start client.
 	 *
-	 * @param requestId
-	 *            the request id
-	 * @param requestHandler
-	 *            the request handler
+	 * @param message
+	 *            the message
 	 */
-	protected void addRequestHandler(int requestId, IClientRequestHandler requestHandler) {
-		handlerFactory.addHandler(requestId, requestHandler);
-	}
-
-	/**
-	 * Removes the request handler.
-	 *
-	 * @param requestId
-	 *            the request id
-	 */
-	protected void removeRequestHandler(int requestId) {
-		handlerFactory.removeHandler(requestId);
-	}
-
-	/**
-	 * Clear all handlers.
-	 */
-	protected void clearAllHandlers() {
-		handlerFactory.clearAll();
-	}
-
-	/**
-	 * Handle client request.
-	 *
-	 * @param clientSessionLinenter
-	 *            the client session linenter
-	 * @param requestId
-	 *            the request id
-	 * @param params
-	 *            the params
-	 * @return the io message package
-	 */
-	public void handleClientRequest(ClientSessionLinenter clientSessionLinenter, int requestId, byte[] params) {
-		if (filterChain.size() > 0 && filterChain.runRequestInChain(requestId, this, params) == FilterAction.HALT) {
-			return;
-		}
+	private void startClient(String host, int port) {
+		nettySimpleClient = new NettySimpleClient();
 		try {
-			IClientRequestHandler handler = (IClientRequestHandler) handlerFactory.findHandler(requestId);
-			if (handler == null) {
-				System.out.println(requestId);
-			}
-			handler.handleClientRequest(clientSessionLinenter, params);
-		} catch (InstantiationException | IllegalAccessException | InvalidProtocolBufferException e) {
+			nettySimpleClient.connect(host, port, this);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
-	/**
-	 * Adds the filter.
-	 *
-	 * @param filterId
-	 *            the filter id
-	 * @param filter
-	 *            the filter
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * test.avalon.io.netty.MessageTransport#setMessageTransport(test.avalon
+	 * .io.netty.MessageTransport)
 	 */
-	public final void addFilter(int filterId, ClientExtensionFilter filter) {
-		filterChain.addFilter(filterId, filter);
-	}
-
-	/**
-	 * Removes the filter.
-	 *
-	 * @param filterId
-	 *            the filter id
-	 */
-	public void removeFilter(int filterId) {
-		filterChain.remove(filterId);
-	}
-
-	/**
-	 * Clear filters.
-	 */
-	public void clearFilters() {
-		filterChain.destroy();
+	@Override
+	public void setMessageTransport(MessageTransport messageTransport) {
+		this.transport = messageTransport;
 	}
 
 }
