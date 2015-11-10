@@ -341,13 +341,13 @@ Public License instead of this License.
  */
 package com.avalon.core;
 
-import akka.actor.ActorSystem;
-
 import com.avalon.api.AppListener;
 import com.avalon.api.DistributedTaskManager;
 import com.avalon.api.internal.IService;
 import com.avalon.setting.AvalonServerMode;
 import com.avalon.util.PropertiesWrapper;
+
+import akka.actor.ActorSystem;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -374,15 +374,6 @@ public final class ContextResolver {
 		return context.getPropertiesWrapper();
 	}
 
-	/**
-	 * Gets the server mode.
-	 *
-	 * @return the server mode
-	 */
-	public static AvalonServerMode getServerMode()
-	{
-		return context.getServerMode();
-	}
 
 	/**
 	 * Gets the app listener.

@@ -364,7 +364,7 @@ public interface TaskManagerMessage extends Serializable {
 		public final Runnable runnable;
 		
 		/** The Server uuid. */
-		public final String ServerUUID;
+		public final int serverID;
 		
 		/** The delay. */
 		public final long delay;
@@ -386,11 +386,11 @@ public interface TaskManagerMessage extends Serializable {
 		 * @param delay the delay
 		 * @param period the period
 		 */
-		public createTaskMessage(Runnable runnable, String serverUUID, long delay, long period)
+		public createTaskMessage(Runnable runnable, int serverID, long delay, long period)
 		{
 			super();
 			this.runnable = runnable;
-			ServerUUID = serverUUID;
+			this.serverID = serverID;
 			this.delay = delay;
 			this.period = period;
 		}

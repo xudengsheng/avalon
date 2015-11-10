@@ -346,19 +346,19 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import scala.concurrent.duration.Duration;
-import scala.concurrent.duration.FiniteDuration;
+import com.avalon.api.CancellableTask;
+import com.avalon.core.message.SchedulerServerSupervisorMessage;
+import com.avalon.core.message.SchedulerServerSupervisorMessage.RunTaskInfo;
+import com.avalon.core.model.CancellabTaskImpl;
+
 import akka.actor.ActorSystem;
 import akka.actor.Cancellable;
 import akka.actor.Scheduler;
 import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
-
-import com.avalon.api.CancellableTask;
-import com.avalon.core.message.SchedulerServerSupervisorMessage;
-import com.avalon.core.message.SchedulerServerSupervisorMessage.RunTaskInfo;
-import com.avalon.core.model.CancellabTaskImpl;
+import scala.concurrent.duration.Duration;
+import scala.concurrent.duration.FiniteDuration;
 
 // TODO: Auto-generated Javadoc
 /**

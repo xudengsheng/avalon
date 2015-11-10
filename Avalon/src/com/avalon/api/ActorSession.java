@@ -341,11 +341,10 @@ Public License instead of this License.
  */
 package com.avalon.api;
 
-import akka.actor.ActorSelection;
-import akka.actor.UntypedActor;
-
-import com.avalon.api.internal.IoMessage;
 import com.avalon.api.internal.IoMessagePackage;
+
+import akka.actor.ActorRef;
+import akka.actor.UntypedActor;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -376,7 +375,7 @@ public interface ActorSession{
 	 *
 	 * @param untypActorSelection the new transport
 	 */
-	void setTransport(ActorSelection untypActorSelection);
+	void setTransport(ActorRef untypActorSelection);
 
 	/**
 	 * 发送消息(会话直接发到连接客户端).

@@ -341,9 +341,7 @@ Public License instead of this License.
  */
 package com.avalon.game;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import com.avalon.game.event.AkkaEvent;
 import com.avalon.game.extended.ExtendedMessage;

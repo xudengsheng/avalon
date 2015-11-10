@@ -341,11 +341,11 @@ Public License instead of this License.
  */
 package com.avalon.core;
 
-import akka.actor.ActorSystem;
-
 import com.avalon.api.DistributedTaskManager;
 import com.avalon.api.internal.IService;
 import com.avalon.api.internal.ManagerLocator;
+
+import akka.actor.ActorSystem;
 
 
 // TODO: Auto-generated Javadoc

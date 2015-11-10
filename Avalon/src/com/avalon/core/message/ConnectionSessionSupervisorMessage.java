@@ -343,6 +343,8 @@ package com.avalon.core.message;
 
 import java.io.Serializable;
 
+import akka.actor.ActorRef;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Interface ConnectionSessionSupervisorMessage.
@@ -356,33 +358,15 @@ public interface ConnectionSessionSupervisorMessage extends Serializable {
 
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 4143946258710301150L;
-		
-		/** The uid. */
-		public final int uid;
-		
+
 		/** The supervisor name. */
-		public final String supervisorName;
-		
-		/** The actor id. */
-		public final String actorId;
-		
+		public final ActorRef sender;
 		/** The origins. */
 		public final Object origins;
 
-		/**
-		 * Instantiates a new cluser session message.
-		 *
-		 * @param uid the uid
-		 * @param supervisorName the supervisor name
-		 * @param actorId the actor id
-		 * @param origins the origins
-		 */
-		public CluserSessionMessage(int uid, String supervisorName, String actorId, Object origins)
-		{
+		public CluserSessionMessage(ActorRef sender, Object origins) {
 			super();
-			this.uid = uid;
-			this.supervisorName = supervisorName;
-			this.actorId = actorId;
+			this.sender = sender;
 			this.origins = origins;
 		}
 

@@ -345,10 +345,8 @@ import com.avalon.game.event.AkkaEvent;
 import com.avalon.game.extended.ExtendedMessage;
 import com.avalon.game.extended.IAvalonExtendedControl;
 
-import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
-import akka.actor.UntypedActorContext;
 import akka.japi.Creator;
 
 // TODO: Auto-generated Javadoc

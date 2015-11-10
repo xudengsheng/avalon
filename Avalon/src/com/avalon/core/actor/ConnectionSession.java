@@ -343,36 +343,28 @@ package com.avalon.core.actor;
 
 import java.util.concurrent.TimeUnit;
 
-import scala.concurrent.duration.Duration;
+import com.avalon.api.ActorSession;
+import com.avalon.api.AppListener;
+import com.avalon.api.ClientSessionLinenter;
+import com.avalon.api.TaskManager;
+import com.avalon.api.internal.IoMessagePackage;
+import com.avalon.api.message.GetLocationMessage;
+import com.avalon.core.ContextResolver;
+import com.avalon.core.message.ConnectionSessionMessage;
+import com.avalon.core.message.TransportMessage;
+import com.avalon.core.message.TransportMessage.SessionSessionMessage;
+import com.avalon.setting.SystemEnvironment;
+import com.avalon.util.PropertiesWrapper;
+
 import akka.actor.ActorRef;
-import akka.actor.ActorSelection;
 import akka.actor.ActorSystem;
 import akka.actor.Cancellable;
 import akka.actor.Scheduler;
 import akka.actor.UntypedActor;
 import akka.actor.UntypedActorContext;
-import akka.cluster.pubsub.DistributedPubSub;
-import akka.cluster.pubsub.DistributedPubSubMediator;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
-
-import com.avalon.api.ActorSession;
-import com.avalon.api.AppListener;
-import com.avalon.api.ClientSessionLinenter;
-import com.avalon.api.TaskManager;
-import com.avalon.api.internal.IoMessage;
-import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.api.message.GetLocationMessage;
-import com.avalon.core.ContextResolver;
-import com.avalon.core.message.ConnectionSessionMessage;
-import com.avalon.core.message.ConnectionSessionMessage.HasSenderPathMessage;
-import com.avalon.core.message.GetLocationMessageImpl;
-import com.avalon.core.message.TopicMessage;
-import com.avalon.core.message.TransportMessage;
-import com.avalon.core.message.TransportMessage.SessionSessionMessage;
-import com.avalon.core.subscribe.ConnectionSessionTopic;
-import com.avalon.setting.SystemEnvironment;
-import com.avalon.util.PropertiesWrapper;
+import scala.concurrent.duration.Duration;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -386,10 +378,7 @@ public class ConnectionSession extends UntypedActor {
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
 	/** The sender. */
-	private ActorSelection sender;
-
-	/** The cluster uid. */
-	private int clusterUid;
+	private ActorRef sender;
 
 	/** The client session. */
 	private ActorSession clientSession;
@@ -411,8 +400,8 @@ public class ConnectionSession extends UntypedActor {
 	@Override
 	public void preStart() throws Exception {
 		super.preStart();
-		ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
-		mediator.tell(new DistributedPubSubMediator.Subscribe(ConnectionSessionTopic.shardName, getSelf()), getSelf());
+//		ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
+//		mediator.tell(new DistributedPubSubMediator.Subscribe(ConnectionSessionTopic.shardName, getSelf()), getSelf());
 	}
 
 	/* (non-Javadoc)
@@ -422,11 +411,9 @@ public class ConnectionSession extends UntypedActor {
 	public void onReceive(Object msg) throws Exception {
 
 		if (msg instanceof ConnectionSessionMessage.HasSenderPathMessage) {
-			clusterUid = ((ConnectionSessionMessage.HasSenderPathMessage) msg).clusterUid;
-			sender = getContext().actorSelection(((HasSenderPathMessage) msg).senderPath);
+			sender = ((ConnectionSessionMessage.HasSenderPathMessage) msg).sender;
 
-			TransportMessage.ConnectionSessionsBinding binding = new TransportMessage.ConnectionSessionsBinding(
-					clusterUid);
+			TransportMessage.ConnectionSessionsBinding binding = new TransportMessage.ConnectionSessionsBinding();
 
 			Object message = ((ConnectionSessionMessage.HasSenderPathMessage) msg).message;
 			sender.tell(binding, getSelf());
@@ -439,8 +426,7 @@ public class ConnectionSession extends UntypedActor {
 			// 实例化处理逻辑的监听类
 			if (sessionLinenter == null) {
 				PropertiesWrapper propertiesWrapper = ContextResolver.getPropertiesWrapper();
-				sessionLinenter = (ClientSessionLinenter) propertiesWrapper.getClassInstanceProperty(
-						SystemEnvironment.APP_SESSION_LISTENER, ClientSessionLinenter.class, new Class[] {});
+				sessionLinenter = (ClientSessionLinenter) propertiesWrapper.getClassInstanceProperty(SystemEnvironment.APP_SESSION_LISTENER, ClientSessionLinenter.class, new Class[] {});
 			}
 			try {
 				sessionLinenter.receivedMessage(clientSession, (IoMessagePackage) message);
@@ -458,9 +444,7 @@ public class ConnectionSession extends UntypedActor {
 				e.printStackTrace();
 			}
 			return;
-		} else if (msg instanceof TopicMessage.ConnectionSessionTopicMessage) {
-
-		}
+		} 
 		// 获得Actor之间的消息
 		else if (msg instanceof GetLocationMessage) {
 			sessionLinenter.receivedActorMessage(getSender(), ((GetLocationMessage) msg).getMessage());
@@ -479,13 +463,13 @@ public class ConnectionSession extends UntypedActor {
 
 class InnerClient implements ActorSession, TaskManager {
 
-	ActorSelection transport;
+	ActorRef transport;
 
 	final UntypedActorContext context;
 
 	final UntypedActor self;
 
-	public InnerClient(ActorSelection sender, UntypedActor self) {
+	public InnerClient(ActorRef sender, UntypedActor self) {
 		super();
 		this.transport = sender;
 		this.self = self;
@@ -493,7 +477,7 @@ class InnerClient implements ActorSession, TaskManager {
 	}
 
 	@Override
-	public void setTransport(ActorSelection untypActorSelection) {
+	public void setTransport(ActorRef untypActorSelection) {
 		this.transport = untypActorSelection;
 
 	}

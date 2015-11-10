@@ -343,11 +343,11 @@ package com.avalon.core;
 
 import java.io.File;
 
-import akka.actor.ActorSystem;
-
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 // TODO: Auto-generated Javadoc
+
+import akka.actor.ActorSystem;
 
 /**
  * AKKA系统初始化.

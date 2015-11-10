@@ -359,11 +359,10 @@ final class StartupKernelContext extends KernelContext {
 	 * @param applicationName the application name
 	 * @param systemRegistry the system registry
 	 * @param propertieswrapper the propertieswrapper
-	 * @param serverMode the server mode
 	 */
-	public StartupKernelContext(String applicationName, ComponentRegistryImpl systemRegistry,PropertiesWrapper propertieswrapper,AvalonServerMode serverMode)
+	public StartupKernelContext(String applicationName, ComponentRegistryImpl systemRegistry,PropertiesWrapper propertieswrapper)
 	{
-		super(applicationName, systemRegistry, new ComponentRegistryImpl(),propertieswrapper,serverMode);
+		super(applicationName, systemRegistry, new ComponentRegistryImpl(),propertieswrapper);
 	}
 
 	/**

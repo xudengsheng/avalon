@@ -343,10 +343,10 @@ package com.avalon.core.message;
 
 import java.io.Serializable;
 
-import akka.actor.Address;
-
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.core.message.ConnectionSessionSupervisorMessage.CluserSessionMessage;
+
+import akka.actor.Address;
 
 // TODO: Auto-generated Javadoc
 /**

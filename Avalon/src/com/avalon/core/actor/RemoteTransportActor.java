@@ -341,29 +341,26 @@ Public License instead of this License.
  */
 package com.avalon.core.actor;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorSelection;
-import akka.actor.UntypedActor;
-import akka.cluster.Cluster;
-import akka.cluster.pubsub.DistributedPubSub;
-import akka.cluster.pubsub.DistributedPubSubMediator;
-import akka.event.Logging;
-import akka.event.LoggingAdapter;
-
 import com.avalon.api.IoSession;
 import com.avalon.api.internal.ActorCallBack;
 import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.core.command.ConnectionSessionsProtocol;
+import com.avalon.core.AvalonActor;
+import com.avalon.core.ContextResolver;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.ConnectionSessionMessage.DirectSessionMessage;
-import com.avalon.core.message.TopicMessage;
+import com.avalon.core.message.ServerSupervisorMessage;
 import com.avalon.core.message.TopicMessage.TransportTopicMessage;
 import com.avalon.core.message.TransportMessage;
 import com.avalon.core.message.TransportMessage.ConnectionSessionsClosed;
 import com.avalon.core.message.TransportMessage.IOSessionReciveDirectMessage;
 import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
 import com.avalon.core.message.TransportMessage.SessionSessionMessage;
-import com.avalon.core.subscribe.TransportTopic;
+import com.avalon.setting.SystemEnvironment;
+
+import akka.actor.ActorRef;
+import akka.actor.UntypedActor;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -380,17 +377,11 @@ public class RemoteTransportActor extends UntypedActor {
 	/** The session actor id. */
 	public final String sessionActorId;
 
-	/** The local region. */
-	private final ActorSelection localRegion;
-
 	/** The transport supervisor. */
-	public final ActorSelection transportSupervisor;
+	public final ActorRef transportSupervisor;
 
 	/** The connection sessions ref. */
 	public ActorRef connectionSessionsRef;
-
-	/** The cluster uid. */
-	private final int clusterUid;
 
 	/** The io session. */
 	private final IoSession ioSession;
@@ -398,95 +389,82 @@ public class RemoteTransportActor extends UntypedActor {
 	// 是否绑定Session连接会话
 	/** The binding connection session. */
 	private boolean bindingConnectionSession;
-	
+
 	/**
 	 * Instantiates a new remote transport actor.
 	 *
-	 * @param sessionid 				c826f710-2c42-4901-a8c0-4c68daf159aa
-	 * @param transportSupervisorPath 	akka://AVALON/user/TransportSupervisor
-	 * @param localRegionPath 		akka://AVALON/user/sharding/ClusterConnectionSessions
-	 * @param ioSession the io session
+	 * @param sessionid
+	 *            c826f710-2c42-4901-a8c0-4c68daf159aa
+	 * @param transportSupervisorPath
+	 *            akka://AVALON/user/TransportSupervisor
+	 * @param localRegionPath
+	 *            akka://AVALON/user/sharding/ClusterConnectionSessions
+	 * @param ioSession
+	 *            the io session
 	 */
-	public RemoteTransportActor(String sessionid, String transportSupervisorPath, String localRegionPath, IoSession ioSession)
-	{
+	public RemoteTransportActor(String sessionid, ActorRef transportSupervisor, IoSession ioSession) {
 		super();
-		//c826f710-2c42-4901-a8c0-4c68daf159aa
+		// c826f710-2c42-4901-a8c0-4c68daf159aa
 		this.sessionActorId = sessionid;
-		this.transportSupervisor = getContext().actorSelection(transportSupervisorPath);
-		this.localRegion = getContext().actorSelection(localRegionPath);
+		this.transportSupervisor = transportSupervisor;
 		this.ioSession = ioSession;
-		ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
-		mediator.tell(new DistributedPubSubMediator.Subscribe(TransportTopic.shardName, getSelf()), getSelf());
+	}
 
-		clusterUid = Cluster.get(getContext().system()).selfUniqueAddress().uid();
-
+	@Override
+	public void preStart() throws Exception {
+		super.preStart();
 		getSelf().tell(new TransportMessage.IOSessionBindingTransportMessage(), ActorRef.noSender());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
 	 */
 	@Override
-	public void onReceive(Object msg) throws Exception
-	{
-		if (msg instanceof TransportMessage.IOSessionBindingTransportMessage)
-		{
+	public void onReceive(Object msg) throws Exception {
+		if (msg instanceof TransportMessage.IOSessionBindingTransportMessage) {
 			log.debug("IO绑定");
 			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf()));
 			return;
-		} else if (msg instanceof TransportMessage.IOSessionReciveMessage)
-		{
-			if (!bindingConnectionSession)
-			{
+		} else if (msg instanceof TransportMessage.IOSessionReciveMessage) {
+			if (!bindingConnectionSession) {
 				// 发送到集群分割器
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				// 11c417d8-6e62-4e5d-a97b-2d8ab10bb2ab
-				String selfName = self().path().name();
-				// TransportSupervisor
-				String parentName = self().path().parent().name();
-				// TransportSupervisor/11c417d8-6e62-4e5d-a97b-2d8ab10bb2ab
-				String sessionId = parentName + "/" + selfName;
-				log.debug("分发到集群" + sessionId);
-				ConnectionSessionsProtocol commandSessionProtocol = new ConnectionSessionsProtocol(sessionActorId, sessionId, clusterUid,
-						messagePackage);
-				localRegion.tell(commandSessionProtocol, getSelf());
-			} else
-			{
+				int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.GATE_BINDING,-1);
+				ServerSupervisorMessage commandSessionProtocol = new ServerSupervisorMessage.ConnectionSessionsProtocol(getSelf(),messagePackage, serverId);
+				AvalonActor.serverSupervisorSubscriberRef.tell(commandSessionProtocol, getSelf());
+			} else {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				DirectSessionMessage commandSessionProtocol = new DirectSessionMessage(messagePackage);
 				connectionSessionsRef.tell(commandSessionProtocol, getSelf());
 			}
 			return;
-		} else if (msg instanceof IOSessionReciveDirectMessage)
-		{
+		} else if (msg instanceof IOSessionReciveDirectMessage) {
 			IoMessagePackage messagePackage = ((TransportMessage.IOSessionReciveDirectMessage) msg).messagePackage;
 			ConnectionSessionMessage message = new ConnectionSessionMessage.DirectSessionMessage(messagePackage);
 			connectionSessionsRef.tell(message, getSelf());
 			return;
 		}
 
-		else if (msg instanceof SessionSessionMessage)
-		{
+		else if (msg instanceof SessionSessionMessage) {
 			IoMessagePackage messagePackage = ((SessionSessionMessage) msg).messagePackage;
 			ioSession.write(messagePackage);
 			return;
-		} else if (msg instanceof TransportMessage.ConnectionSessionsBinding)
-		{
+		} else if (msg instanceof TransportMessage.ConnectionSessionsBinding) {
 			log.debug("集群网络绑定");
 			bindingConnectionSession = true;
 			this.connectionSessionsRef = getSender();
 			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf()));
 			return;
-		} else if (msg instanceof TransportMessage.ConnectionSessionsClosed)
-		{
+		} else if (msg instanceof TransportMessage.ConnectionSessionsClosed) {
 			connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
 			LostSession();
 			return;
-		} else if (msg instanceof TransportTopicMessage)
-		{
+		} else if (msg instanceof TransportTopicMessage) {
 			// TODO
-		} else
-		{
+		} else {
 			unhandled(msg);
 		}
 
@@ -495,21 +473,23 @@ public class RemoteTransportActor extends UntypedActor {
 	/**
 	 * Lost session.
 	 */
-	private void LostSession()
-	{
-//		ActorRef mediator = DistributedPubSubExtension.get(getContext().system()).mediator();
-//		mediator.tell(new DistributedPubSubMediator.Publish(GameServerSupervisorTopic.shardName, topicMessage), getSelf());
+	private void LostSession() {
+		// ActorRef mediator =
+		// DistributedPubSubExtension.get(getContext().system()).mediator();
+		// mediator.tell(new
+		// DistributedPubSubMediator.Publish(GameServerSupervisorTopic.shardName,
+		// topicMessage), getSelf());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see akka.actor.UntypedActor#postStop()
 	 */
 	@Override
-	public void postStop() throws Exception
-	{
+	public void postStop() throws Exception {
 		super.postStop();
-		if (connectionSessionsRef != null)
-		{
+		if (connectionSessionsRef != null) {
 			connectionSessionsRef.tell(akka.actor.PoisonPill.getInstance(), getSelf());
 			LostSession();
 		}
@@ -521,23 +501,20 @@ class InnerRemoteActorCallBack implements ActorCallBack {
 
 	private final ActorRef self;
 
-	public InnerRemoteActorCallBack(ActorRef self)
-	{
+	public InnerRemoteActorCallBack(ActorRef self) {
 		super();
 		this.self = self;
 	}
 
 	@Override
-	public void closed()
-	{
+	public void closed() {
 		ConnectionSessionsClosed closed = new ConnectionSessionsClosed();
 		self.tell(closed, ActorRef.noSender());
 
 	}
 
 	@Override
-	public void tellMessage(IoMessagePackage messagePackage)
-	{
+	public void tellMessage(IoMessagePackage messagePackage) {
 		IOSessionReciveDirectMessage directMessage = new IOSessionReciveDirectMessage(messagePackage);
 		self.tell(directMessage, ActorRef.noSender());
 	}

@@ -341,13 +341,13 @@ Public License instead of this License.
  */
 package test.avalon.io.netty.client;
 
+import com.avalon.api.internal.IoMessagePackage;
+import com.avalon.io.MessagePackImpl;
+
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import test.avalon.io.netty.jmx.NettyClientMXBean;
-
-import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.io.MessagePackImpl;
 
 // TODO: Auto-generated Javadoc
 /**

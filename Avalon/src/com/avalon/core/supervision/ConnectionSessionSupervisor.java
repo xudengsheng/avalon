@@ -344,15 +344,6 @@ package com.avalon.core.supervision;
 import java.util.HashMap;
 import java.util.Map;
 
-import akka.actor.ActorRef;
-import akka.actor.Props;
-import akka.actor.Terminated;
-import akka.actor.UntypedActor;
-import akka.cluster.pubsub.DistributedPubSub;
-import akka.cluster.pubsub.DistributedPubSubMediator;
-import akka.event.Logging;
-import akka.event.LoggingAdapter;
-
 import com.avalon.core.actor.ConnectionSession;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.ConnectionSessionMessage.DirectSessionMessage;
@@ -360,7 +351,13 @@ import com.avalon.core.message.ConnectionSessionMessage.HasSenderPathMessage;
 import com.avalon.core.message.ConnectionSessionSupervisorMessage.CluserSessionMessage;
 import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
 import com.avalon.core.message.TopicMessage.ConnectionSessionSupervisorTopicMessage;
-import com.avalon.core.subscribe.ConnectionSessionSupervisorTopic;
+
+import akka.actor.ActorRef;
+import akka.actor.Props;
+import akka.actor.Terminated;
+import akka.actor.UntypedActor;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -389,9 +386,6 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 	public void preStart() throws Exception
 	{
 		super.preStart();
-		ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
-		mediator.tell(new DistributedPubSubMediator.Subscribe(ConnectionSessionSupervisorTopic.shardName, getSelf()), getSelf());
-
 	}
 
 	/* (non-Javadoc)
@@ -403,29 +397,24 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 		if (msg instanceof CluserSessionMessage)
 		{
 			log.debug("Geting CluserSessionMessage");
-			// TransportSupervisor
-			String supervisorName = ((CluserSessionMessage) msg).supervisorName;
-			// 59eb66d6-9463-43c0-832e-90126295b2f1
-			String actorUId = ((CluserSessionMessage) msg).actorId;
-			// akka.tcp://AVALON@192.168.199.200:2551/user/TransportSupervisor/59eb66d6-9463-43c0-832e-90126295b2f1
-			String Path = getSender().path().parent().toString() + "/" + supervisorName + "/" + actorUId;
-
-			if (keyConnectionSession.containsKey(actorUId))
+			
+			ActorRef sender = ((CluserSessionMessage) msg).sender;
+			String name = sender.path().name();
+			
+			if (keyConnectionSession.containsKey(name))
 			{
-				log.debug("keyConnectionSession has key=" + actorUId);
+				log.debug("keyConnectionSession has key=" + name);
 				ActorRef actorRef = keyConnectionSession.get(keyConnectionSession);
-				ConnectionSessionMessage.DirectSessionMessage directSessionMessage = new DirectSessionMessage(
-						((LocalSessionMessage) msg).messagePackage);
+				ConnectionSessionMessage.DirectSessionMessage directSessionMessage = new DirectSessionMessage(((LocalSessionMessage) msg).messagePackage);
 				actorRef.tell(directSessionMessage, getSender());
 			} else
 			{
-				log.debug("keyConnectionSession has not key=" + actorUId);
-				ActorRef actorOf = getContext().actorOf(Props.create(ConnectionSession.class), actorUId);
+				log.debug("keyConnectionSession has not key=" + name);
+				ActorRef actorOf = getContext().actorOf(Props.create(ConnectionSession.class), name);
 				getContext().watch(actorOf);
 
-				int uid = ((CluserSessionMessage) msg).uid;
 				Object origins = ((CluserSessionMessage) msg).origins;
-				HasSenderPathMessage message = new HasSenderPathMessage(uid, Path, origins);
+				HasSenderPathMessage message = new HasSenderPathMessage(sender, origins);
 
 				actorOf.tell(message, getSelf());
 				sessionNum += 1;
@@ -443,18 +432,16 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 			{
 				log.debug("keyConnectionSession has name=" + name);
 				ActorRef actorRef = keyConnectionSession.get(keyConnectionSession);
-				ConnectionSessionMessage.DirectSessionMessage directSessionMessage = new DirectSessionMessage(
-						((LocalSessionMessage) msg).messagePackage);
+				ConnectionSessionMessage.DirectSessionMessage directSessionMessage = new DirectSessionMessage(((LocalSessionMessage) msg).messagePackage);
 				actorRef.tell(directSessionMessage, getSender());
 			} else
 			{
 				log.debug("keyConnectionSession has not name=" + name);
 
-				String Path = getSender().path().toString();
 				ActorRef actorOf = getContext().actorOf(Props.create(ConnectionSession.class), name);
 				getContext().watch(actorOf);
 
-				HasSenderPathMessage message = new HasSenderPathMessage(0, Path, ((LocalSessionMessage) msg).messagePackage);
+				HasSenderPathMessage message = new HasSenderPathMessage(getSender(), ((LocalSessionMessage) msg).messagePackage);
 				actorOf.tell(message, getSelf());
 
 				sessionNum += 1;

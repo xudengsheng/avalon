@@ -341,10 +341,10 @@ Public License instead of this License.
  */
 package com.avalon.api;
 
-import akka.actor.ActorRef;
-
 import com.avalon.api.internal.IoMessage;
 import com.avalon.api.internal.IoMessagePackage;
+
+import akka.actor.ActorRef;
 
 // TODO: Auto-generated Javadoc
 /**

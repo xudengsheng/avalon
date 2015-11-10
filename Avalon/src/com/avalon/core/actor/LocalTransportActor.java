@@ -341,17 +341,10 @@ Public License instead of this License.
  */
 package com.avalon.core.actor;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorSelection;
-import akka.actor.UntypedActor;
-import akka.cluster.pubsub.DistributedPubSub;
-import akka.cluster.pubsub.DistributedPubSubMediator;
-import akka.event.Logging;
-import akka.event.LoggingAdapter;
-
 import com.avalon.api.IoSession;
 import com.avalon.api.internal.ActorCallBack;
 import com.avalon.api.internal.IoMessagePackage;
+import com.avalon.core.AvalonActor;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
 import com.avalon.core.message.TopicMessage.TransportTopicMessage;
@@ -359,7 +352,11 @@ import com.avalon.core.message.TransportMessage;
 import com.avalon.core.message.TransportMessage.ConnectionSessionsClosed;
 import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
 import com.avalon.core.message.TransportMessage.SessionSessionMessage;
-import com.avalon.core.subscribe.TransportTopic;
+
+import akka.actor.ActorRef;
+import akka.actor.UntypedActor;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -377,10 +374,10 @@ public class LocalTransportActor extends UntypedActor {
 	public final String sessionActorId;
 
 	/** The Connection session supervisor. */
-	private final ActorSelection ConnectionSessionSupervisor;
+	private final ActorRef ConnectionSessionSupervisor;
 
 	/** The transport supervisor. */
-	public final ActorSelection transportSupervisor;
+	public final ActorRef transportSupervisor;
 
 	/** The connection sessions ref. */
 	public ActorRef connectionSessionsRef;
@@ -399,15 +396,19 @@ public class LocalTransportActor extends UntypedActor {
 	 * @param gameServerSupervisor the game server supervisor
 	 * @param ioSession the io session
 	 */
-	public LocalTransportActor(String sessionid, String transportSupervisorPath, String gameServerSupervisor, IoSession ioSession)
+	public LocalTransportActor(String sessionid, ActorRef transportSupervisor, IoSession ioSession)
 	{
 		super();
 		this.sessionActorId = sessionid;
-		this.transportSupervisor = getContext().actorSelection(transportSupervisorPath);
-		this.ConnectionSessionSupervisor = getContext().actorSelection(gameServerSupervisor);
+		this.transportSupervisor = transportSupervisor;
+		this.ConnectionSessionSupervisor =AvalonActor.connectionSessionSupervisor;
 		this.ioSession = ioSession;
-		ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
-		mediator.tell(new DistributedPubSubMediator.Subscribe(TransportTopic.shardName, getSelf()), getSelf());
+	
+	}
+	
+	@Override
+	public void preStart() throws Exception {
+		super.preStart();
 		getSelf().tell(new TransportMessage.IOSessionBindingTransportMessage(), ActorRef.noSender());
 	}
 
@@ -437,14 +438,6 @@ public class LocalTransportActor extends UntypedActor {
 			}
 			return;
 		}
-		// else if (msg instanceof IOSessionReciveDirectMessage)
-		// {
-		// IoMessagePackage messagePackage =
-		// ((TransportMessage.IOSessionReciveDirectMessage) msg).messagePackage;
-		// ConnectionSessionMessage message = new
-		// ConnectionSessionMessage.DirectSessionMessage(messagePackage);
-		// connectionSessionsRef.tell(message, getSelf());
-		// }
 		else if (msg instanceof SessionSessionMessage)
 		{
 			IoMessagePackage messagePackage = ((SessionSessionMessage) msg).messagePackage;

@@ -341,9 +341,9 @@ Public License instead of this License.
  */
 package com.avalon.api.internal;
 
-import akka.actor.ActorSystem;
-
 import com.avalon.api.DistributedTaskManager;
+
+import akka.actor.ActorSystem;
 
 // TODO: Auto-generated Javadoc
 /**

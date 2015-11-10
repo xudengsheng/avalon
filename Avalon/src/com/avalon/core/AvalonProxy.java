@@ -342,10 +342,10 @@ Public License instead of this License.
 package com.avalon.core;
 
 import java.io.File;
-
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
-import akka.actor.Props;
+import java.nio.CharBuffer;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 
 import com.avalon.api.internal.IService;
 import com.avalon.core.message.AvalonMessageEvent;
@@ -354,6 +354,10 @@ import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.FileUtil;
 import com.avalon.util.PropertiesWrapper;
+
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import akka.actor.Props;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -372,12 +376,13 @@ public class AvalonProxy implements IService {
 	/** The transportnum. */
 	private int transportnum;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.avalon.api.internal.IService#init(java.lang.Object)
 	 */
 	@Override
-	public void init(Object obj)
-	{
+	public void init(Object obj) {
 		File root = new File("");
 		String searchPath = root.getAbsolutePath() + File.separator + "conf";
 		PropertiesWrapper propertiesWrapper = (PropertiesWrapper) obj;
@@ -389,64 +394,61 @@ public class AvalonProxy implements IService {
 		String configName = propertiesWrapper.getProperty(SystemEnvironment.AKKA_CONFIG_NAME, "AVALON");
 
 		system = AkkaServerInitializer.initActorSystem(config, akkaName, configName);
-		avalonActorRef = system.actorOf(Props.create(Avalon.class, system), SystemEnvironment.AVALON_NAME);
+
+		avalonActorRef = system.actorOf(Props.create(AvalonActor.class, system), SystemEnvironment.AVALON_NAME);
 
 		avalonActorRef.tell(new AvalonMessageEvent.InitAvalon(), ActorRef.noSender());
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.avalon.api.internal.IService#destroy(java.lang.Object)
 	 */
 	@Override
-	public void destroy(Object obj)
-	{
+	public void destroy(Object obj) {
 		// TODO Auto-generated method stub
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.avalon.api.internal.IService#handleMessage(java.lang.Object)
 	 */
 	@Override
-	public void handleMessage(Object msg)
-	{
-		if (msg instanceof TransportSupervisorMessage.IOSessionRegedit)
-		{
+	public void handleMessage(Object msg) {
+		if (msg instanceof TransportSupervisorMessage.IOSessionRegedit) {
 			avalonActorRef.tell(msg, ActorRef.noSender());
-		} else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage)
-		{
+		} else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage) {
 			avalonActorRef.tell(msg, ActorRef.noSender());
-		} else if (msg instanceof AvalonMessageEvent.BrocastPacket)
-		{
-			avalonActorRef.tell(msg, ActorRef.noSender());
-		} else if (msg instanceof String)
-		{
+		} else if (msg instanceof String) {
 			avalonActorRef.tell("Stt", ActorRef.noSender());
-		} else if (msg instanceof TransportSupervisorMessage.localTransportNum)
-		{
+		} else if (msg instanceof TransportSupervisorMessage.localTransportNum) {
 			this.transportnum = ((TransportSupervisorMessage.localTransportNum) msg).transprotNum;
-		} else if (msg instanceof TaskManagerMessage.createTaskMessage)
-		{
+		} else if (msg instanceof TaskManagerMessage.createTaskMessage) {
 			avalonActorRef.tell(msg, ActorRef.noSender());
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.avalon.api.internal.IService#getName()
 	 */
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return "AvalonProxy";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.avalon.api.internal.IService#setName(java.lang.String)
 	 */
 	@Override
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		throw new IllegalAccessError();
 	}
 
@@ -455,8 +457,7 @@ public class AvalonProxy implements IService {
 	 *
 	 * @return the int
 	 */
-	public int transportNum()
-	{
+	public int transportNum() {
 		avalonActorRef.tell(new AvalonMessageEvent.nowTransportNum(), ActorRef.noSender());
 		return transportnum;
 	}
@@ -470,4 +471,8 @@ public class AvalonProxy implements IService {
 		return system;
 	}
 
+	public static void main(String[] args) throws CharacterCodingException {
+		byte[] array = Charset.forName("UTF-8").newEncoder().encode(CharBuffer.wrap("AllServerWithPush".trim().toCharArray())).array();
+		System.out.println(array.length);
+	}
 }

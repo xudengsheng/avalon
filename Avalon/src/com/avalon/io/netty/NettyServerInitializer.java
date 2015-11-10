@@ -341,13 +341,13 @@ Public License instead of this License.
  */
 package com.avalon.io.netty;
 
+import com.avalon.io.netty.filter.DataCodecDecoder;
+import com.avalon.io.netty.filter.DataCodecEncoder;
+
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-
-import com.avalon.io.netty.filter.DataCodecDecoder;
-import com.avalon.io.netty.filter.DataCodecEncoder;
 
 // TODO: Auto-generated Javadoc
 /**

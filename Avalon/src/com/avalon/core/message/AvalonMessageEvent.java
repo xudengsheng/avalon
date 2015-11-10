@@ -343,8 +343,6 @@ package com.avalon.core.message;
 
 import java.io.Serializable;
 
-import com.avalon.api.message.Packet;
-
 // TODO: Auto-generated Javadoc
 /**
  * 操作avalon的事件消息.
@@ -353,45 +351,6 @@ import com.avalon.api.message.Packet;
  */
 public interface AvalonMessageEvent extends Serializable {
 
-	/**
-	 * The Class BrocastPacket.
-	 */
-	public class BrocastPacket implements AvalonMessageEvent {
-
-		/** The Constant TP. */
-		public static final byte TP = 0B00000001;
-		
-		/** The Constant TSP. */
-		public static final byte TSP = 0B00000010;
-		
-		/** The Constant CSP. */
-		public static final byte CSP = 0B00000011;
-		
-		/** The Constant CP. */
-		public static final byte CP = 0B00000100;
-
-		/** The Constant serialVersionUID. */
-		private static final long serialVersionUID = 7804155031270659242L;
-
-		/** The type. */
-		public final byte type;
-
-		/** The packet. */
-		public final Packet packet;
-
-		/**
-		 * Instantiates a new brocast packet.
-		 *
-		 * @param type the type
-		 * @param packet the packet
-		 */
-		public BrocastPacket(byte type, Packet packet) {
-			super();
-			this.type = type;
-			this.packet = packet;
-		}
-
-	}
 
 	/**
 	 * 初始化Avalon.

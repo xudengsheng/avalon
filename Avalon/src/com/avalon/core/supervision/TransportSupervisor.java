@@ -341,16 +341,6 @@ Public License instead of this License.
  */
 package com.avalon.core.supervision;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorSelection;
-import akka.actor.Props;
-import akka.actor.Terminated;
-import akka.actor.UntypedActor;
-import akka.cluster.pubsub.DistributedPubSub;
-import akka.cluster.pubsub.DistributedPubSubMediator;
-import akka.event.Logging;
-import akka.event.LoggingAdapter;
-
 import com.avalon.api.IoSession;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.core.AvalonProxy;
@@ -361,8 +351,15 @@ import com.avalon.core.message.AvalonMessageEvent;
 import com.avalon.core.message.TopicMessage.TransportSupervisorTopicMessage;
 import com.avalon.core.message.TransportMessage;
 import com.avalon.core.message.TransportSupervisorMessage;
-import com.avalon.core.subscribe.TransportSupervisorTopic;
-import com.avalon.setting.AvalonServerMode;
+
+import akka.actor.ActorRef;
+import akka.actor.ActorSelection;
+import akka.actor.Props;
+import akka.actor.Terminated;
+import akka.actor.UntypedActor;
+import akka.cluster.pubsub.DistributedPubSubMediator;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -378,62 +375,43 @@ public class TransportSupervisor extends UntypedActor {
 	/** The Constant IDENTIFY. */
 	public static final String IDENTIFY = "TransportSupervisor";
 
-	/** The local region path. */
-	private final String localRegionPath;
-	//是否是使用网关模式
+	// 是否是使用网关模式
 	/** The net gate mode. */
 	private final boolean netGateMode;
 
 	/**
 	 * Instantiates a new transport supervisor.
 	 *
-	 * @param localRegionPath the local region path
+	 * @param localRegionPath
+	 *            the local region path
 	 */
-	public TransportSupervisor(String localRegionPath)
-	{
+	public TransportSupervisor(boolean netGateMode) {
 		super();
-		// akka://AVALON/user/sharding/ClusterConnectionSessions
-		this.localRegionPath = localRegionPath;
-
-		
-
-		AvalonServerMode property = ContextResolver.getServerMode();
-		if (property.equals(AvalonServerMode.SERVER_TYPE_GATE))
-		{
-			netGateMode = true;
-			ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
-			mediator.tell(new DistributedPubSubMediator.Subscribe(TransportSupervisorTopic.shardName, getSelf()), getSelf());
-		} else
-		{
-			netGateMode = false;
-		}
+		this.netGateMode = netGateMode;
 	}
 
 	// 当前创建的会话数量
 	/** The transport num. */
 	private int transportNum = 0;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
 	 */
 	@Override
-	public void onReceive(Object msg) throws Exception
-	{
+	public void onReceive(Object msg) throws Exception {
 
-		if (msg instanceof TransportSupervisorMessage.CreateIOSessionActor)
-		{
+		if (msg instanceof TransportSupervisorMessage.CreateIOSessionActor) {
 			// be645988-0ff5-4e7a-bcd0-566ec1789cb7
 			String sessionActorId = ((TransportSupervisorMessage.CreateIOSessionActor) msg).sessionActorId;
 			IoSession ioSession = ((TransportSupervisorMessage.CreateIOSessionActor) msg).ioSession;
 			// akka://AVALON/user/TransportSupervisor
-			String transportSupervisorPath = getSelf().path().toString();
 			Props create = null;
-			if (netGateMode)
-			{
-				create = Props.create(RemoteTransportActor.class, sessionActorId, transportSupervisorPath, localRegionPath, ioSession);
-			} else
-			{
-				create = Props.create(LocalTransportActor.class, sessionActorId, transportSupervisorPath, localRegionPath, ioSession);
+			if (netGateMode) {
+				create = Props.create(RemoteTransportActor.class, sessionActorId, getSelf(), ioSession);
+			} else {
+				create = Props.create(LocalTransportActor.class, sessionActorId, getSelf(), ioSession);
 			}
 
 			ActorRef actorOf = getContext().actorOf(create, sessionActorId);
@@ -442,8 +420,7 @@ public class TransportSupervisor extends UntypedActor {
 			transportNum += 1;
 		}
 		// 收到转发的会话
-		else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage)
-		{
+		else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage) {
 
 			String transportPath = ((TransportSupervisorMessage.ReciveIOSessionMessage) msg).transportPath;
 			ActorSelection actorSelection = getContext().actorSelection(transportPath);
@@ -453,23 +430,18 @@ public class TransportSupervisor extends UntypedActor {
 			actorSelection.tell(message, getSender());
 		}
 		// 数据返回给JMX
-		else if (msg instanceof AvalonMessageEvent.nowTransportNum)
-		{
+		else if (msg instanceof AvalonMessageEvent.nowTransportNum) {
 			AvalonProxy component = ContextResolver.getComponent(AvalonProxy.class);
 			component.handleMessage(new TransportSupervisorMessage.localTransportNum(transportNum));
-		} else if (msg instanceof TransportSupervisorTopicMessage)
-		{
+		} else if (msg instanceof TransportSupervisorTopicMessage) {
 			// TODO
-		} else if (msg instanceof DistributedPubSubMediator.SubscribeAck)
-		{
+		} else if (msg instanceof DistributedPubSubMediator.SubscribeAck) {
 			System.out.println("订阅信息");
 		}
 		// 一个被监听Actor销毁掉了
-		else if (msg instanceof Terminated)
-		{
+		else if (msg instanceof Terminated) {
 			transportNum -= 1;
-		} else
-		{
+		} else {
 			unhandled(msg);
 		}
 	}

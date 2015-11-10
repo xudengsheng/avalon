@@ -344,16 +344,16 @@ package com.avalon.core.task;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import scala.concurrent.duration.Duration;
+import com.avalon.core.message.TaskManagerMessage;
+import com.google.common.collect.Maps;
+
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Cancellable;
 import akka.actor.UntypedActor;
 import akka.cluster.pubsub.DistributedPubSub;
 import akka.cluster.pubsub.DistributedPubSubMediator;
-
-import com.avalon.core.message.TaskManagerMessage;
-import com.google.common.collect.Maps;
+import scala.concurrent.duration.Duration;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -370,7 +370,7 @@ public class GlobleTaskManagerActor extends UntypedActor {
 	public static final String IDENTIFY = "GlobleTaskManagerActor";
 	// 周期性任务的管理
 	/** The periodic task. */
-	Map<String, Map<String, Cancellable>> periodicTask = Maps.newTreeMap();
+	Map<Integer, Map<String, Cancellable>> periodicTask = Maps.newTreeMap();
 
 	/* (non-Javadoc)
 	 * @see akka.actor.UntypedActor#preStart()
@@ -381,7 +381,6 @@ public class GlobleTaskManagerActor extends UntypedActor {
 		super.preStart();
 		ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
 		mediator.tell(new DistributedPubSubMediator.Subscribe(GlobleTaskManagerActor.shardName, getSelf()), getSelf());
-
 	}
 
 	/* (non-Javadoc)
@@ -396,7 +395,7 @@ public class GlobleTaskManagerActor extends UntypedActor {
 			long delay = ((TaskManagerMessage.createTaskMessage) msg).delay;
 			long period = ((TaskManagerMessage.createTaskMessage) msg).period;
 			Runnable runnable = ((TaskManagerMessage.createTaskMessage) msg).runnable;
-			String serverUUID = ((TaskManagerMessage.createTaskMessage) msg).ServerUUID;
+			int serverID = ((TaskManagerMessage.createTaskMessage) msg).serverID;
 			ActorSystem actorSystem = getContext().system();
 			//执行一次
 			if (delay == -1 && period == -1)
@@ -408,8 +407,7 @@ public class GlobleTaskManagerActor extends UntypedActor {
 			{
 				long currentTimeMillis = System.currentTimeMillis();
 				long poor = currentTimeMillis - createTime;
-				Cancellable scheduleOnce = actorSystem.scheduler().scheduleOnce(Duration.create(delay - poor, TimeUnit.MILLISECONDS),
-						runnable, actorSystem.dispatcher());
+				Cancellable scheduleOnce = actorSystem.scheduler().scheduleOnce(Duration.create(delay - poor, TimeUnit.MILLISECONDS),runnable, actorSystem.dispatcher());
 			}
 			//周期性任务
 			else if (period != -1)
@@ -418,15 +416,15 @@ public class GlobleTaskManagerActor extends UntypedActor {
 				long poor = currentTimeMillis - createTime;
 				Cancellable schedule = actorSystem.scheduler().schedule(Duration.create((delay - poor), TimeUnit.MILLISECONDS),
 						Duration.create(period, TimeUnit.MILLISECONDS), runnable, actorSystem.dispatcher());
-				if (periodicTask.containsKey(serverUUID))
+				if (periodicTask.containsKey(serverID))
 				{
-					Map<String, Cancellable> map = periodicTask.get(serverUUID);
+					Map<String, Cancellable> map = periodicTask.get(serverID);
 					map.put(((TaskManagerMessage.createTaskMessage) msg).TaskUid, schedule);
 				} else
 				{
 					Map<String, Cancellable> map = Maps.newTreeMap();
 					map.put(((TaskManagerMessage.createTaskMessage) msg).TaskUid, schedule);
-					periodicTask.put(serverUUID, map);
+					periodicTask.put(serverID, map);
 				}
 			}
 		}

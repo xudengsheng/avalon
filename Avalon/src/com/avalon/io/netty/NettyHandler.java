@@ -341,10 +341,6 @@ Public License instead of this License.
  */
 package com.avalon.io.netty;
 
-import io.netty.channel.ChannelHandler.Sharable;
-import io.netty.channel.ChannelHandlerAdapter;
-import io.netty.channel.ChannelHandlerContext;
-
 import java.util.Queue;
 
 import org.slf4j.Logger;
@@ -359,6 +355,10 @@ import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.io.message.NetWorkMessage;
 import com.avalon.util.MessageHead;
 import com.google.common.collect.Queues;
+
+import io.netty.channel.ChannelHandler.Sharable;
+import io.netty.channel.ChannelHandlerAdapter;
+import io.netty.channel.ChannelHandlerContext;
 
 // TODO: Auto-generated Javadoc
 /**

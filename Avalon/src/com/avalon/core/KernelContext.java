@@ -343,17 +343,16 @@ package com.avalon.core;
 
 import java.util.MissingResourceException;
 
-import akka.actor.ActorSystem;
-
 import com.avalon.api.AppListener;
 import com.avalon.api.DistributedTaskManager;
 import com.avalon.api.internal.ComponentRegistry;
 import com.avalon.api.internal.IService;
 import com.avalon.component.ComponentRegistryImpl;
-import com.avalon.core.service.SystemInfoService;
 import com.avalon.exception.ManagerNotFoundException;
 import com.avalon.setting.AvalonServerMode;
 import com.avalon.util.PropertiesWrapper;
+
+import akka.actor.ActorSystem;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -372,11 +371,6 @@ class KernelContext {
 	/** The globle task manager. */
 	private DistributedTaskManager globleTaskManager;
 	
-	/** The info service. */
-	private SystemInfoService infoService;
-	
-	/** The server mode. */
-	protected final AvalonServerMode serverMode;
 	
 	/** The manager components. */
 	protected final ComponentRegistry managerComponents;
@@ -393,10 +387,8 @@ class KernelContext {
 	 * @param context the context
 	 */
 	KernelContext(KernelContext context) {
-		this(context.applicationName, context.serviceComponents, context.managerComponents, context.propertieswrapper,
-				context.serverMode);
+		this(context.applicationName, context.serviceComponents, context.managerComponents, context.propertieswrapper);
 		this.globleTaskManager = context.globleTaskManager;
-		this.infoService = context.infoService;
 	}
 
 	/**
@@ -408,13 +400,11 @@ class KernelContext {
 	 * @param propertieswrapper the propertieswrapper
 	 * @param serverMode the server mode
 	 */
-	protected KernelContext(String applicationName, ComponentRegistry serviceComponents,
-			ComponentRegistry managerComponents, PropertiesWrapper propertieswrapper, AvalonServerMode serverMode) {
+	protected KernelContext(String applicationName, ComponentRegistry serviceComponents,ComponentRegistry managerComponents, PropertiesWrapper propertieswrapper) {
 		this.applicationName = applicationName;
 		this.serviceComponents = serviceComponents;
 		this.managerComponents = managerComponents;
 		this.propertieswrapper = propertieswrapper;
-		this.serverMode = serverMode;
 	}
 
 	/**
@@ -477,14 +467,6 @@ class KernelContext {
 		return propertieswrapper;
 	}
 
-	/**
-	 * Gets the server mode.
-	 *
-	 * @return the server mode
-	 */
-	public AvalonServerMode getServerMode() {
-		return serverMode;
-	}
 
 	/**
 	 * Gets the globle task manager.
@@ -495,23 +477,6 @@ class KernelContext {
 		return globleTaskManager;
 	}
 
-	/**
-	 * Gets the info service.
-	 *
-	 * @return the info service
-	 */
-	public SystemInfoService getInfoService() {
-		return infoService;
-	}
-
-	/**
-	 * Sets the info service.
-	 *
-	 * @param infoService the new info service
-	 */
-	public void setInfoService(SystemInfoService infoService) {
-		this.infoService = infoService;
-	}
 
 	/**
 	 * Sets the globle task manager.

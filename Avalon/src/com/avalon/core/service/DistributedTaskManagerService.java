@@ -344,8 +344,8 @@ package com.avalon.core.service;
 import com.avalon.api.DistributedTaskManager;
 import com.avalon.core.AvalonProxy;
 import com.avalon.core.ContextResolver;
-import com.avalon.core.actor.GameEngineActor;
 import com.avalon.core.message.TaskManagerMessage;
+import com.avalon.setting.SystemEnvironment;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -361,7 +361,8 @@ public class DistributedTaskManagerService implements DistributedTaskManager {
 	public void scheduleTask(Runnable runnable)
 	{
 		AvalonProxy component = ContextResolver.getComponent(AvalonProxy.class);
-		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,GameEngineActor.GEUID,-1,-1);
+		int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID, 1);
+		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,serverId,-1,-1);
 		component.handleMessage(createTaskMessage);
 	}
 
@@ -372,7 +373,8 @@ public class DistributedTaskManagerService implements DistributedTaskManager {
 	public void scheduleTask(long delay, Runnable runnable)
 	{
 		AvalonProxy component = ContextResolver.getComponent(AvalonProxy.class);
-		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,GameEngineActor.GEUID,delay,-1);
+		int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID, 1);
+		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,serverId,delay,-1);
 		component.handleMessage(createTaskMessage);
 	}
 
@@ -383,7 +385,8 @@ public class DistributedTaskManagerService implements DistributedTaskManager {
 	public void scheduleTask(long delay, long period, Runnable runnable)
 	{
 		AvalonProxy component = ContextResolver.getComponent(AvalonProxy.class);
-		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,GameEngineActor.GEUID,delay,period);
+		int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID, 1);
+		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,serverId,delay,period);
 		component.handleMessage(createTaskMessage);
 	}
 

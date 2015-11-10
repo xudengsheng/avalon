@@ -344,12 +344,12 @@ package com.avalon.api;
 import java.util.Map;
 import java.util.TreeMap;
 
-import akka.actor.ActorPath;
-import akka.actor.ActorSystem;
-
 import com.avalon.api.internal.IService;
 import com.avalon.api.internal.InternalContext;
 import com.avalon.exception.ManagerNotFoundException;
+
+import akka.actor.ActorPath;
+import akka.actor.ActorSystem;
 
 // TODO: Auto-generated Javadoc
 /**

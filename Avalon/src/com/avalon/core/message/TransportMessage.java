@@ -469,18 +469,15 @@ public interface TransportMessage extends Serializable {
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -7851710747490260982L;
 
-		/** The cluster uid. */
-		public final int clusterUid;
 
 		/**
 		 * Instantiates a new connection sessions binding.
 		 *
 		 * @param clusterUid the cluster uid
 		 */
-		public ConnectionSessionsBinding(int clusterUid)
+		public ConnectionSessionsBinding()
 		{
 			super();
-			this.clusterUid = clusterUid;
 		}
 
 	}

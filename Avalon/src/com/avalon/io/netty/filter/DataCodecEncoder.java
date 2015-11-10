@@ -341,11 +341,11 @@ Public License instead of this License.
  */
 package com.avalon.io.netty.filter;
 
+import com.avalon.util.MessageHead;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
-
-import com.avalon.util.MessageHead;
 
 
 // TODO: Auto-generated Javadoc

@@ -339,48 +339,204 @@ consider it more useful to permit linking proprietary applications with the
 library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.
  */
-package com.avalon.core.subscribe;
+package com.avalon.core;
+
+import java.util.UUID;
+
+import com.avalon.api.IoSession;
+import com.avalon.core.cluster.ClusterListener;
+import com.avalon.core.message.AvalonMessageEvent;
+import com.avalon.core.message.TaskManagerMessage;
+import com.avalon.core.message.TransportSupervisorMessage;
+import com.avalon.core.model.AvalonDeadLetter;
+import com.avalon.core.subscribe.ServerSupervisorSubscriber;
+import com.avalon.core.supervision.ConnectionSessionSupervisor;
+import com.avalon.core.supervision.TransportSupervisor;
+import com.avalon.core.task.GlobleTaskManagerActor;
+import com.avalon.setting.AvalonServerMode;
 
 import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import akka.actor.DeadLetter;
+import akka.actor.Props;
 import akka.actor.UntypedActor;
-import akka.cluster.pubsub.DistributedPubSub;
-import akka.cluster.pubsub.DistributedPubSubMediator;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
+import akka.japi.Creator;
 
-// TODO: Auto-generated Javadoc
 /**
- * 传输管理中心订阅器.
+ * 阿瓦隆 核心.
  *
- * @author zero
+ * @author ZERO
  */
-public class ConnectionSessionTopic extends UntypedActor {
+public class AvalonActor extends UntypedActor {
 
 	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
-	/** The mediator. */
-	ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
-	
-	/** The Constant shardName. */
-	public static final String shardName = "CONNECTION_SESSION_TOPIC";
-
-	/* (non-Javadoc)
-	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	/**
+	 * The Class selfCreator.
 	 */
-	@Override
-	public void onReceive(Object msg) throws Exception
-	{
-		if (msg instanceof String)
-		{
-			String in = (String) msg;
-			String out = in.toUpperCase();
-			mediator.tell(new DistributedPubSubMediator.Publish(shardName, out), getSelf());
-		} else
-		{
-			unhandled(msg);
+	static class selfCreator implements Creator<AvalonActor> {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = -4506944735716145059L;
+
+		/** The actor system. */
+		private final ActorSystem actorSystem;
+
+		/**
+		 * Instantiates a new self creator.
+		 *
+		 * @param actorSystem
+		 *            the actor system
+		 */
+		public selfCreator(ActorSystem actorSystem) {
+			super();
+			this.actorSystem = actorSystem;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see akka.japi.Creator#create()
+		 */
+		@Override
+		public AvalonActor create() throws Exception {
+			return new AvalonActor(actorSystem);
 		}
 
 	}
+
+	/**
+	 * Props.
+	 *
+	 * @param actorSystem
+	 *            the actor system
+	 * @return the props
+	 */
+	public static Props props(ActorSystem actorSystem) {
+		Props create = Props.create(new selfCreator(actorSystem));
+		create.withDispatcher("session-default-dispatcher");
+		return create;
+	}
+
+	/**
+	 * Instantiates a new avalon.
+	 *
+	 * @param actorSystem
+	 *            the actor system
+	 */
+	public AvalonActor(ActorSystem actorSystem) {
+		super();
+		this.actorSystem = actorSystem;
+	}
+
+	/** T集群事件监听. */
+	private ActorRef clusterListener;
+	//
+	/** 全局任务管理 actor. */
+	private ActorRef globleTaskManagerActor;
+	/** Server状态管理 */
+	public static ActorRef serverSupervisorSubscriberRef;
+	/** 传输管理器的ActorRef */
+	public static ActorRef transportSupervisorRef;
+
+	/** ·会话连接管理器. */
+	public static ActorRef connectionSessionSupervisor;
+
+	/** Akka actor系统 */
+	private final ActorSystem actorSystem;
+
+	/** 服务器模式. */
+	AvalonServerMode engineMode;
+
+	/** The last sender. */
+	ActorRef lastSender = getContext().system().deadLetters();
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	 */
+	@Override
+	public void onReceive(Object msg) throws Exception {
+		if (msg instanceof AvalonMessageEvent.InitAvalon) {
+			// 服务器的启动模式
+			engineMode = AvalonEngine.mode;
+
+			// 服务器监听
+			Props create = Props.create(ServerSupervisorSubscriber.class);
+			serverSupervisorSubscriberRef = actorSystem.actorOf(create, ServerSupervisorSubscriber.IDENTIFY);
+			this.getContext().watch(serverSupervisorSubscriberRef);
+
+			// 集群监听
+			clusterListener = actorSystem.actorOf(Props.create(ClusterListener.class), ClusterListener.IDENTIFY);
+			this.getContext().watch(clusterListener);
+
+			if (engineMode.equals(AvalonServerMode.SERVER_TYPE_SINGLE)) {
+				log.info("Server model is single");
+
+				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
+				this.getContext().watch(connectionSessionSupervisor);
+
+				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, false),TransportSupervisor.IDENTIFY);
+				this.getContext().watch(transportSupervisorRef);
+			}
+			// 启动模式为网关服务器（不包含游戏逻辑服务器的任何逻辑）
+			else if (engineMode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
+				log.info("Server model is gate");
+
+				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, true),TransportSupervisor.IDENTIFY);
+				this.getContext().watch(transportSupervisorRef);
+
+			}
+			// 逻辑服务器模式（将不会开启对外的网络服务）
+			else {
+				log.info("Server model is game");
+
+				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
+				this.getContext().watch(connectionSessionSupervisor);
+
+				globleTaskManagerActor = actorSystem.actorOf(Props.create(GlobleTaskManagerActor.class),GlobleTaskManagerActor.IDENTIFY);
+				this.getContext().watch(globleTaskManagerActor);
+			}
+
+			Props avalonDeadLetterProps = Props.create(AvalonDeadLetter.class);
+			ActorRef avalonDeadLetterRef = actorSystem.actorOf(avalonDeadLetterProps);
+			actorSystem.eventStream().subscribe(avalonDeadLetterRef, DeadLetter.class);
+
+			// this.metricsListener =
+			// actorSystem.actorOf(Props.create(MetricsListener.class));
+		} else if (msg instanceof TransportSupervisorMessage.IOSessionRegedit) {
+			UUID randomUUID = UUID.randomUUID();
+			IoSession ioSession = ((TransportSupervisorMessage.IOSessionRegedit) msg).ioSession;
+
+			String sessionActorId = randomUUID.toString();
+
+			TransportSupervisorMessage.CreateIOSessionActor message = 
+					new TransportSupervisorMessage.CreateIOSessionActor(ioSession, sessionActorId);
+
+			transportSupervisorRef.tell(message, getSelf());
+		}
+		// 转发给传输的transportSupervisor
+		else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage) {
+			transportSupervisorRef.forward(msg, getContext());
+		} else if (msg instanceof AvalonMessageEvent.nowTransportNum) {
+			transportSupervisorRef.forward(msg, getContext());
+		}
+		// 任务创建消息
+		else if (msg instanceof TaskManagerMessage.createTaskMessage) {
+			if (engineMode.equals(AvalonServerMode.SERVER_TYPE_GAME)) {
+				serverSupervisorSubscriberRef.tell(msg, ActorRef.noSender());
+			} else if (engineMode.equals(AvalonServerMode.SERVER_TYPE_SINGLE)) {
+				globleTaskManagerActor.tell(msg, ActorRef.noSender());
+			}
+
+		}
+
+	}
+
+
 
 }

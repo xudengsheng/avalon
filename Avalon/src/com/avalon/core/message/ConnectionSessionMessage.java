@@ -343,6 +343,8 @@ package com.avalon.core.message;
 
 import java.io.Serializable;
 
+import akka.actor.ActorRef;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Interface ConnectionSessionMessage.
@@ -358,10 +360,9 @@ public interface ConnectionSessionMessage extends Serializable {
 		private static final long serialVersionUID = -4904126255787744156L;
 
 		/** The cluster uid. */
-		public final int clusterUid;
 
 		/** The sender path. */
-		public final String senderPath;
+		public final ActorRef sender;
 
 		/** The message. */
 		public final Object message;
@@ -373,11 +374,10 @@ public interface ConnectionSessionMessage extends Serializable {
 		 * @param senderPath the sender path
 		 * @param message the message
 		 */
-		public HasSenderPathMessage(int clusterUid, String senderPath, Object message)
+		public HasSenderPathMessage(ActorRef senderPath, Object message)
 		{
 			super();
-			this.clusterUid = clusterUid;
-			this.senderPath = senderPath;
+			this.sender = senderPath;
 			this.message = message;
 		}
 

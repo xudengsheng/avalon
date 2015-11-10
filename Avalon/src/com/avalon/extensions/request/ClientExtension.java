@@ -342,7 +342,6 @@ Public License instead of this License.
 package com.avalon.extensions.request;
 
 import com.avalon.api.ClientSessionLinenter;
-import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.extensions.request.filter.ClientExtensionFilter;
 import com.avalon.extensions.request.filter.FilterAction;
 import com.avalon.extensions.request.filter.IFilterChain;

@@ -341,6 +341,12 @@ Public License instead of this License.
  */
 package test.avalon.io.netty.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.avalon.io.netty.filter.DataCodecDecoder;
+import com.avalon.io.netty.filter.DataCodecEncoder;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -350,12 +356,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import com.avalon.io.netty.filter.DataCodecDecoder;
-import com.avalon.io.netty.filter.DataCodecEncoder;
 
 // TODO: Auto-generated Javadoc
 /**

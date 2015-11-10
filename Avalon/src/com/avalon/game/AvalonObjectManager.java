@@ -341,14 +341,13 @@ Public License instead of this License.
  */
 package com.avalon.game;
 
-import scala.Option;
-
 import com.avalon.game.extended.ExtendedMessage;
 import com.avalon.game.extended.IAvalonExtendedControl;
 
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.japi.Creator;
+import scala.Option;
 
 // TODO: Auto-generated Javadoc
 /**

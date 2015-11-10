@@ -342,6 +342,7 @@ Public License instead of this License.
 package com.avalon.setting;
 
 import java.util.EnumSet;
+
 // TODO: Auto-generated Javadoc
 
 /**
@@ -349,20 +350,19 @@ import java.util.EnumSet;
  *
  * @author zero
  */
-public enum AvalonServerMode
-{
-	
+public enum AvalonServerMode {
+
 	/** The unknow. */
-	UNKNOW("UNKNOW"),
-	
+	UNKNOW("UNKNOW", 0),
+
 	/** 单服务器模式. */
-	SERVER_TYPE_SINGLE("SINGLE"),
-	
+	SERVER_TYPE_SINGLE("SINGLE", 1),
+
 	/** 逻辑服务器模式. */
-	SERVER_TYPE_GAME("GAME"),
-	
+	SERVER_TYPE_GAME("GAME", 2),
+
 	/** 网关服务器模式. */
-	SERVER_TYPE_GATE("GATE");
+	SERVER_TYPE_GATE("GATE", 3);
 
 	/** The enums. */
 	public static EnumSet<AvalonServerMode> enums = EnumSet.allOf(AvalonServerMode.class);
@@ -370,28 +370,38 @@ public enum AvalonServerMode
 	/**
 	 * Instantiates a new avalon server mode.
 	 *
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 */
-	private AvalonServerMode(String name)
-	{
+	private AvalonServerMode(String name, int type) {
 		this.modeName = name;
+		this.type = type;
 	}
 
 	/** The mode name. */
 	public final String modeName;
 
+	public final int type;
+
 	/**
 	 * Gets the sever mode.
 	 *
-	 * @param modelName the model name
+	 * @param modelName
+	 *            the model name
 	 * @return the sever mode
 	 */
-	public static AvalonServerMode getSeverMode(String modelName)
-	{
-		for (AvalonServerMode iterable_element : enums)
-		{
-			if (modelName.equals(iterable_element.modeName))
-			{
+	public static AvalonServerMode getSeverMode(String modelName) {
+		for (AvalonServerMode iterable_element : enums) {
+			if (modelName.equals(iterable_element.modeName)) {
+				return iterable_element;
+			}
+		}
+		return SERVER_TYPE_SINGLE;
+	}
+
+	public static AvalonServerMode getSeverMode(int type) {
+		for (AvalonServerMode iterable_element : enums) {
+			if (type == iterable_element.type) {
 				return iterable_element;
 			}
 		}
