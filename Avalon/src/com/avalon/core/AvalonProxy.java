@@ -345,7 +345,6 @@ import java.io.File;
 import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 
 import com.avalon.api.internal.IService;
 import com.avalon.core.message.AvalonMessageEvent;

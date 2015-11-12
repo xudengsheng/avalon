@@ -365,7 +365,6 @@ import com.avalon.jmx.AvalonInstance;
 import com.avalon.jmx.ManagementService;
 import com.avalon.setting.AvalonServerMode;
 import com.avalon.setting.SystemEnvironment;
-import com.avalon.util.PerformanceMonitor;
 import com.avalon.util.PropertiesWrapper;
 
 import jodd.props.Props;
@@ -395,7 +394,7 @@ public class AvalonEngine implements AvalonInstance {
 
 	/** The mode. */
 	public static AvalonServerMode mode;
-
+	/**The ServerId. */
 	public static int serverId;
 	/** The properties wrapper. */
 	private PropertiesWrapper propertiesWrapper;
@@ -421,10 +420,9 @@ public class AvalonEngine implements AvalonInstance {
 	protected AvalonEngine(Props props) throws Exception {
 		propertiesWrapper = new PropertiesWrapper(props);
 
-		String modelName = propertiesWrapper.getProperty(SystemEnvironment.ENGINE_MODEL,
-				AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
-
-		mode = AvalonServerMode.getSeverMode(modelName);
+		AvalonEngine.serverId = propertiesWrapper.getIntProperty(SystemEnvironment.APP_ID, -1);
+		String modelName = propertiesWrapper.getProperty(SystemEnvironment.ENGINE_MODEL,AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
+		AvalonEngine.mode = AvalonServerMode.getSeverMode(modelName);
 		// 组件管理器
 		systemRegistry = new ComponentRegistryImpl();
 		// 应用上下文
@@ -457,12 +455,10 @@ public class AvalonEngine implements AvalonInstance {
 		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 		// 如果是网关和单幅模式需要启动网络服务
 		if (mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE) || mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
-			IService netty = new NettyServer(propertiesWrapper.getIntProperty(SystemEnvironment.TCP_PROT, 12345),
-					NettyHandler.class);
+			IService netty = new NettyServer(propertiesWrapper.getIntProperty(SystemEnvironment.TCP_PROT, 12345),NettyHandler.class);
 			try {
 				mbs.registerMBean(netty, new ObjectName("com.avalon.io.netty:type=NettyServer"));
-			} catch (InstanceAlreadyExistsException | MBeanRegistrationException | NotCompliantMBeanException
-					| MalformedObjectNameException e1) {
+			} catch (InstanceAlreadyExistsException | MBeanRegistrationException | NotCompliantMBeanException | MalformedObjectNameException e1) {
 				e1.printStackTrace();
 			}
 			systemRegistry.addComponent(netty);
@@ -474,8 +470,6 @@ public class AvalonEngine implements AvalonInstance {
 		// 初始化分布任务管理器
 		DistributedTaskManagerService globleTaskManagerProxy = new DistributedTaskManagerService();
 		((StartupKernelContext) application).setGlobleTaskManager(globleTaskManagerProxy);
-
-		AvalonEngine.serverId = propertiesWrapper.getIntProperty(SystemEnvironment.APP_ID, -1);
 
 		InternalContext.setManagerLocator(new ManagerLocatorImpl());
 		application = new KernelContext(application);

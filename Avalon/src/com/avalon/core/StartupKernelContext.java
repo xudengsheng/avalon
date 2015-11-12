@@ -343,7 +343,6 @@ package com.avalon.core;
 
 import com.avalon.api.internal.IService;
 import com.avalon.component.ComponentRegistryImpl;
-import com.avalon.setting.AvalonServerMode;
 import com.avalon.util.PropertiesWrapper;
 
 

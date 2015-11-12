@@ -349,7 +349,6 @@ import com.avalon.api.internal.ComponentRegistry;
 import com.avalon.api.internal.IService;
 import com.avalon.component.ComponentRegistryImpl;
 import com.avalon.exception.ManagerNotFoundException;
-import com.avalon.setting.AvalonServerMode;
 import com.avalon.util.PropertiesWrapper;
 
 import akka.actor.ActorSystem;

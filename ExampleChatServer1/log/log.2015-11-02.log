@@ -1,0 +1,337 @@
+[2015-11-02 17:19:37] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Workspaces/MyEclipse 2015 CI/ExampleChatServer1
+[2015-11-02 17:19:38] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@3bd82cf5
+[2015-11-02 17:19:39] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.zero.example.core.ExampleClientExtension@cda0432
+[2015-11-02 17:20:10] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Workspaces/MyEclipse 2015 CI/ExampleChatServer1
+[2015-11-02 17:20:11] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@fa4c865
+[2015-11-02 17:20:12] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.zero.example.core.ExampleClientExtension@6f8f8a80
+[2015-11-02 17:21:47] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Workspaces/MyEclipse 2015 CI/ExampleChatServer1
+[2015-11-02 17:21:47] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@fa4c865
+[2015-11-02 17:21:48] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.zero.example.core.ExampleClientExtension@264c5d07
+[2015-11-02 17:23:18] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Workspaces/MyEclipse 2015 CI/ExampleChatServer1
+[2015-11-02 17:23:18] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@fa4c865
+[2015-11-02 17:23:19] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.zero.example.core.ExampleClientExtension@6f8f8a80
+[2015-11-02 17:28:35] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Workspaces/MyEclipse 2015 CI/ExampleChatServer1
+[2015-11-02 17:28:35] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@fa4c865
+[2015-11-02 17:28:36] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.zero.example.core.ExampleClientExtension@6f8f8a80
+[2015-11-02 17:30:47] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Workspaces/MyEclipse 2015 CI/ExampleChatServer1
+[2015-11-02 17:30:47] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@7d20d0b
+[2015-11-02 17:30:47] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@41a2befb
+[2015-11-02 17:30:47] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-11-02 17:30:47] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-11-02 17:30:47] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-11-02 17:30:47] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-11-02 17:30:47] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-11-02 17:30:47] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 1075 (auto-detected)
+[2015-11-02 17:30:47] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0xdb160dc9dee4af84 (took 13 ms)
+[2015-11-02 17:30:47] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-11-02 17:30:47] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-11-02 17:30:47] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-11-02 17:30:47] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-11-02 17:30:47] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-11-02 17:30:47] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-11-02 17:30:47] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-11-02 17:30:47] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-11-02 17:30:47] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-11-02 17:30:47] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-11-02 17:30:47] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-11-02 17:30:47] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-11-02 17:30:47] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-11-02 17:30:47] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x1753ce9e] REGISTERED
+[2015-11-02 17:30:47] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x1753ce9e] BIND: 0.0.0.0/0.0.0.0:12345
+[2015-11-02 17:30:47] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x1753ce9e, /0:0:0:0:0:0:0:0:12345] ACTIVE
+[2015-11-02 17:31:42] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Workspaces/MyEclipse 2015 CI/ExampleChatServer1
+[2015-11-02 17:31:43] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@7d20d0b
+[2015-11-02 17:31:43] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@41a2befb
+[2015-11-02 17:31:43] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-11-02 17:31:43] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-11-02 17:31:43] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-11-02 17:31:43] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-11-02 17:31:43] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-11-02 17:31:43] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 1076 (auto-detected)
+[2015-11-02 17:31:43] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0xfe93920b9d999a99 (took 10 ms)
+[2015-11-02 17:31:43] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-11-02 17:31:43] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-11-02 17:31:43] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-11-02 17:31:43] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-11-02 17:31:43] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-11-02 17:31:43] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-11-02 17:31:43] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-11-02 17:31:43] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-11-02 17:31:43] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-11-02 17:31:43] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-11-02 17:31:43] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-11-02 17:31:43] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-11-02 17:31:43] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-11-02 17:31:43] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x857d84e3] REGISTERED
+[2015-11-02 17:31:43] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x857d84e3] BIND: 0.0.0.0/0.0.0.0:12345
+[2015-11-02 17:31:43] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x857d84e3, /0:0:0:0:0:0:0:0:12345] ACTIVE
+[2015-11-02 17:31:44] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.zero.example.core.ExampleClientExtension@69c6161d
+[2015-11-02 17:33:26] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x857d84e3, /0:0:0:0:0:0:0:0:12345] RECEIVED: [id: 0xb1f79e11, /127.0.0.1:54908 => /127.0.0.1:12345]
+[2015-11-02 17:33:26] [DEBUG] [io.netty.util.internal.JavassistTypeParameterMatcherGenerator:76]-- Generated: io.netty.util.internal.__matchers__.com.avalon.util.MessageHeadMatcher
+[2015-11-02 17:33:26] [DEBUG] [com.avalon.io.netty.NettyHandler:422]-- 注册
+[2015-11-02 17:33:31] [DEBUG] [io.netty.util.ResourceLeakDetector:81]-- -Dio.netty.leakDetectionLevel: simple
+[2015-11-02 17:33:31] [DEBUG] [io.netty.util.Recycler:76]-- -Dio.netty.recycler.maxCapacity: 262144
+[2015-11-02 17:33:31] [DEBUG] [io.netty.channel.DefaultChannelPipeline:76]-- Discarded inbound message com.avalon.io.MessagePackImpl@547195dd that reached at the tail of the pipeline. Please check your pipeline configuration.
+[2015-11-02 17:33:34] [DEBUG] [io.netty.channel.DefaultChannelPipeline:76]-- Discarded inbound message com.avalon.io.MessagePackImpl@5f69c7f4 that reached at the tail of the pipeline. Please check your pipeline configuration.
+[2015-11-02 17:37:05] [DEBUG] [io.netty.channel.DefaultChannelPipeline:76]-- Discarded inbound message com.avalon.io.MessagePackImpl@551f791c that reached at the tail of the pipeline. Please check your pipeline configuration.
+[2015-11-02 17:37:45] [DEBUG] [io.netty.channel.DefaultChannelPipeline:76]-- Discarded inbound message com.avalon.io.MessagePackImpl@5fe7126c that reached at the tail of the pipeline. Please check your pipeline configuration.
+[2015-11-02 17:39:11] [DEBUG] [io.netty.channel.DefaultChannelPipeline:76]-- Discarded inbound message com.avalon.io.MessagePackImpl@349cda2d that reached at the tail of the pipeline. Please check your pipeline configuration.
+[2015-11-02 17:41:32] [DEBUG] [io.netty.channel.DefaultChannelPipeline:76]-- Discarded inbound message com.avalon.io.MessagePackImpl@64c40e95 that reached at the tail of the pipeline. Please check your pipeline configuration.
+[2015-11-02 17:42:13] [DEBUG] [io.netty.channel.DefaultChannelPipeline:76]-- Discarded inbound message com.avalon.io.MessagePackImpl@4200b0de that reached at the tail of the pipeline. Please check your pipeline configuration.
+[2015-11-02 17:50:32] [DEBUG] [io.netty.channel.DefaultChannelPipeline:76]-- Discarded inbound message com.avalon.io.MessagePackImpl@5c19e552 that reached at the tail of the pipeline. Please check your pipeline configuration.
+[2015-11-02 17:53:16] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Workspaces/MyEclipse 2015 CI/ExampleChatServer1
+[2015-11-02 17:53:16] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@7d20d0b
+[2015-11-02 17:53:16] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@41a2befb
+[2015-11-02 17:53:16] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-11-02 17:53:16] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-11-02 17:53:16] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-11-02 17:53:17] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-11-02 17:53:17] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-11-02 17:53:17] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-11-02 17:53:17] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 1088 (auto-detected)
+[2015-11-02 17:53:17] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x62ad6d6b8eff2390 (took 13 ms)
+[2015-11-02 17:53:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-11-02 17:53:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-11-02 17:53:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-11-02 17:53:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-11-02 17:53:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-11-02 17:53:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-11-02 17:53:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-11-02 17:53:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-11-02 17:53:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-11-02 17:53:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-11-02 17:53:17] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-11-02 17:53:17] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-11-02 17:53:17] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-11-02 17:53:17] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x57a2846b] REGISTERED
+[2015-11-02 17:53:17] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x57a2846b] BIND: 0.0.0.0/0.0.0.0:12345
+[2015-11-02 17:53:17] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x57a2846b, /0:0:0:0:0:0:0:0:12345] ACTIVE
+[2015-11-02 17:53:18] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.zero.example.core.ExampleClientExtension@2234078
+[2015-11-02 17:54:40] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x57a2846b, /0:0:0:0:0:0:0:0:12345] RECEIVED: [id: 0x817bae17, /127.0.0.1:54994 => /127.0.0.1:12345]
+[2015-11-02 17:54:40] [DEBUG] [io.netty.util.internal.JavassistTypeParameterMatcherGenerator:76]-- Generated: io.netty.util.internal.__matchers__.com.avalon.util.MessageHeadMatcher
+[2015-11-02 17:54:40] [DEBUG] [com.avalon.io.netty.NettyHandler:422]-- 注册
+[2015-11-02 17:54:44] [DEBUG] [io.netty.util.ResourceLeakDetector:81]-- -Dio.netty.leakDetectionLevel: simple
+[2015-11-02 17:54:44] [DEBUG] [io.netty.util.Recycler:76]-- -Dio.netty.recycler.maxCapacity: 262144
+[2015-11-02 17:54:44] [DEBUG] [io.netty.channel.DefaultChannelPipeline:76]-- Discarded inbound message com.avalon.io.MessagePackImpl@45e90c96 that reached at the tail of the pipeline. Please check your pipeline configuration.
+[2015-11-02 17:54:46] [DEBUG] [io.netty.channel.DefaultChannelPipeline:76]-- Discarded inbound message com.avalon.io.MessagePackImpl@9044a01 that reached at the tail of the pipeline. Please check your pipeline configuration.
+[2015-11-02 17:55:28] [DEBUG] [io.netty.channel.DefaultChannelPipeline:76]-- Discarded inbound message com.avalon.io.MessagePackImpl@7ac92800 that reached at the tail of the pipeline. Please check your pipeline configuration.
+[2015-11-02 17:56:40] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Workspaces/MyEclipse 2015 CI/ExampleChatServer1
+[2015-11-02 17:56:40] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@7d20d0b
+[2015-11-02 17:56:40] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@41a2befb
+[2015-11-02 17:56:40] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-11-02 17:56:40] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-11-02 17:56:40] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-11-02 17:56:40] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-11-02 17:56:40] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-11-02 17:56:40] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 1097 (auto-detected)
+[2015-11-02 17:56:40] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x4f6c26f83ab2f02b (took 11 ms)
+[2015-11-02 17:56:40] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-11-02 17:56:40] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-11-02 17:56:40] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-11-02 17:56:40] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-11-02 17:56:40] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-11-02 17:56:40] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-11-02 17:56:40] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-11-02 17:56:40] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-11-02 17:56:40] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-11-02 17:56:40] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-11-02 17:56:40] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-11-02 17:56:40] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-11-02 17:56:40] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-11-02 17:56:40] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x234191ec] REGISTERED
+[2015-11-02 17:56:40] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x234191ec] BIND: 0.0.0.0/0.0.0.0:12345
+[2015-11-02 17:56:40] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x234191ec, /0:0:0:0:0:0:0:0:12345] ACTIVE
+[2015-11-02 17:56:41] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.zero.example.core.ExampleClientExtension@3aefae67
+[2015-11-02 17:57:13] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Workspaces/MyEclipse 2015 CI/ExampleChatServer1
+[2015-11-02 17:57:13] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@7d20d0b
+[2015-11-02 17:57:13] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@41a2befb
+[2015-11-02 17:57:13] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-11-02 17:57:13] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-11-02 17:57:13] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-11-02 17:57:13] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-11-02 17:57:13] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-11-02 17:57:13] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 1098 (auto-detected)
+[2015-11-02 17:57:13] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x1832fd58069e75e9 (took 13 ms)
+[2015-11-02 17:57:13] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-11-02 17:57:13] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-11-02 17:57:13] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-11-02 17:57:13] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-11-02 17:57:13] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-11-02 17:57:13] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-11-02 17:57:13] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-11-02 17:57:13] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-11-02 17:57:13] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-11-02 17:57:13] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-11-02 17:57:13] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-11-02 17:57:13] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-11-02 17:57:13] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-11-02 17:57:13] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x464d0470] REGISTERED
+[2015-11-02 17:57:13] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x464d0470] BIND: 0.0.0.0/0.0.0.0:12345
+[2015-11-02 17:57:13] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x464d0470, /0:0:0:0:0:0:0:0:12345] ACTIVE
+[2015-11-02 17:57:14] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.zero.example.core.ExampleClientExtension@3af356f
+[2015-11-02 17:58:39] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Workspaces/MyEclipse 2015 CI/ExampleChatServer1
+[2015-11-02 17:58:39] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@7d20d0b
+[2015-11-02 17:58:39] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@41a2befb
+[2015-11-02 17:58:39] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-11-02 17:58:39] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-11-02 17:58:39] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-11-02 17:58:39] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-11-02 17:58:39] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-11-02 17:58:39] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 1099 (auto-detected)
+[2015-11-02 17:58:39] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x1265a1108f27d105 (took 11 ms)
+[2015-11-02 17:58:39] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-11-02 17:58:39] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-11-02 17:58:39] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-11-02 17:58:39] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-11-02 17:58:39] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-11-02 17:58:39] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-11-02 17:58:39] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-11-02 17:58:39] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-11-02 17:58:39] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-11-02 17:58:39] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-11-02 17:58:39] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-11-02 17:58:39] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-11-02 17:58:39] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-11-02 17:58:39] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x5e7a1b96] REGISTERED
+[2015-11-02 17:58:39] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x5e7a1b96] BIND: 0.0.0.0/0.0.0.0:12345
+[2015-11-02 17:58:39] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x5e7a1b96, /0:0:0:0:0:0:0:0:12345] ACTIVE
+[2015-11-02 17:58:40] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.zero.example.core.ExampleClientExtension@3af356f
+[2015-11-02 17:59:17] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Workspaces/MyEclipse 2015 CI/ExampleChatServer1
+[2015-11-02 17:59:17] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@7d20d0b
+[2015-11-02 17:59:17] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@41a2befb
+[2015-11-02 17:59:17] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-11-02 17:59:17] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-11-02 17:59:17] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-11-02 17:59:17] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-11-02 17:59:17] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-11-02 17:59:17] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 1100 (auto-detected)
+[2015-11-02 17:59:17] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x38037155e43d8ac3 (took 11 ms)
+[2015-11-02 17:59:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-11-02 17:59:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-11-02 17:59:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-11-02 17:59:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-11-02 17:59:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-11-02 17:59:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-11-02 17:59:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-11-02 17:59:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-11-02 17:59:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-11-02 17:59:17] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-11-02 17:59:17] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-11-02 17:59:17] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-11-02 17:59:17] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-11-02 17:59:17] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xd4ec1d9b] REGISTERED
+[2015-11-02 17:59:17] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xd4ec1d9b] BIND: 0.0.0.0/0.0.0.0:12345
+[2015-11-02 17:59:17] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xd4ec1d9b, /0:0:0:0:0:0:0:0:12345] ACTIVE
+[2015-11-02 17:59:18] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.zero.example.core.ExampleClientExtension@6719a5b8
+[2015-11-02 18:00:51] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xd4ec1d9b, /0:0:0:0:0:0:0:0:12345] RECEIVED: [id: 0x7a8f2012, /127.0.0.1:55044 => /127.0.0.1:12345]
+[2015-11-02 18:00:51] [DEBUG] [io.netty.util.internal.JavassistTypeParameterMatcherGenerator:76]-- Generated: io.netty.util.internal.__matchers__.com.avalon.util.MessageHeadMatcher
+[2015-11-02 18:00:51] [DEBUG] [com.avalon.io.netty.NettyHandler:422]-- 注册
+[2015-11-02 18:00:55] [DEBUG] [io.netty.util.ResourceLeakDetector:81]-- -Dio.netty.leakDetectionLevel: simple
+[2015-11-02 18:00:55] [DEBUG] [io.netty.util.Recycler:76]-- -Dio.netty.recycler.maxCapacity: 262144
+[2015-11-02 18:00:55] [DEBUG] [io.netty.channel.DefaultChannelPipeline:76]-- Discarded inbound message com.avalon.io.MessagePackImpl@7fc5e843 that reached at the tail of the pipeline. Please check your pipeline configuration.
+[2015-11-02 18:00:59] [DEBUG] [io.netty.channel.DefaultChannelPipeline:76]-- Discarded inbound message com.avalon.io.MessagePackImpl@73e243b3 that reached at the tail of the pipeline. Please check your pipeline configuration.
+[2015-11-02 18:29:45] [DEBUG] [com.avalon.io.netty.NettyHandler:402]-- 解除注册

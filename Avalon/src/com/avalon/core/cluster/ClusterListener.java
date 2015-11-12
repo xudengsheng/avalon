@@ -344,7 +344,6 @@ package com.avalon.core.cluster;
 import java.util.UUID;
 
 import com.avalon.core.AvalonEngine;
-import com.avalon.core.ContextResolver;
 import com.avalon.core.message.ServerSupervisorMessage;
 import com.avalon.core.subscribe.ServerSupervisorSubscriber;
 import com.avalon.setting.SystemEnvironment;

@@ -1,0 +1,985 @@
+[2015-10-23 10:25:45] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 10:25:45] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@247bddad
+[2015-10-23 10:25:45] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@7770f470
+[2015-10-23 10:25:45] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 10:25:45] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 10:25:45] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 10:25:45] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 10:25:45] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 10:25:45] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 682 (auto-detected)
+[2015-10-23 10:25:45] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x078408984f03616c (took 14 ms)
+[2015-10-23 10:25:45] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 10:25:45] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 10:25:45] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 10:25:45] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 10:25:45] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 10:25:45] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 10:25:45] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 10:25:45] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 10:25:45] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 10:25:45] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 10:25:45] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 10:25:45] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 10:25:45] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 10:25:45] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xc38fe41f] REGISTERED
+[2015-10-23 10:25:45] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xc38fe41f] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 10:25:45] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xc38fe41f, /0:0:0:0:0:0:0:0:12346] ACTIVE
+[2015-10-23 10:25:46] [INFO ] [akka.event.slf4j.Slf4jLogger:85]-- Slf4jLogger started
+[2015-10-23 10:25:46] [DEBUG] [akka.event.EventStream:82]-- logger log1-Slf4jLogger started
+[2015-10-23 10:25:46] [DEBUG] [akka.event.EventStream:82]-- Default Loggers started
+[2015-10-23 10:25:46] [INFO ] [akka.remote.Remoting:79]-- Starting remoting
+[2015-10-23 10:25:46] [INFO ] [akka.remote.Remoting:79]-- Remoting started; listening on addresses :[akka.tcp://AVALON@10.1.36.66:2554]
+[2015-10-23 10:25:46] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 10:25:46] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1466499948] to Actor[akka://AVALON/deadLetters] was not delivered. [1] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 10:25:46] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 10:25:46] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1466499948] to Actor[akka://AVALON/deadLetters] was not delivered. [2] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 10:25:46] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoin$]
+[2015-10-23 10:25:46] [DEBUG] [akka.remote.EndpointWriter:82]-- Drained buffer with maxWriteCount: 50, fullBackoffCount: 1, smallBackoffCount: 0, noBackoffCount: 0 , adaptiveBackoff: 1000
+[2015-10-23 10:25:49] [INFO ] [com.avalon.core.Avalon:79]-- Server model is gate
+[2015-10-23 10:25:51] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1466499948] to Actor[akka://AVALON/deadLetters] was not delivered. [3] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 10:25:51] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1466499948] to Actor[akka://AVALON/deadLetters] was not delivered. [4] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 10:25:53] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoinNack]
+[2015-10-23 10:25:56] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 10:25:56] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1466499948] to Actor[akka://AVALON/deadLetters] was not delivered. [5] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 10:25:56] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 10:25:56] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1466499948] to Actor[akka://AVALON/deadLetters] was not delivered. [6] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 10:26:01] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 10:26:01] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1466499948] to Actor[akka://AVALON/deadLetters] was not delivered. [7] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 10:26:01] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 10:26:01] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1466499948] to Actor[akka://AVALON/deadLetters] was not delivered. [8] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 10:26:06] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1466499948] to Actor[akka://AVALON/deadLetters] was not delivered. [9] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 10:26:06] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1466499948] to Actor[akka://AVALON/deadLetters] was not delivered. [10] dead letters encountered, no more dead letters will be logged. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 10:26:11] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 10:26:11] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 10:26:16] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 10:26:16] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 10:26:21] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 10:26:21] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 10:26:26] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 10:26:26] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 10:26:31] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 10:26:31] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 10:26:41] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 10:26:41] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 10:26:46] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 10:26:46] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 10:26:51] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 10:26:51] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 10:26:56] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 10:26:56] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 10:27:00] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2553] has failed, address is now gated for [5000] ms. Reason: [Disassociated] 
+[2015-10-23 11:24:08] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 11:24:08] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@544fa968
+[2015-10-23 11:24:08] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@d35dea7
+[2015-10-23 11:24:08] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 11:24:08] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 11:24:08] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 11:24:08] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 11:24:08] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 11:24:08] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 11:24:08] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 11:24:08] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 11:24:08] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 11:24:08] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 11:24:08] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 11:24:08] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 11:24:09] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 11:24:09] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 11:24:09] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 11:24:09] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 11:24:09] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 11:24:09] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 11:24:09] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 753 (auto-detected)
+[2015-10-23 11:24:09] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 11:24:09] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x9a7ea72d1521fa56 (took 12 ms)
+[2015-10-23 11:24:09] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 11:24:09] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 11:24:09] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 11:24:09] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 11:24:09] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 11:24:09] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 11:24:09] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 11:24:09] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 11:24:09] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 11:24:09] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 11:24:09] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 11:24:09] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 11:24:09] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 11:24:09] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 11:24:09] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xb7463c00] REGISTERED
+[2015-10-23 11:24:09] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xb7463c00] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 11:24:09] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xb7463c00, /0:0:0:0:0:0:0:0:12346] ACTIVE
+[2015-10-23 11:24:09] [INFO ] [akka.event.slf4j.Slf4jLogger:85]-- Slf4jLogger started
+[2015-10-23 11:24:09] [DEBUG] [akka.event.EventStream:82]-- logger log1-Slf4jLogger started
+[2015-10-23 11:24:09] [DEBUG] [akka.event.EventStream:82]-- Default Loggers started
+[2015-10-23 11:24:09] [INFO ] [akka.remote.Remoting:79]-- Starting remoting
+[2015-10-23 11:24:09] [INFO ] [akka.remote.Remoting:79]-- Remoting started; listening on addresses :[akka.tcp://AVALON@10.1.36.66:2554]
+[2015-10-23 11:24:10] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:24:10] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-493997240] to Actor[akka://AVALON/deadLetters] was not delivered. [1] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:24:10] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:24:10] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-493997240] to Actor[akka://AVALON/deadLetters] was not delivered. [2] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:24:10] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoin$]
+[2015-10-23 11:24:10] [DEBUG] [akka.remote.EndpointWriter:82]-- Drained buffer with maxWriteCount: 50, fullBackoffCount: 1, smallBackoffCount: 0, noBackoffCount: 0 , adaptiveBackoff: 1000
+[2015-10-23 11:24:12] [INFO ] [com.avalon.core.Avalon:79]-- Server model is gate
+[2015-10-23 11:24:12] [ERROR] [akka.actor.OneForOneStrategy:71]-- actor name [SERVER_SUPERVISO_RPUBLISHER_TOPTIC] is not unique!
+akka.actor.InvalidActorNameException: actor name [SERVER_SUPERVISO_RPUBLISHER_TOPTIC] is not unique!
+	at akka.actor.dungeon.ChildrenContainer$NormalChildrenContainer.reserve(ChildrenContainer.scala:130) ~[akka-actor_2.11-2.4.0.jar:2.4.0]
+	at akka.actor.dungeon.Children$class.reserveChild(Children.scala:77) ~[akka-actor_2.11-2.4.0.jar:2.4.0]
+	at akka.actor.ActorCell.reserveChild(ActorCell.scala:373) [akka-actor_2.11-2.4.0.jar:2.4.0]
+	at akka.actor.dungeon.Children$class.makeChild(Children.scala:215) ~[akka-actor_2.11-2.4.0.jar:2.4.0]
+	at akka.actor.dungeon.Children$class.attachChild(Children.scala:42) ~[akka-actor_2.11-2.4.0.jar:2.4.0]
+	at akka.actor.ActorCell.attachChild(ActorCell.scala:373) [akka-actor_2.11-2.4.0.jar:2.4.0]
+	at akka.actor.ActorSystemImpl.actorOf(ActorSystem.scala:586) ~[akka-actor_2.11-2.4.0.jar:2.4.0]
+	at com.avalon.core.Avalon.onReceive(Avalon.java:532) ~[bin/:na]
+	at akka.actor.UntypedActor$$anonfun$receive$1.applyOrElse(UntypedActor.scala:167) ~[akka-actor_2.11-2.4.0.jar:2.4.0]
+	at akka.actor.Actor$class.aroundReceive(Actor.scala:480) ~[akka-actor_2.11-2.4.0.jar:2.4.0]
+	at akka.actor.UntypedActor.aroundReceive(UntypedActor.scala:97) ~[akka-actor_2.11-2.4.0.jar:2.4.0]
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:525) [akka-actor_2.11-2.4.0.jar:2.4.0]
+	at akka.actor.ActorCell.invoke(ActorCell.scala:494) [akka-actor_2.11-2.4.0.jar:2.4.0]
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257) [akka-actor_2.11-2.4.0.jar:2.4.0]
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224) [akka-actor_2.11-2.4.0.jar:2.4.0]
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234) [akka-actor_2.11-2.4.0.jar:2.4.0]
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260) [scala-library-2.11.7.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339) [scala-library-2.11.7.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979) [scala-library-2.11.7.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107) [scala-library-2.11.7.jar:na]
+[2015-10-23 11:24:15] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-493997240] to Actor[akka://AVALON/deadLetters] was not delivered. [3] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:24:15] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-493997240] to Actor[akka://AVALON/deadLetters] was not delivered. [4] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:24:17] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoinNack]
+[2015-10-23 11:24:20] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:24:20] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-493997240] to Actor[akka://AVALON/deadLetters] was not delivered. [5] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:24:20] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:24:20] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-493997240] to Actor[akka://AVALON/deadLetters] was not delivered. [6] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:24:25] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-493997240] to Actor[akka://AVALON/deadLetters] was not delivered. [7] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:24:25] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-493997240] to Actor[akka://AVALON/deadLetters] was not delivered. [8] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:24:30] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:24:30] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-493997240] to Actor[akka://AVALON/deadLetters] was not delivered. [9] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:24:30] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:24:30] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-493997240] to Actor[akka://AVALON/deadLetters] was not delivered. [10] dead letters encountered, no more dead letters will be logged. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:24:33] [INFO ] [com.avalon.core.subscribe.ServerSupervisorSubscriber:79]-- subscribing
+[2015-10-23 11:24:35] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:24:35] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:24:40] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:24:40] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:29:34] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 11:29:34] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@544fa968
+[2015-10-23 11:29:34] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@d35dea7
+[2015-10-23 11:29:34] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 11:29:34] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 11:29:34] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 11:29:34] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 11:29:34] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 11:29:34] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 759 (auto-detected)
+[2015-10-23 11:29:34] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x701b8e31fc6aff7f (took 13 ms)
+[2015-10-23 11:29:34] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 11:29:34] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 11:29:34] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 11:29:34] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 11:29:34] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 11:29:34] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 11:29:34] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 11:29:34] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 11:29:34] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 11:29:34] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 11:29:34] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 11:29:34] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 11:29:34] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 11:29:34] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x6590948b] REGISTERED
+[2015-10-23 11:29:34] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x6590948b] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 11:29:34] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x6590948b, /0:0:0:0:0:0:0:0:12346] ACTIVE
+[2015-10-23 11:29:34] [INFO ] [akka.event.slf4j.Slf4jLogger:85]-- Slf4jLogger started
+[2015-10-23 11:29:34] [DEBUG] [akka.event.EventStream:82]-- logger log1-Slf4jLogger started
+[2015-10-23 11:29:34] [DEBUG] [akka.event.EventStream:82]-- Default Loggers started
+[2015-10-23 11:29:35] [INFO ] [akka.remote.Remoting:79]-- Starting remoting
+[2015-10-23 11:29:35] [INFO ] [akka.remote.Remoting:79]-- Remoting started; listening on addresses :[akka.tcp://AVALON@10.1.36.66:2554]
+[2015-10-23 11:29:35] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:29:35] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1086601305] to Actor[akka://AVALON/deadLetters] was not delivered. [1] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:29:35] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:29:35] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1086601305] to Actor[akka://AVALON/deadLetters] was not delivered. [2] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:29:35] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoin$]
+[2015-10-23 11:29:35] [DEBUG] [akka.remote.EndpointWriter:82]-- Drained buffer with maxWriteCount: 50, fullBackoffCount: 1, smallBackoffCount: 0, noBackoffCount: 0 , adaptiveBackoff: 1000
+[2015-10-23 11:29:40] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1086601305] to Actor[akka://AVALON/deadLetters] was not delivered. [3] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:29:40] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1086601305] to Actor[akka://AVALON/deadLetters] was not delivered. [4] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:29:41] [INFO ] [com.avalon.core.Avalon:79]-- Server model is gate
+[2015-10-23 11:29:43] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoinNack]
+[2015-10-23 11:29:45] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:29:45] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:29:45] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1086601305] to Actor[akka://AVALON/deadLetters] was not delivered. [5] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:29:45] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1086601305] to Actor[akka://AVALON/deadLetters] was not delivered. [6] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:29:50] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:29:50] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1086601305] to Actor[akka://AVALON/deadLetters] was not delivered. [7] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:29:50] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:29:50] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1086601305] to Actor[akka://AVALON/deadLetters] was not delivered. [8] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:29:55] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:29:55] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1086601305] to Actor[akka://AVALON/deadLetters] was not delivered. [9] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:29:55] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:29:55] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1086601305] to Actor[akka://AVALON/deadLetters] was not delivered. [10] dead letters encountered, no more dead letters will be logged. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:30:00] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:30:00] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:30:05] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:30:05] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:30:07] [INFO ] [com.avalon.core.subscribe.ServerSupervisorSubscriber:79]-- subscribing
+[2015-10-23 11:31:49] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 11:31:49] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@544fa968
+[2015-10-23 11:31:49] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@d35dea7
+[2015-10-23 11:31:49] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 11:31:49] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 11:31:49] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 11:31:49] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 11:31:49] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 11:31:49] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 762 (auto-detected)
+[2015-10-23 11:31:49] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0xe06a3009e1be4b00 (took 13 ms)
+[2015-10-23 11:31:49] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 11:31:49] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 11:31:49] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 11:31:49] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 11:31:49] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 11:31:49] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 11:31:49] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 11:31:49] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 11:31:49] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 11:31:49] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 11:31:49] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 11:31:49] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 11:31:49] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 11:31:49] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xc06fb8f9] REGISTERED
+[2015-10-23 11:31:49] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xc06fb8f9] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 11:31:49] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xc06fb8f9, /0:0:0:0:0:0:0:0:12346] ACTIVE
+[2015-10-23 11:31:50] [INFO ] [akka.event.slf4j.Slf4jLogger:85]-- Slf4jLogger started
+[2015-10-23 11:31:50] [DEBUG] [akka.event.EventStream:82]-- logger log1-Slf4jLogger started
+[2015-10-23 11:31:50] [DEBUG] [akka.event.EventStream:82]-- Default Loggers started
+[2015-10-23 11:31:50] [INFO ] [akka.remote.Remoting:79]-- Starting remoting
+[2015-10-23 11:31:50] [INFO ] [akka.remote.Remoting:79]-- Remoting started; listening on addresses :[akka.tcp://AVALON@10.1.36.66:2554]
+[2015-10-23 11:31:50] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:31:50] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1551532763] to Actor[akka://AVALON/deadLetters] was not delivered. [1] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:31:50] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:31:50] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1551532763] to Actor[akka://AVALON/deadLetters] was not delivered. [2] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:31:50] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoin$]
+[2015-10-23 11:31:50] [DEBUG] [akka.remote.EndpointWriter:82]-- Drained buffer with maxWriteCount: 50, fullBackoffCount: 1, smallBackoffCount: 0, noBackoffCount: 0 , adaptiveBackoff: 1000
+[2015-10-23 11:31:52] [INFO ] [com.avalon.core.Avalon:79]-- Server model is gate
+[2015-10-23 11:31:55] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoinNack]
+[2015-10-23 11:31:55] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:31:55] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1551532763] to Actor[akka://AVALON/deadLetters] was not delivered. [3] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:31:55] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:31:55] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1551532763] to Actor[akka://AVALON/deadLetters] was not delivered. [4] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:32:00] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:32:00] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1551532763] to Actor[akka://AVALON/deadLetters] was not delivered. [5] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:32:00] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:32:00] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1551532763] to Actor[akka://AVALON/deadLetters] was not delivered. [6] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:32:02] [INFO ] [com.avalon.core.subscribe.ServerSupervisorSubscriber:79]-- subscribing
+[2015-10-23 11:32:05] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1551532763] to Actor[akka://AVALON/deadLetters] was not delivered. [7] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:32:05] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:32:05] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1551532763] to Actor[akka://AVALON/deadLetters] was not delivered. [8] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:32:07] [INFO ] [com.avalon.core.subscribe.ServerSupervisorSubscriber:79]-- Got Sender: akka://AVALON/user/ServerSupervisorPublisher
+[2015-10-23 11:32:08] [INFO ] [com.avalon.core.subscribe.ServerSupervisorSubscriber:79]-- Got: HELLO
+[2015-10-23 11:32:10] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:32:10] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1551532763] to Actor[akka://AVALON/deadLetters] was not delivered. [9] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:32:10] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:32:10] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1551532763] to Actor[akka://AVALON/deadLetters] was not delivered. [10] dead letters encountered, no more dead letters will be logged. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:32:16] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:32:16] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:32:21] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:32:21] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:32:26] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:32:31] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:32:31] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:32:36] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:32:36] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:32:41] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:32:41] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:32:46] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:32:46] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:32:51] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:32:51] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:32:56] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:32:56] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:33:01] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:33:01] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:33:11] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:33:11] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:33:21] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:33:21] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:33:26] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:33:26] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:33:31] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:33:31] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:33:36] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:33:36] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:33:41] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:33:46] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:33:46] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:33:51] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:33:51] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:33:56] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:34:01] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:34:06] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:34:06] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:34:11] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:34:11] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:34:16] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:34:16] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:34:21] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:34:21] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:34:26] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:34:31] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:34:31] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:34:36] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:34:41] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:34:41] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:36:06] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 11:36:06] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@544fa968
+[2015-10-23 11:36:06] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@d35dea7
+[2015-10-23 11:36:06] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 11:36:06] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 11:36:06] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 11:36:06] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 11:36:06] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 11:36:06] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 766 (auto-detected)
+[2015-10-23 11:36:06] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x8d5485955968467a (took 11 ms)
+[2015-10-23 11:36:06] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 11:36:06] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 11:36:06] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 11:36:06] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 11:36:06] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 11:36:06] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 11:36:06] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 11:36:06] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 11:36:06] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 11:36:06] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 11:36:06] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 11:36:06] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 11:36:06] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 11:36:06] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x32534a91] REGISTERED
+[2015-10-23 11:36:06] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x32534a91] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 11:36:06] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x32534a91, /0:0:0:0:0:0:0:0:12346] ACTIVE
+[2015-10-23 11:36:07] [INFO ] [akka.event.slf4j.Slf4jLogger:85]-- Slf4jLogger started
+[2015-10-23 11:36:07] [DEBUG] [akka.event.EventStream:82]-- logger log1-Slf4jLogger started
+[2015-10-23 11:36:07] [DEBUG] [akka.event.EventStream:82]-- Default Loggers started
+[2015-10-23 11:36:07] [INFO ] [akka.remote.Remoting:79]-- Starting remoting
+[2015-10-23 11:36:07] [INFO ] [akka.remote.Remoting:79]-- Remoting started; listening on addresses :[akka.tcp://AVALON@10.1.36.66:2554]
+[2015-10-23 11:36:07] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:36:07] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-432454563] to Actor[akka://AVALON/deadLetters] was not delivered. [1] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:36:07] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:36:07] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-432454563] to Actor[akka://AVALON/deadLetters] was not delivered. [2] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:36:07] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoin$]
+[2015-10-23 11:36:07] [DEBUG] [akka.remote.EndpointWriter:82]-- Drained buffer with maxWriteCount: 50, fullBackoffCount: 1, smallBackoffCount: 0, noBackoffCount: 0 , adaptiveBackoff: 1000
+[2015-10-23 11:36:11] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoinNack]
+[2015-10-23 11:36:12] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-432454563] to Actor[akka://AVALON/deadLetters] was not delivered. [3] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:36:12] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-432454563] to Actor[akka://AVALON/deadLetters] was not delivered. [4] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:36:17] [INFO ] [com.avalon.core.Avalon:79]-- Server model is gate
+[2015-10-23 11:36:17] [INFO ] [com.avalon.core.subscribe.ServerSupervisorSubscriber:79]-- subscribing
+[2015-10-23 11:36:17] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:36:17] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-432454563] to Actor[akka://AVALON/deadLetters] was not delivered. [5] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:36:17] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:36:17] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-432454563] to Actor[akka://AVALON/deadLetters] was not delivered. [6] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:36:22] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:36:22] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-432454563] to Actor[akka://AVALON/deadLetters] was not delivered. [7] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:36:22] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:36:22] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-432454563] to Actor[akka://AVALON/deadLetters] was not delivered. [8] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:36:26] [INFO ] [com.avalon.core.subscribe.ServerSupervisorSubscriber:79]-- Got Sender: akka://AVALON/user/ServerSupervisorPublisher
+[2015-10-23 11:36:26] [INFO ] [com.avalon.core.subscribe.ServerSupervisorSubscriber:79]-- Got: HELLO
+[2015-10-23 11:36:27] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-432454563] to Actor[akka://AVALON/deadLetters] was not delivered. [9] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:36:27] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-432454563] to Actor[akka://AVALON/deadLetters] was not delivered. [10] dead letters encountered, no more dead letters will be logged. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:36:32] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:36:32] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:36:37] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:36:37] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:36:47] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:36:47] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:36:52] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:36:52] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:37:02] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:37:02] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:37:07] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:37:07] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:37:18] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:37:18] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:37:28] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:37:28] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:37:38] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:37:38] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:37:43] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:37:43] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:37:48] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:37:53] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:37:53] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:37:58] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:37:58] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:38:03] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:38:03] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:38:13] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:38:13] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:38:18] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:38:18] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:38:55] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 11:38:55] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@544fa968
+[2015-10-23 11:38:55] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@d35dea7
+[2015-10-23 11:38:55] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 11:38:55] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 11:38:55] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 11:38:55] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 11:38:55] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 11:38:55] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 11:38:55] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 11:38:55] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 11:38:55] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 11:38:55] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 11:38:55] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 11:38:55] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 11:38:55] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 11:38:55] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 11:38:55] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 11:38:55] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 11:38:55] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 11:38:55] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 11:38:56] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 768 (auto-detected)
+[2015-10-23 11:38:56] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 11:38:56] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x438431cec9882ba8 (took 10 ms)
+[2015-10-23 11:38:56] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 11:38:56] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 11:38:56] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 11:38:56] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 11:38:56] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 11:38:56] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 11:38:56] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 11:38:56] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 11:38:56] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 11:38:56] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 11:38:56] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 11:38:56] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 11:38:56] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 11:38:56] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 11:38:56] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x011eee40] REGISTERED
+[2015-10-23 11:38:56] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x011eee40] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 11:38:56] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x011eee40, /0:0:0:0:0:0:0:0:12346] ACTIVE
+[2015-10-23 11:38:56] [INFO ] [akka.event.slf4j.Slf4jLogger:85]-- Slf4jLogger started
+[2015-10-23 11:38:56] [DEBUG] [akka.event.EventStream:82]-- logger log1-Slf4jLogger started
+[2015-10-23 11:38:56] [DEBUG] [akka.event.EventStream:82]-- Default Loggers started
+[2015-10-23 11:38:56] [INFO ] [akka.remote.Remoting:79]-- Starting remoting
+[2015-10-23 11:38:56] [INFO ] [akka.remote.Remoting:79]-- Remoting started; listening on addresses :[akka.tcp://AVALON@10.1.36.66:2554]
+[2015-10-23 11:38:57] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:38:57] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:38:57] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1534128815] to Actor[akka://AVALON/deadLetters] was not delivered. [1] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:38:57] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1534128815] to Actor[akka://AVALON/deadLetters] was not delivered. [2] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:38:57] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoin$]
+[2015-10-23 11:38:57] [DEBUG] [akka.remote.EndpointWriter:82]-- Drained buffer with maxWriteCount: 50, fullBackoffCount: 1, smallBackoffCount: 0, noBackoffCount: 0 , adaptiveBackoff: 1000
+[2015-10-23 11:38:59] [INFO ] [com.avalon.core.Avalon:79]-- Server model is gate
+[2015-10-23 11:38:59] [INFO ] [com.avalon.core.subscribe.ServerSupervisorSubscriber:79]-- subscribing
+[2015-10-23 11:39:01] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoinNack]
+[2015-10-23 11:39:01] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1534128815] to Actor[akka://AVALON/deadLetters] was not delivered. [3] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:39:01] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1534128815] to Actor[akka://AVALON/deadLetters] was not delivered. [4] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:39:06] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:39:06] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1534128815] to Actor[akka://AVALON/deadLetters] was not delivered. [5] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:39:06] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:39:06] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1534128815] to Actor[akka://AVALON/deadLetters] was not delivered. [6] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:39:11] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:39:11] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1534128815] to Actor[akka://AVALON/deadLetters] was not delivered. [7] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:39:11] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:39:11] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1534128815] to Actor[akka://AVALON/deadLetters] was not delivered. [8] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:39:17] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:39:17] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1534128815] to Actor[akka://AVALON/deadLetters] was not delivered. [9] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:39:17] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:39:17] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1534128815] to Actor[akka://AVALON/deadLetters] was not delivered. [10] dead letters encountered, no more dead letters will be logged. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:39:22] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:39:27] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:39:27] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:39:32] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:39:32] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:39:37] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:39:37] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:40:11] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 11:40:11] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@544fa968
+[2015-10-23 11:40:11] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@d35dea7
+[2015-10-23 11:40:11] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 11:40:11] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 11:40:11] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 11:40:11] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 11:40:11] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 11:40:11] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 770 (auto-detected)
+[2015-10-23 11:40:11] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x4c442a2cd4ca847a (took 14 ms)
+[2015-10-23 11:40:11] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 11:40:11] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 11:40:11] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 11:40:11] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 11:40:11] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 11:40:11] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 11:40:11] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 11:40:11] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 11:40:11] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 11:40:11] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 11:40:11] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 11:40:11] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 11:40:11] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 11:40:11] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x6b89cff7] REGISTERED
+[2015-10-23 11:40:11] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x6b89cff7] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 11:40:11] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x6b89cff7, /0:0:0:0:0:0:0:0:12346] ACTIVE
+[2015-10-23 11:40:11] [INFO ] [akka.event.slf4j.Slf4jLogger:85]-- Slf4jLogger started
+[2015-10-23 11:40:11] [DEBUG] [akka.event.EventStream:82]-- logger log1-Slf4jLogger started
+[2015-10-23 11:40:11] [DEBUG] [akka.event.EventStream:82]-- Default Loggers started
+[2015-10-23 11:40:12] [INFO ] [akka.remote.Remoting:79]-- Starting remoting
+[2015-10-23 11:40:12] [INFO ] [akka.remote.Remoting:79]-- Remoting started; listening on addresses :[akka.tcp://AVALON@10.1.36.66:2554]
+[2015-10-23 11:40:12] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:40:12] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1981289634] to Actor[akka://AVALON/deadLetters] was not delivered. [1] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:40:12] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:40:12] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1981289634] to Actor[akka://AVALON/deadLetters] was not delivered. [2] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:40:12] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoin$]
+[2015-10-23 11:40:12] [DEBUG] [akka.remote.EndpointWriter:82]-- Drained buffer with maxWriteCount: 50, fullBackoffCount: 1, smallBackoffCount: 0, noBackoffCount: 0 , adaptiveBackoff: 1000
+[2015-10-23 11:40:13] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoinNack]
+[2015-10-23 11:40:14] [INFO ] [com.avalon.core.Avalon:79]-- Server model is gate
+[2015-10-23 11:40:14] [INFO ] [com.avalon.core.subscribe.ServerSupervisorSubscriber:79]-- subscribing
+[2015-10-23 11:40:17] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:40:17] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1981289634] to Actor[akka://AVALON/deadLetters] was not delivered. [3] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:40:17] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:40:17] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1981289634] to Actor[akka://AVALON/deadLetters] was not delivered. [4] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:40:22] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:40:22] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:40:22] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1981289634] to Actor[akka://AVALON/deadLetters] was not delivered. [5] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:40:22] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1981289634] to Actor[akka://AVALON/deadLetters] was not delivered. [6] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:40:27] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:40:27] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1981289634] to Actor[akka://AVALON/deadLetters] was not delivered. [7] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:40:27] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:40:27] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1981289634] to Actor[akka://AVALON/deadLetters] was not delivered. [8] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:40:32] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:40:32] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1981289634] to Actor[akka://AVALON/deadLetters] was not delivered. [9] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:40:32] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:40:32] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#1981289634] to Actor[akka://AVALON/deadLetters] was not delivered. [10] dead letters encountered, no more dead letters will be logged. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 11:40:42] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 11:40:42] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:40:47] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 11:40:47] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 13:28:11] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 13:28:11] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@544fa968
+[2015-10-23 13:28:11] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@d35dea7
+[2015-10-23 13:28:12] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 13:28:12] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 13:28:12] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 13:28:12] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 13:28:12] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 13:28:12] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 877 (auto-detected)
+[2015-10-23 13:28:12] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x8a5dd4d002a685af (took 12 ms)
+[2015-10-23 13:28:12] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 13:28:12] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 13:28:12] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 13:28:12] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 13:28:12] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 13:28:12] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 13:28:12] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 13:28:12] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 13:28:12] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 13:28:12] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 13:28:12] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 13:28:12] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 13:28:12] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 13:28:12] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x7825ab6e] REGISTERED
+[2015-10-23 13:28:12] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x7825ab6e] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 13:28:12] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x7825ab6e, /0:0:0:0:0:0:0:0:12346] ACTIVE
+[2015-10-23 13:28:12] [INFO ] [akka.event.slf4j.Slf4jLogger:85]-- Slf4jLogger started
+[2015-10-23 13:28:12] [DEBUG] [akka.event.EventStream:82]-- logger log1-Slf4jLogger started
+[2015-10-23 13:28:12] [DEBUG] [akka.event.EventStream:82]-- Default Loggers started
+[2015-10-23 13:28:12] [INFO ] [akka.remote.Remoting:79]-- Starting remoting
+[2015-10-23 13:28:13] [INFO ] [akka.remote.Remoting:79]-- Remoting started; listening on addresses :[akka.tcp://AVALON@10.1.36.66:2554]
+[2015-10-23 13:28:13] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 13:28:13] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1663119015] to Actor[akka://AVALON/deadLetters] was not delivered. [1] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 13:28:13] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 13:28:13] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1663119015] to Actor[akka://AVALON/deadLetters] was not delivered. [2] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 13:28:13] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoin$]
+[2015-10-23 13:28:13] [DEBUG] [akka.remote.EndpointWriter:82]-- Drained buffer with maxWriteCount: 50, fullBackoffCount: 1, smallBackoffCount: 0, noBackoffCount: 0 , adaptiveBackoff: 1000
+[2015-10-23 13:28:15] [INFO ] [com.avalon.core.Avalon:79]-- Server model is gate
+[2015-10-23 13:28:15] [INFO ] [com.avalon.core.subscribe.ServerSupervisorSubscriber:79]-- subscribing
+[2015-10-23 13:28:17] [DEBUG] [akka.serialization.Serialization(akka://AVALON):82]-- Using serializer[akka.cluster.protobuf.ClusterMessageSerializer] for message [akka.cluster.InternalClusterAction$InitJoinNack]
+[2015-10-23 13:28:18] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1663119015] to Actor[akka://AVALON/deadLetters] was not delivered. [3] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 13:28:18] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1663119015] to Actor[akka://AVALON/deadLetters] was not delivered. [4] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 13:28:23] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 13:28:23] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1663119015] to Actor[akka://AVALON/deadLetters] was not delivered. [5] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 13:28:23] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 13:28:23] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1663119015] to Actor[akka://AVALON/deadLetters] was not delivered. [6] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 13:28:28] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 13:28:28] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1663119015] to Actor[akka://AVALON/deadLetters] was not delivered. [7] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 13:28:28] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 13:28:28] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1663119015] to Actor[akka://AVALON/deadLetters] was not delivered. [8] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 13:28:33] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1663119015] to Actor[akka://AVALON/deadLetters] was not delivered. [9] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 13:28:33] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 13:28:33] [INFO ] [akka.remote.RemoteActorRefProvider$RemoteDeadLetterActorRef:79]-- Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/joinSeedNodeProcess-1#-1663119015] to Actor[akka://AVALON/deadLetters] was not delivered. [10] dead letters encountered, no more dead letters will be logged. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[2015-10-23 13:28:38] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 13:28:38] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 13:28:43] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 13:28:43] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 13:28:48] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2552]] Caused by: [Connection refused: /10.1.36.66:2552]
+[2015-10-23 13:28:48] [WARN ] [akka.remote.ReliableDeliverySupervisor:76]-- Association with remote system [akka.tcp://AVALON@10.1.36.66:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.36.66:2551]] Caused by: [Connection refused: /10.1.36.66:2551]
+[2015-10-23 13:39:04] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 13:39:04] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@544fa968
+[2015-10-23 13:39:04] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@d35dea7
+[2015-10-23 13:39:04] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 13:39:04] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 13:39:04] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 13:39:04] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 13:39:04] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 13:39:04] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 886 (auto-detected)
+[2015-10-23 13:39:04] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x806a1eedc3dc42f9 (took 15 ms)
+[2015-10-23 13:39:04] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 13:39:04] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 13:39:04] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 13:39:04] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 13:39:04] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 13:39:04] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 13:39:04] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 13:39:04] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 13:39:04] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 13:39:04] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 13:39:04] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 13:39:04] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 13:39:04] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 13:39:04] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x7f92f589] REGISTERED
+[2015-10-23 13:39:04] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x7f92f589] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 13:39:04] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x7f92f589, /0:0:0:0:0:0:0:0:12346] ACTIVE
+[2015-10-23 13:52:17] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 13:52:18] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@544fa968
+[2015-10-23 13:52:18] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@d35dea7
+[2015-10-23 13:52:18] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 13:52:18] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 13:52:18] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 13:52:18] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 13:52:18] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 13:52:18] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 888 (auto-detected)
+[2015-10-23 13:52:18] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x5e381acd6bb03960 (took 12 ms)
+[2015-10-23 13:52:18] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 13:52:18] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 13:52:18] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 13:52:18] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 13:52:18] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 13:52:18] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 13:52:18] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 13:52:18] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 13:52:18] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 13:52:18] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 13:52:18] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 13:52:18] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 13:52:18] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 13:52:18] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x8a757eda] REGISTERED
+[2015-10-23 13:52:18] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x8a757eda] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 13:52:18] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x8a757eda, /0:0:0:0:0:0:0:0:12346] ACTIVE
+[2015-10-23 13:55:57] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 13:55:57] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@d35dea7
+[2015-10-23 13:55:57] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@5e5d171f
+[2015-10-23 13:55:57] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 13:55:57] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 13:55:57] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 13:55:57] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 13:55:57] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 13:55:57] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 893 (auto-detected)
+[2015-10-23 13:55:57] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x033e0054d75ae6ce (took 13 ms)
+[2015-10-23 13:55:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 13:55:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 13:55:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 13:55:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 13:55:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 13:55:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 13:55:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 13:55:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 13:55:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 13:55:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 13:55:57] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 13:55:57] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 13:55:57] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 13:55:58] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x754d71da] REGISTERED
+[2015-10-23 13:55:58] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x754d71da] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 13:55:58] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x754d71da, /0:0:0:0:0:0:0:0:12346] ACTIVE
+[2015-10-23 13:57:53] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 13:57:53] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@d35dea7
+[2015-10-23 13:57:53] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@5e5d171f
+[2015-10-23 13:57:53] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 13:57:53] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 13:57:53] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 13:57:53] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 13:57:53] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 13:57:53] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 896 (auto-detected)
+[2015-10-23 13:57:53] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x750ab0bf4dd91f64 (took 12 ms)
+[2015-10-23 13:57:53] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 13:57:53] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 13:57:53] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 13:57:53] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 13:57:53] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 13:57:53] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 13:57:53] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 13:57:53] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 13:57:53] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 13:57:53] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 13:57:53] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 13:57:53] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 13:57:53] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 13:57:53] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xbf5727f8] REGISTERED
+[2015-10-23 13:57:53] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xbf5727f8] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 13:57:53] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xbf5727f8, /0:0:0:0:0:0:0:0:12346] ACTIVE
+[2015-10-23 13:59:41] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 13:59:42] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@d35dea7
+[2015-10-23 13:59:42] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@5e5d171f
+[2015-10-23 13:59:42] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 13:59:42] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 13:59:42] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 13:59:42] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 13:59:42] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 13:59:42] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 898 (auto-detected)
+[2015-10-23 13:59:42] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x036f7a12826fc00e (took 12 ms)
+[2015-10-23 13:59:42] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 13:59:42] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 13:59:42] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 13:59:42] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 13:59:42] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 13:59:42] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 13:59:42] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 13:59:42] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 13:59:42] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 13:59:42] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 13:59:42] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 13:59:42] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 13:59:42] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 13:59:42] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xef900ee1] REGISTERED
+[2015-10-23 13:59:42] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xef900ee1] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 13:59:42] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xef900ee1, /0:0:0:0:0:0:0:0:12346] ACTIVE
+[2015-10-23 14:37:30] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 14:37:30] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@d35dea7
+[2015-10-23 14:37:30] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@5e5d171f
+[2015-10-23 14:37:30] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 14:37:30] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 14:37:30] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 14:37:30] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 14:37:30] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 14:37:30] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 938 (auto-detected)
+[2015-10-23 14:37:30] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x3771e82b1464e662 (took 12 ms)
+[2015-10-23 14:37:30] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 14:37:30] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 14:37:30] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 14:37:30] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 14:37:30] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 14:37:30] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 14:37:30] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 14:37:30] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 14:37:30] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 14:37:30] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 14:37:30] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 14:37:30] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 14:37:30] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 14:37:30] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xe961ad58] REGISTERED
+[2015-10-23 14:37:30] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xe961ad58] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 14:37:30] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0xe961ad58, /0:0:0:0:0:0:0:0:12346] ACTIVE
+[2015-10-23 17:12:56] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Documents/workspace/ExampleGateServer2
+[2015-10-23 17:12:56] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.io.netty.NettyServer@d35dea7
+[2015-10-23 17:12:56] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@5e5d171f
+[2015-10-23 17:12:56] [INFO ] [com.avalon.io.netty.NettyServer:426]-- 初始化Netty 开始
+[2015-10-23 17:12:56] [INFO ] [com.avalon.io.netty.NettyServer:458]-- 初始化Netty 线程启动
+[2015-10-23 17:12:56] [DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory:71]-- Using SLF4J as the default logging framework
+[2015-10-23 17:12:56] [DEBUG] [io.netty.channel.MultithreadEventLoopGroup:76]-- -Dio.netty.eventLoopThreads: 16
+[2015-10-23 17:12:56] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Buffer.address: available
+[2015-10-23 17:12:56] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- sun.misc.Unsafe.theUnsafe: available
+[2015-10-23 17:12:56] [DEBUG] [io.netty.util.internal.PlatformDependent0:71]-- sun.misc.Unsafe.copyMemory: available
+[2015-10-23 17:12:56] [DEBUG] [io.netty.util.internal.PlatformDependent0:76]-- java.nio.Bits.unaligned: true
+[2015-10-23 17:12:56] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- Java version: 8
+[2015-10-23 17:12:56] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noUnsafe: false
+[2015-10-23 17:12:56] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- sun.misc.Unsafe: available
+[2015-10-23 17:12:56] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noJavassist: false
+[2015-10-23 17:12:56] [DEBUG] [io.netty.util.internal.PlatformDependent:71]-- Javassist: available
+[2015-10-23 17:12:56] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+[2015-10-23 17:12:56] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[2015-10-23 17:12:56] [DEBUG] [io.netty.util.internal.PlatformDependent:76]-- -Dio.netty.noPreferDirect: false
+[2015-10-23 17:12:56] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.noKeySetOptimization: false
+[2015-10-23 17:12:56] [DEBUG] [io.netty.channel.nio.NioEventLoop:76]-- -Dio.netty.selectorAutoRebuildThreshold: 512
+[2015-10-23 17:12:56] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.processId: 1123 (auto-detected)
+[2015-10-23 17:12:56] [DEBUG] [io.netty.channel.DefaultChannelId:76]-- -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+[2015-10-23 17:12:56] [DEBUG] [io.netty.util.internal.ThreadLocalRandom:71]-- -Dio.netty.initialSeedUniquifier: 0x57b92f649c09c279 (took 11 ms)
+[2015-10-23 17:12:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numHeapArenas: 8
+[2015-10-23 17:12:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.numDirectArenas: 8
+[2015-10-23 17:12:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.pageSize: 8192
+[2015-10-23 17:12:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxOrder: 11
+[2015-10-23 17:12:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.chunkSize: 16777216
+[2015-10-23 17:12:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.tinyCacheSize: 512
+[2015-10-23 17:12:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.smallCacheSize: 256
+[2015-10-23 17:12:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.normalCacheSize: 64
+[2015-10-23 17:12:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[2015-10-23 17:12:57] [DEBUG] [io.netty.buffer.PooledByteBufAllocator:76]-- -Dio.netty.allocator.cacheTrimInterval: 8192
+[2015-10-23 17:12:57] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.allocator.type: pooled
+[2015-10-23 17:12:57] [DEBUG] [io.netty.buffer.ByteBufUtil:76]-- -Dio.netty.threadLocalDirectBufferSize: 65536
+[2015-10-23 17:12:57] [DEBUG] [io.netty.util.NetUtil:86]-- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+[2015-10-23 17:12:57] [DEBUG] [io.netty.util.NetUtil:81]-- /proc/sys/net/core/somaxconn: 128 (non-existent)
+[2015-10-23 17:12:57] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x30c8c5d5] REGISTERED
+[2015-10-23 17:12:57] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x30c8c5d5] BIND: 0.0.0.0/0.0.0.0:12346
+[2015-10-23 17:12:57] [INFO ] [io.netty.handler.logging.LoggingHandler:101]-- [id: 0x30c8c5d5, /0:0:0:0:0:0:0:0:12346] ACTIVE

@@ -11,10 +11,8 @@ import javax.management.ObjectName;
 
 import com.avalon.core.AvalonEngine;
 
-
-
 public class ManagementService {
-	static final String DOMAIN = "com.avalons";
+	static final String DOMAIN = "com.avalon";
 	private static final int INITIAL_CAPACITY = 3;
 
 	final AvalonInstance instance;
@@ -41,8 +39,7 @@ public class ManagementService {
 	public void destroy() {
 		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 		try {
-			Set<ObjectName> entries = mbs
-					.queryNames(new ObjectName(DOMAIN + ":instance=" + quote(instance.getName()) + ",*"), null);
+			Set<ObjectName> entries = mbs.queryNames(new ObjectName(DOMAIN + ":instance=" + quote(instance.getName()) + ",*"), null);
 			for (ObjectName name : entries) {
 				if (mbs.isRegistered(name)) {
 					mbs.unregisterMBean(name);
@@ -65,12 +62,6 @@ public class ManagementService {
 			e.printStackTrace();
 		}
 	}
-
-
-
-
-
-
 
 	protected ObjectName createObjectName(String type, String name) {
 		Hashtable<String, String> properties = new Hashtable<String, String>(INITIAL_CAPACITY);

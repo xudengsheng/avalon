@@ -344,7 +344,6 @@ package com.avalon.core;
 import com.avalon.api.AppListener;
 import com.avalon.api.DistributedTaskManager;
 import com.avalon.api.internal.IService;
-import com.avalon.setting.AvalonServerMode;
 import com.avalon.util.PropertiesWrapper;
 
 import akka.actor.ActorSystem;

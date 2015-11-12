@@ -1,10 +1,10 @@
 package com.avalon.jmx;
 
+import static com.avalon.jmx.ManagementService.quote;
+
 import java.util.Hashtable;
 
 import com.avalon.core.AvalonEngine;
-
-import static com.avalon.jmx.ManagementService.quote;
 
 @ManagedDescription("AvalonInstance")
 public class InstanceMBean extends AvalonMBean<AvalonEngine> {
