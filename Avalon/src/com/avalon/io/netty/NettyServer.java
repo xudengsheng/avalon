@@ -368,7 +368,7 @@ import io.netty.handler.logging.LoggingHandler;
  *
  * @author ZERO
  */
-public class NettyServer implements IoMonitorMXBean, IService {
+public class NettyServer implements IService {
 
 	/** The logger. */
 	Logger logger = LoggerFactory.getLogger(NettyServer.class);
@@ -498,7 +498,6 @@ public class NettyServer implements IoMonitorMXBean, IService {
 	/* (non-Javadoc)
 	 * @see com.avalon.jmx.IoMonitorMXBean#getSessionNum()
 	 */
-	@Override
 	public int getSessionNum() {
 		return sessionNum.get();
 	}
@@ -506,7 +505,6 @@ public class NettyServer implements IoMonitorMXBean, IService {
 	/* (non-Javadoc)
 	 * @see com.avalon.jmx.IoMonitorMXBean#disConnect(long)
 	 */
-	@Override
 	public boolean disConnect(long sessionId) {
 		return false;
 	}

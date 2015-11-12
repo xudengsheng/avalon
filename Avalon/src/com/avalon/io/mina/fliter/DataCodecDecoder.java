@@ -389,8 +389,7 @@ public class DataCodecDecoder extends ProtocolDecoderAdapter {
 
 	// Flash的跨域请求回复（全域，全端口）
 	/** The Constant FLEX_RESP. */
-	public final static String FLEX_RESP = "<?xml version='1.0'?>" + "<cross-domain-policy>"
-			+ "<allow-access-from domain='*' to-ports='*'/>" + "</cross-domain-policy>\0";
+	public final static String FLEX_RESP = "<?xml version='1.0'?><cross-domain-policy><allow-access-from domain='*' to-ports='*'/></cross-domain-policy>\0";
 
 	/** The Constant FLEX_POLICY_BYTE. */
 	public final static byte[] FLEX_POLICY_BYTE = FLEX_POLICY.getBytes();

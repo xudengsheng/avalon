@@ -5,6 +5,7 @@ import static com.avalon.jmx.ManagementService.quote;
 import java.util.Hashtable;
 
 import com.avalon.core.AvalonEngine;
+import com.avalon.io.IoMonitorImpl;
 
 @ManagedDescription("AvalonInstance")
 public class InstanceMBean extends AvalonMBean<AvalonEngine> {
@@ -13,11 +14,14 @@ public class InstanceMBean extends AvalonMBean<AvalonEngine> {
 	protected InstanceMBean(AvalonEngine avalonInstance, ManagementService managementService) {
 		super(avalonInstance, managementService);
 		createProperties(avalonInstance);
+		createMBeans(managementService);
 		registerMBeans();
 	}
 
-	private void createMBeans(AvalonEngine hazelcastInstance, ManagementService managementService) {
-
+	private void createMBeans(ManagementService managementService) {
+		IoMonitorImpl impl = new IoMonitorImpl();
+		AvalonMBean control = new IoMonitorControl(impl, managementService);
+		register(control);
 	}
 
 	private void registerMBeans() {
@@ -27,7 +31,7 @@ public class InstanceMBean extends AvalonMBean<AvalonEngine> {
 	private void createProperties(AvalonEngine avalonInstance) {
 		Hashtable<String, String> properties = new Hashtable<String, String>(INITIAL_CAPACITY);
 		properties.put("type", quote("AvalonInstance"));
-		properties.put("instance", quote(avalonInstance.getClass().getSimpleName()));
+//		properties.put("instance", quote(avalonInstance.getClass().getSimpleName()));
 		properties.put("name", quote(avalonInstance.getClass().getSimpleName()));
 		setObjectName(properties);
 	}
@@ -42,7 +46,6 @@ public class InstanceMBean extends AvalonMBean<AvalonEngine> {
 		return managedObject.getName();
 	}
 
-
 	@ManagedAnnotation(value = "stopEngine", operation = true)
 	@ManagedDescription("stopEngine")
 	public void stopEngine() {
@@ -54,6 +57,7 @@ public class InstanceMBean extends AvalonMBean<AvalonEngine> {
 	public int transportActorNum() {
 		return managedObject.transportActorNum();
 	}
+
 	@ManagedAnnotation(value = "ServerMode")
 	@ManagedDescription("ServerMode")
 	public String getServerMode() {

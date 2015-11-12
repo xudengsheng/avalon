@@ -356,6 +356,7 @@ import com.avalon.util.PropertiesWrapper;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.actor.Inbox;
 import akka.actor.Props;
 
 // TODO: Auto-generated Javadoc
