@@ -349,6 +349,7 @@ import com.avalon.api.CancellableTask;
  */
 public class CancellabTaskImpl implements CancellableTask {
 
+	private static final long serialVersionUID = -6751629941935046121L;
 	/** The uuid. */
 	public String UUID;
 

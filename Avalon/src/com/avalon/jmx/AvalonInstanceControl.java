@@ -9,5 +9,9 @@ public interface AvalonInstanceControl {
 	void stopEngine();
 	
 	AvalonServerMode getServerMode();
+	
+	int GateServreNum();
+	
+	int GameServerNum();
 
 }

@@ -386,27 +386,6 @@ public class ConnectionSession extends UntypedActor {
 	/** The session linenter. */
 	private ClientSessionLinenter sessionLinenter;
 
-	/* (non-Javadoc)
-	 * @see akka.actor.UntypedActor#postStop()
-	 */
-	@Override
-	public void postStop() throws Exception {
-		super.postStop();
-	}
-
-	/* (non-Javadoc)
-	 * @see akka.actor.UntypedActor#preStart()
-	 */
-	@Override
-	public void preStart() throws Exception {
-		super.preStart();
-//		ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
-//		mediator.tell(new DistributedPubSubMediator.Subscribe(ConnectionSessionTopic.shardName, getSelf()), getSelf());
-	}
-
-	/* (non-Javadoc)
-	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
-	 */
 	@Override
 	public void onReceive(Object msg) throws Exception {
 
@@ -459,6 +438,12 @@ public class ConnectionSession extends UntypedActor {
 
 	}
 
+
+	@Override
+	public void postStop() throws Exception {
+		super.postStop();
+		sessionLinenter.disconnected(true);
+	}
 }
 
 class InnerClient implements ActorSession, TaskManager {

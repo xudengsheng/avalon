@@ -483,9 +483,9 @@ public interface TransportMessage extends Serializable {
 	}
 
 	/**
-	 * The Class ConnectionSessionsClosed.
+	 * 网络会话断开
 	 */
-	public static class ConnectionSessionsClosed implements TransportMessage {
+	public static class CloseConnectionSessions implements TransportMessage {
 
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 5621353783623408296L;

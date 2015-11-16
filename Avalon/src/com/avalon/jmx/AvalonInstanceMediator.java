@@ -65,4 +65,16 @@ public class AvalonInstanceMediator extends AvalonMBean<AvalonEngine> {
 	public String getServerMode() {
 		return managedObject.getServerMode().modeName;
 	}
+	
+	@ManagedAnnotation(value = "GameServerNum")
+	@ManagedDescription("GameServer Num")
+	public int GameServerNum() {
+		return managedObject.GameServerNum();
+	}
+	
+	@ManagedAnnotation(value = "GateServreNum")
+	@ManagedDescription("GateServre Num")
+	public int GateServreNum() {
+		return managedObject.GateServreNum();
+	}
 }

@@ -139,9 +139,12 @@ public interface ServerSupervisorMessage extends Serializable {
 		}
 
 	}
-	
-	public class ConnectionSessionsProtocol implements ServerSupervisorMessage{
-
+	/**
+	 * 分发TCP的Transport Actor到集群中随机或者绑定的节点
+	 * @author zero
+	 *
+	 */
+	public class DistributionConnectionSessionsProtocol implements ServerSupervisorMessage{
 
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -8818237764034275011L;
@@ -162,7 +165,7 @@ public interface ServerSupervisorMessage extends Serializable {
 		 * @param uid the uid
 		 * @param origins the origins
 		 */
-		public ConnectionSessionsProtocol(ActorRef sender, Object origins,int serverid) {
+		public DistributionConnectionSessionsProtocol(ActorRef sender, Object origins,int serverid) {
 			super();
 			this.sender = sender;
 			this.serverid=serverid;

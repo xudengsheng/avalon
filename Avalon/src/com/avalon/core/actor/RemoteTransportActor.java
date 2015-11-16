@@ -352,6 +352,7 @@ import com.avalon.core.message.TransportMessage;
 import com.avalon.core.message.TransportMessage.IOSessionReciveDirectMessage;
 import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
 import com.avalon.core.message.TransportMessage.SessionSessionMessage;
+import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.setting.SystemEnvironment;
 
 import akka.actor.ActorRef;
@@ -400,15 +401,14 @@ public class RemoteTransportActor extends UntypedActor {
 	 */
 	public RemoteTransportActor(IoSession ioSession) {
 		super();
-		// c826f710-2c42-4901-a8c0-4c68daf159aa
-//		this.sessionActorId = sessionid;
 		this.ioSession = ioSession;
 	}
 
 	@Override
 	public void preStart() throws Exception {
 		super.preStart();
-		getSelf().tell(new TransportMessage.IOSessionBindingTransportMessage(), ActorRef.noSender());
+//		getSelf().tell(new TransportMessage.IOSessionBindingTransportMessage(), ActorRef.noSender());
+		ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(),getSelf()));
 	}
 
 	/*
@@ -428,7 +428,7 @@ public class RemoteTransportActor extends UntypedActor {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				// 11c417d8-6e62-4e5d-a97b-2d8ab10bb2ab
 				int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.GATE_BINDING,-1);
-				ServerSupervisorMessage commandSessionProtocol = new ServerSupervisorMessage.ConnectionSessionsProtocol(getSelf(),messagePackage, serverId);
+				ServerSupervisorMessage commandSessionProtocol = new ServerSupervisorMessage.DistributionConnectionSessionsProtocol(getSelf(),messagePackage, serverId);
 				AkkaServerManager.serverSupervisorSubscriberRef.tell(commandSessionProtocol, getSelf());
 			} else {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
@@ -453,11 +453,12 @@ public class RemoteTransportActor extends UntypedActor {
 			this.connectionSessionsRef = getSender();
 			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(),getSelf()));
 			return;
-		} else if (msg instanceof TransportMessage.ConnectionSessionsClosed) {
+		} else if (msg instanceof TransportMessage.CloseConnectionSessions) {
 			if (bindingConnectionSession) {
 				connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
 			}
-			LostSession();
+			TransportSupervisorMessage message=new TransportSupervisorMessage.TransportLostNetSession();
+			AkkaServerManager.transportSupervisorRef.tell(message, getSelf());
 			return;
 		} else {
 			unhandled(msg);
@@ -465,49 +466,14 @@ public class RemoteTransportActor extends UntypedActor {
 
 	}
 
-	/**
-	 * Lost session.
-	 */
-	private void LostSession() {
-		getContext().stop(getSelf());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see akka.actor.UntypedActor#postStop()
-	 */
+	
 	@Override
 	public void postStop() throws Exception {
 		super.postStop();
 		if (connectionSessionsRef != null) {
 			connectionSessionsRef.tell(akka.actor.PoisonPill.getInstance(), getSelf());
-			LostSession();
 		}
 	}
 
 }
 
-//class InnerRemoteActorCallBack implements ActorCallBack {
-//
-//	private final ActorRef self;
-//
-//	public InnerRemoteActorCallBack(ActorRef self) {
-//		super();
-//		this.self = self;
-//	}
-//
-//	@Override
-//	public void closed() {
-//		ConnectionSessionsClosed closed = new ConnectionSessionsClosed();
-//		self.tell(closed, ActorRef.noSender());
-//
-//	}
-//
-//	@Override
-//	public void tellMessage(IoMessagePackage messagePackage) {
-//		IOSessionReciveDirectMessage directMessage = new IOSessionReciveDirectMessage(messagePackage);
-//		self.tell(directMessage, ActorRef.noSender());
-//	}
-//
-//}

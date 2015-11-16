@@ -371,7 +371,7 @@ public interface ClientSessionLinenter {
 	/**
 	 * 断开网络连接后的处理.
 	 *
-	 * @param graceful the graceful
+	 * @param graceful the graceful 是否是真实关闭（true确定关闭false网络连接断开）
 	 */
 	void disconnected(boolean graceful);
 }

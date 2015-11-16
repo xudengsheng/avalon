@@ -347,6 +347,7 @@ import com.avalon.core.AkkaServerManager;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
 import com.avalon.core.message.TransportMessage;
+import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
 import com.avalon.core.message.TransportMessage.SessionSessionMessage;
 
@@ -430,10 +431,12 @@ public class LocalTransportActor extends UntypedActor {
 			IoMessagePackage messagePackage = ((SessionSessionMessage) msg).messagePackage;
 			ioSession.write(messagePackage);
 			return;
-		} else if (msg instanceof TransportMessage.ConnectionSessionsClosed) {
+		} else if (msg instanceof TransportMessage.CloseConnectionSessions) {
 			if (bindingConnectionSession) {
 				connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
 			}
+			TransportSupervisorMessage message=new TransportSupervisorMessage.TransportLostNetSession();
+			AkkaServerManager.transportSupervisorRef.tell(message, getSelf());
 			return;
 		} else if (msg instanceof TransportMessage.ConnectionSessionsBinding) {
 			this.connectionSessionsRef = getSender();
@@ -453,6 +456,9 @@ public class LocalTransportActor extends UntypedActor {
 	@Override
 	public void postStop() throws Exception {
 		super.postStop();
+		if (bindingConnectionSession) {
+			connectionSessionsRef.tell(akka.actor.PoisonPill.getInstance(), getSelf());
+		}
 	}
 
 }

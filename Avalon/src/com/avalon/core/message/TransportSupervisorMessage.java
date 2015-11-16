@@ -359,7 +359,7 @@ public interface TransportSupervisorMessage extends Serializable {
 	 *
 	 * @author ZERO
 	 */
-	public static class CreateIOSessionActor implements TransportSupervisorMessage {
+	public  class CreateIOSessionActor implements TransportSupervisorMessage {
 		
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -631426557637927828L;
@@ -385,7 +385,7 @@ public interface TransportSupervisorMessage extends Serializable {
 	 *
 	 * @author ZERO
 	 */
-	public static class ReciveIOSessionMessage implements TransportSupervisorMessage {
+	public  class ReciveIOSessionMessage implements TransportSupervisorMessage {
 
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -631426557637927828L;
@@ -410,7 +410,20 @@ public interface TransportSupervisorMessage extends Serializable {
 
 	}
 	
+	public  class CheckNoSessionTransport implements TransportSupervisorMessage {
 
+		private static final long serialVersionUID = -5244110215507020209L;
 
+	}
 
+	/**
+	 * 传输的Actor失去网络连接
+	 * @author zero
+	 *
+	 */
+	public class TransportLostNetSession implements TransportSupervisorMessage{
+
+		private static final long serialVersionUID = -6986985343089164066L;
+		
+	}
 }

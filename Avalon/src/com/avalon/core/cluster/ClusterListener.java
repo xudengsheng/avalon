@@ -417,7 +417,7 @@ public class ClusterListener extends UntypedActor {
 			MemberUp mUp = (MemberUp) message;
 			Member member = mUp.member();
 			UniqueAddress uniqueAddress = member.uniqueAddress();
-
+			//akka.tcp://AVALON@127.0.0.1:2551
 			String addressString = uniqueAddress.address().toString();
 			ServerSupervisorMessage serverSupervisorMessage = new ServerSupervisorMessage.ServerIsTheSame(GEUID,AvalonEngine.mode.type, member);
 			String path = addressString + SystemEnvironment.AKKA_USER_PATH + ServerSupervisorSubscriber.IDENTIFY;

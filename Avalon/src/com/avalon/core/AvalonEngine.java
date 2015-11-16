@@ -385,13 +385,16 @@ public class AvalonEngine implements AvalonInstanceControl {
 
 	/** 应用逻辑. */
 	private AppListener listener;
-
 	/** The mode. */
 	public static AvalonServerMode mode;
-	/**The ServerId. */
+	/** The ServerId. */
 	public static int serverId;
 	/** The properties wrapper. */
 	private PropertiesWrapper propertiesWrapper;
+
+	public static int gameServerNum;
+
+	public static int gateServerNum;
 
 	/**
 	 * Gets the name.
@@ -415,7 +418,8 @@ public class AvalonEngine implements AvalonInstanceControl {
 		propertiesWrapper = new PropertiesWrapper(props);
 
 		AvalonEngine.serverId = propertiesWrapper.getIntProperty(SystemEnvironment.APP_ID, -1);
-		String modelName = propertiesWrapper.getProperty(SystemEnvironment.ENGINE_MODEL,AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
+		String modelName = propertiesWrapper.getProperty(SystemEnvironment.ENGINE_MODEL,
+				AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
 		AvalonEngine.mode = AvalonServerMode.getSeverMode(modelName);
 		// 组件管理器
 		systemRegistry = new ComponentRegistryImpl();
@@ -448,7 +452,8 @@ public class AvalonEngine implements AvalonInstanceControl {
 		IService avalon = new AvalonMediator();
 		// 如果是网关和单幅模式需要启动网络服务
 		if (mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE) || mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
-			IService netty = new NettyServer(propertiesWrapper.getIntProperty(SystemEnvironment.TCP_PROT, D_PORT),NettyHandler.class);
+			IService netty = new NettyServer(propertiesWrapper.getIntProperty(SystemEnvironment.TCP_PROT, D_PORT),
+					NettyHandler.class);
 			systemRegistry.addComponent(netty);
 		}
 		// jmx相关启动
@@ -550,7 +555,6 @@ public class AvalonEngine implements AvalonInstanceControl {
 		return false;
 	}
 
-
 	@Override
 	public void stopEngine() {
 		for (IService iService : systemRegistry) {
@@ -561,6 +565,16 @@ public class AvalonEngine implements AvalonInstanceControl {
 	@Override
 	public AvalonServerMode getServerMode() {
 		return mode;
+	}
+
+	@Override
+	public int GateServreNum() {
+		return gateServerNum;
+	}
+
+	@Override
+	public int GameServerNum() {
+		return gameServerNum;
 	}
 
 }

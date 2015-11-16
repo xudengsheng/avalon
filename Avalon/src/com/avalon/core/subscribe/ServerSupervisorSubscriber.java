@@ -36,7 +36,7 @@ import jodd.util.MathUtil;
 public class ServerSupervisorSubscriber extends UntypedActor {
 
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
-	
+
 	public static final String IDENTIFY = "ServerSupervisorSubscriber";
 	/**
 	 * 本机的远程地址信息
@@ -46,11 +46,15 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 	 * 当前服务的启动模式
 	 */
 	private AvalonServerMode avalonServerMode;
+	/**
+	 * 广播使用的
+	 */
 	ActorRef mediator;
 	/**
 	 * 其他集群内的机器
 	 */
 	public static Map<AvalonServerMode, List<MemberWaper>> members = new HashMap<AvalonServerMode, List<MemberWaper>>();
+	
 
 	public ServerSupervisorSubscriber() {
 		mediator = DistributedPubSub.get(getContext().system()).mediator();
@@ -63,11 +67,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof String) {
-			ActorRef sender = getSender();
-			log.info("Got Sender: {}", sender.path().toString());
-			log.info("Got: {}", msg);
-		} else if (msg instanceof ServerSupervisorMessage.ServerOnline) {
+		if (msg instanceof ServerSupervisorMessage.ServerOnline) {
 			ServerOnline serverOnline = (ServerSupervisorMessage.ServerOnline) msg;
 			// 检查是否是自己这台机器，如果是则不加入其他机器列表
 			if (serverOnline.UUID.equals(ClusterListener.GEUID)) {
@@ -81,8 +81,11 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 						return;
 					}
 				}
-				MemberWaper memberWaper=new MemberWaper(serverOnline.serverId, AvalonServerMode.getSeverMode(serverOnline.type), serverOnline.member);
+				log.debug("add new Server cool");
+				MemberWaper memberWaper = new MemberWaper(serverOnline.serverId,AvalonServerMode.getSeverMode(serverOnline.type), serverOnline.member);
 				list.add(memberWaper);
+				
+				
 				// 检查自己是否已经获得自己机器的节点信息，并检查这个消息是否需要回复
 				if (ServerSupervisorSubscriber.member != null && !serverOnline.noBack) {
 					log.debug("msg is ServerSupervisorMessage.ServerOnline:send back message");
@@ -92,7 +95,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 					} else {
 						ServerId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID, -1);
 					}
-					ServerSupervisorMessage supervisorMessage = new ServerSupervisorMessage.ServerOnline(ClusterListener.GEUID, avalonServerMode.type, ServerSupervisorSubscriber.member, ServerId,	true);
+					ServerSupervisorMessage supervisorMessage = new ServerSupervisorMessage.ServerOnline(ClusterListener.GEUID, avalonServerMode.type, ServerSupervisorSubscriber.member, ServerId,true);
 					getSender().tell(supervisorMessage, self());
 				}
 			}
@@ -112,8 +115,10 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 				}
 				ServerSupervisorMessage supervisorMessage = new ServerSupervisorMessage.ServerOnline(ClusterListener.GEUID, serverMode.type, member, ServerId);
 				mediator.tell(new DistributedPubSubMediator.Publish(ClusterListener.shardName, supervisorMessage),getSelf());
+				
 			}
 		}
+		
 		// 失去一个节点
 		else if (msg instanceof ServerSupervisorMessage.ServerLost) {
 			for (Entry<AvalonServerMode, List<MemberWaper>> entry : members.entrySet()) {
@@ -131,41 +136,55 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 					((ServerSupervisorMessage.SendRedirectMessage) msg).sender,
 					((ServerSupervisorMessage.SendRedirectMessage) msg).path,
 					((ServerSupervisorMessage.SendRedirectMessage) msg).message);
-			mediator.tell(new DistributedPubSubMediator.Publish(ClusterListener.shardName, reciveRedirectMessage),getSelf());
+			DistributedPubSubMediator.Publish publish = new DistributedPubSubMediator.Publish(ClusterListener.shardName, reciveRedirectMessage);
+			mediator.tell(publish,getSelf());
 		}
 		// 收到重定向信息，转发
 		else if (msg instanceof ServerSupervisorMessage.ReciveRedirectMessage) {
-			ActorSelection actorSelection = getContext().actorSelection(((ServerSupervisorMessage.ReciveRedirectMessage) msg).path);
-			actorSelection.tell(((ServerSupervisorMessage.ReciveRedirectMessage) msg).message,((ServerSupervisorMessage.ReciveRedirectMessage) msg).sender);
-		}
-		
-		else if(msg instanceof ServerSupervisorMessage.ConnectionSessionsProtocol){
-			int serverid = ((ServerSupervisorMessage.ConnectionSessionsProtocol) msg).serverid;
-			ActorRef sender = ((ServerSupervisorMessage.ConnectionSessionsProtocol) msg).sender;
-			Object origins = ((ServerSupervisorMessage.ConnectionSessionsProtocol) msg).origins;
+			String path = ((ServerSupervisorMessage.ReciveRedirectMessage) msg).path;
+			ActorSelection actorSelection = getContext().actorSelection(path);
+			Object message = ((ServerSupervisorMessage.ReciveRedirectMessage) msg).message;
+			ActorRef sender = ((ServerSupervisorMessage.ReciveRedirectMessage) msg).sender;
 			
-			CluserSessionMessage message=new CluserSessionMessage(sender, origins);
+			actorSelection.tell(message,sender);
+		}
+		/**
+		 * 收到从网关Server的节点绑定信息，根据现在拥有的游戏服务器进行分发
+		 */
+		else if (msg instanceof ServerSupervisorMessage.DistributionConnectionSessionsProtocol) {
+			int serverid = ((ServerSupervisorMessage.DistributionConnectionSessionsProtocol) msg).serverid;
+			ActorRef sender = ((ServerSupervisorMessage.DistributionConnectionSessionsProtocol) msg).sender;
+			Object origins = ((ServerSupervisorMessage.DistributionConnectionSessionsProtocol) msg).origins;
+
+			CluserSessionMessage message = new CluserSessionMessage(sender, origins);
 			List<MemberWaper> list = members.get(AvalonServerMode.SERVER_TYPE_GAME);
-			if (serverid<0) {
-				int index=MathUtil.randomInt(0, list.size());
+
+			
+			/**
+			 * 如果serverid<0情况，则随机分配到不同的游戏逻辑服务器
+			 */
+			if (serverid < 0) {
+				int index = MathUtil.randomInt(0, list.size());
 				MemberWaper memberWaper = list.get(index);
 				Address address = memberWaper.member.address();
 				String string = address.toString();
-				ActorSelection actorSelection = getContext().actorSelection(string+SystemEnvironment.AKKA_USER_PATH+ConnectionSessionSupervisor.IDENTIFY);
+				String fixPath = string + SystemEnvironment.AKKA_USER_PATH + ConnectionSessionSupervisor.IDENTIFY;
+				
+				ActorSelection actorSelection = getContext().actorSelection(fixPath);
 				actorSelection.tell(message, getSelf());
-			
-			}else{
+
+			} else {
 				for (MemberWaper memberWaper : list) {
-					if (memberWaper.serverId==serverid) {
+					if (memberWaper.serverId == serverid) {
 						Address address = memberWaper.member.address();
 						String string = address.toString();
-						ActorSelection actorSelection = getContext().actorSelection(string+SystemEnvironment.AKKA_USER_PATH+ConnectionSessionSupervisor.IDENTIFY);
+						ActorSelection actorSelection = getContext().actorSelection(
+								string + SystemEnvironment.AKKA_USER_PATH + ConnectionSessionSupervisor.IDENTIFY);
 						actorSelection.tell(message, getSelf());
 					}
 				}
 			}
-		
-			
+
 		}
 
 		else if (msg instanceof DistributedPubSubMediator.SubscribeAck) {

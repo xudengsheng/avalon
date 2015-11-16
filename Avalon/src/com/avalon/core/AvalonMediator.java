@@ -357,8 +357,8 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Inbox;
 import akka.actor.Props;
+import scala.io.Position;
 
-// TODO: Auto-generated Javadoc
 /**
  * 阿瓦隆 的代理 基本的逻辑函数无法按照actor的形式使用，所以构建这个代理操作类.
  *
@@ -371,9 +371,6 @@ public class AvalonMediator implements IService {
 	// avalone Actor
 	/** The avalon actor ref. */
 	private ActorRef avalonActorRef;
-
-	/** The transportnum. */
-	private int transportnum;
 
 	/*
 	 * (non-Javadoc)
@@ -399,6 +396,7 @@ public class AvalonMediator implements IService {
 		Inbox create = Inbox.create(system);
 		create.send(avalonActorRef, new AvalonMessageEvent.InitAvalon());
 
+		
 	}
 
 	/*
@@ -453,11 +451,5 @@ public class AvalonMediator implements IService {
 	 */
 	public ActorSystem getSystem() {
 		return system;
-	}
-
-	public static void main(String[] args) throws CharacterCodingException {
-		byte[] array = Charset.forName("UTF-8").newEncoder()
-				.encode(CharBuffer.wrap("AllServerWithPush".trim().toCharArray())).array();
-		System.out.println(array.length);
 	}
 }

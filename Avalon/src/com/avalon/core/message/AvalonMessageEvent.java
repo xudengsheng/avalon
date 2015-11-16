@@ -343,6 +343,7 @@ package com.avalon.core.message;
 
 import java.io.Serializable;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * 操作avalon的事件消息.
@@ -363,7 +364,6 @@ public interface AvalonMessageEvent extends Serializable {
 		private static final long serialVersionUID = 5353260825760665736L;
 
 	}
-
 
 	
 
