@@ -341,7 +341,10 @@ Public License instead of this License.
  */
 package com.avalon.io.netty;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -349,7 +352,6 @@ import org.slf4j.LoggerFactory;
 import com.avalon.api.internal.IService;
 import com.avalon.io.message.NetWorkMessage.SessionOnline;
 import com.avalon.io.message.NetWorkMessage.SessionOutline;
-import com.avalon.jmx.IoMonitorMXBean;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.PropertiesWrapper;
 
@@ -379,8 +381,10 @@ public class NettyServer implements IService {
 	/**
 	 * Instantiates a new netty server.
 	 *
-	 * @param port the port
-	 * @param clazz the clazz
+	 * @param port
+	 *            the port
+	 * @param clazz
+	 *            the clazz
 	 */
 	public NettyServer(int port, Class<?> clazz) {
 		super();
@@ -390,35 +394,40 @@ public class NettyServer implements IService {
 
 	/** The port. */
 	private final int port;
-	
+
 	/** The channel handler. */
 	private final Class<?> channelHandler;
 
 	/** The bootstrap. */
 	private ServerBootstrap bootstrap;
-	
+
 	/** The boss group. */
 	private EventLoopGroup bossGroup;
-	
+
 	/** The worker group. */
 	private EventLoopGroup workerGroup;
-	
+
 	/** The name. */
 	private String name;
-	
+
 	/** The boss group num. */
 	int bossGroupNum;
-	
+
 	/** The worker group num. */
 	int workerGroupNum;
-	
+
 	/** The backlog. */
 	int backlog;
 
-	/** The session num. */
-	private AtomicInteger sessionNum = new AtomicInteger(0);
+	private Map<Integer, NettyHandler> bindingSessions = new ConcurrentHashMap<>();
 
-	/* (non-Javadoc)
+	private Map<Long, NettyHandler> unBindingSessions = new ConcurrentHashMap<>();
+
+	public static AtomicLong sessionIds = new AtomicLong(1);
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.avalon.api.internal.IService#init(java.lang.Object)
 	 */
 	@Override
@@ -427,7 +436,7 @@ public class NettyServer implements IService {
 		PropertiesWrapper propertiesWrapper = (PropertiesWrapper) object;
 
 		int defaultValue = Runtime.getRuntime().availableProcessors() * 2;
-		
+
 		bossGroupNum = propertiesWrapper.getIntProperty(SystemEnvironment.NETTY_BOSS_GROUP_NUM, defaultValue);
 		workerGroupNum = propertiesWrapper.getIntProperty(SystemEnvironment.NETTY_WORKER_GROUP_NUM, defaultValue);
 		backlog = propertiesWrapper.getIntProperty(SystemEnvironment.NETTY_BACKLOG, BACKLOG);
@@ -439,17 +448,14 @@ public class NettyServer implements IService {
 				bootstrap = new ServerBootstrap();
 				bossGroup = new NioEventLoopGroup(bossGroupNum);
 				workerGroup = new NioEventLoopGroup(workerGroupNum);
-				bootstrap.group(bossGroup, workerGroup)
-						.channel(NioServerSocketChannel.class)
-						.option(ChannelOption.SO_BACKLOG, backlog)
-						.handler(new LoggingHandler(LogLevel.INFO))
+				bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
+						.option(ChannelOption.SO_BACKLOG, backlog).handler(new LoggingHandler(LogLevel.INFO))
 						.childHandler(new NettyServerInitializer(channelHandler));
 				ChannelFuture f;
 				try {
 					f = bootstrap.bind(port).sync();
 					f.channel().closeFuture().sync();
-				}
-				catch (InterruptedException e) {
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
@@ -458,7 +464,9 @@ public class NettyServer implements IService {
 		logger.info("初始化Netty 线程启动");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.avalon.api.internal.IService#destroy(java.lang.Object)
 	 */
 	public void destroy(Object o) {
@@ -466,20 +474,30 @@ public class NettyServer implements IService {
 		workerGroup.shutdownGracefully();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.avalon.api.internal.IService#handleMessage(java.lang.Object)
 	 */
 	@Override
 	public void handleMessage(Object obj) {
 		if (obj instanceof SessionOnline) {
-			sessionNum.getAndIncrement();
-		}
-		else if (obj instanceof SessionOutline) {
-			sessionNum.decrementAndGet();
+			NettyHandler nettyHandler = ((SessionOnline) obj).nettyHandler;
+			unBindingSessions.put(nettyHandler.getSessionId(), nettyHandler);
+		} else if (obj instanceof SessionOutline) {
+			NettyHandler nettyHandler = ((SessionOutline) obj).nettyHandler;
+			if (nettyHandler.isBindingTransportActor()) {
+				int bindSessionId = nettyHandler.getTransportActorCallBack().getBindSessionId();
+				bindingSessions.remove(bindSessionId);
+			} else {
+				unBindingSessions.remove(nettyHandler.getSessionId());
+			}
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.avalon.api.internal.IService#getName()
 	 */
 	@Override
@@ -487,7 +505,9 @@ public class NettyServer implements IService {
 		return name;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.avalon.api.internal.IService#setName(java.lang.String)
 	 */
 	@Override
@@ -495,18 +515,65 @@ public class NettyServer implements IService {
 		this.name = name;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.avalon.jmx.IoMonitorMXBean#getSessionNum()
-	 */
-	public int getSessionNum() {
-		return sessionNum.get();
-	}
-
-	/* (non-Javadoc)
-	 * @see com.avalon.jmx.IoMonitorMXBean#disConnect(long)
-	 */
 	public boolean disConnect(long sessionId) {
 		return false;
+	}
+
+	public void handlerBing(NettyHandler nettyHandler, int bindSessionPathUId) {
+		bindingSessions.put(bindSessionPathUId, nettyHandler);
+		unBindingSessions.remove(nettyHandler.getSessionId());
+	}
+
+	public int getUnbindingSessionNum() {
+		return unBindingSessions.size();
+	}
+
+	public int getBindingSessionNum() {
+		return bindingSessions.size();
+	}
+
+	public String getBindingSessionInfo(int index, int limit) {
+		if (index > bindingSessions.size()) {
+			index = 0;
+		}
+		int indexs = 0;
+		boolean search=false;
+		StringBuffer stringBuffer = new StringBuffer();
+		for (Entry<Integer, NettyHandler> entry : bindingSessions.entrySet()) {
+			if (index == indexs) {
+				search=true;
+			}
+			if (search) {
+				stringBuffer.append(entry.getValue().getSessionId() + ":" + entry.getKey() + "\n");
+			}
+			indexs++;
+			if (indexs >= index + limit) {
+				break;
+			}
+		}
+		return stringBuffer.toString();
+	}
+	
+	public String getUnBindingSessionInfo(int index, int limit) {
+		if (index > unBindingSessions.size()) {
+			index = 0;
+		}
+		int indexs = 0;
+		boolean search=false;
+		StringBuffer stringBuffer = new StringBuffer();
+		for (Entry<Long, NettyHandler> entry : unBindingSessions.entrySet()) {
+			if (index == indexs) {
+				search=true;
+			}
+			if (search) {
+				stringBuffer.append( "SessionId:" + entry.getKey() + "\n");
+			}
+			indexs++;
+			if (indexs >= index + limit) {
+				break;
+			}
+		}
+		return stringBuffer.toString();
 	}
 
 }

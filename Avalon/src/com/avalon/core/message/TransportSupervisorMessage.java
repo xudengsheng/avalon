@@ -366,9 +366,6 @@ public interface TransportSupervisorMessage extends Serializable {
 		// 网络会话
 		/** The io session. */
 		public final IoSession ioSession;
-		// 会话ID，IoSession和Actor绑定
-		/** The session actor id. */
-		public final String sessionActorId;
 
 		/**
 		 * Instantiates a new creates the io session actor.
@@ -376,46 +373,10 @@ public interface TransportSupervisorMessage extends Serializable {
 		 * @param ioSession the io session
 		 * @param sessionActorId the session actor id
 		 */
-		public CreateIOSessionActor(IoSession ioSession, String sessionActorId) {
+		public CreateIOSessionActor(IoSession ioSession) {
 			super();
 			this.ioSession = ioSession;
-			this.sessionActorId = sessionActorId;
 		}
-	}
-
-	/**
-	 * 网络关闭会话.
-	 *
-	 * @author ZERO
-	 */
-	public static class Closing implements TransportSupervisorMessage {
-		
-		/** The Constant serialVersionUID. */
-		private static final long serialVersionUID = -631426557337927828L;
-
-		/** The session id. */
-		public final String sessionId;
-
-		/**
-		 * Instantiates a new closing.
-		 *
-		 * @param sessionId the session id
-		 */
-		public Closing(String sessionId) {
-			super();
-			this.sessionId = sessionId;
-		}
-
-	}
-
-	/**
-	 * The Class Connecting.
-	 */
-	public static class Connecting implements TransportSupervisorMessage {
-		
-		/** The Constant serialVersionUID. */
-		private static final long serialVersionUID = -631426517637927828L;
-
 	}
 
 
@@ -449,56 +410,7 @@ public interface TransportSupervisorMessage extends Serializable {
 
 	}
 	
-	
-	/**
-	 * 本地Transport数量查询.
-	 *
-	 * @author zero
-	 */
-	public class localTransportNum implements TransportSupervisorMessage {
-		
-		/** The Constant serialVersionUID. */
-		private static final long serialVersionUID = -914733653432627246L;
-		
-		/** The transprot num. */
-		public final int transprotNum;
-
-		/**
-		 * Instantiates a new local transport num.
-		 *
-		 * @param transprotNum the transprot num
-		 */
-		public localTransportNum(int transprotNum) {
-			super();
-			this.transprotNum = transprotNum;
-		}
-
-	}
 
 
-	/**
-	 * 网络创建会话 发送到代理.
-	 *
-	 * @author ZERO
-	 */
-	public static class IOSessionRegedit implements TransportSupervisorMessage {
-		
-		/** The Constant serialVersionUID. */
-		private static final long serialVersionUID = -631426557637927828L;
-		// 网络会话
-		/** The io session. */
-		public final IoSession ioSession;
-
-		/**
-		 * Instantiates a new IO session regedit.
-		 *
-		 * @param ioSession the io session
-		 */
-		public IOSessionRegedit(IoSession ioSession) {
-			super();
-			this.ioSession = ioSession;
-		}
-
-	}
 
 }

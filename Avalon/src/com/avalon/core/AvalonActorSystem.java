@@ -341,13 +341,9 @@ Public License instead of this License.
  */
 package com.avalon.core;
 
-import java.util.UUID;
-
-import com.avalon.api.IoSession;
 import com.avalon.core.cluster.ClusterListener;
 import com.avalon.core.message.AvalonMessageEvent;
 import com.avalon.core.message.TaskManagerMessage;
-import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.core.model.AvalonDeadLetter;
 import com.avalon.core.subscribe.ServerSupervisorSubscriber;
 import com.avalon.core.supervision.ConnectionSessionSupervisor;
@@ -369,7 +365,7 @@ import akka.japi.Creator;
  *
  * @author ZERO
  */
-public class AvalonActor extends UntypedActor {
+public class AvalonActorSystem extends UntypedActor {
 
 	/** The log. */
 	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
@@ -377,7 +373,7 @@ public class AvalonActor extends UntypedActor {
 	/**
 	 * The Class selfCreator.
 	 */
-	static class selfCreator implements Creator<AvalonActor> {
+	static class selfCreator implements Creator<AvalonActorSystem> {
 
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -4506944735716145059L;
@@ -402,8 +398,8 @@ public class AvalonActor extends UntypedActor {
 		 * @see akka.japi.Creator#create()
 		 */
 		@Override
-		public AvalonActor create() throws Exception {
-			return new AvalonActor(actorSystem);
+		public AvalonActorSystem create() throws Exception {
+			return new AvalonActorSystem(actorSystem);
 		}
 
 	}
@@ -427,29 +423,15 @@ public class AvalonActor extends UntypedActor {
 	 * @param actorSystem
 	 *            the actor system
 	 */
-	public AvalonActor(ActorSystem actorSystem) {
+	public AvalonActorSystem(ActorSystem actorSystem) {
 		super();
 		this.actorSystem = actorSystem;
 	}
 
-	/** T集群事件监听. */
-	private ActorRef clusterListener;
-	//
-	/** 全局任务管理 actor. */
-	private ActorRef globleTaskManagerActor;
-	/** Server状态管理 */
-	public static ActorRef serverSupervisorSubscriberRef;
-	/** 传输管理器的ActorRef */
-	public static ActorRef transportSupervisorRef;
 
-	/** ·会话连接管理器. */
-	public static ActorRef connectionSessionSupervisor;
 
 	/** Akka actor系统 */
 	private final ActorSystem actorSystem;
-
-	/** 服务器模式. */
-	AvalonServerMode engineMode;
 
 	/** The last sender. */
 	ActorRef lastSender = getContext().system().deadLetters();
@@ -462,75 +444,70 @@ public class AvalonActor extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof AvalonMessageEvent.InitAvalon) {
-			// 服务器的启动模式
-			engineMode = AvalonEngine.mode;
-
 			// 服务器监听
 			Props create = Props.create(ServerSupervisorSubscriber.class);
-			serverSupervisorSubscriberRef = actorSystem.actorOf(create, ServerSupervisorSubscriber.IDENTIFY);
-			this.getContext().watch(serverSupervisorSubscriberRef);
+			AkkaServerManager.serverSupervisorSubscriberRef = actorSystem.actorOf(create, ServerSupervisorSubscriber.IDENTIFY);
+			this.getContext().watch(AkkaServerManager.serverSupervisorSubscriberRef);
 
 			// 集群监听
-			clusterListener = actorSystem.actorOf(Props.create(ClusterListener.class), ClusterListener.IDENTIFY);
-			this.getContext().watch(clusterListener);
+			AkkaServerManager.clusterListener = actorSystem.actorOf(Props.create(ClusterListener.class), ClusterListener.IDENTIFY);
+			this.getContext().watch(AkkaServerManager.clusterListener);
 
-			if (engineMode.equals(AvalonServerMode.SERVER_TYPE_SINGLE)) {
+			if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE)) {
 				log.info("Server model is single");
 
-				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
-				this.getContext().watch(connectionSessionSupervisor);
+				AkkaServerManager.connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
+				this.getContext().watch(AkkaServerManager.connectionSessionSupervisor);
 
-				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, false),TransportSupervisor.IDENTIFY);
-				this.getContext().watch(transportSupervisorRef);
+				AkkaServerManager.transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, false),TransportSupervisor.IDENTIFY);
+				this.getContext().watch(AkkaServerManager.transportSupervisorRef);
 			}
 			// 启动模式为网关服务器（不包含游戏逻辑服务器的任何逻辑）
-			else if (engineMode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
+			else if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
 				log.info("Server model is gate");
 
-				transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, true),TransportSupervisor.IDENTIFY);
-				this.getContext().watch(transportSupervisorRef);
+				AkkaServerManager.transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, true),TransportSupervisor.IDENTIFY);
+				this.getContext().watch(AkkaServerManager.transportSupervisorRef);
 
 			}
 			// 逻辑服务器模式（将不会开启对外的网络服务）
 			else {
 				log.info("Server model is game");
 
-				connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
-				this.getContext().watch(connectionSessionSupervisor);
+				AkkaServerManager.connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
+				this.getContext().watch(AkkaServerManager.connectionSessionSupervisor);
 
-				globleTaskManagerActor = actorSystem.actorOf(Props.create(GlobleTaskManagerActor.class),GlobleTaskManagerActor.IDENTIFY);
-				this.getContext().watch(globleTaskManagerActor);
+				AkkaServerManager.globleTaskManagerActor = actorSystem.actorOf(Props.create(GlobleTaskManagerActor.class),GlobleTaskManagerActor.IDENTIFY);
+				this.getContext().watch(AkkaServerManager.globleTaskManagerActor);
 			}
 
 			Props avalonDeadLetterProps = Props.create(AvalonDeadLetter.class);
 			ActorRef avalonDeadLetterRef = actorSystem.actorOf(avalonDeadLetterProps);
 			actorSystem.eventStream().subscribe(avalonDeadLetterRef, DeadLetter.class);
 
-			// this.metricsListener =
-			// actorSystem.actorOf(Props.create(MetricsListener.class));
-		} else if (msg instanceof TransportSupervisorMessage.IOSessionRegedit) {
-			UUID randomUUID = UUID.randomUUID();
-			IoSession ioSession = ((TransportSupervisorMessage.IOSessionRegedit) msg).ioSession;
-
-			String sessionActorId = randomUUID.toString();
-
-			TransportSupervisorMessage.CreateIOSessionActor message = 
-					new TransportSupervisorMessage.CreateIOSessionActor(ioSession, sessionActorId);
-
-			transportSupervisorRef.tell(message, getSelf());
+			// this.metricsListener = actorSystem.actorOf(Props.create(MetricsListener.class));
 		}
+//		else if (msg instanceof TransportSupervisorMessage.IOSessionRegedit) {
+//			
+//			IoSession ioSession = ((TransportSupervisorMessage.IOSessionRegedit) msg).ioSession;
+//
+//			UUID randomUUID = UUID.randomUUID();
+//			String sessionActorId = randomUUID.toString();
+//
+//			TransportSupervisorMessage.CreateIOSessionActor message = new TransportSupervisorMessage.CreateIOSessionActor(ioSession);
+//
+//			AkkaServerManager.transportSupervisorRef.tell(message, getSelf());
+//		}
 		// 转发给传输的transportSupervisor
-		else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage) {
-			transportSupervisorRef.forward(msg, getContext());
-		} else if (msg instanceof AvalonMessageEvent.nowTransportNum) {
-			transportSupervisorRef.forward(msg, getContext());
-		}
+//		else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage) {
+//			AkkaServerManager.transportSupervisorRef.forward(msg, getContext());
+//		} 
 		// 任务创建消息
 		else if (msg instanceof TaskManagerMessage.createTaskMessage) {
-			if (engineMode.equals(AvalonServerMode.SERVER_TYPE_GAME)) {
-				serverSupervisorSubscriberRef.tell(msg, ActorRef.noSender());
-			} else if (engineMode.equals(AvalonServerMode.SERVER_TYPE_SINGLE)) {
-				globleTaskManagerActor.tell(msg, ActorRef.noSender());
+			if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_GAME)) {
+				AkkaServerManager.serverSupervisorSubscriberRef.tell(msg, ActorRef.noSender());
+			} else if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE)) {
+				AkkaServerManager.globleTaskManagerActor.tell(msg, ActorRef.noSender());
 			}
 
 		}

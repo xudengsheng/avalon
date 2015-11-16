@@ -343,26 +343,39 @@ package com.avalon.io.message;
 
 import java.io.Serializable;
 
+import com.avalon.io.netty.NettyHandler;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Interface NetWorkMessage.
  */
 public interface NetWorkMessage extends Serializable {
-	
+
 	/**
 	 * The Class SessionOnline.
 	 */
 	public class SessionOnline implements NetWorkMessage {
-		
+
+		public final NettyHandler nettyHandler;
+
+		public SessionOnline(NettyHandler nettyHandler) {
+			this.nettyHandler = nettyHandler;
+		}
+
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -5827345826280076750L;
 	}
-	
+
 	/**
 	 * The Class SessionOutline.
 	 */
 	public class SessionOutline implements NetWorkMessage {
-		
+		public final NettyHandler nettyHandler;
+
+		public SessionOutline(NettyHandler nettyHandler) {
+			this.nettyHandler = nettyHandler;
+		}
+
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -6858332163554289611L;
 	}

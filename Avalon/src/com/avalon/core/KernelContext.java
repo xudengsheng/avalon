@@ -501,7 +501,7 @@ class KernelContext {
 	 * @return the actor system
 	 */
 	public ActorSystem getActorSystem() {
-		AvalonProxy component = getComponent(AvalonProxy.class);
+		AvalonMediator component = getComponent(AvalonMediator.class);
 		return component.getSystem();
 	}
 

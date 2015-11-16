@@ -369,7 +369,7 @@ import scala.concurrent.duration.Duration;
 // TODO: Auto-generated Javadoc
 /**
  * 客户端连接会话.
- *
+ * 可以理解为是Session与actor结合
  * @author ZERO
  */
 public class ConnectionSession extends UntypedActor {

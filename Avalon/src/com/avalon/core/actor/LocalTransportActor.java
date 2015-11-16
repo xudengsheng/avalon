@@ -342,14 +342,11 @@ Public License instead of this License.
 package com.avalon.core.actor;
 
 import com.avalon.api.IoSession;
-import com.avalon.api.internal.ActorCallBack;
 import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.core.AvalonActor;
+import com.avalon.core.AkkaServerManager;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
-import com.avalon.core.message.TopicMessage.TransportTopicMessage;
 import com.avalon.core.message.TransportMessage;
-import com.avalon.core.message.TransportMessage.ConnectionSessionsClosed;
 import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
 import com.avalon.core.message.TransportMessage.SessionSessionMessage;
 
@@ -371,16 +368,11 @@ public class LocalTransportActor extends UntypedActor {
 
 	// 本次会话的唯一Id，用于分布式中的分组Id
 	/** The session actor id. */
-	public final String sessionActorId;
+//	public final String sessionActorId;
 
-	/** The Connection session supervisor. */
-	private final ActorRef ConnectionSessionSupervisor;
-
-	/** The transport supervisor. */
-	public final ActorRef transportSupervisor;
 
 	/** The connection sessions ref. */
-	public ActorRef connectionSessionsRef;
+	private ActorRef connectionSessionsRef;
 
 	/** The io session. */
 	private final IoSession ioSession;
@@ -391,113 +383,78 @@ public class LocalTransportActor extends UntypedActor {
 	/**
 	 * Instantiates a new local transport actor.
 	 *
-	 * @param sessionid the sessionid
-	 * @param transportSupervisorPath the transport supervisor path
-	 * @param gameServerSupervisor the game server supervisor
-	 * @param ioSession the io session
+	 * @param sessionid
+	 *            the sessionid
+	 * @param transportSupervisorPath
+	 *            the transport supervisor path
+	 * @param gameServerSupervisor
+	 *            the game server supervisor
+	 * @param ioSession
+	 *            the io session
 	 */
-	public LocalTransportActor(String sessionid, ActorRef transportSupervisor, IoSession ioSession)
-	{
+	public LocalTransportActor( IoSession ioSession) {
 		super();
-		this.sessionActorId = sessionid;
-		this.transportSupervisor = transportSupervisor;
-		this.ConnectionSessionSupervisor =AvalonActor.connectionSessionSupervisor;
 		this.ioSession = ioSession;
-	
+
 	}
-	
+
 	@Override
 	public void preStart() throws Exception {
 		super.preStart();
 		getSelf().tell(new TransportMessage.IOSessionBindingTransportMessage(), ActorRef.noSender());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
 	 */
 	@Override
-	public void onReceive(Object msg) throws Exception
-	{
+	public void onReceive(Object msg) throws Exception {
 
-		if (msg instanceof TransportMessage.IOSessionBindingTransportMessage)
-		{
-			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf()));
+		if (msg instanceof TransportMessage.IOSessionBindingTransportMessage) {
+			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(), getSelf()));
 			return;
-		} else if (msg instanceof TransportMessage.IOSessionReciveMessage)
-		{
-			if (bindingConnectionSession)
-			{
+		} else if (msg instanceof TransportMessage.IOSessionReciveMessage) {
+			if (bindingConnectionSession) {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				ConnectionSessionMessage message = new ConnectionSessionMessage.DirectSessionMessage(messagePackage);
 				connectionSessionsRef.tell(message, getSelf());
-			} else
-			{
+			} else {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				LocalSessionMessage commandSessionProtocol = new LocalSessionMessage(messagePackage);
-				ConnectionSessionSupervisor.tell(commandSessionProtocol, getSelf());
+				AkkaServerManager.connectionSessionSupervisor.tell(commandSessionProtocol, getSelf());
 			}
 			return;
-		}
-		else if (msg instanceof SessionSessionMessage)
-		{
+		} else if (msg instanceof SessionSessionMessage) {
 			IoMessagePackage messagePackage = ((SessionSessionMessage) msg).messagePackage;
 			ioSession.write(messagePackage);
 			return;
-		} else if (msg instanceof TransportMessage.ConnectionSessionsClosed)
-		{
+		} else if (msg instanceof TransportMessage.ConnectionSessionsClosed) {
 			if (bindingConnectionSession) {
 				connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
 			}
 			return;
-		} else if (msg instanceof TransportTopicMessage)
-		{
-			// TODO
-
-		} else if (msg instanceof TransportMessage.ConnectionSessionsBinding)
-		{
+		} else if (msg instanceof TransportMessage.ConnectionSessionsBinding) {
 			this.connectionSessionsRef = getSender();
 			this.bindingConnectionSession = true;
 			return;
-		} else
-		{
+		} else {
 			unhandled(msg);
 		}
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see akka.actor.UntypedActor#postStop()
 	 */
 	@Override
-	public void postStop() throws Exception
-	{
+	public void postStop() throws Exception {
 		super.postStop();
 	}
 
 }
 
-class InnerLocalActorCallBack implements ActorCallBack {
 
-	private final ActorRef self;
-
-	public InnerLocalActorCallBack(ActorRef self)
-	{
-		super();
-		this.self = self;
-	}
-
-	@Override
-	public void closed()
-	{
-		ConnectionSessionsClosed closed = new ConnectionSessionsClosed();
-		self.tell(closed, ActorRef.noSender());
-	}
-
-	@Override
-	public void tellMessage(IoMessagePackage messagePackage)
-	{
-		IOSessionReciveMessage message = new IOSessionReciveMessage(messagePackage);
-		self.tell(message, ActorRef.noSender());
-	}
-
-}

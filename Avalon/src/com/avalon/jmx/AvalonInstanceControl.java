@@ -2,7 +2,7 @@ package com.avalon.jmx;
 
 import com.avalon.setting.AvalonServerMode;
 
-public interface AvalonInstance {
+public interface AvalonInstanceControl {
 
 	String getName();
 
@@ -10,5 +10,4 @@ public interface AvalonInstance {
 	
 	AvalonServerMode getServerMode();
 
-	int transportActorNum();
 }

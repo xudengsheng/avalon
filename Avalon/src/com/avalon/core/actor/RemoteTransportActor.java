@@ -342,16 +342,13 @@ Public License instead of this License.
 package com.avalon.core.actor;
 
 import com.avalon.api.IoSession;
-import com.avalon.api.internal.ActorCallBack;
 import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.core.AvalonActor;
+import com.avalon.core.AkkaServerManager;
 import com.avalon.core.ContextResolver;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.ConnectionSessionMessage.DirectSessionMessage;
 import com.avalon.core.message.ServerSupervisorMessage;
-import com.avalon.core.message.TopicMessage.TransportTopicMessage;
 import com.avalon.core.message.TransportMessage;
-import com.avalon.core.message.TransportMessage.ConnectionSessionsClosed;
 import com.avalon.core.message.TransportMessage.IOSessionReciveDirectMessage;
 import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
 import com.avalon.core.message.TransportMessage.SessionSessionMessage;
@@ -375,13 +372,12 @@ public class RemoteTransportActor extends UntypedActor {
 
 	// 本次会话的唯一Id，用于分布式中的分组Id
 	/** The session actor id. */
-	public final String sessionActorId;
+//	private final String sessionActorId;
 
 	/** The transport supervisor. */
-	public final ActorRef transportSupervisor;
 
 	/** The connection sessions ref. */
-	public ActorRef connectionSessionsRef;
+	private ActorRef connectionSessionsRef;
 
 	/** The io session. */
 	private final IoSession ioSession;
@@ -402,11 +398,10 @@ public class RemoteTransportActor extends UntypedActor {
 	 * @param ioSession
 	 *            the io session
 	 */
-	public RemoteTransportActor(String sessionid, ActorRef transportSupervisor, IoSession ioSession) {
+	public RemoteTransportActor(IoSession ioSession) {
 		super();
 		// c826f710-2c42-4901-a8c0-4c68daf159aa
-		this.sessionActorId = sessionid;
-		this.transportSupervisor = transportSupervisor;
+//		this.sessionActorId = sessionid;
 		this.ioSession = ioSession;
 	}
 
@@ -425,7 +420,7 @@ public class RemoteTransportActor extends UntypedActor {
 	public void onReceive(Object msg) throws Exception {
 		if (msg instanceof TransportMessage.IOSessionBindingTransportMessage) {
 			log.debug("IO绑定");
-			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf()));
+			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(),getSelf()));
 			return;
 		} else if (msg instanceof TransportMessage.IOSessionReciveMessage) {
 			if (!bindingConnectionSession) {
@@ -434,7 +429,7 @@ public class RemoteTransportActor extends UntypedActor {
 				// 11c417d8-6e62-4e5d-a97b-2d8ab10bb2ab
 				int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.GATE_BINDING,-1);
 				ServerSupervisorMessage commandSessionProtocol = new ServerSupervisorMessage.ConnectionSessionsProtocol(getSelf(),messagePackage, serverId);
-				AvalonActor.serverSupervisorSubscriberRef.tell(commandSessionProtocol, getSelf());
+				AkkaServerManager.serverSupervisorSubscriberRef.tell(commandSessionProtocol, getSelf());
 			} else {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				DirectSessionMessage commandSessionProtocol = new DirectSessionMessage(messagePackage);
@@ -456,14 +451,14 @@ public class RemoteTransportActor extends UntypedActor {
 			log.debug("集群网络绑定");
 			bindingConnectionSession = true;
 			this.connectionSessionsRef = getSender();
-			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf()));
+			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(),getSelf()));
 			return;
 		} else if (msg instanceof TransportMessage.ConnectionSessionsClosed) {
-			connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
+			if (bindingConnectionSession) {
+				connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
+			}
 			LostSession();
 			return;
-		} else if (msg instanceof TransportTopicMessage) {
-			// TODO
 		} else {
 			unhandled(msg);
 		}
@@ -474,11 +469,7 @@ public class RemoteTransportActor extends UntypedActor {
 	 * Lost session.
 	 */
 	private void LostSession() {
-		// ActorRef mediator =
-		// DistributedPubSubExtension.get(getContext().system()).mediator();
-		// mediator.tell(new
-		// DistributedPubSubMediator.Publish(GameServerSupervisorTopic.shardName,
-		// topicMessage), getSelf());
+		getContext().stop(getSelf());
 	}
 
 	/*
@@ -497,26 +488,26 @@ public class RemoteTransportActor extends UntypedActor {
 
 }
 
-class InnerRemoteActorCallBack implements ActorCallBack {
-
-	private final ActorRef self;
-
-	public InnerRemoteActorCallBack(ActorRef self) {
-		super();
-		this.self = self;
-	}
-
-	@Override
-	public void closed() {
-		ConnectionSessionsClosed closed = new ConnectionSessionsClosed();
-		self.tell(closed, ActorRef.noSender());
-
-	}
-
-	@Override
-	public void tellMessage(IoMessagePackage messagePackage) {
-		IOSessionReciveDirectMessage directMessage = new IOSessionReciveDirectMessage(messagePackage);
-		self.tell(directMessage, ActorRef.noSender());
-	}
-
-}
+//class InnerRemoteActorCallBack implements ActorCallBack {
+//
+//	private final ActorRef self;
+//
+//	public InnerRemoteActorCallBack(ActorRef self) {
+//		super();
+//		this.self = self;
+//	}
+//
+//	@Override
+//	public void closed() {
+//		ConnectionSessionsClosed closed = new ConnectionSessionsClosed();
+//		self.tell(closed, ActorRef.noSender());
+//
+//	}
+//
+//	@Override
+//	public void tellMessage(IoMessagePackage messagePackage) {
+//		IOSessionReciveDirectMessage directMessage = new IOSessionReciveDirectMessage(messagePackage);
+//		self.tell(directMessage, ActorRef.noSender());
+//	}
+//
+//}

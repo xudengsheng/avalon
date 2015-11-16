@@ -349,6 +349,7 @@ package com.avalon.api.internal;
  */
 public interface ActorCallBack {
 	
+	public int getBindSessionId();
 	/**
 	 * 发送Io消息.
 	 *

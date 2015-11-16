@@ -349,7 +349,7 @@ import org.slf4j.LoggerFactory;
 import com.avalon.api.IoSession;
 import com.avalon.api.internal.ActorCallBack;
 import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.core.AvalonProxy;
+import com.avalon.core.AkkaServerManager;
 import com.avalon.core.ContextResolver;
 import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.io.message.NetWorkMessage;
@@ -380,75 +380,91 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	private ActorCallBack transportActorCallBack;
 
 	/** The component. */
-	static AvalonProxy component = ContextResolver.getComponent(AvalonProxy.class);
-	
+//	static AvalonMediator component = ContextResolver.getComponent(AvalonMediator.class);
+
 	/** The netty server. */
 	static NettyServer nettyServer = ContextResolver.getComponent(NettyServer.class);
+	
+	private final long sessionId;
 
 	/** The no process message. */
 	private Queue<Object> noProcessMessage = Queues.newLinkedBlockingDeque();
 
-	/* (non-Javadoc)
-	 * @see io.netty.channel.ChannelHandlerAdapter#handlerRemoved(io.netty.channel.ChannelHandlerContext)
+	
+	
+	public NettyHandler(Long sessionId) {
+		super();
+		this.sessionId = sessionId;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * io.netty.channel.ChannelHandlerAdapter#handlerRemoved(io.netty.channel.
+	 * ChannelHandlerContext)
 	 */
 	@Override
-	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception
-	{
+	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
 		super.handlerRemoved(ctx);
-		nettyServer.handleMessage(new NetWorkMessage.SessionOutline());
+		nettyServer.handleMessage(new NetWorkMessage.SessionOutline(this));
 		this.close();
-		if (logger.isDebugEnabled())
-		{
+		if (logger.isDebugEnabled()) {
 			logger.debug("解除注册");
 		}
 
 	}
 
-	/* (non-Javadoc)
-	 * @see io.netty.channel.ChannelHandlerAdapter#channelRegistered(io.netty.channel.ChannelHandlerContext)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * io.netty.channel.ChannelHandlerAdapter#channelRegistered(io.netty.channel
+	 * .ChannelHandlerContext)
 	 */
 	@Override
-	public void channelRegistered(ChannelHandlerContext ctx) throws Exception
-	{
+	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
 		super.channelRegistered(ctx);
 		this.ctx = ctx;
+		
+		TransportSupervisorMessage.CreateIOSessionActor message = new TransportSupervisorMessage.CreateIOSessionActor(this);
 		// 创建一个新的会话封装
-		TransportSupervisorMessage.IOSessionRegedit regedit = new TransportSupervisorMessage.IOSessionRegedit(this);
-		component.handleMessage(regedit);
+		AkkaServerManager.inbox.send(AkkaServerManager.transportSupervisorRef, message);
 
-		nettyServer.handleMessage(new NetWorkMessage.SessionOnline());
-		if (logger.isDebugEnabled())
-		{
+		nettyServer.handleMessage(new NetWorkMessage.SessionOnline(this));
+		if (logger.isDebugEnabled()) {
 			logger.debug("注册");
 		}
 
 	}
 
-	/* (non-Javadoc)
-	 * @see io.netty.channel.ChannelHandlerAdapter#channelReadComplete(io.netty.channel.ChannelHandlerContext)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see io.netty.channel.ChannelHandlerAdapter#channelReadComplete(io.netty.
+	 * channel.ChannelHandlerContext)
 	 */
 	@Override
-	public void channelReadComplete(ChannelHandlerContext ctx)
-	{
+	public void channelReadComplete(ChannelHandlerContext ctx) {
 		ctx.flush();
 	}
 
 	/**
 	 * 这里的msg是MessagePack.
 	 *
-	 * @param ctx the ctx
-	 * @param msg the msg
-	 * @throws Exception the exception
+	 * @param ctx
+	 *            the ctx
+	 * @param msg
+	 *            the msg
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Override
-	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception
-	{
+	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		super.channelRead(ctx, msg);
-		if (bindingTransportActor)
-		{
+		if (bindingTransportActor) {
 			sendMessageToTransport(msg);
-		} else
-		{
+		} else {
 			noProcessMessage.add(msg);
 		}
 	}
@@ -456,70 +472,77 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	/**
 	 * Send message to transport.
 	 *
-	 * @param msg the msg
+	 * @param msg
+	 *            the msg
 	 */
-	private void sendMessageToTransport(Object msg)
-	{
+	private void sendMessageToTransport(Object msg) {
 		IoMessagePackage ioMessagePackage = (IoMessagePackage) msg;
 		transportActorCallBack.tellMessage(ioMessagePackage);
 	}
 
-	/* (non-Javadoc)
-	 * @see io.netty.channel.ChannelHandlerAdapter#exceptionCaught(io.netty.channel.ChannelHandlerContext, java.lang.Throwable)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * io.netty.channel.ChannelHandlerAdapter#exceptionCaught(io.netty.channel.
+	 * ChannelHandlerContext, java.lang.Throwable)
 	 */
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
-	{
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
 		cause.printStackTrace();
 		ctx.close();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.avalon.api.IoSession#write(java.lang.Object)
 	 */
 	@Override
-	public void write(Object msg)
-	{
-		if (msg instanceof IoMessagePackage)
-		{
+	public void write(Object msg) {
+		if (msg instanceof IoMessagePackage) {
 			MessageHead head = new MessageHead((IoMessagePackage) msg);
 			ctx.writeAndFlush(head);
 		}
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.avalon.api.IoSession#isConnection()
 	 */
 	@Override
-	public boolean isConnection()
-	{
+	public boolean isConnection() {
 		return ctx.channel().isActive();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.avalon.api.IoSession#close()
 	 */
 	@Override
-	public void close()
-	{
+	public void close() {
 		ctx.close();
-		if (bindingTransportActor)
-		{
+		if (bindingTransportActor) {
 			transportActorCallBack.closed();
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.avalon.api.IoSession#setSesssionActorCallBack(com.avalon.api.internal.ActorCallBack)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.avalon.api.IoSession#setSesssionActorCallBack(com.avalon.api.internal
+	 * .ActorCallBack)
 	 */
 	@Override
-	public void setSesssionActorCallBack(ActorCallBack actorCallBack)
-	{
+	public void setSesssionActorCallBack(ActorCallBack actorCallBack) {
 		this.transportActorCallBack = actorCallBack;
 		bindingTransportActor = true;
-		while (!noProcessMessage.isEmpty())
-		{
+		nettyServer.handlerBing(this, actorCallBack.getBindSessionId());
+		while (!noProcessMessage.isEmpty()) {
 			Object poll = noProcessMessage.poll();
 			sendMessageToTransport(poll);
 			logger.info("处理未发送的消息");
@@ -527,4 +550,18 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 
 	}
 
+	
+	
+	public long getSessionId() {
+		return sessionId;
+	}
+
+	public boolean isBindingTransportActor() {
+		return bindingTransportActor;
+	}
+
+	public ActorCallBack getTransportActorCallBack() {
+		return transportActorCallBack;
+	}
+ 
 }

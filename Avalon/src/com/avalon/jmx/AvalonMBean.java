@@ -21,7 +21,13 @@ import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import javax.management.ReflectionException;
-
+/**
+ * JMX
+ * 管理的抽象类
+ * @author zero
+ *
+ * @param <T>
+ */
 public abstract class AvalonMBean<T> implements DynamicMBean, MBeanRegistration {
 	protected HashMap<String, BeanInfo> attributeMap = new HashMap<String, BeanInfo>();
 	protected HashMap<String, BeanInfo> operationMap = new HashMap<String, BeanInfo>();

@@ -364,15 +364,6 @@ public interface AvalonMessageEvent extends Serializable {
 
 	}
 
-	/**
-	 * The Class nowTransportNum.
-	 */
-	public static class nowTransportNum implements AvalonMessageEvent {
-		
-		/** The Constant serialVersionUID. */
-		private static final long serialVersionUID = 5755079188868745944L;
-
-	}
 
 	
 

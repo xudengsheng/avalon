@@ -342,14 +342,6 @@ Public License instead of this License.
 package com.avalon.core;
 
 import java.io.File;
-import java.lang.management.ManagementFactory;
-
-import javax.management.InstanceAlreadyExistsException;
-import javax.management.MBeanRegistrationException;
-import javax.management.MBeanServer;
-import javax.management.MalformedObjectNameException;
-import javax.management.NotCompliantMBeanException;
-import javax.management.ObjectName;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -361,7 +353,7 @@ import com.avalon.component.ComponentRegistryImpl;
 import com.avalon.core.service.DistributedTaskManagerService;
 import com.avalon.io.netty.NettyHandler;
 import com.avalon.io.netty.NettyServer;
-import com.avalon.jmx.AvalonInstance;
+import com.avalon.jmx.AvalonInstanceControl;
 import com.avalon.jmx.ManagementService;
 import com.avalon.setting.AvalonServerMode;
 import com.avalon.setting.SystemEnvironment;
@@ -375,7 +367,9 @@ import jodd.props.Props;
  *
  * @author ZERO
  */
-public class AvalonEngine implements AvalonInstance {
+public class AvalonEngine implements AvalonInstanceControl {
+
+	private static final int D_PORT = 12345;
 
 	/** The name. */
 	private static String name;
@@ -451,20 +445,14 @@ public class AvalonEngine implements AvalonInstance {
 	private void createServices(String appName) {
 		// 系统级组件
 
-		IService avalon = new AvalonProxy();
-		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+		IService avalon = new AvalonMediator();
 		// 如果是网关和单幅模式需要启动网络服务
 		if (mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE) || mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
-			IService netty = new NettyServer(propertiesWrapper.getIntProperty(SystemEnvironment.TCP_PROT, 12345),NettyHandler.class);
-			try {
-				mbs.registerMBean(netty, new ObjectName("com.avalon.io.netty:type=NettyServer"));
-			} catch (InstanceAlreadyExistsException | MBeanRegistrationException | NotCompliantMBeanException | MalformedObjectNameException e1) {
-				e1.printStackTrace();
-			}
+			IService netty = new NettyServer(propertiesWrapper.getIntProperty(SystemEnvironment.TCP_PROT, D_PORT),NettyHandler.class);
 			systemRegistry.addComponent(netty);
 		}
 		// jmx相关启动
-		ManagementService managementService = new ManagementService(this);
+		AkkaServerManager.managementService = new ManagementService(this);
 
 		systemRegistry.addComponent(avalon);
 		// 初始化分布任务管理器
@@ -562,15 +550,12 @@ public class AvalonEngine implements AvalonInstance {
 		return false;
 	}
 
-	@Override
-	public int transportActorNum() {
-		AvalonProxy component = systemRegistry.getComponent(AvalonProxy.class);
-		return component.transportNum();
-	}
 
 	@Override
 	public void stopEngine() {
-		// TODO Auto-generated method stub
+		for (IService iService : systemRegistry) {
+			iService.destroy(null);
+		}
 	}
 
 	@Override

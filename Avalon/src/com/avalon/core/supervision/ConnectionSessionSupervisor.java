@@ -350,7 +350,6 @@ import com.avalon.core.message.ConnectionSessionMessage.DirectSessionMessage;
 import com.avalon.core.message.ConnectionSessionMessage.HasSenderPathMessage;
 import com.avalon.core.message.ConnectionSessionSupervisorMessage.CluserSessionMessage;
 import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
-import com.avalon.core.message.TopicMessage.ConnectionSessionSupervisorTopicMessage;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
@@ -399,7 +398,7 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 			log.debug("Geting CluserSessionMessage");
 			
 			ActorRef sender = ((CluserSessionMessage) msg).sender;
-			String name = sender.path().name();
+			String name = sender.path().uid()+"";
 			
 			if (keyConnectionSession.containsKey(name))
 			{
@@ -448,9 +447,6 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 				keyConnectionSession.put(name, actorOf);
 			}
 			return;
-		} else if (msg instanceof ConnectionSessionSupervisorTopicMessage)
-		{
-			// TODO
 		} else if (msg instanceof Terminated)
 		{
 			// 一个被监听Actor销毁掉了

@@ -15,15 +15,15 @@ public class ManagementService {
 	static final String DOMAIN = "com.avalon";
 	private static final int INITIAL_CAPACITY = 3;
 
-	final AvalonInstance instance;
-	private final InstanceMBean instanceMBean;
+	final AvalonInstanceControl instance;
+	private final AvalonInstanceMediator instanceMBean;
 
 	public ManagementService(AvalonEngine instance) {
 		this.instance = instance;
 		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-		InstanceMBean instanceMBean;
+		AvalonInstanceMediator instanceMBean;
 		try {
-			instanceMBean = new InstanceMBean(instance, this);
+			instanceMBean = new AvalonInstanceMediator(instance, this);
 			mbs.registerMBean(instanceMBean, instanceMBean.objectName);
 		} catch (Exception e) {
 			instanceMBean = null;
@@ -32,7 +32,7 @@ public class ManagementService {
 		this.instanceMBean = instanceMBean;
 	}
 
-	public InstanceMBean getInstanceMBean() {
+	public AvalonInstanceMediator getInstanceMBean() {
 		return instanceMBean;
 	}
 

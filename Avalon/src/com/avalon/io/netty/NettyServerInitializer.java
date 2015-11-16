@@ -357,11 +357,12 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
 
 	/** The channel handler. */
 	private final Class<?> channelHandler;
-
+	
 	/**
 	 * Instantiates a new netty server initializer.
 	 *
 	 * @param channelHandler the channel handler
+	 * @param sessionIds 
 	 */
 	public NettyServerInitializer(Class<?> channelHandler) {
 		this.channelHandler = channelHandler;
@@ -372,11 +373,9 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
 	 */
 	@Override
 	protected void initChannel(SocketChannel ch) throws Exception {
-//		long transportId = NettyServer.sessionId.getAndIncrement();
+		long transportId = NettyServer.sessionIds.getAndIncrement();
 		ChannelPipeline pipeline = ch.pipeline();
-		ChannelHandler newInstance = (ChannelHandler) Class.forName(channelHandler.getName()).newInstance();
-//				.asSubclass(channelHandler).getConstructor(long.class)
-//				.newInstance(transportId);
+		ChannelHandler newInstance = (ChannelHandler) Class.forName(channelHandler.getName()).getConstructor(Long.class).newInstance(transportId);
 		pipeline.addLast("decoder", new DataCodecDecoder());
 		pipeline.addLast("encoder", new DataCodecEncoder());
 		pipeline.addLast("handler", newInstance);

@@ -343,14 +343,11 @@ package com.avalon.core.supervision;
 
 import com.avalon.api.IoSession;
 import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.core.AvalonProxy;
-import com.avalon.core.ContextResolver;
 import com.avalon.core.actor.LocalTransportActor;
 import com.avalon.core.actor.RemoteTransportActor;
-import com.avalon.core.message.AvalonMessageEvent;
-import com.avalon.core.message.TopicMessage.TransportSupervisorTopicMessage;
 import com.avalon.core.message.TransportMessage;
 import com.avalon.core.message.TransportSupervisorMessage;
+import com.avalon.core.proxy.TransportSupervisorProxy;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSelection;
@@ -389,10 +386,18 @@ public class TransportSupervisor extends UntypedActor {
 		super();
 		this.netGateMode = netGateMode;
 	}
-
-	// 当前创建的会话数量
-	/** The transport num. */
-	private int transportNum = 0;
+	/**
+	 * 根据服务器的不同模式获得不同的传输actor
+	 * @return
+	 * @throws ClassNotFoundException
+	 */
+	public Class<?> getTransportClass() throws ClassNotFoundException {
+		if (netGateMode) {
+			return RemoteTransportActor.class;
+		} else {
+			return LocalTransportActor.class;
+		}
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -403,23 +408,15 @@ public class TransportSupervisor extends UntypedActor {
 	public void onReceive(Object msg) throws Exception {
 
 		if (msg instanceof TransportSupervisorMessage.CreateIOSessionActor) {
-			// be645988-0ff5-4e7a-bcd0-566ec1789cb7
-			String sessionActorId = ((TransportSupervisorMessage.CreateIOSessionActor) msg).sessionActorId;
 			IoSession ioSession = ((TransportSupervisorMessage.CreateIOSessionActor) msg).ioSession;
-			// akka://AVALON/user/TransportSupervisor
-			Props create = null;
-			if (netGateMode) {
-				create = Props.create(RemoteTransportActor.class, sessionActorId, getSelf(), ioSession);
-			} else {
-				create = Props.create(LocalTransportActor.class, sessionActorId, getSelf(), ioSession);
-			}
-
-			ActorRef actorOf = getContext().actorOf(create, sessionActorId);
-
+			Props	create = Props.create(getTransportClass(), ioSession);
+			ActorRef actorOf = getContext().actorOf(create);
 			getContext().watch(actorOf);
-			transportNum += 1;
+			TransportSupervisorProxy.getInstance().addTransportNum();
 		}
-		// 收到转发的会话
+		/**
+		 * 第一次收到网络消息的情况下，TransportAcotr没有与ConnectionActor进行绑定，所以在这里进行第一次绑定
+		 */
 		else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage) {
 
 			String transportPath = ((TransportSupervisorMessage.ReciveIOSessionMessage) msg).transportPath;
@@ -428,19 +425,14 @@ public class TransportSupervisor extends UntypedActor {
 			IoMessagePackage messagePackage = ((TransportSupervisorMessage.ReciveIOSessionMessage) msg).messagePackage;
 			TransportMessage message = new TransportMessage.IOSessionReciveMessage(messagePackage);
 			actorSelection.tell(message, getSender());
-		}
-		// 数据返回给JMX
-		else if (msg instanceof AvalonMessageEvent.nowTransportNum) {
-			AvalonProxy component = ContextResolver.getComponent(AvalonProxy.class);
-			component.handleMessage(new TransportSupervisorMessage.localTransportNum(transportNum));
-		} else if (msg instanceof TransportSupervisorTopicMessage) {
-			// TODO
 		} else if (msg instanceof DistributedPubSubMediator.SubscribeAck) {
-			System.out.println("订阅信息");
+
 		}
 		// 一个被监听Actor销毁掉了
 		else if (msg instanceof Terminated) {
-			transportNum -= 1;
+			ActorRef actor = ((Terminated) msg).getActor();
+			System.out.println(actor);
+			TransportSupervisorProxy.getInstance().subTransportNum();
 		} else {
 			unhandled(msg);
 		}

@@ -342,137 +342,59 @@ Public License instead of this License.
 package com.avalon.core;
 
 import java.io.File;
-import java.nio.CharBuffer;
-import java.nio.charset.CharacterCodingException;
-import java.nio.charset.Charset;
 
-import com.avalon.api.internal.IService;
-import com.avalon.core.message.AvalonMessageEvent;
-import com.avalon.core.message.TaskManagerMessage;
-import com.avalon.core.message.TransportSupervisorMessage;
-import com.avalon.setting.SystemEnvironment;
-import com.avalon.util.FileUtil;
-import com.avalon.util.PropertiesWrapper;
+import com.avalon.jmx.ManagementService;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+// TODO: Auto-generated Javadoc
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Inbox;
-import akka.actor.Props;
 
-// TODO: Auto-generated Javadoc
 /**
- * 阿瓦隆 的代理 基本的逻辑函数无法按照actor的形式使用，所以构建这个代理操作类.
- *
+ * AKKA系统初始化. 与网络session进行绑定
+ * 
  * @author ZERO
  */
-public class AvalonProxy implements IService {
-
-	/** The system. */
-	private ActorSystem system;
-	// avalone Actor
-	/** The avalon actor ref. */
-	private ActorRef avalonActorRef;
-
-	/** The transportnum. */
-	private int transportnum;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.avalon.api.internal.IService#init(java.lang.Object)
-	 */
-	@Override
-	public void init(Object obj) {
-		File root = new File("");
-		String searchPath = root.getAbsolutePath() + File.separator + "conf";
-		PropertiesWrapper propertiesWrapper = (PropertiesWrapper) obj;
-		String fielPath = propertiesWrapper.getProperty(SystemEnvironment.AKKA_CONFIG_PATH, searchPath);
-
-		File config = FileUtil.scanFileByPath(fielPath, "application.conf");
-
-		String akkaName = propertiesWrapper.getProperty(SystemEnvironment.AKKA_NAME, "AVALON");
-		String configName = propertiesWrapper.getProperty(SystemEnvironment.AKKA_CONFIG_NAME, "AVALON");
-
-		system = AkkaServerInitializer.initActorSystem(config, akkaName, configName);
-
-		avalonActorRef = system.actorOf(Props.create(AvalonActor.class, system), SystemEnvironment.AVALON_NAME);
-
-		avalonActorRef.tell(new AvalonMessageEvent.InitAvalon(), ActorRef.noSender());
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.avalon.api.internal.IService#destroy(java.lang.Object)
-	 */
-	@Override
-	public void destroy(Object obj) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.avalon.api.internal.IService#handleMessage(java.lang.Object)
-	 */
-	@Override
-	public void handleMessage(Object msg) {
-		if (msg instanceof TransportSupervisorMessage.IOSessionRegedit) {
-			avalonActorRef.tell(msg, ActorRef.noSender());
-		} else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage) {
-			avalonActorRef.tell(msg, ActorRef.noSender());
-		} else if (msg instanceof String) {
-			avalonActorRef.tell("Stt", ActorRef.noSender());
-		} else if (msg instanceof TransportSupervisorMessage.localTransportNum) {
-			this.transportnum = ((TransportSupervisorMessage.localTransportNum) msg).transprotNum;
-		} else if (msg instanceof TaskManagerMessage.createTaskMessage) {
-			avalonActorRef.tell(msg, ActorRef.noSender());
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.avalon.api.internal.IService#getName()
-	 */
-	@Override
-	public String getName() {
-		return "AvalonProxy";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.avalon.api.internal.IService#setName(java.lang.String)
-	 */
-	@Override
-	public void setName(String name) {
-		throw new IllegalAccessError();
-	}
-
+public class AkkaServerManager {
 	/**
-	 * Transport num.
-	 *
-	 * @return the int
+	 * AKKA actor系统
 	 */
-	public int transportNum() {
-		avalonActorRef.tell(new AvalonMessageEvent.nowTransportNum(), ActorRef.noSender());
-		return transportnum;
-	}
+	public static ActorSystem actorSystem;
 
+	/** T集群事件监听. */
+	public static ActorRef clusterListener;
+	/** 全局任务管理 actor. */
+	public static ActorRef globleTaskManagerActor;
+	/** Server状态管理 */
+	public static ActorRef serverSupervisorSubscriberRef;
+	/** 网络会话管理地址 */
+	public static ActorRef transportSupervisorRef;
+	/** 客户端会话Actor管理 */
+	public static ActorRef connectionSessionSupervisor;
+	/** akka的信箱 */
+	public static Inbox inbox;
+	
+	public static ManagementService managementService;
 	/**
-	 * Gets the system.
+	 * 初始化.
 	 *
-	 * @return the system
+	 * @param file
+	 *            配置文件
+	 * @param akkaName
+	 *            actor系統名稱
+	 * @param configName
+	 *            配置文件中的名稱
+	 * @return the actor system
 	 */
-	public ActorSystem getSystem() {
-		return system;
+	public static ActorSystem initActorSystem(File file, String akkaName, String configName) {
+		Config cg = ConfigFactory.parseFile(file);
+		cg.withFallback(ConfigFactory.defaultReference(Thread.currentThread().getContextClassLoader()));
+		Config config = ConfigFactory.load(cg).getConfig(configName);
+		AkkaServerManager.actorSystem = ActorSystem.create(akkaName, config);
+		AkkaServerManager.inbox=Inbox.create(actorSystem);
+		return AkkaServerManager.actorSystem;
 	}
 
-	public static void main(String[] args) throws CharacterCodingException {
-		byte[] array = Charset.forName("UTF-8").newEncoder().encode(CharBuffer.wrap("AllServerWithPush".trim().toCharArray())).array();
-		System.out.println(array.length);
-	}
 }

@@ -5,13 +5,15 @@ import static com.avalon.jmx.ManagementService.quote;
 import java.util.Hashtable;
 
 import com.avalon.core.AvalonEngine;
+import com.avalon.core.proxy.TransportSupervisorProxy;
 import com.avalon.io.IoMonitorImpl;
+import com.avalon.setting.AvalonServerMode;
 
 @ManagedDescription("AvalonInstance")
-public class InstanceMBean extends AvalonMBean<AvalonEngine> {
+public class AvalonInstanceMediator extends AvalonMBean<AvalonEngine> {
 	private static final int INITIAL_CAPACITY = 3;
 
-	protected InstanceMBean(AvalonEngine avalonInstance, ManagementService managementService) {
+	protected AvalonInstanceMediator(AvalonEngine avalonInstance, ManagementService managementService) {
 		super(avalonInstance, managementService);
 		createProperties(avalonInstance);
 		createMBeans(managementService);
@@ -19,9 +21,14 @@ public class InstanceMBean extends AvalonMBean<AvalonEngine> {
 	}
 
 	private void createMBeans(ManagementService managementService) {
-		IoMonitorImpl impl = new IoMonitorImpl();
-		AvalonMBean control = new IoMonitorControl(impl, managementService);
-		register(control);
+		if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
+			IoMonitorImpl impl = new IoMonitorImpl();
+			AvalonMBean control = new IoMonitorMediator(impl, managementService);
+			register(control);
+		}
+		TransportSupervisorProxy proxy = TransportSupervisorProxy.getInstance();
+		AvalonMBean transport = new TransportSupervisorMediator(proxy, managementService);
+		register(transport);
 	}
 
 	private void registerMBeans() {
@@ -31,12 +38,13 @@ public class InstanceMBean extends AvalonMBean<AvalonEngine> {
 	private void createProperties(AvalonEngine avalonInstance) {
 		Hashtable<String, String> properties = new Hashtable<String, String>(INITIAL_CAPACITY);
 		properties.put("type", quote("AvalonInstance"));
-//		properties.put("instance", quote(avalonInstance.getClass().getSimpleName()));
+		// properties.put("instance",
+		// quote(avalonInstance.getClass().getSimpleName()));
 		properties.put("name", quote(avalonInstance.getClass().getSimpleName()));
 		setObjectName(properties);
 	}
 
-	public AvalonInstance getHazelcastInstance() {
+	public AvalonInstanceControl getHazelcastInstance() {
 		return managedObject;
 	}
 
@@ -50,12 +58,6 @@ public class InstanceMBean extends AvalonMBean<AvalonEngine> {
 	@ManagedDescription("stopEngine")
 	public void stopEngine() {
 		managedObject.stopEngine();
-	}
-
-	@ManagedAnnotation(value = "transportActorNum", operation = true)
-	@ManagedDescription("transportActorNum")
-	public int transportActorNum() {
-		return managedObject.transportActorNum();
 	}
 
 	@ManagedAnnotation(value = "ServerMode")
