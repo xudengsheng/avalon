@@ -1,5 +1,0 @@
-[2015-10-28 15:14:05] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Workspaces/MyEclipse 2015 CI/ExampleChatServer1
-[2015-10-28 15:14:05] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@3bd82cf5
-[2015-10-28 15:15:36] [INFO ] [com.avalon.core.AvalonEngine:557]-- /Users/zero/Workspaces/MyEclipse 2015 CI/ExampleChatServer1
-[2015-10-28 15:15:36] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.avalon.core.AvalonProxy@fa4c865
-[2015-10-28 15:15:37] [INFO ] [com.avalon.component.ComponentRegistryImpl:425]-- Component add componentcom.zero.example.core.ExampleClientExtension@72805168
