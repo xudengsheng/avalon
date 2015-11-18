@@ -341,7 +341,7 @@ Public License instead of this License.
  */
 package com.avalon.api.message;
 
-import com.avalon.api.internal.IoMessage;
+import com.avalon.api.internal.SerializableMessage;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -354,5 +354,5 @@ public interface GetLocationMessage {
 	 *
 	 * @return the message
 	 */
-	IoMessage getMessage();
+	SerializableMessage getMessage();
 }

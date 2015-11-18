@@ -339,29 +339,15 @@ consider it more useful to permit linking proprietary applications with the
 library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.
  */
-package com.avalon.api;
+package com.avalon.api.internal;
 
-import com.avalon.setting.AvalonServerMode;
+import java.io.Serializable;
 
-// TODO: Auto-generated Javadoc
 /**
- * 获取系统信息.
+ * 网络消息，接口为之后的消息体做转换之用 主要需要可序列化.
  *
- * @author zero
+ * @author ZERO
  */
-public interface SystemInformation {
+public interface SerializableMessage extends Serializable {
 
-	/**
-	 * Gets the server mode.
-	 *
-	 * @return the server mode
-	 */
-	public AvalonServerMode getServerMode();
-	
-	/**
-	 * Gets the server id.
-	 *
-	 * @return the server id
-	 */
-	public int getServerId();
 }

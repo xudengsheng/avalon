@@ -353,7 +353,7 @@ import com.avalon.component.ComponentRegistryImpl;
 import com.avalon.core.service.DistributedTaskManagerService;
 import com.avalon.io.netty.NettyHandler;
 import com.avalon.io.netty.NettyServer;
-import com.avalon.jmx.AvalonInstanceControl;
+import com.avalon.jmx.AvalonInstanceMXBean;
 import com.avalon.jmx.ManagementService;
 import com.avalon.setting.AvalonServerMode;
 import com.avalon.setting.SystemEnvironment;
@@ -367,7 +367,7 @@ import jodd.props.Props;
  *
  * @author ZERO
  */
-public class AvalonEngine implements AvalonInstanceControl {
+public class AvalonEngine implements AvalonInstanceMXBean {
 
 	private static final int D_PORT = 12345;
 
@@ -557,9 +557,11 @@ public class AvalonEngine implements AvalonInstanceControl {
 
 	@Override
 	public void stopEngine() {
+		System.out.println("Server shut down");
 		for (IService iService : systemRegistry) {
 			iService.destroy(null);
 		}
+		System.exit(1);
 	}
 
 	@Override

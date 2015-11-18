@@ -402,7 +402,8 @@ public class LocalTransportActor extends UntypedActor {
 	@Override
 	public void preStart() throws Exception {
 		super.preStart();
-		getSelf().tell(new TransportMessage.IOSessionBindingTransportMessage(), ActorRef.noSender());
+//		getSelf().tell(new TransportMessage.IOSessionBindingTransportMessage(), ActorRef.noSender());
+		ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(), getSelf()));
 	}
 
 	/*
@@ -413,10 +414,11 @@ public class LocalTransportActor extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception {
 
-		if (msg instanceof TransportMessage.IOSessionBindingTransportMessage) {
-			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(), getSelf()));
-			return;
-		} else if (msg instanceof TransportMessage.IOSessionReciveMessage) {
+//		if (msg instanceof TransportMessage.IOSessionBindingTransportMessage) {
+//			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(), getSelf()));
+//			return;
+//		} else
+			if (msg instanceof TransportMessage.IOSessionReciveMessage) {
 			if (bindingConnectionSession) {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				ConnectionSessionMessage message = new ConnectionSessionMessage.DirectSessionMessage(messagePackage);

@@ -341,7 +341,7 @@ Public License instead of this License.
  */
 package com.avalon.api;
 
-import com.avalon.api.internal.IoMessage;
+import com.avalon.api.internal.SerializableMessage;
 import com.avalon.api.internal.IoMessagePackage;
 
 import akka.actor.ActorRef;
@@ -366,7 +366,7 @@ public interface ClientSessionLinenter {
 	 * @param sender            发送者
 	 * @param ioMessage            可序列化的消息
 	 */
-	void receivedActorMessage(ActorRef sender, IoMessage ioMessage);
+	void receivedActorMessage(ActorRef sender, SerializableMessage ioMessage);
 
 	/**
 	 * 断开网络连接后的处理.

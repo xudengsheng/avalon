@@ -348,12 +348,18 @@ package com.avalon.api.internal;
  * @author zero
  */
 public interface ActorCallBack {
-	
+	/**
+	 * 获取会话的绑定Id
+	 * 
+	 * @return
+	 */
 	public int getBindSessionId();
+
 	/**
 	 * 发送Io消息.
 	 *
-	 * @param messagePackage the message package
+	 * @param messagePackage
+	 *            the message package
 	 */
 	public void tellMessage(IoMessagePackage messagePackage);
 

@@ -342,6 +342,7 @@ Public License instead of this License.
 package com.avalon.core.supervision;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -349,11 +350,14 @@ import com.avalon.api.IoSession;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.core.AkkaServerManager;
 import com.avalon.core.AvalonActorSystem;
+import com.avalon.core.ContextResolver;
 import com.avalon.core.actor.LocalTransportActor;
 import com.avalon.core.actor.RemoteTransportActor;
 import com.avalon.core.message.TransportMessage;
 import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.core.proxy.TransportSupervisorProxy;
+import com.avalon.setting.SystemEnvironment;
+import com.avalon.util.PropertiesWrapper;
 import com.sun.prism.paint.Stop;
 
 import akka.actor.ActorRef;
@@ -385,10 +389,20 @@ public class TransportSupervisor extends UntypedActor {
 	/** The net gate mode. */
 	private final boolean netGateMode;
 
-	List<LostNetActor> lostNetActors=new ArrayList<>();
+	LinkedList<LostNetActor> lostNetActors=new LinkedList<>();
 
 	private Cancellable cancellable;
 
+	
+	
+	@Override
+	public void postStop() throws Exception {
+		super.postStop();
+		cancellable.cancel();
+	}
+
+	private int sessionTimeOut;
+	private int sessionCheckTime;
 	/**
 	 * Instantiates a new transport supervisor.
 	 *
@@ -399,8 +413,12 @@ public class TransportSupervisor extends UntypedActor {
 		super();
 		this.netGateMode = netGateMode;
 		TransportSupervisorMessage message = new TransportSupervisorMessage.CheckNoSessionTransport();
+		PropertiesWrapper propertiesWrapper = ContextResolver.getPropertiesWrapper();
+		sessionTimeOut = propertiesWrapper.getIntProperty(SystemEnvironment.GATE_SESSION_TIME_OUT, 60_000);
+		sessionCheckTime = propertiesWrapper.getIntProperty(SystemEnvironment.GATE_SESSION_CHECK_TIME, 60_000);
+		 
 		cancellable = AkkaServerManager.actorSystem.scheduler().schedule(Duration.Zero(),
-				Duration.create(10, TimeUnit.SECONDS), getSelf(), message, AkkaServerManager.actorSystem.dispatcher(),
+				Duration.create(sessionCheckTime, TimeUnit.SECONDS), getSelf(), message, AkkaServerManager.actorSystem.dispatcher(),
 				null);
 	}
 
@@ -451,24 +469,24 @@ public class TransportSupervisor extends UntypedActor {
 		else if (msg instanceof TransportSupervisorMessage.CheckNoSessionTransport) {
 			List<LostNetActor> remove=new ArrayList<>();
 			for (LostNetActor lostNetActor : lostNetActors) {
-				if (lostNetActor.lostNetTime+60*1000>System.currentTimeMillis()) {
+				if ((lostNetActor.lostNetTime+sessionTimeOut)>System.currentTimeMillis()) {
 					getContext().stop(lostNetActor.actorRef);
 					remove.add(lostNetActor);
+				}else{
+					break;
 				}
 			}
 			lostNetActors.removeAll(remove);
 		}
 		// 一个被监听Actor销毁掉了
 		else if (msg instanceof Terminated) {
-			ActorRef actor = ((Terminated) msg).getActor();
-			System.out.println(actor);
 			TransportSupervisorProxy.getInstance().subTransportNum();
 		}
 		// 一个被监听Actor会话丢失链接
 		else if (msg instanceof TransportSupervisorMessage.TransportLostNetSession) {
 			ActorRef actorRef=getSender();
 			LostNetActor actor=new LostNetActor(actorRef);
-			lostNetActors.add(actor);
+			lostNetActors.addLast(actor);
 		} else {
 			unhandled(msg);
 		}

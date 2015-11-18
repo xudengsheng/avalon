@@ -377,7 +377,7 @@ public interface ManagerLocator {
 	void setManager(IService type);
 	
 	/**
-	 * 获得Actor系统.
+	 * 获得Akka Actor系统.
 	 *
 	 * @return the actor system
 	 */

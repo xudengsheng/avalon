@@ -348,7 +348,7 @@ package com.avalon.api.internal;
  *
  * @author ZERO
  */
-public interface IoMessagePackage extends IoMessage {
+public interface IoMessagePackage extends SerializableMessage {
 	
 	/**
 	 * 获取操作码.

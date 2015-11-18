@@ -355,17 +355,6 @@ import com.avalon.api.internal.IoMessagePackage;
 public interface TransportMessage extends Serializable {
 	
 	/**
-	 * IOSession绑定TransportActor.
-	 *
-	 * @author zero
-	 */
-	public static class IOSessionBindingTransportMessage implements TransportMessage {
-		
-		/** The Constant serialVersionUID. */
-		private static final long serialVersionUID = 3434098146106631131L;
-	}
-
-	/**
 	 * The Class IOSessionReciveMessage.
 	 */
 	public static class IOSessionReciveMessage implements TransportMessage {

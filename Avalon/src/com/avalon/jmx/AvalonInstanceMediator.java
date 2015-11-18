@@ -44,7 +44,7 @@ public class AvalonInstanceMediator extends AvalonMBean<AvalonEngine> {
 		setObjectName(properties);
 	}
 
-	public AvalonInstanceControl getHazelcastInstance() {
+	public AvalonInstanceMXBean getHazelcastInstance() {
 		return managedObject;
 	}
 

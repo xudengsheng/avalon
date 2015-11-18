@@ -15,7 +15,7 @@ public class ManagementService {
 	static final String DOMAIN = "com.avalon";
 	private static final int INITIAL_CAPACITY = 3;
 
-	final AvalonInstanceControl instance;
+	final AvalonInstanceMXBean instance;
 	private final AvalonInstanceMediator instanceMBean;
 
 	public ManagementService(AvalonEngine instance) {

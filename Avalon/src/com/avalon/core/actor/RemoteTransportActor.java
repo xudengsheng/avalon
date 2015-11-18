@@ -418,11 +418,12 @@ public class RemoteTransportActor extends UntypedActor {
 	 */
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof TransportMessage.IOSessionBindingTransportMessage) {
-			log.debug("IO绑定");
-			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(),getSelf()));
-			return;
-		} else if (msg instanceof TransportMessage.IOSessionReciveMessage) {
+//		if (msg instanceof TransportMessage.IOSessionBindingTransportMessage) {
+//			log.debug("IO绑定");
+//			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(),getSelf()));
+//			return;
+//		} else
+			if (msg instanceof TransportMessage.IOSessionReciveMessage) {
 			if (!bindingConnectionSession) {
 				// 发送到集群分割器
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;

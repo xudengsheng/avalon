@@ -360,7 +360,12 @@ public class SystemEnvironment {
 	public static final String APP_ID = APP_ROOT + ".app.id";
 	
 	/** The Constant APP_ID. */
-	public static final String GATE_BINDING = APP_ROOT + "gate.binding";
+	public static final String GATE_BINDING = APP_ROOT + ".gate.binding";
+	
+	/** The Constant APP_ID. */
+	public static final String GATE_SESSION_TIME_OUT = APP_ROOT + ".gate.session.timeout";
+	
+	public static final String GATE_SESSION_CHECK_TIME = APP_ROOT + ".gate.session.checktime";
 
 	/** The Constant APP_LISTENER. */
 	public static final String APP_LISTENER = APP_ROOT + ".app.listener";

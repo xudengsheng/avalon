@@ -409,7 +409,11 @@ public interface TransportSupervisorMessage extends Serializable {
 		}
 
 	}
-	
+	/**
+	 * 检查超时断开连接会话
+	 * @author zero
+	 *
+	 */
 	public  class CheckNoSessionTransport implements TransportSupervisorMessage {
 
 		private static final long serialVersionUID = -5244110215507020209L;

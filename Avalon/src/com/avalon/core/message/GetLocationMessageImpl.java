@@ -341,7 +341,7 @@ Public License instead of this License.
  */
 package com.avalon.core.message;
 
-import com.avalon.api.internal.IoMessage;
+import com.avalon.api.internal.SerializableMessage;
 import com.avalon.api.message.GetLocationMessage;
 
 // TODO: Auto-generated Javadoc
@@ -352,14 +352,14 @@ public class GetLocationMessageImpl implements GetLocationMessage {
 
 
 	/** The message. */
-	private final IoMessage message;
+	private final SerializableMessage message;
 
 	/**
 	 * Instantiates a new gets the location message impl.
 	 *
 	 * @param message the message
 	 */
-	public GetLocationMessageImpl(IoMessage message)
+	public GetLocationMessageImpl(SerializableMessage message)
 	{
 		super();
 		this.message = message;
@@ -370,7 +370,7 @@ public class GetLocationMessageImpl implements GetLocationMessage {
 	 * @see com.avalon.api.message.GetLocationMessage#getMessage()
 	 */
 	@Override
-	public IoMessage getMessage()
+	public SerializableMessage getMessage()
 	{
 		return message;
 	}

@@ -394,6 +394,7 @@ public class AvalonMediator implements IService {
 		avalonActorRef = system.actorOf(Props.create(AvalonActorSystem.class, system), SystemEnvironment.AVALON_NAME);
 
 		Inbox create = Inbox.create(system);
+		
 		create.send(avalonActorRef, new AvalonMessageEvent.InitAvalon());
 
 		

@@ -2,7 +2,7 @@ package com.avalon.jmx;
 
 import com.avalon.setting.AvalonServerMode;
 
-public interface AvalonInstanceControl {
+public interface AvalonInstanceMXBean {
 
 	String getName();
 

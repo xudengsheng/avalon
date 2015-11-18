@@ -359,7 +359,6 @@ public interface AvalonMessageEvent extends Serializable {
 	 * @author zero
 	 */
 	public static class InitAvalon implements AvalonMessageEvent {
-
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 5353260825760665736L;
 
