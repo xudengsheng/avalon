@@ -9,6 +9,7 @@ Avalon
 3. 服务器分为单服务器和多节点分布式服务。Akka使用版本2.40
 
 
+
 ### Avalon单服务器模式
 
 ![输入图片说明](http://git.oschina.net/uploads/images/2015/0924/104510_3014dc5f_19059.jpeg "单节点")
