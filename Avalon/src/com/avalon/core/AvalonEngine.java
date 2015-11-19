@@ -359,9 +359,7 @@ import com.avalon.setting.AvalonServerMode;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.PropertiesWrapper;
 
-import akka.actor.Terminated;
 import jodd.props.Props;
-import scala.concurrent.Future;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -560,6 +558,11 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 			public void run()
 			{
 				logger.info("Server shut down");
+				boolean shutDown = listener.shutDown();
+				if (!shutDown) {
+					logger.info("Server Application not shut down");
+					return;
+				}
 				for (IService iService : systemRegistry) {
 					iService.destroy(null);
 				}

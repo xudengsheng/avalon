@@ -371,4 +371,9 @@ public interface AppListener {
 	 * @param actorSessionpath the actor sessionpath
 	 */
 	void actorDisconnect(String actorSessionpath);
+	/**
+	 * 服务器关闭
+	 * @return
+	 */
+	boolean shutDown();
 }
