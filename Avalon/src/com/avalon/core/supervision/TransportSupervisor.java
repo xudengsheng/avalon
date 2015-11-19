@@ -417,8 +417,8 @@ public class TransportSupervisor extends UntypedActor {
 		sessionTimeOut = propertiesWrapper.getIntProperty(SystemEnvironment.GATE_SESSION_TIME_OUT, 60_000);
 		sessionCheckTime = propertiesWrapper.getIntProperty(SystemEnvironment.GATE_SESSION_CHECK_TIME, 60_000);
 		 
-		cancellable = AkkaServerManager.actorSystem.scheduler().schedule(Duration.Zero(),
-				Duration.create(sessionCheckTime, TimeUnit.SECONDS), getSelf(), message, AkkaServerManager.actorSystem.dispatcher(),
+		cancellable = AkkaServerManager.getInstance().getActorSystem().scheduler().schedule(Duration.Zero(),
+				Duration.create(sessionCheckTime, TimeUnit.SECONDS), getSelf(), message,AkkaServerManager.getInstance().getActorSystem().dispatcher(),
 				null);
 	}
 

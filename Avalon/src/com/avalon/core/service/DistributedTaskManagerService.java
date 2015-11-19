@@ -342,7 +342,7 @@ Public License instead of this License.
 package com.avalon.core.service;
 
 import com.avalon.api.DistributedTaskManager;
-import com.avalon.core.AvalonMediator;
+import com.avalon.core.AkkaServerManager;
 import com.avalon.core.ContextResolver;
 import com.avalon.core.message.TaskManagerMessage;
 import com.avalon.setting.SystemEnvironment;
@@ -360,10 +360,9 @@ public class DistributedTaskManagerService implements DistributedTaskManager {
 	@Override
 	public void scheduleTask(Runnable runnable)
 	{
-		AvalonMediator component = ContextResolver.getComponent(AvalonMediator.class);
 		int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID, 1);
 		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,serverId,-1,-1);
-		component.handleMessage(createTaskMessage);
+		AkkaServerManager.getInstance().getInbox().send(AkkaServerManager.getInstance().getAvalonActorRef(), createTaskMessage);
 	}
 
 	/* (non-Javadoc)
@@ -372,10 +371,9 @@ public class DistributedTaskManagerService implements DistributedTaskManager {
 	@Override
 	public void scheduleTask(long delay, Runnable runnable)
 	{
-		AvalonMediator component = ContextResolver.getComponent(AvalonMediator.class);
 		int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID, 1);
 		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,serverId,delay,-1);
-		component.handleMessage(createTaskMessage);
+		AkkaServerManager.getInstance().getInbox().send(AkkaServerManager.getInstance().getAvalonActorRef(), createTaskMessage);
 	}
 
 	/* (non-Javadoc)
@@ -384,10 +382,9 @@ public class DistributedTaskManagerService implements DistributedTaskManager {
 	@Override
 	public void scheduleTask(long delay, long period, Runnable runnable)
 	{
-		AvalonMediator component = ContextResolver.getComponent(AvalonMediator.class);
 		int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID, 1);
 		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,serverId,delay,period);
-		component.handleMessage(createTaskMessage);
+		AkkaServerManager.getInstance().getInbox().send(AkkaServerManager.getInstance().getAvalonActorRef(), createTaskMessage);
 	}
 
 }

@@ -426,7 +426,7 @@ public class LocalTransportActor extends UntypedActor {
 			} else {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				LocalSessionMessage commandSessionProtocol = new LocalSessionMessage(messagePackage);
-				AkkaServerManager.connectionSessionSupervisor.tell(commandSessionProtocol, getSelf());
+				AkkaServerManager.getInstance().getConnectionSessionSupervisor().tell(commandSessionProtocol, getSelf());
 			}
 			return;
 		} else if (msg instanceof SessionSessionMessage) {
@@ -438,7 +438,7 @@ public class LocalTransportActor extends UntypedActor {
 				connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
 			}
 			TransportSupervisorMessage message = new TransportSupervisorMessage.TransportLostNetSession();
-			AkkaServerManager.transportSupervisorRef.tell(message, getSelf());
+			AkkaServerManager.getInstance().getTransportSupervisorRef().tell(message, getSelf());
 			return;
 		} else if (msg instanceof TransportMessage.ConnectionSessionsBinding) {
 			this.connectionSessionsRef = getSender();

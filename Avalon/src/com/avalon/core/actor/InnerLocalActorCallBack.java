@@ -23,13 +23,13 @@ public class InnerLocalActorCallBack implements ActorCallBack {
 	@Override
 	public void closed() {
 		CloseConnectionSessions closed = new CloseConnectionSessions();
-		AkkaServerManager.inbox.send(self, closed);
+		AkkaServerManager.getInstance().getInbox().send(self, closed);
 	}
 
 	@Override
 	public void tellMessage(IoMessagePackage messagePackage) {
 		IOSessionReciveMessage message = new IOSessionReciveMessage(messagePackage);
-		AkkaServerManager.inbox.send(self, message);
+		AkkaServerManager.getInstance().getInbox().send(self, message);
 	}
 
 

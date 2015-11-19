@@ -158,8 +158,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 
 			CluserSessionMessage message = new CluserSessionMessage(sender, origins);
 			List<MemberWaper> list = members.get(AvalonServerMode.SERVER_TYPE_GAME);
-
-			
+			list.addAll( members.get(AvalonServerMode.SERVER_TYPE_SINGLE));
 			/**
 			 * 如果serverid<0情况，则随机分配到不同的游戏逻辑服务器
 			 */

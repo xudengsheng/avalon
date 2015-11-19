@@ -358,25 +358,42 @@ import akka.actor.Inbox;
  * @author ZERO
  */
 public class AkkaServerManager {
+
+	private AkkaServerManager() {
+
+	}
+
+	public static AkkaServerManager getInstance() {
+		return Inner.manager;
+	}
+
+	private static class Inner {
+		static AkkaServerManager manager = new AkkaServerManager();
+	}
+
 	/**
 	 * AKKA actor系统
 	 */
-	public static ActorSystem actorSystem;
-
+	private ActorSystem actorSystem;
+	/**
+	 * 阿瓦隆系统
+	 */
+	private ActorRef avalonActorRef;
 	/** T集群事件监听. */
-	public static ActorRef clusterListener;
+	private ActorRef clusterListener;
 	/** 全局任务管理 actor. */
-	public static ActorRef globleTaskManagerActor;
+	private ActorRef globleTaskManagerActor;
 	/** Server状态管理 */
-	public static ActorRef serverSupervisorSubscriberRef;
+	private ActorRef serverSupervisorSubscriberRef;
 	/** 网络会话管理地址 */
-	public static ActorRef transportSupervisorRef;
+	private ActorRef transportSupervisorRef;
 	/** 客户端会话Actor管理 */
-	public static ActorRef connectionSessionSupervisor;
+	private ActorRef connectionSessionSupervisor;
 	/** akka的信箱 */
-	public static Inbox inbox;
-	
-	public static ManagementService managementService;
+	private Inbox inbox;
+
+	private ManagementService managementService;
+
 	/**
 	 * 初始化.
 	 *
@@ -388,13 +405,85 @@ public class AkkaServerManager {
 	 *            配置文件中的名稱
 	 * @return the actor system
 	 */
-	public static ActorSystem initActorSystem(File file, String akkaName, String configName) {
+	public ActorSystem initActorSystem(File file, String akkaName, String configName) {
 		Config cg = ConfigFactory.parseFile(file);
 		cg.withFallback(ConfigFactory.defaultReference(Thread.currentThread().getContextClassLoader()));
 		Config config = ConfigFactory.load(cg).getConfig(configName);
-		AkkaServerManager.actorSystem = ActorSystem.create(akkaName, config);
-		AkkaServerManager.inbox=Inbox.create(actorSystem);
-		return AkkaServerManager.actorSystem;
+		actorSystem = ActorSystem.create(akkaName, config);
+		inbox = Inbox.create(actorSystem);
+		return actorSystem;
+	}
+
+	public ActorSystem getActorSystem() {
+		return actorSystem;
+	}
+
+	public void setActorSystem(ActorSystem actorSystem) {
+		this.actorSystem = actorSystem;
+	}
+
+	public ActorRef getAvalonActorRef() {
+		return avalonActorRef;
+	}
+
+	public void setAvalonActorRef(ActorRef avalonActorRef) {
+		this.avalonActorRef = avalonActorRef;
+	}
+
+	public ActorRef getClusterListener() {
+		return clusterListener;
+	}
+
+	public void setClusterListener(ActorRef clusterListener) {
+		this.clusterListener = clusterListener;
+	}
+
+	public ActorRef getGlobleTaskManagerActor() {
+		return globleTaskManagerActor;
+	}
+
+	public void setGlobleTaskManagerActor(ActorRef globleTaskManagerActor) {
+		this.globleTaskManagerActor = globleTaskManagerActor;
+	}
+
+	public ActorRef getServerSupervisorSubscriberRef() {
+		return serverSupervisorSubscriberRef;
+	}
+
+	public void setServerSupervisorSubscriberRef(ActorRef serverSupervisorSubscriberRef) {
+		this.serverSupervisorSubscriberRef = serverSupervisorSubscriberRef;
+	}
+
+	public ActorRef getTransportSupervisorRef() {
+		return transportSupervisorRef;
+	}
+
+	public void setTransportSupervisorRef(ActorRef transportSupervisorRef) {
+		this.transportSupervisorRef = transportSupervisorRef;
+	}
+
+	public ActorRef getConnectionSessionSupervisor() {
+		return connectionSessionSupervisor;
+	}
+
+	public void setConnectionSessionSupervisor(ActorRef connectionSessionSupervisor) {
+		this.connectionSessionSupervisor = connectionSessionSupervisor;
+	}
+
+	public Inbox getInbox() {
+		return inbox;
+	}
+
+	public void setInbox(Inbox inbox) {
+		this.inbox = inbox;
+	}
+
+	public ManagementService getManagementService() {
+		return managementService;
+	}
+
+	public void setManagementService(ManagementService managementService) {
+		this.managementService = managementService;
 	}
 
 }

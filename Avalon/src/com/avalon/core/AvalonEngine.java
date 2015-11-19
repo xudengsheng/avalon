@@ -455,8 +455,8 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 			systemRegistry.addComponent(netty);
 		}
 		// jmx相关启动
-		AkkaServerManager.managementService = new ManagementService(this);
-
+		ManagementService managementService = new ManagementService(this);
+		AkkaServerManager.getInstance().setManagementService(managementService);
 		systemRegistry.addComponent(avalon);
 		// 初始化分布任务管理器
 		DistributedTaskManagerService globleTaskManagerProxy = new DistributedTaskManagerService();

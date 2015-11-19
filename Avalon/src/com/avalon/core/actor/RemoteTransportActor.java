@@ -427,7 +427,7 @@ public class RemoteTransportActor extends UntypedActor {
 						-1);
 				ServerSupervisorMessage commandSessionProtocol = new ServerSupervisorMessage.DistributionConnectionSessionsProtocol(
 						getSelf(), messagePackage, serverId);
-				AkkaServerManager.serverSupervisorSubscriberRef.tell(commandSessionProtocol, getSelf());
+				AkkaServerManager.getInstance().getServerSupervisorSubscriberRef().tell(commandSessionProtocol, getSelf());
 			} else {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				DirectSessionMessage commandSessionProtocol = new DirectSessionMessage(messagePackage);
@@ -456,7 +456,7 @@ public class RemoteTransportActor extends UntypedActor {
 				connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
 			}
 			TransportSupervisorMessage message = new TransportSupervisorMessage.TransportLostNetSession();
-			AkkaServerManager.transportSupervisorRef.tell(message, getSelf());
+			AkkaServerManager.getInstance().getTransportSupervisorRef().tell(message, getSelf());
 			return;
 		} else {
 			unhandled(msg);

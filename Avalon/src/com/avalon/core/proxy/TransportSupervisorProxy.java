@@ -1,7 +1,11 @@
 package com.avalon.core.proxy;
 
 import com.avalon.jmx.TransportSupervisorControl;
-
+/**
+ * 传输监听的代理累
+ * @author zero
+ *
+ */
 public class TransportSupervisorProxy implements TransportSupervisorControl {
 
 	private int transportNum;

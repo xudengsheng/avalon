@@ -371,7 +371,6 @@ public class AvalonMediator implements IService {
 	private ActorSystem system;
 	// avalone Actor
 	/** The avalon actor ref. */
-	private ActorRef avalonActorRef;
 
 	private static Logger logger = LoggerFactory.getLogger(AvalonEngine.class);
 	/*
@@ -393,13 +392,11 @@ public class AvalonMediator implements IService {
 		logger.info("AKKA_NAME:"+akkaName);
 		String configName = propertiesWrapper.getProperty(SystemEnvironment.AKKA_CONFIG_NAME, "AVALON");
 		logger.info("configName:"+configName);
-		system = AkkaServerManager.initActorSystem(config, akkaName, configName);
+		system = AkkaServerManager.getInstance().initActorSystem(config, akkaName, configName);
 
-		avalonActorRef = system.actorOf(Props.create(AvalonActorSystem.class, system), SystemEnvironment.AVALON_NAME);
-
-		Inbox create = Inbox.create(system);
-
-		create.send(avalonActorRef, new AvalonMessageEvent.InitAvalon());
+		ActorRef avalonActorRef = system.actorOf(Props.create(AvalonActorSystem.class, system), SystemEnvironment.AVALON_NAME);
+		AkkaServerManager.getInstance().setAvalonActorRef(avalonActorRef);
+		AkkaServerManager.getInstance().getInbox().send(avalonActorRef , new AvalonMessageEvent.InitAvalon());
 
 	}
 
@@ -411,7 +408,7 @@ public class AvalonMediator implements IService {
 	@Override
 	public void destroy(Object obj) {
 		logger.info("akkasystem close");
-		Future<Terminated> terminate = AkkaServerManager.actorSystem.terminate();
+		Future<Terminated> terminate = AkkaServerManager.getInstance().getActorSystem().terminate();
 		while (terminate.isCompleted()) {logger.info("akkasystem closed");}
 
 	}
@@ -423,11 +420,7 @@ public class AvalonMediator implements IService {
 	 */
 	@Override
 	public void handleMessage(Object msg) {
-		if (msg instanceof String) {
-			avalonActorRef.tell("Stt", ActorRef.noSender());
-		} else if (msg instanceof TaskManagerMessage.createTaskMessage) {
-			avalonActorRef.tell(msg, ActorRef.noSender());
-		}
+		
 	}
 
 	/*

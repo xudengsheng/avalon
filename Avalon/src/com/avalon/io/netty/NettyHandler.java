@@ -426,7 +426,7 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 		
 		TransportSupervisorMessage.CreateIOSessionActor message = new TransportSupervisorMessage.CreateIOSessionActor(this);
 		// 创建一个新的会话封装
-		AkkaServerManager.inbox.send(AkkaServerManager.transportSupervisorRef, message);
+		AkkaServerManager.getInstance().getInbox().send(AkkaServerManager.getInstance().getTransportSupervisorRef(), message);
 
 		nettyServer.handleMessage(new NetWorkMessage.SessionOnline(this));
 		if (logger.isDebugEnabled()) {
