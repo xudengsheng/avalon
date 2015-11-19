@@ -359,7 +359,9 @@ import com.avalon.setting.AvalonServerMode;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.PropertiesWrapper;
 
+import akka.actor.Terminated;
 import jodd.props.Props;
+import scala.concurrent.Future;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -418,8 +420,7 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 		propertiesWrapper = new PropertiesWrapper(props);
 
 		AvalonEngine.serverId = propertiesWrapper.getIntProperty(SystemEnvironment.APP_ID, -1);
-		String modelName = propertiesWrapper.getProperty(SystemEnvironment.ENGINE_MODEL,
-				AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
+		String modelName = propertiesWrapper.getProperty(SystemEnvironment.ENGINE_MODEL,AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
 		AvalonEngine.mode = AvalonServerMode.getSeverMode(modelName);
 		// 组件管理器
 		systemRegistry = new ComponentRegistryImpl();
@@ -452,8 +453,7 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 		IService avalon = new AvalonMediator();
 		// 如果是网关和单幅模式需要启动网络服务
 		if (mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE) || mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
-			IService netty = new NettyServer(propertiesWrapper.getIntProperty(SystemEnvironment.TCP_PROT, D_PORT),
-					NettyHandler.class);
+			IService netty = new NettyServer(propertiesWrapper.getIntProperty(SystemEnvironment.TCP_PROT, D_PORT),NettyHandler.class);
 			systemRegistry.addComponent(netty);
 		}
 		// jmx相关启动
@@ -473,7 +473,7 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 				try {
 					((IService) object).init(propertiesWrapper);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("Server Exception", e);
 				}
 			}
 		}
@@ -484,7 +484,7 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 				try {
 					((IService) object).init(propertiesWrapper);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("Server Components Exception", e);
 				}
 			}
 		}
@@ -501,8 +501,7 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 		// 网关服务不需要启动逻辑部分
 		if (!mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
 			// 启动上层逻辑应用
-			listener = (propertiesWrapper).getClassInstanceProperty(SystemEnvironment.APP_LISTENER, AppListener.class,
-					new Class[] {});
+			listener = (propertiesWrapper).getClassInstanceProperty(SystemEnvironment.APP_LISTENER, AppListener.class,new Class[] {});
 			listener.initialize();
 			application.setAppListener(listener);
 		}
@@ -519,7 +518,7 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 	 */
 	public static void main(String[] args) throws Exception {
 		File root = new File("");
-		logger.info(root.getAbsolutePath());
+		logger.info("File path="+root.getAbsolutePath());
 		// 确保没有过多的参数
 		File config = new File(root.getAbsolutePath() + File.separator + "conf" + File.separator + "app.properties");
 		if (!config.exists()) {
@@ -531,8 +530,6 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 		props.load(config);
 
 		name = props.getValue(SystemEnvironment.APP_NAME);
-
-		System.out.println(name);
 		// 启动核心
 		new AvalonEngine(props);
 	}
@@ -557,11 +554,17 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 
 	@Override
 	public void stopEngine() {
-		System.out.println("Server shut down");
-		for (IService iService : systemRegistry) {
-			iService.destroy(null);
-		}
-		System.exit(1);
+		logger.info("Close kernel");
+		new Thread(new Runnable() {
+			@Override
+			public void run()
+			{
+				logger.info("Server shut down");
+				for (IService iService : systemRegistry) {
+					iService.destroy(null);
+				}
+			}
+		}).start();
 	}
 
 	@Override

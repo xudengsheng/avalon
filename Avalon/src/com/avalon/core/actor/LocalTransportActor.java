@@ -369,8 +369,7 @@ public class LocalTransportActor extends UntypedActor {
 
 	// 本次会话的唯一Id，用于分布式中的分组Id
 	/** The session actor id. */
-//	public final String sessionActorId;
-
+	// public final String sessionActorId;
 
 	/** The connection sessions ref. */
 	private ActorRef connectionSessionsRef;
@@ -393,7 +392,7 @@ public class LocalTransportActor extends UntypedActor {
 	 * @param ioSession
 	 *            the io session
 	 */
-	public LocalTransportActor( IoSession ioSession) {
+	public LocalTransportActor(IoSession ioSession) {
 		super();
 		this.ioSession = ioSession;
 
@@ -402,7 +401,6 @@ public class LocalTransportActor extends UntypedActor {
 	@Override
 	public void preStart() throws Exception {
 		super.preStart();
-//		getSelf().tell(new TransportMessage.IOSessionBindingTransportMessage(), ActorRef.noSender());
 		ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(), getSelf()));
 	}
 
@@ -414,11 +412,13 @@ public class LocalTransportActor extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception {
 
-//		if (msg instanceof TransportMessage.IOSessionBindingTransportMessage) {
-//			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(), getSelf()));
-//			return;
-//		} else
-			if (msg instanceof TransportMessage.IOSessionReciveMessage) {
+		// if (msg instanceof TransportMessage.IOSessionBindingTransportMessage)
+		// {
+		// ioSession.setSesssionActorCallBack(new
+		// InnerLocalActorCallBack(getSelf().path().uid(), getSelf()));
+		// return;
+		// } else
+		if (msg instanceof TransportMessage.IOSessionReciveMessage) {
 			if (bindingConnectionSession) {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				ConnectionSessionMessage message = new ConnectionSessionMessage.DirectSessionMessage(messagePackage);
@@ -437,7 +437,7 @@ public class LocalTransportActor extends UntypedActor {
 			if (bindingConnectionSession) {
 				connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
 			}
-			TransportSupervisorMessage message=new TransportSupervisorMessage.TransportLostNetSession();
+			TransportSupervisorMessage message = new TransportSupervisorMessage.TransportLostNetSession();
 			AkkaServerManager.transportSupervisorRef.tell(message, getSelf());
 			return;
 		} else if (msg instanceof TransportMessage.ConnectionSessionsBinding) {
@@ -464,5 +464,3 @@ public class LocalTransportActor extends UntypedActor {
 	}
 
 }
-
-

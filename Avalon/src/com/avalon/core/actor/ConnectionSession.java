@@ -410,7 +410,7 @@ public class ConnectionSession extends UntypedActor {
 			try {
 				sessionLinenter.receivedMessage(clientSession, (IoMessagePackage) message);
 			} catch (Exception e) {
-				e.printStackTrace();
+				log.error("sessionLinenter recevice error:",e);
 			}
 			return;
 		}
@@ -420,7 +420,7 @@ public class ConnectionSession extends UntypedActor {
 			try {
 				sessionLinenter.receivedMessage(clientSession, (IoMessagePackage) message);
 			} catch (Exception e) {
-				e.printStackTrace();
+				log.error("sessionLinenter recevice d error:",e);
 			}
 			return;
 		} 

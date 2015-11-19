@@ -30,7 +30,6 @@ public class InnerLocalActorCallBack implements ActorCallBack {
 	public void tellMessage(IoMessagePackage messagePackage) {
 		IOSessionReciveMessage message = new IOSessionReciveMessage(messagePackage);
 		AkkaServerManager.inbox.send(self, message);
-//		self.tell(message, ActorRef.noSender());
 	}
 
 

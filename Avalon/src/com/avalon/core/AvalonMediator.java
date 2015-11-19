@@ -342,9 +342,9 @@ Public License instead of this License.
 package com.avalon.core;
 
 import java.io.File;
-import java.nio.CharBuffer;
-import java.nio.charset.CharacterCodingException;
-import java.nio.charset.Charset;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.avalon.api.internal.IService;
 import com.avalon.core.message.AvalonMessageEvent;
@@ -357,7 +357,8 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Inbox;
 import akka.actor.Props;
-import scala.io.Position;
+import akka.actor.Terminated;
+import scala.concurrent.Future;
 
 /**
  * 阿瓦隆 的代理 基本的逻辑函数无法按照actor的形式使用，所以构建这个代理操作类.
@@ -372,6 +373,7 @@ public class AvalonMediator implements IService {
 	/** The avalon actor ref. */
 	private ActorRef avalonActorRef;
 
+	private static Logger logger = LoggerFactory.getLogger(AvalonEngine.class);
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -381,23 +383,24 @@ public class AvalonMediator implements IService {
 	public void init(Object obj) {
 		File root = new File("");
 		String searchPath = root.getAbsolutePath() + File.separator + "conf";
+		logger.info("conf path:"+searchPath);
 		PropertiesWrapper propertiesWrapper = (PropertiesWrapper) obj;
 		String fielPath = propertiesWrapper.getProperty(SystemEnvironment.AKKA_CONFIG_PATH, searchPath);
-
+		logger.info("akka conf path:"+fielPath);
 		File config = FileUtil.scanFileByPath(fielPath, "application.conf");
 
 		String akkaName = propertiesWrapper.getProperty(SystemEnvironment.AKKA_NAME, "AVALON");
+		logger.info("AKKA_NAME:"+akkaName);
 		String configName = propertiesWrapper.getProperty(SystemEnvironment.AKKA_CONFIG_NAME, "AVALON");
-
+		logger.info("configName:"+configName);
 		system = AkkaServerManager.initActorSystem(config, akkaName, configName);
 
 		avalonActorRef = system.actorOf(Props.create(AvalonActorSystem.class, system), SystemEnvironment.AVALON_NAME);
 
 		Inbox create = Inbox.create(system);
-		
+
 		create.send(avalonActorRef, new AvalonMessageEvent.InitAvalon());
 
-		
 	}
 
 	/*
@@ -407,7 +410,9 @@ public class AvalonMediator implements IService {
 	 */
 	@Override
 	public void destroy(Object obj) {
-		// TODO Auto-generated method stub
+		logger.info("akkasystem close");
+		Future<Terminated> terminate = AkkaServerManager.actorSystem.terminate();
+		while (terminate.isCompleted()) {logger.info("akkasystem closed");}
 
 	}
 

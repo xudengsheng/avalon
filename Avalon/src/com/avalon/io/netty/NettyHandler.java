@@ -379,9 +379,6 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	/** The transport actor call back. */
 	private ActorCallBack transportActorCallBack;
 
-	/** The component. */
-//	static AvalonMediator component = ContextResolver.getComponent(AvalonMediator.class);
-
 	/** The netty server. */
 	static NettyServer nettyServer = ContextResolver.getComponent(NettyServer.class);
 	
@@ -489,7 +486,7 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	 */
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-		cause.printStackTrace();
+	logger.error("net error",cause);
 		ctx.close();
 	}
 
