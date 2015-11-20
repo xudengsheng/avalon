@@ -1,6 +1,6 @@
 package com.zero.example.message;
 
-import com.avalon.api.internal.IoMessage;
+import com.avalon.api.internal.SerializableMessage;
 import com.example.protocol.javabean.CS_LoginJavaBean;
 import com.example.protocol.javabean.CS_RegeditJavaBean;
 import com.zero.example.SessionLisenter;
@@ -9,7 +9,7 @@ import com.zero.example.SessionLisenter;
  * @author zero
  *
  */
-public interface LoginManagerMessage extends IoMessage{
+public interface LoginManagerMessage extends SerializableMessage{
 	/**
 	 * 用户登录
 	 * @author zero

@@ -8,7 +8,7 @@ import akka.actor.UntypedActorContext;
 import com.avalon.api.ActorSession;
 import com.avalon.api.AppContext;
 import com.avalon.api.ClientSessionLinenter;
-import com.avalon.api.internal.IoMessage;
+import com.avalon.api.internal.SerializableMessage;
 import com.avalon.api.internal.IoMessagePackage;
 import com.zero.example.core.ExampleClientExtension;
 import com.zero.example.message.SessionLisenterMessage.SessionLoginMessage;
@@ -45,7 +45,7 @@ public class SessionLisenter implements ClientSessionLinenter {
 	}
 
 	@Override
-	public void receivedActorMessage(ActorRef sender, IoMessage ioMessage) {
+	public void receivedActorMessage(ActorRef sender, SerializableMessage ioMessage) {
 		// 收到其他Actor的协议
 		if (ioMessage instanceof SessionLoginMessage) {
 			clientSession.sendIoMessage(((SessionLoginMessage) ioMessage).ioMessage);

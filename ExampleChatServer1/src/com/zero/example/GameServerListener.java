@@ -49,4 +49,10 @@ public class GameServerListener implements AppListener {
 		sessionRef.remove(actorSessionpath);
 	}
 
+	@Override
+	public boolean shutDown() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

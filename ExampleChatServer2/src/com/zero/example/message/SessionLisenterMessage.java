@@ -1,9 +1,9 @@
 package com.zero.example.message;
 
-import com.avalon.api.internal.IoMessage;
+import com.avalon.api.internal.SerializableMessage;
 import com.avalon.api.internal.IoMessagePackage;
 
-public interface SessionLisenterMessage extends IoMessage {
+public interface SessionLisenterMessage extends SerializableMessage {
 
 	public class SessionLoginMessage implements SessionLisenterMessage {
 
