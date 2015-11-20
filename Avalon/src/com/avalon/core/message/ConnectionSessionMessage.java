@@ -360,7 +360,7 @@ public interface ConnectionSessionMessage extends Serializable {
 		private static final long serialVersionUID = -4904126255787744156L;
 
 		/** The cluster uid. */
-
+		public final int serverId;
 		/** The sender path. */
 		public final ActorRef sender;
 
@@ -369,14 +369,16 @@ public interface ConnectionSessionMessage extends Serializable {
 
 		/**
 		 * Instantiates a new checks for sender path message.
+		 * @param serverId 
 		 *
 		 * @param clusterUid the cluster uid
 		 * @param senderPath the sender path
 		 * @param message the message
 		 */
-		public HasSenderPathMessage(ActorRef senderPath, Object message)
+		public HasSenderPathMessage(int serverId, ActorRef senderPath, Object message)
 		{
 			super();
+			this.serverId=serverId;
 			this.sender = senderPath;
 			this.message = message;
 		}

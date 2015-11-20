@@ -418,26 +418,27 @@ public class RemoteTransportActor extends UntypedActor {
 		// InnerLocalActorCallBack(getSelf().path().uid(),getSelf()));
 		// return;
 		// } else
+		AkkaServerManager instance = AkkaServerManager.getInstance();
+		ActorRef self = getSelf();
 		if (msg instanceof TransportMessage.IOSessionReciveMessage) {
 			if (!bindingConnectionSession) {
 				// 发送到集群分割器
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				// 11c417d8-6e62-4e5d-a97b-2d8ab10bb2ab
-				int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.GATE_BINDING,
-						-1);
-				ServerSupervisorMessage commandSessionProtocol = new ServerSupervisorMessage.DistributionConnectionSessionsProtocol(
-						getSelf(), messagePackage, serverId);
-				AkkaServerManager.getInstance().getServerSupervisorSubscriberRef().tell(commandSessionProtocol, getSelf());
+				int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.GATE_BINDING,-1);
+				ServerSupervisorMessage commandSessionProtocol = new ServerSupervisorMessage.DistributionConnectionSessionsProtocol(self, messagePackage, serverId);
+				ActorRef serverSupervisorSubscriberRef = instance.getServerSupervisorSubscriberRef();
+				serverSupervisorSubscriberRef.tell(commandSessionProtocol, self);
 			} else {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				DirectSessionMessage commandSessionProtocol = new DirectSessionMessage(messagePackage);
-				connectionSessionsRef.tell(commandSessionProtocol, getSelf());
+				connectionSessionsRef.tell(commandSessionProtocol, self);
 			}
 			return;
 		} else if (msg instanceof IOSessionReciveDirectMessage) {
 			IoMessagePackage messagePackage = ((TransportMessage.IOSessionReciveDirectMessage) msg).messagePackage;
 			ConnectionSessionMessage message = new ConnectionSessionMessage.DirectSessionMessage(messagePackage);
-			connectionSessionsRef.tell(message, getSelf());
+			connectionSessionsRef.tell(message, self);
 			return;
 		}
 
@@ -447,18 +448,26 @@ public class RemoteTransportActor extends UntypedActor {
 			return;
 		} else if (msg instanceof TransportMessage.ConnectionSessionsBinding) {
 			log.debug("集群网络绑定");
+			int serverId = ((TransportMessage.ConnectionSessionsBinding) msg).serverId;
 			bindingConnectionSession = true;
 			this.connectionSessionsRef = getSender();
-			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(), getSelf()));
+			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(self.path().uid(), self));
+			
+			TransportSupervisorMessage message=new TransportSupervisorMessage.TransportBindingServer(serverId);
+			instance.getTransportSupervisorRef().tell(message, self);
 			return;
 		} else if (msg instanceof TransportMessage.CloseConnectionSessions) {
 			if (bindingConnectionSession) {
-				connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
+				connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), self);
 			}
 			TransportSupervisorMessage message = new TransportSupervisorMessage.TransportLostNetSession();
-			AkkaServerManager.getInstance().getTransportSupervisorRef().tell(message, getSelf());
+			instance.getTransportSupervisorRef().tell(message, self);
 			return;
-		} else {
+		}
+		else if(msg instanceof TransportMessage.ServerClose){
+			ioSession.close();
+		}
+		else {
 			unhandled(msg);
 		}
 

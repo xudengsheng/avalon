@@ -433,7 +433,7 @@ public class ClusterListener extends UntypedActor {
 		} else if (message instanceof MemberRemoved) {
 			MemberRemoved mRemoved = (MemberRemoved) message;
 			Member member = mRemoved.member();
-			ServerSupervisorMessage serverSupervisorMessage = new ServerSupervisorMessage.ServerLost(member);
+			ServerSupervisorMessage serverSupervisorMessage = new ServerSupervisorMessage.ServerLost(member.uniqueAddress().uid());
 
 			ActorSelection actorSelection = getContext().actorSelection(SystemEnvironment.AKKA_USER_PATH +ServerSupervisorSubscriber.IDENTIFY);
 			actorSelection.tell(serverSupervisorMessage, getSelf());

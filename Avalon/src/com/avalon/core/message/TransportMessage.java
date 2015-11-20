@@ -458,15 +458,17 @@ public interface TransportMessage extends Serializable {
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -7851710747490260982L;
 
-
+		public final int serverId;
 		/**
 		 * Instantiates a new connection sessions binding.
+		 * @param serverId 
 		 *
 		 * @param clusterUid the cluster uid
 		 */
-		public ConnectionSessionsBinding()
+		public ConnectionSessionsBinding(int serverId)
 		{
 			super();
+			this.serverId=serverId;
 		}
 
 	}
@@ -475,6 +477,16 @@ public interface TransportMessage extends Serializable {
 	 * 网络会话断开
 	 */
 	public static class CloseConnectionSessions implements TransportMessage {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = 5621353783623408296L;
+
+	}
+	
+	/**
+	 * 服务器断开
+	 */
+	public static class ServerClose implements TransportMessage {
 
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 5621353783623408296L;

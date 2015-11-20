@@ -391,8 +391,9 @@ public class ConnectionSession extends UntypedActor {
 
 		if (msg instanceof ConnectionSessionMessage.HasSenderPathMessage) {
 			sender = ((ConnectionSessionMessage.HasSenderPathMessage) msg).sender;
+			int serverId = ((ConnectionSessionMessage.HasSenderPathMessage) msg).serverId;
 
-			TransportMessage.ConnectionSessionsBinding binding = new TransportMessage.ConnectionSessionsBinding();
+			TransportMessage.ConnectionSessionsBinding binding = new TransportMessage.ConnectionSessionsBinding(serverId);
 
 			Object message = ((ConnectionSessionMessage.HasSenderPathMessage) msg).message;
 			sender.tell(binding, getSelf());

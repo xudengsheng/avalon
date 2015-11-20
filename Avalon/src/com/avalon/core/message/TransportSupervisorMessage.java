@@ -430,4 +430,37 @@ public interface TransportSupervisorMessage extends Serializable {
 		private static final long serialVersionUID = -6986985343089164066L;
 		
 	}
+	/**
+	 * 传输actor绑定服务器
+	 * @author zero
+	 *
+	 */
+	public class TransportBindingServer implements TransportSupervisorMessage{
+
+		private static final long serialVersionUID = 3105248299175077488L;
+		
+		public final int serverId;
+
+		public TransportBindingServer(int serverId) {
+			super();
+			this.serverId = serverId;
+		}
+	}
+	
+	/**
+	 * 传输actor绑定服务器
+	 * @author zero
+	 *
+	 */
+	public class ServerLost implements TransportSupervisorMessage{
+
+		private static final long serialVersionUID = 3105248299175077488L;
+		
+		public final int serverId;
+
+		public ServerLost(int serverId) {
+			super();
+			this.serverId = serverId;
+		}
+	}
 }

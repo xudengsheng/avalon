@@ -344,12 +344,14 @@ package com.avalon.core.supervision;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.avalon.core.ContextResolver;
 import com.avalon.core.actor.ConnectionSession;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.ConnectionSessionMessage.DirectSessionMessage;
 import com.avalon.core.message.ConnectionSessionMessage.HasSenderPathMessage;
 import com.avalon.core.message.ConnectionSessionSupervisorMessage.CluserSessionMessage;
 import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
+import com.avalon.setting.SystemEnvironment;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
@@ -378,6 +380,7 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 	/** The key connection session. */
 	private Map<String, ActorRef> keyConnectionSession = new HashMap<String, ActorRef>();
 
+	private int serverId;
 	/* (non-Javadoc)
 	 * @see akka.actor.UntypedActor#preStart()
 	 */
@@ -385,6 +388,7 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 	public void preStart() throws Exception
 	{
 		super.preStart();
+		serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID,-1);
 	}
 
 	
@@ -414,7 +418,7 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 				getContext().watch(actorOf);
 
 				Object origins = ((CluserSessionMessage) msg).origins;
-				HasSenderPathMessage message = new HasSenderPathMessage(sender, origins);
+				HasSenderPathMessage message = new HasSenderPathMessage(serverId,sender, origins);
 
 				actorOf.tell(message, getSelf());
 				sessionNum += 1;
@@ -441,7 +445,7 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 				ActorRef actorOf = getContext().actorOf(Props.create(ConnectionSession.class), name);
 				getContext().watch(actorOf);
 
-				HasSenderPathMessage message = new HasSenderPathMessage(getSender(), ((LocalSessionMessage) msg).messagePackage);
+				HasSenderPathMessage message = new HasSenderPathMessage(serverId,getSender(), ((LocalSessionMessage) msg).messagePackage);
 				actorOf.tell(message, getSelf());
 
 				sessionNum += 1;

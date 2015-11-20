@@ -45,26 +45,30 @@ public interface ServerSupervisorMessage extends Serializable {
 
 		public final int type;
 
-		public final Member member;
+		public final String addressPath;
+		
+		public final int addressUid;
 
 		public final int serverId;
 
 		public final boolean noBack;
 
-		public ServerOnline(String uUID, int type, Member member, int serverId) {
+		public ServerOnline(String uUID, int type,String addressPath, int addressUid,int serverId) {
 			super();
 			UUID = uUID;
 			this.type = type;
-			this.member = member;
+			this.addressPath = addressPath;
+			this.addressUid=addressUid;
 			this.serverId = serverId;
 			this.noBack = false;
 		}
 
-		public ServerOnline(String uUID, int type, Member member, int serverId, boolean nobak) {
+		public ServerOnline(String uUID, int type,String addressPath, int addressUid, int serverId, boolean nobak) {
 			super();
-			UUID = uUID;
+			this.UUID = uUID;
 			this.type = type;
-			this.member = member;
+			this.addressPath = addressPath;
+			this.addressUid=addressUid;
 			this.serverId = serverId;
 			this.noBack = nobak;
 		}
@@ -81,11 +85,11 @@ public interface ServerSupervisorMessage extends Serializable {
 
 		private static final long serialVersionUID = -8106187315194918345L;
 
-		public final Member Member;
+		public final int memberUid;
 
-		public ServerLost(Member member) {
+		public ServerLost(int memberUid) {
 			super();
-			Member = member;
+			this.memberUid = memberUid;
 		}
 
 	}
@@ -171,10 +175,29 @@ public interface ServerSupervisorMessage extends Serializable {
 			this.serverid=serverid;
 			this.origins = origins;
 		}
-
-
-
-
 	}
 
+	public class Ping implements ServerSupervisorMessage{
+		
+		private static final long serialVersionUID = -5077511031331253358L;
+
+		public final String UUID;
+
+		public final int addressUid;
+		
+		public final int type;
+
+		public final int serverId;
+
+		public Ping(String uUID, int addressUid, int type, int serverId) {
+			super();
+			UUID = uUID;
+			this.addressUid = addressUid;
+			this.type = type;
+			this.serverId = serverId;
+		}
+
+
+		
+	}
 }
