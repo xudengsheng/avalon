@@ -2,12 +2,17 @@ package com.avalon.jmx;
 
 import static com.avalon.jmx.ManagementService.quote;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Hashtable;
 
 import com.avalon.core.AvalonEngine;
 import com.avalon.core.proxy.TransportSupervisorProxy;
 import com.avalon.io.IoMonitorImpl;
 import com.avalon.setting.AvalonServerMode;
+
+import javassist.CannotCompileException;
+import javassist.NotFoundException;
 
 @ManagedDescription("AvalonInstance")
 public class AvalonInstanceMediator extends AvalonMBean<AvalonEngine> {
@@ -65,16 +70,34 @@ public class AvalonInstanceMediator extends AvalonMBean<AvalonEngine> {
 	public String getServerMode() {
 		return managedObject.getServerMode().modeName;
 	}
-	
+
 	@ManagedAnnotation(value = "GameServerNum")
 	@ManagedDescription("GameServer Num")
 	public int GameServerNum() {
 		return managedObject.GameServerNum();
 	}
-	
+
 	@ManagedAnnotation(value = "GateServreNum")
 	@ManagedDescription("GateServre Num")
 	public int GateServreNum() {
 		return managedObject.GateServreNum();
+	}
+
+	@ManagedAnnotation(value = "reloadClazz", operation = true)
+	@ManagedDescription("reload one class")
+	public void reloadClazz(String fileName, String clazzName) throws FileNotFoundException, IOException {
+		managedObject.reloadClazz(fileName, clazzName);
+	}
+	
+	@ManagedAnnotation(value = "reloadJar", operation = true)
+	@ManagedDescription("reload jar in the reload doc")
+	public void reloadJar(String fileName) throws FileNotFoundException, IOException {
+		managedObject.reloadJar(fileName);
+	}
+	
+	@ManagedAnnotation(value = "reloadMethod", operation = true)
+	@ManagedDescription("reload one class method")
+	public void reloadMethod(String clazz, String methodName, String context) throws NotFoundException, CannotCompileException, IOException{
+		managedObject.reloadMethod(clazz, methodName, context);
 	}
 }

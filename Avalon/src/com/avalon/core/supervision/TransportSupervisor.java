@@ -491,6 +491,7 @@ public class TransportSupervisor extends UntypedActor {
 		else if (msg instanceof Terminated) {
 			ActorRef actor = ((Terminated) msg).actor();
 			transports.remove(actor);
+			
 			TransportSupervisorProxy.getInstance().subTransportNum();
 		}
 		// actor 绑定对已的server

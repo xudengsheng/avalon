@@ -46,5 +46,6 @@
 	<classpathentry kind="lib" path="lib/protobuf-java-2.5.0.jar"/>
 	<classpathentry kind="lib" path="lib/akka/akka-protobuf_2.11-2.4.0.jar"/>
 	<classpathentry kind="lib" path="lib/akka/akka-cluster-metrics_2.11-2.4.0.jar"/>
+	<classpathentry kind="lib" path="/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/lib/tools.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

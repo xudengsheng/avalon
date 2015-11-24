@@ -375,6 +375,11 @@ public class SystemEnvironment {
 
 	/** The Constant AKKA_NAME. */
 	public static final String AKKA_NAME = APP_ROOT + ".akka.name";
+	
+	
+	public static final String RELOAD_PORT =  APP_ROOT + ".app.reload.port";
+	
+	public static final String RELOAD_PATH = APP_ROOT + ".app.reload.path";
 
 	/** The Constant AKKA_CONFIG_NAME. */
 	public static final String AKKA_CONFIG_NAME = APP_ROOT + "akka.config";
@@ -411,5 +416,7 @@ public class SystemEnvironment {
 
 	/** The Constant MINA_SERVER_NAME. */
 	public static final String MINA_SERVER_NAME = APP_ROOT + ".mina.server.name";
+
+	
 
 }

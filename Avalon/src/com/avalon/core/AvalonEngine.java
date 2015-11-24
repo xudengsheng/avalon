@@ -342,6 +342,8 @@ Public License instead of this License.
 package com.avalon.core;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -357,8 +359,13 @@ import com.avalon.jmx.AvalonInstanceMXBean;
 import com.avalon.jmx.ManagementService;
 import com.avalon.setting.AvalonServerMode;
 import com.avalon.setting.SystemEnvironment;
+import com.avalon.util.HotSwapClassUtil;
 import com.avalon.util.PropertiesWrapper;
+import com.sun.jdi.connect.IllegalConnectorArgumentsException;
 
+import javassist.CannotCompileException;
+import javassist.NotFoundException;
+import javassist.util.HotSwapper;
 import jodd.props.Props;
 
 // TODO: Auto-generated Javadoc
@@ -392,6 +399,8 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 	/** The properties wrapper. */
 	private PropertiesWrapper propertiesWrapper;
 
+	HotSwapClassUtil hotSwapClassUtil;
+
 	public static int gameServerNum;
 
 	public static int gateServerNum;
@@ -418,7 +427,8 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 		propertiesWrapper = new PropertiesWrapper(props);
 
 		AvalonEngine.serverId = propertiesWrapper.getIntProperty(SystemEnvironment.APP_ID, -1);
-		String modelName = propertiesWrapper.getProperty(SystemEnvironment.ENGINE_MODEL,AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
+		String modelName = propertiesWrapper.getProperty(SystemEnvironment.ENGINE_MODEL,
+				AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
 		AvalonEngine.mode = AvalonServerMode.getSeverMode(modelName);
 		// 组件管理器
 		systemRegistry = new ComponentRegistryImpl();
@@ -451,7 +461,8 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 		IService avalon = new AvalonMediator();
 		// 如果是网关和单幅模式需要启动网络服务
 		if (mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE) || mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
-			IService netty = new NettyServer(propertiesWrapper.getIntProperty(SystemEnvironment.TCP_PROT, D_PORT),NettyHandler.class);
+			IService netty = new NettyServer(propertiesWrapper.getIntProperty(SystemEnvironment.TCP_PROT, D_PORT),
+					NettyHandler.class);
 			systemRegistry.addComponent(netty);
 		}
 		// jmx相关启动
@@ -487,6 +498,12 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 			}
 		}
 
+		try {
+			hotSwapClassUtil = new HotSwapClassUtil(propertiesWrapper);
+		} catch (IOException | IllegalConnectorArgumentsException e) {
+			logger.error("Hot Swap Util error", e);
+		}
+
 	}
 
 	/**
@@ -499,7 +516,8 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 		// 网关服务不需要启动逻辑部分
 		if (!mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
 			// 启动上层逻辑应用
-			listener = (propertiesWrapper).getClassInstanceProperty(SystemEnvironment.APP_LISTENER, AppListener.class,new Class[] {});
+			listener = (propertiesWrapper).getClassInstanceProperty(SystemEnvironment.APP_LISTENER, AppListener.class,
+					new Class[] {});
 			listener.initialize();
 			application.setAppListener(listener);
 		}
@@ -516,7 +534,7 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 	 */
 	public static void main(String[] args) throws Exception {
 		File root = new File("");
-		logger.info("File path="+root.getAbsolutePath());
+		logger.info("File path=" + root.getAbsolutePath());
 		// 确保没有过多的参数
 		File config = new File(root.getAbsolutePath() + File.separator + "conf" + File.separator + "app.properties");
 		if (!config.exists()) {
@@ -555,10 +573,14 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 		logger.info("Close kernel");
 		new Thread(new Runnable() {
 			@Override
-			public void run()
-			{
+			public void run() {
 				logger.info("Server shut down");
-				boolean shutDown = listener.shutDown();
+				boolean shutDown=true;
+				if (null!=listener) {
+					shutDown = listener.shutDown();
+				}else{
+					shutDown=true;
+				}
 				if (!shutDown) {
 					logger.info("Server Application not shut down");
 					return;
@@ -583,6 +605,22 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 	@Override
 	public int GameServerNum() {
 		return gameServerNum;
+	}
+
+	@Override
+	public void reloadJar(String fileName) throws FileNotFoundException, IOException {
+		hotSwapClassUtil.reloadJar(fileName);
+	}
+
+	@Override
+	public void reloadClazz(String fileName, String clazzName) throws FileNotFoundException, IOException {
+		hotSwapClassUtil.reload(fileName, clazzName);
+	}
+
+	@Override
+	public void reloadMethod(String clazz, String methodName, String context)
+			throws NotFoundException, CannotCompileException, IOException {
+		hotSwapClassUtil.reloadMethod(clazz, methodName, context);
 	}
 
 }
