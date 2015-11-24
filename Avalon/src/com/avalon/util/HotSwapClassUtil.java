@@ -45,7 +45,7 @@ public class HotSwapClassUtil {
 	 * @param fileName 
 	 *            文件名
 	 * @param clazzName
-	 *            类名称
+	 *            类名称 
 	 */
 	public void reload(String fileName, String clazzName) throws FileNotFoundException, IOException {
 		FileInputStream fileInputStream = null;

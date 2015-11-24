@@ -245,7 +245,8 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 
 	private void lostServer(int serverId) {
 		TransportSupervisorMessage message=new TransportSupervisorMessage.ServerLost(serverId);
-		AkkaServerManager.getInstance().getTransportSupervisorRef().tell(message, getSelf());
+		AkkaServerManager instance = AkkaServerManager.getInstance();
+		instance.getTransportSupervisorRef().tell(message, getSelf());
 	}
 
 	private List<MemberWaper> getGameServer() {
