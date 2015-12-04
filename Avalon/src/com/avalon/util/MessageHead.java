@@ -343,8 +343,8 @@ Public License instead of this License.
 
 import java.nio.ByteBuffer;
 
-import com.avalon.api.internal.SerializableMessage;
 import com.avalon.api.internal.IoMessagePackage;
+import com.avalon.api.internal.SerializableMessage;
 
 
 // TODO: Auto-generated Javadoc

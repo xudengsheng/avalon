@@ -347,6 +347,7 @@ import com.avalon.core.AvalonEngine;
 import com.avalon.core.message.ServerSupervisorMessage;
 import com.avalon.core.subscribe.ServerSupervisorSubscriber;
 import com.avalon.setting.SystemEnvironment;
+import com.avalon.util.AkkaPathDecorate;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSelection;
@@ -420,7 +421,7 @@ public class ClusterListener extends UntypedActor {
 			//akka.tcp://AVALON@127.0.0.1:2551
 			String addressString = uniqueAddress.address().toString();
 			ServerSupervisorMessage serverSupervisorMessage = new ServerSupervisorMessage.ServerIsTheSame(GEUID,AvalonEngine.mode.type, member);
-			String path = addressString + SystemEnvironment.AKKA_USER_PATH + ServerSupervisorSubscriber.IDENTIFY;
+			String path = AkkaPathDecorate.getFixSupervisorPath(addressString, ServerSupervisorSubscriber.IDENTIFY);
 			ActorSelection actorSelection = getContext().actorSelection(path);
 			actorSelection.tell(serverSupervisorMessage, getSelf());
 
@@ -435,7 +436,7 @@ public class ClusterListener extends UntypedActor {
 			Member member = mRemoved.member();
 			ServerSupervisorMessage serverSupervisorMessage = new ServerSupervisorMessage.ServerLost(member.uniqueAddress().uid());
 
-			ActorSelection actorSelection = getContext().actorSelection(SystemEnvironment.AKKA_USER_PATH +ServerSupervisorSubscriber.IDENTIFY);
+			ActorSelection actorSelection = getContext().actorSelection(AkkaPathDecorate.getLocalFixSubscriberPath(ServerSupervisorSubscriber.IDENTIFY));
 			actorSelection.tell(serverSupervisorMessage, getSelf());
 			log.info("Member is Removed: {}", member);
 		}
@@ -443,7 +444,7 @@ public class ClusterListener extends UntypedActor {
 			if (((ServerSupervisorMessage.ServerOnline) message).UUID.equals(GEUID)) {
 				log.info("The same member");
 			} else {
-				ActorSelection actorSelection = getContext().actorSelection(SystemEnvironment.AKKA_USER_PATH +ServerSupervisorSubscriber.IDENTIFY);
+				ActorSelection actorSelection = getContext().actorSelection(AkkaPathDecorate.getLocalFixSubscriberPath(ServerSupervisorSubscriber.IDENTIFY));
 				actorSelection.tell(message, getSender());
 			}
 		}

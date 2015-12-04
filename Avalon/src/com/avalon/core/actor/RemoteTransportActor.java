@@ -343,7 +343,6 @@ package com.avalon.core.actor;
 
 import com.avalon.api.IoSession;
 import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.core.AkkaServerManager;
 import com.avalon.core.ContextResolver;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.ConnectionSessionMessage.DirectSessionMessage;
@@ -354,6 +353,7 @@ import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
 import com.avalon.core.message.TransportMessage.SessionSessionMessage;
 import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.setting.SystemEnvironment;
+import com.avalon.util.AkkaDecorate;
 
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
@@ -401,7 +401,7 @@ public class RemoteTransportActor extends UntypedActor {
 	@Override
 	public void preStart() throws Exception {
 		super.preStart();
-		ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(), getSelf()));
+		ioSession.setActorBridge(new InnerLocalActorBringe(getSelf().path().uid(), getSelf()));
 	}
 
 	/*
@@ -411,14 +411,6 @@ public class RemoteTransportActor extends UntypedActor {
 	 */
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		// if (msg instanceof TransportMessage.IOSessionBindingTransportMessage)
-		// {
-		// log.debug("IO绑定");
-		// ioSession.setSesssionActorCallBack(new
-		// InnerLocalActorCallBack(getSelf().path().uid(),getSelf()));
-		// return;
-		// } else
-		AkkaServerManager instance = AkkaServerManager.getInstance();
 		ActorRef self = getSelf();
 		if (msg instanceof TransportMessage.IOSessionReciveMessage) {
 			if (!bindingConnectionSession) {
@@ -426,48 +418,45 @@ public class RemoteTransportActor extends UntypedActor {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				// 11c417d8-6e62-4e5d-a97b-2d8ab10bb2ab
 				int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.GATE_BINDING,-1);
+				
 				ServerSupervisorMessage commandSessionProtocol = new ServerSupervisorMessage.DistributionConnectionSessionsProtocol(self, messagePackage, serverId);
-				ActorRef serverSupervisorSubscriberRef = instance.getServerSupervisorSubscriberRef();
+				ActorRef serverSupervisorSubscriberRef = AkkaDecorate.getServerSupervisorSubscriberRef();
 				serverSupervisorSubscriberRef.tell(commandSessionProtocol, self);
 			} else {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				DirectSessionMessage commandSessionProtocol = new DirectSessionMessage(messagePackage);
 				connectionSessionsRef.tell(commandSessionProtocol, self);
 			}
-			return;
-		} else if (msg instanceof IOSessionReciveDirectMessage) {
+		} 
+		else if (msg instanceof IOSessionReciveDirectMessage) {
 			IoMessagePackage messagePackage = ((TransportMessage.IOSessionReciveDirectMessage) msg).messagePackage;
 			ConnectionSessionMessage message = new ConnectionSessionMessage.DirectSessionMessage(messagePackage);
 			connectionSessionsRef.tell(message, self);
-			return;
 		}
-
-		else if (msg instanceof SessionSessionMessage) {
+		
+		else if (msg instanceof TransportMessage.SessionSessionMessage) {
 			IoMessagePackage messagePackage = ((SessionSessionMessage) msg).messagePackage;
 			ioSession.write(messagePackage);
-			return;
-		} else if (msg instanceof TransportMessage.ConnectionSessionsBinding) {
+		} 
+		else if (msg instanceof TransportMessage.ConnectionSessionsBinding) {
 			log.debug("集群网络绑定");
+			
 			int serverId = ((TransportMessage.ConnectionSessionsBinding) msg).serverId;
 			bindingConnectionSession = true;
 			this.connectionSessionsRef = getSender();
-			ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(self.path().uid(), self));
 			
-			TransportSupervisorMessage message=new TransportSupervisorMessage.TransportBindingServer(serverId);
-			instance.getTransportSupervisorRef().tell(message, self);
-			return;
-		} else if (msg instanceof TransportMessage.CloseConnectionSessions) {
+			TransportSupervisorMessage message = new TransportSupervisorMessage.TransportBindingServer(serverId);
+			AkkaDecorate.getTransportSupervisorRef().tell(message, self);
+		} 
+		else if (msg instanceof TransportMessage.CloseConnectionSessions) {
 			if (bindingConnectionSession) {
 				connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), self);
 			}
 			TransportSupervisorMessage message = new TransportSupervisorMessage.TransportLostNetSession();
-			instance.getTransportSupervisorRef().tell(message, self);
-			return;
-		}
-		else if(msg instanceof TransportMessage.ServerClose){
+			AkkaDecorate.getTransportSupervisorRef().tell(message, self);
+		} else if (msg instanceof TransportMessage.ServerClose) {
 			ioSession.close();
-		}
-		else {
+		} else {
 			unhandled(msg);
 		}
 

@@ -365,7 +365,6 @@ import com.sun.jdi.connect.IllegalConnectorArgumentsException;
 
 import javassist.CannotCompileException;
 import javassist.NotFoundException;
-import javassist.util.HotSwapper;
 import jodd.props.Props;
 
 // TODO: Auto-generated Javadoc
@@ -427,8 +426,7 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 		propertiesWrapper = new PropertiesWrapper(props);
 
 		AvalonEngine.serverId = propertiesWrapper.getIntProperty(SystemEnvironment.APP_ID, -1);
-		String modelName = propertiesWrapper.getProperty(SystemEnvironment.ENGINE_MODEL,
-				AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
+		String modelName = propertiesWrapper.getProperty(SystemEnvironment.ENGINE_MODEL,AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
 		AvalonEngine.mode = AvalonServerMode.getSeverMode(modelName);
 		// 组件管理器
 		systemRegistry = new ComponentRegistryImpl();
@@ -461,13 +459,12 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 		IService avalon = new AvalonMediator();
 		// 如果是网关和单幅模式需要启动网络服务
 		if (mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE) || mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
-			IService netty = new NettyServer(propertiesWrapper.getIntProperty(SystemEnvironment.TCP_PROT, D_PORT),
-					NettyHandler.class);
+			IService netty = new NettyServer(propertiesWrapper.getIntProperty(SystemEnvironment.TCP_PROT, D_PORT),NettyHandler.class);
 			systemRegistry.addComponent(netty);
 		}
 		// jmx相关启动
 		ManagementService managementService = new ManagementService(this);
-		AkkaServerManager.getInstance().setManagementService(managementService);
+		((AvalonMediator) avalon).setManagementService(managementService);
 		systemRegistry.addComponent(avalon);
 		// 初始化分布任务管理器
 		DistributedTaskManagerService globleTaskManagerProxy = new DistributedTaskManagerService();
@@ -516,8 +513,7 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 		// 网关服务不需要启动逻辑部分
 		if (!mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
 			// 启动上层逻辑应用
-			listener = (propertiesWrapper).getClassInstanceProperty(SystemEnvironment.APP_LISTENER, AppListener.class,
-					new Class[] {});
+			listener = (propertiesWrapper).getClassInstanceProperty(SystemEnvironment.APP_LISTENER, AppListener.class,new Class[] {});
 			listener.initialize();
 			application.setAppListener(listener);
 		}

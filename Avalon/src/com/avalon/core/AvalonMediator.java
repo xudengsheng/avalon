@@ -348,10 +348,13 @@ import org.slf4j.LoggerFactory;
 
 import com.avalon.api.internal.IService;
 import com.avalon.core.message.AvalonMessageEvent;
-import com.avalon.core.message.TaskManagerMessage;
+import com.avalon.jmx.ManagementService;
 import com.avalon.setting.SystemEnvironment;
+import com.avalon.util.AkkaDecorate;
 import com.avalon.util.FileUtil;
 import com.avalon.util.PropertiesWrapper;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
@@ -369,10 +372,28 @@ public class AvalonMediator implements IService {
 
 	/** The system. */
 	private ActorSystem system;
-	// avalone Actor
-	/** The avalon actor ref. */
+
+	/**
+	 * 阿瓦隆系统
+	 */
+	private ActorRef avalonActorRef;
+	/** T集群事件监听. */
+	private ActorRef clusterListener;
+	/** 全局任务管理 actor. */
+	private ActorRef globleTaskManagerActor;
+	/** Server状态管理 */
+	private ActorRef serverSupervisorSubscriberRef;
+	/** 网络会话管理地址 */
+	private ActorRef transportSupervisorRef;
+	/** 客户端会话Actor管理 */
+	private ActorRef connectionSessionSupervisor;
+	/** akka的信箱 */
+	private Inbox inbox;
+
+	private ManagementService managementService;
 
 	private static Logger logger = LoggerFactory.getLogger(AvalonEngine.class);
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -382,22 +403,30 @@ public class AvalonMediator implements IService {
 	public void init(Object obj) {
 		File root = new File("");
 		String searchPath = root.getAbsolutePath() + File.separator + "conf";
-		logger.info("conf path:"+searchPath);
+		logger.info("conf path:" + searchPath);
 		PropertiesWrapper propertiesWrapper = (PropertiesWrapper) obj;
 		String fielPath = propertiesWrapper.getProperty(SystemEnvironment.AKKA_CONFIG_PATH, searchPath);
-		logger.info("akka conf path:"+fielPath);
+		logger.info("akka conf path:" + fielPath);
 		File config = FileUtil.scanFileByPath(fielPath, "application.conf");
 
 		String akkaName = propertiesWrapper.getProperty(SystemEnvironment.AKKA_NAME, "AVALON");
-		logger.info("AKKA_NAME:"+akkaName);
+		logger.info("AKKA_NAME:" + akkaName);
 		String configName = propertiesWrapper.getProperty(SystemEnvironment.AKKA_CONFIG_NAME, "AVALON");
-		logger.info("configName:"+configName);
-		system = AkkaServerManager.getInstance().initActorSystem(config, akkaName, configName);
+		logger.info("configName:" + configName);
+		initActorSystem(config, akkaName, configName);
 
-		ActorRef avalonActorRef = system.actorOf(Props.create(AvalonActorSystem.class, system), SystemEnvironment.AVALON_NAME);
-		AkkaServerManager.getInstance().setAvalonActorRef(avalonActorRef);
-		AkkaServerManager.getInstance().getInbox().send(avalonActorRef , new AvalonMessageEvent.InitAvalon());
+		avalonActorRef = system.actorOf(Props.create(AvalonActorSystem.class, system),	SystemEnvironment.AVALON_NAME);
+		
+		AkkaDecorate.getInbox().send(avalonActorRef, new AvalonMessageEvent.InitAvalon());
 
+	}
+
+	public void initActorSystem(File file, String akkaName, String configName) {
+		Config cg = ConfigFactory.parseFile(file);
+		cg.withFallback(ConfigFactory.defaultReference(Thread.currentThread().getContextClassLoader()));
+		Config config = ConfigFactory.load(cg).getConfig(configName);
+		system = ActorSystem.create(akkaName, config);
+		inbox = Inbox.create(system);
 	}
 
 	/*
@@ -408,8 +437,10 @@ public class AvalonMediator implements IService {
 	@Override
 	public void destroy(Object obj) {
 		logger.info("akkasystem close");
-		Future<Terminated> terminate = AkkaServerManager.getInstance().getActorSystem().terminate();
-		while (terminate.isCompleted()) {logger.info("akkasystem closed");}
+		Future<Terminated> terminate =system.terminate();
+		while (terminate.isCompleted()) {
+			logger.info("akkasystem closed");
+		}
 
 	}
 
@@ -420,7 +451,7 @@ public class AvalonMediator implements IService {
 	 */
 	@Override
 	public void handleMessage(Object msg) {
-		
+
 	}
 
 	/*
@@ -451,4 +482,74 @@ public class AvalonMediator implements IService {
 	public ActorSystem getSystem() {
 		return system;
 	}
+
+	public ActorRef getAvalonActorRef() {
+		return avalonActorRef;
+	}
+
+	public void setAvalonActorRef(ActorRef avalonActorRef) {
+		this.avalonActorRef = avalonActorRef;
+	}
+
+	public ActorRef getClusterListener() {
+		return clusterListener;
+	}
+
+	public void setClusterListener(ActorRef clusterListener) {
+		this.clusterListener = clusterListener;
+	}
+
+	public ActorRef getGlobleTaskManagerActor() {
+		return globleTaskManagerActor;
+	}
+
+	public void setGlobleTaskManagerActor(ActorRef globleTaskManagerActor) {
+		this.globleTaskManagerActor = globleTaskManagerActor;
+	}
+
+	public ActorRef getServerSupervisorSubscriberRef() {
+		return serverSupervisorSubscriberRef;
+	}
+
+	public void setServerSupervisorSubscriberRef(ActorRef serverSupervisorSubscriberRef) {
+		this.serverSupervisorSubscriberRef = serverSupervisorSubscriberRef;
+	}
+
+	public ActorRef getTransportSupervisorRef() {
+		return transportSupervisorRef;
+	}
+
+	public void setTransportSupervisorRef(ActorRef transportSupervisorRef) {
+		this.transportSupervisorRef = transportSupervisorRef;
+	}
+
+	public ActorRef getConnectionSessionSupervisor() {
+		return connectionSessionSupervisor;
+	}
+
+	public void setConnectionSessionSupervisor(ActorRef connectionSessionSupervisor) {
+		this.connectionSessionSupervisor = connectionSessionSupervisor;
+	}
+
+	public Inbox getInbox() {
+		return inbox;
+	}
+
+	public void setInbox(Inbox inbox) {
+		this.inbox = inbox;
+	}
+
+	public ManagementService getManagementService() {
+		return managementService;
+	}
+
+	public void setManagementService(ManagementService managementService) {
+		this.managementService = managementService;
+	}
+
+	public void setSystem(ActorSystem system) {
+		this.system = system;
+	}
+
+	
 }

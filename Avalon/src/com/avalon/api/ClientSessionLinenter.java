@@ -341,8 +341,8 @@ Public License instead of this License.
  */
 package com.avalon.api;
 
-import com.avalon.api.internal.SerializableMessage;
 import com.avalon.api.internal.IoMessagePackage;
+import com.avalon.api.internal.SerializableMessage;
 
 import akka.actor.ActorRef;
 

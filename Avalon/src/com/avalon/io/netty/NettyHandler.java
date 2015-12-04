@@ -347,15 +347,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.avalon.api.IoSession;
-import com.avalon.api.internal.ActorCallBack;
+import com.avalon.api.internal.ActorBridge;
 import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.core.AkkaServerManager;
 import com.avalon.core.ContextResolver;
 import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.io.message.NetWorkMessage;
+import com.avalon.util.AkkaDecorate;
 import com.avalon.util.MessageHead;
 import com.google.common.collect.Queues;
 
+import akka.actor.Inbox;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
@@ -377,7 +378,7 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	private boolean bindingTransportActor = false;
 	// 绑定TransportActor,不是连接的ConnectionSession
 	/** The transport actor call back. */
-	private ActorCallBack transportActorCallBack;
+	private ActorBridge transportActorCallBack;
 
 	/** The netty server. */
 	static NettyServer nettyServer = ContextResolver.getComponent(NettyServer.class);
@@ -426,7 +427,8 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 		
 		TransportSupervisorMessage.CreateIOSessionActor message = new TransportSupervisorMessage.CreateIOSessionActor(this);
 		// 创建一个新的会话封装
-		AkkaServerManager.getInstance().getInbox().send(AkkaServerManager.getInstance().getTransportSupervisorRef(), message);
+		Inbox inbox = AkkaDecorate.getInbox();
+		inbox.send(AkkaDecorate.getTransportSupervisorRef(), message);
 
 		nettyServer.handleMessage(new NetWorkMessage.SessionOnline(this));
 		if (logger.isDebugEnabled()) {
@@ -535,7 +537,7 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	 * .ActorCallBack)
 	 */
 	@Override
-	public void setSesssionActorCallBack(ActorCallBack actorCallBack) {
+	public void setActorBridge(ActorBridge actorCallBack) {
 		this.transportActorCallBack = actorCallBack;
 		bindingTransportActor = true;
 		nettyServer.handlerBing(this, actorCallBack.getBindSessionId());
@@ -557,7 +559,7 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 		return bindingTransportActor;
 	}
 
-	public ActorCallBack getTransportActorCallBack() {
+	public ActorBridge getTransportActorCallBack() {
 		return transportActorCallBack;
 	}
  

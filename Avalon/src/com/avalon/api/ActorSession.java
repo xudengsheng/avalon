@@ -371,11 +371,11 @@ public interface ActorSession{
 	TaskManager getTaskManager();
 
 	/**
-	 * 更换传输的Actor.
+	 * 更换传输的ActorRef.
 	 *
 	 * @param untypActorSelection the new transport
 	 */
-	void setTransport(ActorRef untypActorSelection);
+	void setTransport(ActorRef actorRef);
 
 	/**
 	 * 发送消息(会话直接发到连接客户端).

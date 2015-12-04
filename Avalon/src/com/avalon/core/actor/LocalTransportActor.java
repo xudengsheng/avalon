@@ -343,13 +343,13 @@ package com.avalon.core.actor;
 
 import com.avalon.api.IoSession;
 import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.core.AkkaServerManager;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
 import com.avalon.core.message.TransportMessage;
-import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
 import com.avalon.core.message.TransportMessage.SessionSessionMessage;
+import com.avalon.core.message.TransportSupervisorMessage;
+import com.avalon.util.AkkaDecorate;
 
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
@@ -401,7 +401,7 @@ public class LocalTransportActor extends UntypedActor {
 	@Override
 	public void preStart() throws Exception {
 		super.preStart();
-		ioSession.setSesssionActorCallBack(new InnerLocalActorCallBack(getSelf().path().uid(), getSelf()));
+		ioSession.setActorBridge(new InnerLocalActorBringe(getSelf().path().uid(), getSelf()));
 	}
 
 	/*
@@ -426,7 +426,7 @@ public class LocalTransportActor extends UntypedActor {
 			} else {
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				LocalSessionMessage commandSessionProtocol = new LocalSessionMessage(messagePackage);
-				AkkaServerManager.getInstance().getConnectionSessionSupervisor().tell(commandSessionProtocol, getSelf());
+				AkkaDecorate.getConnectionSessionSupervisorRef().tell(commandSessionProtocol, getSelf());
 			}
 			return;
 		} else if (msg instanceof SessionSessionMessage) {
@@ -438,7 +438,7 @@ public class LocalTransportActor extends UntypedActor {
 				connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
 			}
 			TransportSupervisorMessage message = new TransportSupervisorMessage.TransportLostNetSession();
-			AkkaServerManager.getInstance().getTransportSupervisorRef().tell(message, getSelf());
+			AkkaDecorate.getTransportSupervisorRef().tell(message, getSelf());
 			return;
 		} else if (msg instanceof TransportMessage.ConnectionSessionsBinding) {
 			this.connectionSessionsRef = getSender();

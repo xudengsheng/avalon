@@ -351,8 +351,6 @@ import java.util.concurrent.TimeUnit;
 
 import com.avalon.api.IoSession;
 import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.core.AkkaServerManager;
-import com.avalon.core.AvalonActorSystem;
 import com.avalon.core.ContextResolver;
 import com.avalon.core.actor.LocalTransportActor;
 import com.avalon.core.actor.RemoteTransportActor;
@@ -360,8 +358,8 @@ import com.avalon.core.message.TransportMessage;
 import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.core.proxy.TransportSupervisorProxy;
 import com.avalon.setting.SystemEnvironment;
+import com.avalon.util.AkkaDecorate;
 import com.avalon.util.PropertiesWrapper;
-import com.sun.prism.paint.Stop;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSelection;
@@ -422,8 +420,7 @@ public class TransportSupervisor extends UntypedActor {
 		sessionTimeOut = propertiesWrapper.getIntProperty(SystemEnvironment.GATE_SESSION_TIME_OUT, 60);
 		sessionCheckTime = propertiesWrapper.getIntProperty(SystemEnvironment.GATE_SESSION_CHECK_TIME, 60);
 
-		AkkaServerManager instance = AkkaServerManager.getInstance();
-		ActorSystem actorSystem = instance.getActorSystem();
+		ActorSystem actorSystem = AkkaDecorate.getActorSystem();
 		Scheduler scheduler = actorSystem.scheduler();
 		cancellable = scheduler.schedule(Duration.Zero(), Duration.create(sessionCheckTime, TimeUnit.SECONDS),
 				getSelf(), message, actorSystem.dispatcher(), getSelf());

@@ -341,7 +341,7 @@ Public License instead of this License.
  */
 package com.avalon.api;
 
-import com.avalon.api.internal.ActorCallBack;
+import com.avalon.api.internal.ActorBridge;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -375,6 +375,6 @@ public interface IoSession {
 	 *
 	 * @param actorCallBack the new sesssion actor call back
 	 */
-	void setSesssionActorCallBack(ActorCallBack actorCallBack);
+	void setActorBridge(ActorBridge actorCallBack);
 
 }

@@ -342,10 +342,10 @@ Public License instead of this License.
 package com.avalon.core.service;
 
 import com.avalon.api.DistributedTaskManager;
-import com.avalon.core.AkkaServerManager;
 import com.avalon.core.ContextResolver;
 import com.avalon.core.message.TaskManagerMessage;
 import com.avalon.setting.SystemEnvironment;
+import com.avalon.util.AkkaDecorate;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -362,7 +362,7 @@ public class DistributedTaskManagerService implements DistributedTaskManager {
 	{
 		int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID, 1);
 		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,serverId,-1,-1);
-		AkkaServerManager.getInstance().getInbox().send(AkkaServerManager.getInstance().getAvalonActorRef(), createTaskMessage);
+		AkkaDecorate.getInbox().send(AkkaDecorate.getAvalonActorRef(), createTaskMessage);
 	}
 
 	/* (non-Javadoc)
@@ -373,7 +373,7 @@ public class DistributedTaskManagerService implements DistributedTaskManager {
 	{
 		int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID, 1);
 		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,serverId,delay,-1);
-		AkkaServerManager.getInstance().getInbox().send(AkkaServerManager.getInstance().getAvalonActorRef(), createTaskMessage);
+		AkkaDecorate.getInbox().send(AkkaDecorate.getAvalonActorRef(), createTaskMessage);
 	}
 
 	/* (non-Javadoc)
@@ -384,7 +384,7 @@ public class DistributedTaskManagerService implements DistributedTaskManager {
 	{
 		int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID, 1);
 		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,serverId,delay,period);
-		AkkaServerManager.getInstance().getInbox().send(AkkaServerManager.getInstance().getAvalonActorRef(), createTaskMessage);
+		AkkaDecorate.getInbox().send(AkkaDecorate.getAvalonActorRef(), createTaskMessage);
 	}
 
 }

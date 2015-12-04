@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import com.avalon.core.AkkaServerManager;
 import com.avalon.core.AvalonEngine;
 import com.avalon.core.ContextResolver;
 import com.avalon.core.cluster.ClusterListener;
@@ -15,6 +14,8 @@ import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.core.supervision.ConnectionSessionSupervisor;
 import com.avalon.setting.AvalonServerMode;
 import com.avalon.setting.SystemEnvironment;
+import com.avalon.util.AkkaDecorate;
+import com.avalon.util.AkkaPathDecorate;
 import com.avalon.util.PropertiesWrapper;
 
 import akka.actor.ActorRef;
@@ -128,7 +129,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 				mediator.tell(new DistributedPubSubMediator.Publish(ClusterListener.shardName, supervisorMessage),
 						getSelf());
 
-				ActorSystem actorSystem = AkkaServerManager.getInstance().getActorSystem();
+				ActorSystem actorSystem = AkkaDecorate.getActorSystem();
 				Scheduler scheduler = actorSystem.scheduler();
 				FiniteDuration delayTime = Duration.create(60, TimeUnit.SECONDS);
 				FiniteDuration periodTime = Duration.create(60, TimeUnit.SECONDS);
@@ -193,8 +194,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 				}
 			}
 			if (!getPing) {
-				MemberWaper memberWaper = new MemberWaper(serverId2, addressUid, AvalonServerMode.getSeverMode(type),
-						getSender().path().address().toString());
+				MemberWaper memberWaper = new MemberWaper(serverId2, addressUid, AvalonServerMode.getSeverMode(type),getSender().path().address().toString());
 				members.add(memberWaper);
 				log.info("add new server by ping");
 			}
@@ -216,8 +216,8 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 			if (serverid < 0) {
 				int index = MathUtil.randomInt(0, list.size());
 				MemberWaper memberWaper = list.get(index);
-				String string = memberWaper.toString();
-				String fixPath = string + SystemEnvironment.AKKA_USER_PATH + ConnectionSessionSupervisor.IDENTIFY;
+				String stringAddress = memberWaper.toString();
+				String fixPath =AkkaPathDecorate.getFixSupervisorPath(stringAddress,ConnectionSessionSupervisor.IDENTIFY);
 
 				ActorSelection actorSelection = getContext().actorSelection(fixPath);
 				actorSelection.tell(message, getSelf());
@@ -226,8 +226,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 				for (MemberWaper memberWaper : list) {
 					if (memberWaper.serverId == serverid) {
 						String stringAddress = memberWaper.address;
-						String fixPath = stringAddress + SystemEnvironment.AKKA_USER_PATH
-								+ ConnectionSessionSupervisor.IDENTIFY;
+						String fixPath =AkkaPathDecorate.getFixSupervisorPath(stringAddress,ConnectionSessionSupervisor.IDENTIFY);
 						ActorSelection actorSelection = getContext().actorSelection(fixPath);
 						actorSelection.tell(message, getSelf());
 					}
@@ -245,8 +244,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 
 	private void lostServer(int serverId) {
 		TransportSupervisorMessage message=new TransportSupervisorMessage.ServerLost(serverId);
-		AkkaServerManager instance = AkkaServerManager.getInstance();
-		instance.getTransportSupervisorRef().tell(message, getSelf());
+		AkkaDecorate.getTransportSupervisorRef().tell(message, getSelf());
 	}
 
 	private List<MemberWaper> getGameServer() {

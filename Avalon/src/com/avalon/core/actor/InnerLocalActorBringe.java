@@ -1,19 +1,20 @@
 package com.avalon.core.actor;
 
-import com.avalon.api.internal.ActorCallBack;
+import com.avalon.api.internal.ActorBridge;
 import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.core.AkkaServerManager;
 import com.avalon.core.message.TransportMessage.CloseConnectionSessions;
 import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
+import com.avalon.util.AkkaDecorate;
 
 import akka.actor.ActorRef;
+import akka.actor.Inbox;
 
-public class InnerLocalActorCallBack implements ActorCallBack {
+public class InnerLocalActorBringe implements ActorBridge {
 
 	private final ActorRef self;
 	public final int sessionActorUId;
 
-	public InnerLocalActorCallBack(int sessionActorUId, ActorRef self) {
+	public InnerLocalActorBringe(int sessionActorUId, ActorRef self) {
 		super();
 		this.self = self;
 		this.sessionActorUId = sessionActorUId;
@@ -23,13 +24,15 @@ public class InnerLocalActorCallBack implements ActorCallBack {
 	@Override
 	public void closed() {
 		CloseConnectionSessions closed = new CloseConnectionSessions();
-		AkkaServerManager.getInstance().getInbox().send(self, closed);
+		Inbox inbox = AkkaDecorate.getInbox();
+		inbox.send(self, closed);
 	}
 
 	@Override
 	public void tellMessage(IoMessagePackage messagePackage) {
 		IOSessionReciveMessage message = new IOSessionReciveMessage(messagePackage);
-		AkkaServerManager.getInstance().getInbox().send(self, message);
+		Inbox inbox = AkkaDecorate.getInbox();
+		inbox.send(self, message);
 	}
 
 

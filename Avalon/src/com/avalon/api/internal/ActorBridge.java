@@ -347,7 +347,7 @@ package com.avalon.api.internal;
  *
  * @author zero
  */
-public interface ActorCallBack {
+public interface ActorBridge {
 	/**
 	 * 获取会话的绑定Id
 	 * 

@@ -27,8 +27,6 @@
 	<classpathentry kind="lib" path="lib/akka/leveldbjni-all-1.8.jar"/>
 	<classpathentry kind="lib" path="lib/akka/netty-3.10.3.Final.jar"/>
 	<classpathentry kind="lib" path="lib/akka/sigar-loader-1.6.6-rev002.jar"/>
-	<classpathentry kind="lib" path="lib/akka/slf4j-api-1.7.12.jar"/>
-	<classpathentry kind="lib" path="lib/akka/slf4j-api-1.7.5.jar"/>
 	<classpathentry kind="lib" path="lib/akka/test-interface-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/akka/akka-contrib_2.11-2.4.0.jar"/>
 	<classpathentry kind="lib" path="lib/akka/akka-persistence_2.11-2.4.0.jar"/>

@@ -350,6 +350,7 @@ import com.avalon.core.supervision.ConnectionSessionSupervisor;
 import com.avalon.core.supervision.TransportSupervisor;
 import com.avalon.core.task.GlobleTaskManagerActor;
 import com.avalon.setting.AvalonServerMode;
+import com.avalon.util.AkkaDecorate;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
@@ -446,7 +447,7 @@ public class AvalonActorSystem extends UntypedActor {
 		if (msg instanceof AvalonMessageEvent.InitAvalon) {
 			// 服务器监听
 			Props create = Props.create(ServerSupervisorSubscriber.class);
-			AkkaServerManager instance = AkkaServerManager.getInstance();
+			AvalonMediator instance = ContextResolver.getComponent(AvalonMediator.class);
 			
 			ActorRef serverSupervisorSubscriberRef = actorSystem.actorOf(create, ServerSupervisorSubscriber.IDENTIFY);
 			instance.setServerSupervisorSubscriberRef(serverSupervisorSubscriberRef);
@@ -514,9 +515,9 @@ public class AvalonActorSystem extends UntypedActor {
 		// 任务创建消息
 		else if (msg instanceof TaskManagerMessage.createTaskMessage) {
 			if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_GAME)) {
-				AkkaServerManager.getInstance().getServerSupervisorSubscriberRef().tell(msg, ActorRef.noSender());
+				AkkaDecorate.getServerSupervisorSubscriberRef().tell(msg, ActorRef.noSender());
 			} else if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE)) {
-				AkkaServerManager.getInstance().getGlobleTaskManagerActor().tell(msg, ActorRef.noSender());
+				AkkaDecorate.getGlobleTaskManagerActorRef().tell(msg, ActorRef.noSender());
 			}
 
 		}
