@@ -1,5 +1,7 @@
 package test.avalon.core;
 
+import java.util.Calendar;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,14 +28,6 @@ public class Main {
 	public static void teardown() {
 		JavaTestKit.shutdownActorSystem(system);
 		system = null;
-	}
-
-	public static void main(String[] args) {
-		Integer a = 10_00;
-		Integer b = 10_00;
-
-		System.out.println(a.intValue() == b.intValue());
-		System.out.println(1000 == 1000);
 	}
 
 	@Test

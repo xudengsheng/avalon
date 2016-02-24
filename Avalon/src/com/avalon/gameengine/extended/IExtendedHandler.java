@@ -339,156 +339,26 @@ consider it more useful to permit linking proprietary applications with the
 library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.
  */
-package com.avalon.game;
+package com.avalon.gameengine.extended;
 
-import java.util.Iterator;
-
-import com.avalon.game.event.AkkaEvent;
-import com.avalon.game.extended.ExtendedMessage;
-import com.avalon.game.extended.IAvalonExtendedControl;
 
 import akka.actor.ActorRef;
-import akka.actor.Props;
-import akka.actor.UntypedActor;
-import akka.japi.Creator;
 
 // TODO: Auto-generated Javadoc
 /**
- * 顶级世界.
+ * 用户处理自己的定义的消息的.
  *
  * @author zero
  */
-public class AvalonWorld extends UntypedActor {
-
-	/** The Constant IDENTITY. */
-	public static final String IDENTITY = AvalonWorld.class.getSimpleName();
+public interface IExtendedHandler {
 	
-	/** The Constant ZONE_IDENTITY. */
-	public static final String ZONE_IDENTITY = "World_Zone";
-	
-	/** The Constant OBJECT_MASTER_IDENTITY. */
-	public static final String OBJECT_MASTER_IDENTITY = "World_Object_Master";
-	
-	/** The zone ref. */
-	public static ActorRef zoneRef;
-	
-	/** The object ref. */
-	public static ActorRef objectRef;
-
-	/** The avalon world. */
-	public static ActorRef avalonWorld;
-
 	/**
-	 * The Class selfCreator.
-	 */
-	static class selfCreator implements Creator<AvalonWorld> {
-
-		/** The Constant serialVersionUID. */
-		private static final long serialVersionUID = -4506944735716145059L;
-
-		/** The extended. */
-		private final IAvalonExtendedControl extended;
-
-		/**
-		 * Instantiates a new self creator.
-		 *
-		 * @param extended the extended
-		 */
-		public selfCreator(IAvalonExtendedControl extended) {
-			super();
-			this.extended = extended;
-		}
-
-		/* (non-Javadoc)
-		 * @see akka.japi.Creator#create()
-		 */
-		@Override
-		public AvalonWorld create() throws Exception {
-			return new AvalonWorld(extended);
-		}
-	}
-
-	/**
-	 * Props.
+	 * 处理用户自定义消息.
 	 *
-	 * @param extended the extended
-	 * @return the props
+	 * @param self      收到消息的Actor
+	 * @param sender    发送消息的Actor
+	 * @param message   用户自己定义的消息
 	 */
-	public static Props props(IAvalonExtendedControl extended) {
-		Props create = Props.create(new selfCreator(extended));
-		create.withDispatcher("session-default-dispatcher");
-		return create;
-	}
-
-	/**
-	 * Instantiates a new avalon world.
-	 *
-	 * @param extended the extended
-	 */
-	public AvalonWorld(IAvalonExtendedControl extended) {
-		super();
-		this.extended = extended;
-	}
-
-	/** The extended. */
-	private final IAvalonExtendedControl extended;
-
-	/* (non-Javadoc)
-	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
-	 */
-	@Override
-	public void onReceive(Object message) throws Exception {
-
-		if (message instanceof AkkaEvent.CreateZoneManager) {
-			Props create = Props.create(AvalonZoneManager.class, ((AkkaEvent.CreateZoneManager) message).handler);
-			ActorRef actorOf = getContext().actorOf(create, ZONE_IDENTITY);
-			getContext().watch(actorOf);
-			zoneRef = actorOf;
-		} else if (message instanceof AkkaEvent.CreateObjectManager) {
-			Props create = Props.create(AvalonObjectManager.class, ((AkkaEvent.CreateObjectManager) message).handler);
-			ActorRef actorOf = getContext().actorOf(create, OBJECT_MASTER_IDENTITY);
-			getContext().watch(actorOf);
-			objectRef = actorOf;
-		}
-
-		else if (message instanceof ExtendedMessage) {
-			extended.handleMessage(getSelf(), getSender(), (ExtendedMessage) message);
-		}
-
-	}
-
-	/* (non-Javadoc)
-	 * @see akka.actor.UntypedActor#postRestart(java.lang.Throwable)
-	 */
-	@Override
-	public void postRestart(Throwable reason) throws Exception {
-		super.postRestart(reason);
-		Iterable<ActorRef> children = getContext().getChildren();
-		Iterator<ActorRef> iterator = children.iterator();
-		while (iterator.hasNext()) {
-			ActorRef next = iterator.next();
-			next.tell(new AkkaEvent.WorldRestart(), getSelf());
-		}
-		extended.actorExtendedRestart();
-	}
-
-	/* (non-Javadoc)
-	 * @see akka.actor.UntypedActor#postStop()
-	 */
-	@Override
-	public void postStop() throws Exception {
-		super.postStop();
-		extended.actorExtendedStop();
-	}
-
-	/* (non-Javadoc)
-	 * @see akka.actor.UntypedActor#preStart()
-	 */
-	@Override
-	public void preStart() throws Exception {
-		super.preStart();
-		AvalonWorld.avalonWorld = getSelf();
-		extended.actorExtendedStart(this);
-	}
+	void handleMessage(ActorRef self, ActorRef sender, IExtendedMessage message);
 
 }

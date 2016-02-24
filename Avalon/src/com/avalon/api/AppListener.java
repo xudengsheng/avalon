@@ -376,4 +376,7 @@ public interface AppListener {
 	 * @return
 	 */
 	boolean shutDown();
+	
+	void nodeOnline();
+	
 }

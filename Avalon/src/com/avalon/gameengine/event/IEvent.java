@@ -339,35 +339,71 @@ consider it more useful to permit linking proprietary applications with the
 library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.
  */
-package com.avalon.game.extended;
+package com.avalon.gameengine.event;
 
+import java.io.Serializable;
 
-import akka.actor.UntypedActor;
+import com.avalon.gameengine.ANObject;
+import com.avalon.gameengine.extended.IExtendedHandler;
+
 // TODO: Auto-generated Javadoc
-
 /**
- * 扩展接口.
- *
- * @author zero
+ * The Interface AkkaEvent.
  */
-public interface IAvalonExtendedControl extends IAvalonExtendedHandler{
-	
+public interface IEvent extends Serializable {
+
 	/**
-	 * 启动初始化的时候.
+	 * The Class WorldRestart.
+	 */
+	public class WorldRestart implements IEvent {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = -4092811106070497832L;
+	}
+	/**
+	 * 创建Avalon 对象事件
+	 * @author zero
 	 *
-	 * @param self the self
-	 * @param args the args
 	 */
-	void actorExtendedStart(UntypedActor self,Object... args);
-	
-	/**
-	 * 游戏世界关闭.
-	 */
-	void actorExtendedStop();
-	
-	/**
-	 * 从新启动.
-	 */
-	void actorExtendedRestart();
+	public class CreateANObject implements IEvent {
+
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = -5052817758295923370L;
+
+		public final Class<?> anObject;
+		
+		public final String id;
+		/**
+		 * 消息拓展接口
+		 */
+		public final IExtendedHandler handler;
+		/**
+		 * 回调接口
+		 */
+		public final IEventCallBack back;
+
+		/**
+		 * Instantiates a new creates the zone manager.
+		 *
+		 * @param handler
+		 *            the handler
+		 */
+		public CreateANObject(Class<?> anObject,String id, IExtendedHandler handler) {
+			super();
+			this.anObject = anObject;
+			this.id=id;
+			this.handler = handler;
+			this.back = null;
+		}
+
+		public CreateANObject(Class<?> anObject,String id, IExtendedHandler handler, IEventCallBack back) {
+			super();
+			this.anObject = anObject;
+			this.id=id;
+			this.handler = handler;
+			this.back = back;
+		}
+
+	}
 
 }

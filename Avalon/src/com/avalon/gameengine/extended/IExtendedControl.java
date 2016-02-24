@@ -339,54 +339,35 @@ consider it more useful to permit linking proprietary applications with the
 library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.
  */
-package com.avalon.game;
+package com.avalon.gameengine.extended;
 
-import com.avalon.game.extended.ExtendedMessage;
-import com.avalon.game.extended.IAvalonExtendedHandler;
 
 import akka.actor.UntypedActor;
-import scala.Option;
-
 // TODO: Auto-generated Javadoc
+
 /**
- * 抽象对象.
+ * 扩展接口.
  *
  * @author zero
  */
-public abstract class AvalonObject extends UntypedActor implements IAvalonExtendedHandler {
-
-	/* (non-Javadoc)
-	 * @see akka.actor.UntypedActor#preRestart(java.lang.Throwable, scala.Option)
+public interface IExtendedControl extends IExtendedHandler{
+	
+	/**
+	 * 启动初始化的时候.
+	 *
+	 * @param self the self
+	 * @param args the args
 	 */
-	@Override
-	public void preRestart(Throwable reason, Option<Object> message) throws Exception {
-		super.preRestart(reason, message);
-	}
-
-	/* (non-Javadoc)
-	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
+	void actorExtendedStart(UntypedActor self,Object... args);
+	
+	/**
+	 * 游戏世界关闭.
 	 */
-	@Override
-	public void onReceive(Object arg0) throws Exception {
-		if (arg0 instanceof ExtendedMessage) {
-			handleMessage(getSelf(), getSender(), (ExtendedMessage) arg0);
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see akka.actor.UntypedActor#postStop()
+	void actorExtendedStop();
+	
+	/**
+	 * 从新启动.
 	 */
-	@Override
-	public void postStop() throws Exception {
-		super.postStop();
-	}
-
-	/* (non-Javadoc)
-	 * @see akka.actor.UntypedActor#preStart()
-	 */
-	@Override
-	public void preStart() throws Exception {
-		super.preStart();
-	}
+	void actorExtendedRestart();
 
 }

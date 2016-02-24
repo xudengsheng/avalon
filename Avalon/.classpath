@@ -8,9 +8,6 @@
 	<classpathentry kind="lib" path="lib/fastjson-1.1.42.jar"/>
 	<classpathentry kind="lib" path="lib/javassist.jar"/>
 	<classpathentry kind="lib" path="lib/jodd-3.6.6.jar"/>
-	<classpathentry kind="lib" path="lib/logback-access-1.1.1.jar"/>
-	<classpathentry kind="lib" path="lib/logback-classic-1.1.1.jar"/>
-	<classpathentry kind="lib" path="lib/logback-core-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/netty-all-5.0.0.Alpha2.jar"/>
 	<classpathentry kind="lib" path="lib/sigar.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.6.jar"/>
@@ -45,5 +42,10 @@
 	<classpathentry kind="lib" path="lib/akka/akka-protobuf_2.11-2.4.0.jar"/>
 	<classpathentry kind="lib" path="lib/akka/akka-cluster-metrics_2.11-2.4.0.jar"/>
 	<classpathentry kind="lib" path="/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/lib/tools.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-api-2.5.jar" sourcepath="lib/log4j-api-2.5-sources.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-core-2.5.jar" sourcepath="lib/log4j-core-2.5-sources.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-nosql-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/mongodb-driver-3.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-slf4j-impl-2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

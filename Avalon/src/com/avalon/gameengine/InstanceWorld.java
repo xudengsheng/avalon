@@ -339,80 +339,50 @@ consider it more useful to permit linking proprietary applications with the
 library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.
  */
-package com.avalon.game;
+package com.avalon.gameengine;
 
-import com.avalon.game.event.AkkaEvent;
-import com.avalon.game.extended.ExtendedMessage;
-import com.avalon.game.extended.IAvalonExtendedControl;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
+import com.avalon.gameengine.event.IEvent;
+import com.avalon.gameengine.extended.IExtendedControl;
+import com.avalon.gameengine.interfaces.ICreateANObeject;
+
+import akka.actor.ActorRef;
 import akka.actor.Props;
-import akka.actor.UntypedActor;
-import akka.japi.Creator;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class AvalonZoneManager.
+ * 顶级世界.
+ *
+ * @author zero
  */
-public class AvalonZoneManager extends UntypedActor {
+public class InstanceWorld extends ANObject implements ICreateANObeject{
 
 	/** The Constant IDENTITY. */
-	public static final String IDENTITY = AvalonZoneManager.class.getSimpleName();
+	public static final String IDENTITY = InstanceWorld.class.getSimpleName();
 
-	/**
-	 * The Class selfCreator.
-	 */
-	static class selfCreator implements Creator<AvalonZoneManager> {
+	private Map<String, ActorRef> anObjects=new ConcurrentHashMap<String, ActorRef>();
+	/** The avalon world. */
+	public static ActorRef worldRef;
 
-		/** The Constant serialVersionUID. */
-		private static final long serialVersionUID = -4506944735716145059L;
 
-		/** The extended control. */
-		private final IAvalonExtendedControl extendedControl;
-
-		/**
-		 * Instantiates a new self creator.
-		 *
-		 * @param extendedControl the extended control
-		 */
-		public selfCreator(IAvalonExtendedControl extendedControl) {
-			super();
-			this.extendedControl = extendedControl;
-		}
-
-		/* (non-Javadoc)
-		 * @see akka.japi.Creator#create()
-		 */
-		@Override
-		public AvalonZoneManager create() throws Exception {
-			return new AvalonZoneManager(extendedControl);
-		}
-
+	public InstanceWorld(IExtendedControl extended) {
+		super(extended);
 	}
 
-	/**
-	 * Props.
-	 *
-	 * @param customMessageHandler the custom message handler
-	 * @return the props
-	 */
-	public static Props props(IAvalonExtendedControl customMessageHandler) {
-		Props create = Props.create(new selfCreator(customMessageHandler));
-		create.withDispatcher("session-default-dispatcher");
-		return create;
-	}
+	@Override
+	public void onReceive(Object message) throws Exception {
+		super.onReceive(message);
+		if (message instanceof IEvent.CreateANObject) {
+			ActorRef createANObject = createANObject(((IEvent.CreateANObject) message).anObject,((IEvent.CreateANObject) message).id, ((IEvent.CreateANObject) message).handler);
+			if (((IEvent.CreateANObject) message).back!=null) {
+				((IEvent.CreateANObject) message).back.callBack(createANObject);
+			}
+		} 
 
-	/**
-	 * Instantiates a new avalon zone manager.
-	 *
-	 * @param extendedControl the extended control
-	 */
-	public AvalonZoneManager(IAvalonExtendedControl extendedControl) {
-		super();
-		this.extendedControl = extendedControl;
 	}
-
-	/** The extended control. */
-	private final IAvalonExtendedControl extendedControl;
 
 	/* (non-Javadoc)
 	 * @see akka.actor.UntypedActor#postRestart(java.lang.Throwable)
@@ -420,7 +390,13 @@ public class AvalonZoneManager extends UntypedActor {
 	@Override
 	public void postRestart(Throwable reason) throws Exception {
 		super.postRestart(reason);
-
+		Iterable<ActorRef> children = getContext().getChildren();
+		Iterator<ActorRef> iterator = children.iterator();
+		while (iterator.hasNext()) {
+			ActorRef next = iterator.next();
+			next.tell(new IEvent.WorldRestart(), getSelf());
+		}
+		actorExtendedRestart();
 	}
 
 	/* (non-Javadoc)
@@ -429,6 +405,7 @@ public class AvalonZoneManager extends UntypedActor {
 	@Override
 	public void postStop() throws Exception {
 		super.postStop();
+		actorExtendedStop();
 	}
 
 	/* (non-Javadoc)
@@ -437,23 +414,29 @@ public class AvalonZoneManager extends UntypedActor {
 	@Override
 	public void preStart() throws Exception {
 		super.preStart();
-		extendedControl.actorExtendedStart(this);
+		InstanceWorld.worldRef = getSelf();
+		actorExtendedStart(this);
 	}
 
-	/* (non-Javadoc)
-	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
-	 */
+
 	@Override
-	public void onReceive(Object message) throws Exception {
-		if (message instanceof AkkaEvent.CreateZoneManager) {
-			Props create = Props.create(AvalonZoneManager.class, ((AkkaEvent.CreateZoneManager) message).handler);
-			getContext().actorOf(create);
-		} else if (message instanceof ExtendedMessage) {
-			extendedControl.handleMessage(getSelf(), getSender(), (ExtendedMessage) message);
-		} else if (message instanceof AkkaEvent.WorldRestart) {
-
-		}
-
+	public ActorRef createANObject(Class<?> anObject,String id, Object... arg) {
+		Props create = Props.create(anObject.getClass(),arg);
+		ActorRef actorOf = getContext().actorOf(create,id);
+		anObjects.put(id, actorOf);
+		getContext().watch(actorOf);
+		return actorOf;
 	}
+
+	@Override
+	public ActorRef createANObject(Class<?> anObject, String id) {
+		Props create = Props.create(anObject.getClass());
+		ActorRef actorOf = getContext().actorOf(create,id);
+		anObjects.put(id, actorOf);
+		getContext().watch(actorOf);
+		return actorOf;
+	}
+
+
 
 }
