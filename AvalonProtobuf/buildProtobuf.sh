@@ -1,1 +1,0 @@
-protoc --proto_path=protobuf/ --java_out=src-gen/ protobuf/*.proto

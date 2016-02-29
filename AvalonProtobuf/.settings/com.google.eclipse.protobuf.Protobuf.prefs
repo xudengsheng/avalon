@@ -1,7 +1,0 @@
-compiler.compileProtoFiles=true
-compiler.enableProjectSettings=true
-compiler.protocFilePath=/usr/local/protobuf/bin/protoc
-eclipse.preferences.version=1
-paths.directoryPaths=${workspace_loc\:/${project}/protobuf}
-paths.filesInMultipleDirectories=true
-paths.filesInOneDirectoryOnly=false
