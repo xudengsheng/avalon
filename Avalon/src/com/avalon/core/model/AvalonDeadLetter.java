@@ -341,6 +341,9 @@ Public License instead of this License.
  */
 package com.avalon.core.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import akka.actor.ActorRef;
 import akka.actor.DeadLetter;
 import akka.actor.UntypedActor;
@@ -356,7 +359,7 @@ import akka.event.LoggingAdapter;
 public class AvalonDeadLetter extends UntypedActor {
 
 	/** The log. */
-	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+	private static Logger logger = LoggerFactory.getLogger("AvalonEngine");
 	
 	/* (non-Javadoc)
 	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)

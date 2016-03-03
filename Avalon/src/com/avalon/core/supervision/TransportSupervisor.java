@@ -349,6 +349,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.avalon.api.IoSession;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.core.ContextResolver;
@@ -382,7 +385,7 @@ import scala.concurrent.duration.Duration;
 public class TransportSupervisor extends UntypedActor {
 
 	/** The log. */
-	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+	private static Logger logger = LoggerFactory.getLogger("TransportSupervisor");
 
 	/** The Constant IDENTIFY. */
 	public static final String IDENTIFY = "TransportSupervisor";
@@ -414,6 +417,7 @@ public class TransportSupervisor extends UntypedActor {
 	 */
 	public TransportSupervisor(boolean netGateMode) {
 		super();
+		logger.debug("TransportSupervisor init ,is gate=" + netGateMode);
 		this.netGateMode = netGateMode;
 		TransportSupervisorMessage message = new TransportSupervisorMessage.CheckNoSessionTransport();
 		PropertiesWrapper propertiesWrapper = ContextResolver.getPropertiesWrapper();
@@ -461,7 +465,7 @@ public class TransportSupervisor extends UntypedActor {
 		 * 第一次收到网络消息的情况下，TransportAcotr没有与ConnectionActor进行绑定，所以在这里进行第一次绑定
 		 */
 		else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage) {
-
+			logger.debug("ReciveIOSessionMessage");
 			String transportPath = ((TransportSupervisorMessage.ReciveIOSessionMessage) msg).transportPath;
 			ActorSelection actorSelection = getContext().actorSelection(transportPath);
 
@@ -478,39 +482,45 @@ public class TransportSupervisor extends UntypedActor {
 				if (lostTime < currentTimeMillis) {
 					getContext().stop(lostNetActor.actorRef);
 					remove.add(lostNetActor);
-				}else{
+				} else {
 					break;
-				} 
+				}
 			}
-			lostNetActors.removeAll(remove);
+			if (remove.size()>0) {
+				lostNetActors.removeAll(remove);
+			}
 		}
 		// 一个被监听Actor销毁掉了
 		else if (msg instanceof Terminated) {
+			logger.debug("an actor Terminated");
 			ActorRef actor = ((Terminated) msg).actor();
 			transports.remove(actor);
-			
+
 			TransportSupervisorProxy.getInstance().subTransportNum();
 		}
 		// actor 绑定对已的server
 		else if (msg instanceof TransportSupervisorMessage.TransportBindingServer) {
+			logger.debug("TransportSupervisorMessage.TransportBindingServer");
 			int serverId = ((TransportSupervisorMessage.TransportBindingServer) msg).serverId;
 			transports.put(getSender(), serverId);
 		}
-		
-		else if(msg instanceof TransportSupervisorMessage.ServerLost){
+
+		else if (msg instanceof TransportSupervisorMessage.ServerLost) {
 			int serverId = ((TransportSupervisorMessage.ServerLost) msg).serverId;
+			logger.debug("lost server serverId="+serverId);
 			for (Entry<ActorRef, Integer> entry : transports.entrySet()) {
-				if (entry.getValue()==serverId) {
-					TransportMessage message=new TransportMessage.ServerClose();
+				if (entry.getValue() == serverId) {
+					TransportMessage message = new TransportMessage.ServerClose();
 					ActorRef key = entry.getKey();
 					key.tell(message, getSelf());
 				}
 			}
 		}
-		
+
 		// 一个被监听Actor会话丢失链接
 		else if (msg instanceof TransportSupervisorMessage.TransportLostNetSession) {
 			ActorRef actorRef = getSender();
+			logger.debug("TransportSupervisorMessage.TransportLostNetSession"+actorRef);
 			LostNetActor actor = new LostNetActor(actorRef);
 			lostNetActors.addLast(actor);
 		} else {

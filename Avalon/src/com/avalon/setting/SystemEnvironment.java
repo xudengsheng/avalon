@@ -377,6 +377,8 @@ public class SystemEnvironment {
 	public static final String AKKA_NAME = APP_ROOT + ".akka.name";
 	
 	
+	public static final String RELOAD =  APP_ROOT + ".reload";
+	
 	public static final String RELOAD_PORT =  APP_ROOT + ".app.reload.port";
 	
 	public static final String RELOAD_PATH = APP_ROOT + ".app.reload.path";

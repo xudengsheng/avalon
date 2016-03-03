@@ -537,11 +537,11 @@ public class NettyServer implements IService {
 			index = 0;
 		}
 		int indexs = 0;
-		boolean search=false;
+		boolean search = false;
 		StringBuffer stringBuffer = new StringBuffer();
 		for (Entry<Integer, NettyHandler> entry : bindingSessions.entrySet()) {
 			if (index == indexs) {
-				search=true;
+				search = true;
 			}
 			if (search) {
 				stringBuffer.append(entry.getValue().getSessionId() + ":" + entry.getKey() + "\n");
@@ -553,20 +553,20 @@ public class NettyServer implements IService {
 		}
 		return stringBuffer.toString();
 	}
-	
+
 	public String getUnBindingSessionInfo(int index, int limit) {
 		if (index > unBindingSessions.size()) {
 			index = 0;
 		}
 		int indexs = 0;
-		boolean search=false;
+		boolean search = false;
 		StringBuffer stringBuffer = new StringBuffer();
 		for (Entry<Long, NettyHandler> entry : unBindingSessions.entrySet()) {
 			if (index == indexs) {
-				search=true;
+				search = true;
 			}
 			if (search) {
-				stringBuffer.append( "SessionId:" + entry.getKey() + "\n");
+				stringBuffer.append("SessionId:" + entry.getKey() + "\n");
 			}
 			indexs++;
 			if (indexs >= index + limit) {
@@ -574,6 +574,11 @@ public class NettyServer implements IService {
 			}
 		}
 		return stringBuffer.toString();
+	}
+
+	@Override
+	public String toString() {
+		return "NettyServer";
 	}
 
 }

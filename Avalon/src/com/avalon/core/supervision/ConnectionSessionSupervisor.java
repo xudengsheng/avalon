@@ -344,6 +344,9 @@ package com.avalon.core.supervision;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.avalon.core.ContextResolver;
 import com.avalon.core.actor.ConnectionSession;
 import com.avalon.core.message.ConnectionSessionMessage;
@@ -357,8 +360,6 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.Terminated;
 import akka.actor.UntypedActor;
-import akka.event.Logging;
-import akka.event.LoggingAdapter;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -369,7 +370,8 @@ import akka.event.LoggingAdapter;
 public class ConnectionSessionSupervisor extends UntypedActor {
 
 	/** The log. */
-	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+	private static Logger logger = LoggerFactory.getLogger("ConnectionSessionSupervisor");
+
 
 	/** The session num. */
 	int sessionNum = 0;
@@ -400,20 +402,20 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 	{
 		if (msg instanceof CluserSessionMessage)
 		{
-			log.debug("Geting CluserSessionMessage");
+			logger.debug("Geting CluserSessionMessage");
 			
 			ActorRef sender = ((CluserSessionMessage) msg).sender;
-			String name = sender.path().uid()+"";
+			String name = String.valueOf(sender.path().uid());
 			
 			if (keyConnectionSession.containsKey(name))
 			{
-				log.debug("keyConnectionSession has key=" + name);
+				logger.debug("keyConnectionSession has key=" + name);
 				ActorRef actorRef = keyConnectionSession.get(keyConnectionSession);
 				ConnectionSessionMessage.DirectSessionMessage directSessionMessage = new DirectSessionMessage(((LocalSessionMessage) msg).messagePackage);
 				actorRef.tell(directSessionMessage, getSender());
 			} else
 			{
-				log.debug("keyConnectionSession has not key=" + name);
+				logger.debug("keyConnectionSession has not key=" + name);
 				ActorRef actorOf = getContext().actorOf(Props.create(ConnectionSession.class), name);
 				getContext().watch(actorOf);
 
@@ -428,19 +430,19 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 		// 单服的消息策略
 		else if (msg instanceof LocalSessionMessage)
 		{
-			log.debug("Geting LocalSessionMessage");
+			logger.debug("Geting LocalSessionMessage");
 			// 放置延时的策略
 			// be645988-0ff5-4e7a-bcd0-566ec1789cb7
 			String name = getSender().path().name();
 			if (keyConnectionSession.containsKey(name))
 			{
-				log.debug("keyConnectionSession has name=" + name);
+				logger.debug("keyConnectionSession has name=" + name);
 				ActorRef actorRef = keyConnectionSession.get(keyConnectionSession);
 				ConnectionSessionMessage.DirectSessionMessage directSessionMessage = new DirectSessionMessage(((LocalSessionMessage) msg).messagePackage);
 				actorRef.tell(directSessionMessage, getSender());
 			} else
 			{
-				log.debug("keyConnectionSession has not name=" + name);
+				logger.debug("keyConnectionSession has not name=" + name);
 
 				ActorRef actorOf = getContext().actorOf(Props.create(ConnectionSession.class), name);
 				getContext().watch(actorOf);

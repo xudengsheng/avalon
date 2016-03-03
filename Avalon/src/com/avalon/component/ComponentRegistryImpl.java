@@ -363,7 +363,7 @@ import com.google.common.collect.Sets;
 public class ComponentRegistryImpl implements ComponentRegistry {
 
 	/** The logger. */
-	private Logger logger = LoggerFactory.getLogger(getClass());
+	private Logger logger = LoggerFactory.getLogger("AvalonEngine");
 	
 	/** 存放组件. */
 	private LinkedHashSet<IService> componentSet;
@@ -373,6 +373,7 @@ public class ComponentRegistryImpl implements ComponentRegistry {
 	 */
 	public ComponentRegistryImpl()
 	{
+		logger.debug("ComponentRegistryImpl create");
 		componentSet = Sets.newLinkedHashSet();
 	}
 
@@ -422,7 +423,7 @@ public class ComponentRegistryImpl implements ComponentRegistry {
 	public void addComponent(IService component)
 	{
 		componentSet.add(component);
-		logger.info("Component add component" + component.toString());
+		logger.debug("Component add component " + component.toString());
 	}
 
 }

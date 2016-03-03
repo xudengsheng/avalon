@@ -392,7 +392,7 @@ public class AvalonMediator implements IService {
 
 	private ManagementService managementService;
 
-	private static Logger logger = LoggerFactory.getLogger(AvalonEngine.class);
+	private static Logger logger = LoggerFactory.getLogger("AvalonEngine");
 
 	/*
 	 * (non-Javadoc)
@@ -401,18 +401,19 @@ public class AvalonMediator implements IService {
 	 */
 	@Override
 	public void init(Object obj) {
+		logger.debug("AvalonMediator init");
 		File root = new File("");
 		String searchPath = root.getAbsolutePath() + File.separator + "conf";
-		logger.info("conf path:" + searchPath);
+		logger.debug("conf path:" + searchPath);
 		PropertiesWrapper propertiesWrapper = (PropertiesWrapper) obj;
 		String fielPath = propertiesWrapper.getProperty(SystemEnvironment.AKKA_CONFIG_PATH, searchPath);
-		logger.info("akka conf path:" + fielPath);
+		logger.debug("akka conf path:" + fielPath);
 		File config = FileUtil.scanFileByPath(fielPath, "application.conf");
 
 		String akkaName = propertiesWrapper.getProperty(SystemEnvironment.AKKA_NAME, "AVALON");
-		logger.info("AKKA_NAME:" + akkaName);
+		logger.debug("AKKA_NAME:" + akkaName);
 		String configName = propertiesWrapper.getProperty(SystemEnvironment.AKKA_CONFIG_NAME, "AVALON");
-		logger.info("configName:" + configName);
+		logger.debug("configName:" + configName);
 		initActorSystem(config, akkaName, configName);
 
 		avalonActorRef = system.actorOf(Props.create(AvalonActorSystem.class, system),	SystemEnvironment.AVALON_NAME);
@@ -422,11 +423,13 @@ public class AvalonMediator implements IService {
 	}
 
 	public void initActorSystem(File file, String akkaName, String configName) {
+		logger.debug("initActorSystem start: akkaName="+akkaName+" configName:"+configName);
 		Config cg = ConfigFactory.parseFile(file);
 		cg.withFallback(ConfigFactory.defaultReference(Thread.currentThread().getContextClassLoader()));
 		Config config = ConfigFactory.load(cg).getConfig(configName);
 		system = ActorSystem.create(akkaName, config);
 		inbox = Inbox.create(system);
+		logger.debug("initActorSystem end");
 	}
 
 	/*
@@ -436,10 +439,10 @@ public class AvalonMediator implements IService {
 	 */
 	@Override
 	public void destroy(Object obj) {
-		logger.info("akkasystem close");
+		logger.debug("akkasystem close");
 		Future<Terminated> terminate =system.terminate();
 		while (terminate.isCompleted()) {
-			logger.info("akkasystem closed");
+			logger.debug("akkasystem closed");
 		}
 
 	}
@@ -549,6 +552,11 @@ public class AvalonMediator implements IService {
 
 	public void setSystem(ActorSystem system) {
 		this.system = system;
+	}
+
+	@Override
+	public String toString() {
+		return "AvalonMediator ";
 	}
 
 	

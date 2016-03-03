@@ -9,9 +9,15 @@ import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.avalon.core.AvalonEngine;
 
 public class ManagementService {
+
+	private static Logger logger = LoggerFactory.getLogger("AvalonEngine");
+
 	static final String DOMAIN = "com.avalon";
 	private static final int INITIAL_CAPACITY = 3;
 
@@ -19,6 +25,7 @@ public class ManagementService {
 	private final AvalonInstanceMediator instanceMBean;
 
 	public ManagementService(AvalonEngine instance) {
+		logger.debug("ManagementService init");
 		this.instance = instance;
 		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 		AvalonInstanceMediator instanceMBean;
@@ -27,7 +34,7 @@ public class ManagementService {
 			mbs.registerMBean(instanceMBean, instanceMBean.objectName);
 		} catch (Exception e) {
 			instanceMBean = null;
-
+			logger.warn("AvalonInstanceMediator error",e);
 		}
 		this.instanceMBean = instanceMBean;
 	}
@@ -39,7 +46,8 @@ public class ManagementService {
 	public void destroy() {
 		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 		try {
-			Set<ObjectName> entries = mbs.queryNames(new ObjectName(DOMAIN + ":instance=" + quote(instance.getName()) + ",*"), null);
+			Set<ObjectName> entries = mbs
+					.queryNames(new ObjectName(DOMAIN + ":instance=" + quote(instance.getName()) + ",*"), null);
 			for (ObjectName name : entries) {
 				if (mbs.isRegistered(name)) {
 					mbs.unregisterMBean(name);
@@ -65,7 +73,7 @@ public class ManagementService {
 
 	protected ObjectName createObjectName(String type, String name) {
 		Hashtable<String, String> properties = new Hashtable<String, String>(INITIAL_CAPACITY);
-//		properties.put("instance", quote(instance.getName()));
+		// properties.put("instance", quote(instance.getName()));
 		if (type != null) {
 			properties.put("type", quote(type));
 		}
@@ -82,4 +90,11 @@ public class ManagementService {
 	public static String quote(String text) {
 		return Pattern.compile("[:\",=*?]").matcher(text).find() ? ObjectName.quote(text) : text;
 	}
+
+	@Override
+	public String toString() {
+		return "ManagementService []";
+	}
+	
+	
 }

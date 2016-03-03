@@ -344,6 +344,7 @@ package com.avalon.core;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -381,7 +382,7 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 	private static String name;
 
 	/** The logger. */
-	private static Logger logger = LoggerFactory.getLogger(AvalonEngine.class);
+	private static Logger logger = LoggerFactory.getLogger("AvalonEngine");
 
 	/** 应用上下文. */
 	private KernelContext application;
@@ -423,16 +424,19 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 	 *             the exception
 	 */
 	protected AvalonEngine(Props props) throws Exception {
+		logger.debug("create AvalonEngine");
 		propertiesWrapper = new PropertiesWrapper(props);
 
 		AvalonEngine.serverId = propertiesWrapper.getIntProperty(SystemEnvironment.APP_ID, -1);
-		String modelName = propertiesWrapper.getProperty(SystemEnvironment.ENGINE_MODEL,AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
+		String modelName = propertiesWrapper.getProperty(SystemEnvironment.ENGINE_MODEL,
+				AvalonServerMode.SERVER_TYPE_SINGLE.modeName);
 		AvalonEngine.mode = AvalonServerMode.getSeverMode(modelName);
+		logger.debug("Severid=" + serverId + " modelName=" + modelName);
 		// 组件管理器
 		systemRegistry = new ComponentRegistryImpl();
 		// 应用上下文
 		application = new StartupKernelContext(SystemEnvironment.ENGINE_NAME, systemRegistry, propertiesWrapper);
-		// 系统级授权
+		logger.debug("AvalonEngine start create application");
 		createAndStartApplication();
 	}
 
@@ -441,8 +445,10 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 	 */
 	private void createAndStartApplication() {
 		// 服务的启动
+		logger.debug("AvalonEngine start createServices");
 		createServices(name);
 		// 创建守护周期任务
+		logger.debug("AvalonEngine start Application");
 		// 上层逻辑的启动
 		startApplication(name);
 	}
@@ -494,12 +500,18 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 				}
 			}
 		}
-
-		try {
-			hotSwapClassUtil = new HotSwapClassUtil(propertiesWrapper);
-		} catch (IOException | IllegalConnectorArgumentsException e) {
-			logger.error("Hot Swap Util error", e);
+		//是否开启热替换功能
+		//jvm -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
+		//需要jdk下的tool.jar在classpath下
+		boolean openReload = propertiesWrapper.getBooleanProperty(SystemEnvironment.RELOAD, false);
+		if (openReload) {
+			try {
+				hotSwapClassUtil = new HotSwapClassUtil(propertiesWrapper);
+			} catch (IOException | IllegalConnectorArgumentsException e) {
+				logger.error("Hot Swap Util error", e);
+			}
 		}
+		
 
 	}
 
@@ -513,7 +525,8 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 		// 网关服务不需要启动逻辑部分
 		if (!mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
 			// 启动上层逻辑应用
-			listener = (propertiesWrapper).getClassInstanceProperty(SystemEnvironment.APP_LISTENER, AppListener.class,new Class[] {});
+			listener = (propertiesWrapper).getClassInstanceProperty(SystemEnvironment.APP_LISTENER, AppListener.class,
+					new Class[] {});
 			listener.initialize();
 			application.setAppListener(listener);
 		}
@@ -571,11 +584,11 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 			@Override
 			public void run() {
 				logger.info("Server shut down");
-				boolean shutDown=true;
-				if (null!=listener) {
+				boolean shutDown = true;
+				if (null != listener) {
 					shutDown = listener.shutDown();
-				}else{
-					shutDown=true;
+				} else {
+					shutDown = true;
 				}
 				if (!shutDown) {
 					logger.info("Server Application not shut down");

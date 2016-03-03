@@ -341,6 +341,9 @@ Public License instead of this License.
  */
 package com.avalon.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.avalon.core.cluster.ClusterListener;
 import com.avalon.core.message.AvalonMessageEvent;
 import com.avalon.core.message.TaskManagerMessage;
@@ -357,8 +360,6 @@ import akka.actor.ActorSystem;
 import akka.actor.DeadLetter;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
-import akka.event.Logging;
-import akka.event.LoggingAdapter;
 import akka.japi.Creator;
 
 /**
@@ -369,7 +370,7 @@ import akka.japi.Creator;
 public class AvalonActorSystem extends UntypedActor {
 
 	/** The log. */
-	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+	private static Logger logger = LoggerFactory.getLogger("AvalonEngine");
 
 	/**
 	 * The Class selfCreator.
@@ -459,7 +460,7 @@ public class AvalonActorSystem extends UntypedActor {
 			this.getContext().watch(clusterListener);
 
 			if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE)) {
-				log.info("Server model is single");
+				logger.info("Server model is single");
 
 				ActorRef connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
 				instance.setConnectionSessionSupervisor(connectionSessionSupervisor);
@@ -471,7 +472,7 @@ public class AvalonActorSystem extends UntypedActor {
 			}
 			// 启动模式为网关服务器（不包含游戏逻辑服务器的任何逻辑）
 			else if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
-				log.info("Server model is gate");
+				logger.info("Server model is gate");
 
 				ActorRef transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, true),TransportSupervisor.IDENTIFY);
 				instance.setTransportSupervisorRef(transportSupervisorRef);
@@ -480,7 +481,7 @@ public class AvalonActorSystem extends UntypedActor {
 			}
 			// 逻辑服务器模式（将不会开启对外的网络服务）
 			else {
-				log.info("Server model is game");
+				logger.info("Server model is game");
 
 				ActorRef connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
 				instance.setConnectionSessionSupervisor(connectionSessionSupervisor);

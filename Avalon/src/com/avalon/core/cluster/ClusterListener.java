@@ -343,6 +343,9 @@ package com.avalon.core.cluster;
 
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.avalon.core.AvalonEngine;
 import com.avalon.core.message.ServerSupervisorMessage;
 import com.avalon.core.subscribe.ServerSupervisorSubscriber;
@@ -376,7 +379,7 @@ public class ClusterListener extends UntypedActor {
 	
 	public static final String shardName = "SERVER_SUPERVISO_RPUBLISHER_TOPTIC";
 	/** The log. */
-	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+	private static Logger logger = LoggerFactory.getLogger("AvalonEngine");
 
 	/** The cluster. */
 	Cluster cluster = Cluster.get(getContext().system());
@@ -425,12 +428,12 @@ public class ClusterListener extends UntypedActor {
 			ActorSelection actorSelection = getContext().actorSelection(path);
 			actorSelection.tell(serverSupervisorMessage, getSelf());
 
-			log.info("Member is Up: {}", member);
+			logger.info("Member is Up: {}", member);
 
 		} else if (message instanceof UnreachableMember) {
 			UnreachableMember mUnreachable = (UnreachableMember) message;
 			Member member = mUnreachable.member();
-			log.info("Member detected as unreachable: {}", member);
+			logger.info("Member detected as unreachable: {}", member);
 		} else if (message instanceof MemberRemoved) {
 			MemberRemoved mRemoved = (MemberRemoved) message;
 			Member member = mRemoved.member();
@@ -438,11 +441,11 @@ public class ClusterListener extends UntypedActor {
 
 			ActorSelection actorSelection = getContext().actorSelection(AkkaPathDecorate.getLocalFixSubscriberPath(ServerSupervisorSubscriber.IDENTIFY));
 			actorSelection.tell(serverSupervisorMessage, getSelf());
-			log.info("Member is Removed: {}", member);
+			logger.info("Member is Removed: {}", member);
 		}
 		else if (message instanceof ServerSupervisorMessage.ServerOnline) {
 			if (((ServerSupervisorMessage.ServerOnline) message).UUID.equals(GEUID)) {
-				log.info("The same member");
+				logger.info("The same member");
 			} else {
 				ActorSelection actorSelection = getContext().actorSelection(AkkaPathDecorate.getLocalFixSubscriberPath(ServerSupervisorSubscriber.IDENTIFY));
 				actorSelection.tell(message, getSender());
@@ -450,7 +453,7 @@ public class ClusterListener extends UntypedActor {
 		}
 
 		else {
-			log.info("unhandled"+message);
+			logger.info("unhandled"+message);
 			unhandled(message);
 		}
 

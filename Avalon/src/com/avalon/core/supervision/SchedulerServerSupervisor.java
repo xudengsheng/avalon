@@ -346,6 +346,9 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.avalon.api.CancellableTask;
 import com.avalon.core.message.SchedulerServerSupervisorMessage;
 import com.avalon.core.message.SchedulerServerSupervisorMessage.RunTaskInfo;
@@ -369,7 +372,7 @@ import scala.concurrent.duration.FiniteDuration;
 public class SchedulerServerSupervisor extends UntypedActor {
 
 	/** The log. */
-	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+	private static Logger logger = LoggerFactory.getLogger("AvalonEngine");
 
 	/** The Constant IDENTIFY. */
 	public static final String IDENTIFY = "SchedulerServerSupervisor";
@@ -381,33 +384,33 @@ public class SchedulerServerSupervisor extends UntypedActor {
 	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
 	 */
 	@Override
-	public void onReceive(Object arg0) throws Exception
+	public void onReceive(Object message) throws Exception
 	{
-		if (arg0 instanceof SchedulerServerSupervisorMessage.RunTask)
+		if (message instanceof SchedulerServerSupervisorMessage.RunTask)
 		{
 			
 			CancellableTask scheduleOnceTask = null;
-			switch (((SchedulerServerSupervisorMessage.RunTask) arg0).type)
+			switch (((SchedulerServerSupervisorMessage.RunTask) message).type)
 			{
 			case 1:
-				scheduleOnceTask = scheduleOnceTask(((SchedulerServerSupervisorMessage.RunTask) arg0).runnable);
+				scheduleOnceTask = scheduleOnceTask(((SchedulerServerSupervisorMessage.RunTask) message).runnable);
 				break;
 			case 2:
-				scheduleOnceTask = scheduleOnceTask(((SchedulerServerSupervisorMessage.RunTask) arg0).delay,((SchedulerServerSupervisorMessage.RunTask) arg0).runnable);
+				scheduleOnceTask = scheduleOnceTask(((SchedulerServerSupervisorMessage.RunTask) message).delay,((SchedulerServerSupervisorMessage.RunTask) message).runnable);
 				break;
 			case 3:
-				scheduleOnceTask = scheduleTask(((SchedulerServerSupervisorMessage.RunTask) arg0).delay,((SchedulerServerSupervisorMessage.RunTask) arg0).period,((SchedulerServerSupervisorMessage.RunTask) arg0).runnable);
+				scheduleOnceTask = scheduleTask(((SchedulerServerSupervisorMessage.RunTask) message).delay,((SchedulerServerSupervisorMessage.RunTask) message).period,((SchedulerServerSupervisorMessage.RunTask) message).runnable);
 				break;
 			default:
 				break;
 			}
 			RunTaskInfo info=new RunTaskInfo(scheduleOnceTask);
 			getSender().tell(info, getSelf());
-		} else if (arg0 instanceof SchedulerServerSupervisorMessage.CancelTask)
+		} else if (message instanceof SchedulerServerSupervisorMessage.CancelTask)
 		{
-			if (cancellableInfo.containsKey(((SchedulerServerSupervisorMessage.CancelTask) arg0).taskId))
+			if (cancellableInfo.containsKey(((SchedulerServerSupervisorMessage.CancelTask) message).taskId))
 			{
-				Cancellable cancellable1 = cancellableInfo.get(((SchedulerServerSupervisorMessage.CancelTask) arg0).taskId);
+				Cancellable cancellable1 = cancellableInfo.get(((SchedulerServerSupervisorMessage.CancelTask) message).taskId);
 				cancellable1.cancel();
 			}
 		}

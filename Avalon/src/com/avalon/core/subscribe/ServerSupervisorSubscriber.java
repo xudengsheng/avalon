@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.avalon.core.AvalonEngine;
 import com.avalon.core.ContextResolver;
 import com.avalon.core.cluster.ClusterListener;
@@ -26,8 +29,6 @@ import akka.actor.UntypedActor;
 import akka.cluster.Member;
 import akka.cluster.pubsub.DistributedPubSub;
 import akka.cluster.pubsub.DistributedPubSubMediator;
-import akka.event.Logging;
-import akka.event.LoggingAdapter;
 import jodd.util.MathUtil;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
@@ -42,7 +43,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 
 	private static final int DEFAULT_SERVRE_ID = -1;
 
-	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+	private static Logger logger = LoggerFactory.getLogger("ServerSupervisorSubscriber");
 
 	public static final String IDENTIFY = "ServerSupervisorSubscriber";
 	/**
@@ -65,6 +66,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 	public static List<MemberWaper> members = new ArrayList<MemberWaper>();
 
 	public ServerSupervisorSubscriber() {
+		logger.debug("ServerSupervisorSubscriber create");
 		mediator = DistributedPubSub.get(getContext().system()).mediator();
 		mediator.tell(new DistributedPubSubMediator.Subscribe(ClusterListener.shardName, getSelf()), getSelf());
 	}
@@ -76,23 +78,23 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 			ServerOnline serverOnline = (ServerSupervisorMessage.ServerOnline) msg;
 			// 检查是否是自己这台机器，如果是则不加入其他机器列表
 			if (serverOnline.UUID.equals(ClusterListener.GEUID)) {
-				log.info("msg is ServerSupervisorMessage.ServerOnline: is then same");
+				logger.debug("msg is ServerSupervisorMessage.ServerOnline: is then same");
 				return;
 			} else {
 				for (MemberWaper member : members) {
 					if (serverOnline.addressUid == member.uid) {
-						log.info("msg is ServerSupervisorMessage.ServerOnline:it has same" + member.uid);
+						logger.debug("msg is ServerSupervisorMessage.ServerOnline:it has same" + member.uid);
 						return;
 					}
 				}
-				log.info("add new Server cool");
+				logger.debug("add new Server cool");
 				MemberWaper memberWaper = new MemberWaper(serverOnline.serverId, serverOnline.addressUid,
 						AvalonServerMode.getSeverMode(serverOnline.type), serverOnline.addressPath);
 				members.add(memberWaper);
 
 				// 检查自己是否已经获得自己机器的节点信息，并检查这个消息是否需要回复
 				if (ServerSupervisorSubscriber.member != null && !serverOnline.noBack) {
-					log.debug("msg is ServerSupervisorMessage.ServerOnline:send back message");
+					logger.debug("msg is ServerSupervisorMessage.ServerOnline:send back message");
 					int ServerId;
 					if (avalonServerMode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
 						ServerId = propertiesWrapper.getIntProperty(SystemEnvironment.GATE_BINDING, DEFAULT_SERVRE_ID);
@@ -110,10 +112,9 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 		// 检查是不是同一个节点，并赋予自己节点信息
 		else if (msg instanceof ServerSupervisorMessage.ServerIsTheSame) {
 			if (((ServerSupervisorMessage.ServerIsTheSame) msg).UUID.equals(ClusterListener.GEUID)) {
-				log.debug("msg is ServerSupervisorMessage.ServerIsTheSame find self");
+				logger.debug("msg is ServerSupervisorMessage.ServerIsTheSame find self");
 				ServerSupervisorSubscriber.member = ((ServerSupervisorMessage.ServerIsTheSame) msg).member;
-				this.avalonServerMode = AvalonServerMode
-						.getSeverMode(((ServerSupervisorMessage.ServerIsTheSame) msg).type);
+				this.avalonServerMode = AvalonServerMode.getSeverMode(((ServerSupervisorMessage.ServerIsTheSame) msg).type);
 				AvalonServerMode serverMode = AvalonEngine.mode;
 
 				if (avalonServerMode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
@@ -124,10 +125,9 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 				String addressStr = member.address().toString();
 				int addressUid = member.uniqueAddress().uid();
 
-				ServerSupervisorMessage supervisorMessage = new ServerSupervisorMessage.ServerOnline(
-						ClusterListener.GEUID, serverMode.type, addressStr, addressUid, serverId);
-				mediator.tell(new DistributedPubSubMediator.Publish(ClusterListener.shardName, supervisorMessage),
-						getSelf());
+				ServerSupervisorMessage supervisorMessage = 
+						new ServerSupervisorMessage.ServerOnline(ClusterListener.GEUID, serverMode.type, addressStr, addressUid, serverId);
+				mediator.tell(new DistributedPubSubMediator.Publish(ClusterListener.shardName, supervisorMessage),getSelf());
 
 				ActorSystem actorSystem = AkkaDecorate.getActorSystem();
 				Scheduler scheduler = actorSystem.scheduler();
@@ -138,9 +138,8 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 					public void run() {
 						ServerSupervisorMessage supervisorMessage = new ServerSupervisorMessage.Ping(
 								ClusterListener.GEUID, addressUid, serverMode.type, serverId);
-						mediator.tell(
-								new DistributedPubSubMediator.Publish(ClusterListener.shardName, supervisorMessage),
-								getSelf());
+						DistributedPubSubMediator.Publish publish = new DistributedPubSubMediator.Publish(ClusterListener.shardName, supervisorMessage);
+						mediator.tell(publish,getSelf());
 					}
 				}, actorSystem.dispatcher());
 			}
@@ -182,7 +181,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 			int type = ((ServerSupervisorMessage.Ping) msg).type;
 			int serverId2 = ((ServerSupervisorMessage.Ping) msg).serverId;
 			if (ClusterListener.GEUID.equals(uuid)) {
-				log.info("msg is ServerSupervisorMessage.Ping find self");
+				logger.debug("msg is ServerSupervisorMessage.Ping find self");
 				return;
 			}
 			boolean getPing = false;
@@ -190,15 +189,15 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 				if (memberWaper.uid == addressUid) {
 					getPing = true;
 					memberWaper.lastPingTime = System.currentTimeMillis();
-					log.info("msg is ServerSupervisorMessage.Pinging");
+					logger.debug("msg is ServerSupervisorMessage.Pinging");
 				}
 			}
 			if (!getPing) {
 				MemberWaper memberWaper = new MemberWaper(serverId2, addressUid, AvalonServerMode.getSeverMode(type),getSender().path().address().toString());
 				members.add(memberWaper);
-				log.info("add new server by ping");
+				logger.debug("add new server by ping");
 			}
-			log.info("get ping actor " + getSender().path().address().toString());
+			logger.debug("get ping actor " + getSender().path().address().toString());
 		}
 		/**
 		 * 收到从网关Server的节点绑定信息，根据现在拥有的游戏服务器进行分发
@@ -214,6 +213,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 			 * 如果serverid<0情况，则随机分配到不同的游戏逻辑服务器
 			 */
 			if (serverid < 0) {
+				logger.debug("random go to game server"); 
 				int index = MathUtil.randomInt(0, list.size());
 				MemberWaper memberWaper = list.get(index);
 				String stringAddress = memberWaper.toString();
@@ -225,6 +225,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 			} else {
 				for (MemberWaper memberWaper : list) {
 					if (memberWaper.serverId == serverid) {
+						logger.debug("go to game server="+serverid); 
 						String stringAddress = memberWaper.address;
 						String fixPath =AkkaPathDecorate.getFixSupervisorPath(stringAddress,ConnectionSessionSupervisor.IDENTIFY);
 						ActorSelection actorSelection = getContext().actorSelection(fixPath);
@@ -236,7 +237,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 		}
 
 		else if (msg instanceof DistributedPubSubMediator.SubscribeAck) {
-			log.debug("subscribing");
+			logger.debug("subscribing ack");
 		} else {
 			unhandled(msg);
 		}

@@ -369,7 +369,7 @@ import io.netty.channel.ChannelHandlerContext;
 public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 
 	/** The logger. */
-	private Logger logger = LoggerFactory.getLogger(getClass());
+	private Logger logger = LoggerFactory.getLogger("NetHandler");
 	// Channel上下文
 	/** The ctx. */
 	private ChannelHandlerContext ctx;
@@ -382,14 +382,12 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 
 	/** The netty server. */
 	static NettyServer nettyServer = ContextResolver.getComponent(NettyServer.class);
-	
+
 	private final long sessionId;
 
 	/** The no process message. */
 	private Queue<Object> noProcessMessage = Queues.newLinkedBlockingDeque();
 
-	
-	
 	public NettyHandler(Long sessionId) {
 		super();
 		this.sessionId = sessionId;
@@ -424,8 +422,9 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
 		super.channelRegistered(ctx);
 		this.ctx = ctx;
-		
-		TransportSupervisorMessage.CreateIOSessionActor message = new TransportSupervisorMessage.CreateIOSessionActor(this);
+
+		TransportSupervisorMessage.CreateIOSessionActor message = new TransportSupervisorMessage.CreateIOSessionActor(
+				this);
 		// 创建一个新的会话封装
 		Inbox inbox = AkkaDecorate.getInbox();
 		inbox.send(AkkaDecorate.getTransportSupervisorRef(), message);
@@ -463,8 +462,14 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 		super.channelRead(ctx, msg);
 		if (bindingTransportActor) {
 			sendMessageToTransport(msg);
+			if (logger.isDebugEnabled()) {
+				logger.debug("bindingTransportActor Send message");
+			}
 		} else {
 			noProcessMessage.add(msg);
+			if (logger.isDebugEnabled()) {
+				logger.debug("no bindingTransportActor Send message");
+			}
 		}
 	}
 
@@ -488,7 +493,7 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	 */
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-	logger.error("net error",cause);
+		logger.error("net error", cause);
 		ctx.close();
 	}
 
@@ -502,6 +507,9 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 		if (msg instanceof IoMessagePackage) {
 			MessageHead head = new MessageHead((IoMessagePackage) msg);
 			ctx.writeAndFlush(head);
+			if (logger.isDebugEnabled()) {
+				logger.debug("write IoMessagePackage");
+			}
 		}
 
 	}
@@ -544,13 +552,11 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 		while (!noProcessMessage.isEmpty()) {
 			Object poll = noProcessMessage.poll();
 			sendMessageToTransport(poll);
-			logger.info("处理未发送的消息");
+			logger.debug("处理未发送的消息");
 		}
 
 	}
 
-	
-	
 	public long getSessionId() {
 		return sessionId;
 	}
@@ -562,5 +568,5 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	public ActorBridge getTransportActorCallBack() {
 		return transportActorCallBack;
 	}
- 
+
 }
