@@ -343,6 +343,9 @@ package com.avalon.core.actor;
 
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.avalon.api.ActorSession;
 import com.avalon.api.AppListener;
 import com.avalon.api.ClientSessionLinenter;
@@ -352,7 +355,7 @@ import com.avalon.api.message.GetLocationMessage;
 import com.avalon.core.ContextResolver;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.TransportMessage;
-import com.avalon.core.message.TransportMessage.SessionSessionMessage;
+import com.avalon.core.message.TransportMessage.ActorSendMessageToSession;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.PropertiesWrapper;
 
@@ -375,7 +378,7 @@ import scala.concurrent.duration.Duration;
 public class ConnectionSession extends UntypedActor {
 
 	/** The log. */
-	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+	private static Logger logger = LoggerFactory.getLogger("ConnectionSession");
 
 	/** The sender. */
 	private ActorRef sender;
@@ -388,8 +391,8 @@ public class ConnectionSession extends UntypedActor {
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
-
 		if (msg instanceof ConnectionSessionMessage.HasSenderPathMessage) {
+			logger.debug("msg is ConnectionSessionMessage.HasSenderPathMessage");
 			sender = ((ConnectionSessionMessage.HasSenderPathMessage) msg).sender;
 			int serverId = ((ConnectionSessionMessage.HasSenderPathMessage) msg).serverId;
 
@@ -399,39 +402,45 @@ public class ConnectionSession extends UntypedActor {
 			sender.tell(binding, getSelf());
 			// 如果第一次连接的话，通知下逻辑服务器有新的会话登入
 			if (clientSession == null) {
+				logger.debug("msg is ConnectionSessionMessage.HasSenderPathMessage clientSession is frist");
 				clientSession = new InnerClient(sender, this);
 				AppListener appListener = ContextResolver.getAppListener();
 				appListener.actorLogin(self());
 			}
 			// 实例化处理逻辑的监听类
 			if (sessionLinenter == null) {
+				logger.debug("msg is ConnectionSessionMessage.HasSenderPathMessage sessionLinenter is frist");
 				PropertiesWrapper propertiesWrapper = ContextResolver.getPropertiesWrapper();
 				sessionLinenter = (ClientSessionLinenter) propertiesWrapper.getClassInstanceProperty(SystemEnvironment.APP_SESSION_LISTENER, ClientSessionLinenter.class, new Class[] {});
 			}
 			try {
+				logger.debug("msg is ConnectionSessionMessage.HasSenderPathMessage sessionLinenter.receivedMessage");
 				sessionLinenter.receivedMessage(clientSession, (IoMessagePackage) message);
 			} catch (Exception e) {
-				log.error("sessionLinenter recevice error:",e);
+				logger.error("sessionLinenter recevice error:",e);
 			}
 			return;
 		}
 		// 获得remote的Actor消息
 		else if (msg instanceof ConnectionSessionMessage.DirectSessionMessage) {
+			logger.debug("msg is ConnectionSessionMessage.DirectSessionMessage");
 			Object message = ((ConnectionSessionMessage.DirectSessionMessage) msg).origins;
 			try {
 				sessionLinenter.receivedMessage(clientSession, (IoMessagePackage) message);
 			} catch (Exception e) {
-				log.error("sessionLinenter recevice d error:",e);
+				logger.error("sessionLinenter recevice d error:",e);
 			}
 			return;
 		} 
 		// 获得Actor之间的消息
 		else if (msg instanceof GetLocationMessage) {
+			logger.debug("get meeesage GetLocationMessage");
 			sessionLinenter.receivedActorMessage(getSender(), ((GetLocationMessage) msg).getMessage());
 			return;
 		}
 		// 失去网络连接的信号
 		else if (msg instanceof ConnectionSessionMessage.LostConnect) {
+			logger.debug("ConnectionSessionMessage LostConnect");
 			sessionLinenter.disconnected(false);
 			AppListener appListener = ContextResolver.getAppListener();
 			appListener.actorDisconnect(self().path().name());
@@ -470,7 +479,7 @@ class InnerClient implements ActorSession, TaskManager {
 
 	@Override
 	public void sendIoMessage(IoMessagePackage message) {
-		SessionSessionMessage sessionMessage = new SessionSessionMessage(message);
+		ActorSendMessageToSession sessionMessage = new ActorSendMessageToSession(message);
 		transport.tell(sessionMessage, self.getSelf());
 	}
 

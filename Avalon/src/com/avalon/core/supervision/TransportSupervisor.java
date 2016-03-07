@@ -455,6 +455,7 @@ public class TransportSupervisor extends UntypedActor {
 		 * 创建会话绑定第一个transport Actor
 		 */
 		if (msg instanceof TransportSupervisorMessage.CreateIOSessionActor) {
+			logger.debug("TransportSupervisor CreateIOSessionActor");
 			IoSession ioSession = ((TransportSupervisorMessage.CreateIOSessionActor) msg).ioSession;
 			Props create = Props.create(getTransportClass(), ioSession);
 			ActorRef actorOf = getContext().actorOf(create);
@@ -475,6 +476,7 @@ public class TransportSupervisor extends UntypedActor {
 		}
 		// 检查丢失会话的transport
 		else if (msg instanceof TransportSupervisorMessage.CheckNoSessionTransport) {
+			logger.debug("CheckNoSessionTransport");
 			List<LostNetActor> remove = new ArrayList<>();
 			for (LostNetActor lostNetActor : lostNetActors) {
 				long currentTimeMillis = System.currentTimeMillis();

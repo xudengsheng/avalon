@@ -76,6 +76,11 @@
 	<logger name="ServerSupervisorSubscriber" level="debug">
 		<appender-ref ref="FILE-Roll" />
 	</logger>
+
+	<logger name="ConnectionSession" level="debug"/>
+	<logger name="LocalTransportActor" level="debug"/>
+	<logger name="RemoteTransportActor" level="debug"/>
+	
 	<logger name="ConnectionSessionSupervisor" level="debug">
 		<appender-ref ref="FILE-Roll" />
 	</logger>

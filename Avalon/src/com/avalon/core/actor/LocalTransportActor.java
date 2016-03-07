@@ -341,13 +341,16 @@ Public License instead of this License.
  */
 package com.avalon.core.actor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.avalon.api.IoSession;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
 import com.avalon.core.message.TransportMessage;
 import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
-import com.avalon.core.message.TransportMessage.SessionSessionMessage;
+import com.avalon.core.message.TransportMessage.ActorSendMessageToSession;
 import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.util.AkkaDecorate;
 
@@ -365,7 +368,7 @@ import akka.event.LoggingAdapter;
 public class LocalTransportActor extends UntypedActor {
 
 	/** The log. */
-	LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+	private static Logger logger = LoggerFactory.getLogger("LocalTransportActor");
 
 	// 本次会话的唯一Id，用于分布式中的分组Id
 	/** The session actor id. */
@@ -400,6 +403,7 @@ public class LocalTransportActor extends UntypedActor {
 
 	@Override
 	public void preStart() throws Exception {
+		logger.debug("LocalTransportActor preStart");
 		super.preStart();
 		ioSession.setActorBridge(new InnerLocalActorBringe(getSelf().path().uid(), getSelf()));
 	}
@@ -411,26 +415,23 @@ public class LocalTransportActor extends UntypedActor {
 	 */
 	@Override
 	public void onReceive(Object msg) throws Exception {
-
-		// if (msg instanceof TransportMessage.IOSessionBindingTransportMessage)
-		// {
-		// ioSession.setSesssionActorCallBack(new
-		// InnerLocalActorCallBack(getSelf().path().uid(), getSelf()));
-		// return;
-		// } else
+		logger.debug("LocalTransportActor onReceive msg");
 		if (msg instanceof TransportMessage.IOSessionReciveMessage) {
 			if (bindingConnectionSession) {
+				logger.debug("LocalTransportActor bindingConnectionSession onReceive msg");
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				ConnectionSessionMessage message = new ConnectionSessionMessage.DirectSessionMessage(messagePackage);
 				connectionSessionsRef.tell(message, getSelf());
 			} else {
+				logger.debug("LocalTransportActor no bindingConnectionSession onReceive msg");
 				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
 				LocalSessionMessage commandSessionProtocol = new LocalSessionMessage(messagePackage);
 				AkkaDecorate.getConnectionSessionSupervisorRef().tell(commandSessionProtocol, getSelf());
 			}
 			return;
-		} else if (msg instanceof SessionSessionMessage) {
-			IoMessagePackage messagePackage = ((SessionSessionMessage) msg).messagePackage;
+		} else if (msg instanceof ActorSendMessageToSession) {
+			logger.debug("LocalTransportActor SessionSessionMessage onReceive msg");
+			IoMessagePackage messagePackage = ((ActorSendMessageToSession) msg).messagePackage;
 			ioSession.write(messagePackage);
 			return;
 		} else if (msg instanceof TransportMessage.CloseConnectionSessions) {

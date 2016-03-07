@@ -428,12 +428,12 @@ public class ClusterListener extends UntypedActor {
 			ActorSelection actorSelection = getContext().actorSelection(path);
 			actorSelection.tell(serverSupervisorMessage, getSelf());
 
-			logger.info("Member is Up: {}", member);
+			logger.debug("ClusterListener Member is Up: {}", member);
 
 		} else if (message instanceof UnreachableMember) {
 			UnreachableMember mUnreachable = (UnreachableMember) message;
 			Member member = mUnreachable.member();
-			logger.info("Member detected as unreachable: {}", member);
+			logger.debug("ClusterListener Member detected as unreachable: {}", member);
 		} else if (message instanceof MemberRemoved) {
 			MemberRemoved mRemoved = (MemberRemoved) message;
 			Member member = mRemoved.member();
@@ -441,11 +441,11 @@ public class ClusterListener extends UntypedActor {
 
 			ActorSelection actorSelection = getContext().actorSelection(AkkaPathDecorate.getLocalFixSubscriberPath(ServerSupervisorSubscriber.IDENTIFY));
 			actorSelection.tell(serverSupervisorMessage, getSelf());
-			logger.info("Member is Removed: {}", member);
+			logger.debug("ClusterListener Member is Removed: {}", member);
 		}
 		else if (message instanceof ServerSupervisorMessage.ServerOnline) {
 			if (((ServerSupervisorMessage.ServerOnline) message).UUID.equals(GEUID)) {
-				logger.info("The same member");
+				logger.debug("ClusterListener The same member");
 			} else {
 				ActorSelection actorSelection = getContext().actorSelection(AkkaPathDecorate.getLocalFixSubscriberPath(ServerSupervisorSubscriber.IDENTIFY));
 				actorSelection.tell(message, getSender());
@@ -453,7 +453,7 @@ public class ClusterListener extends UntypedActor {
 		}
 
 		else {
-			logger.info("unhandled"+message);
+			logger.debug("ClusterListener unhandled"+message);
 			unhandled(message);
 		}
 

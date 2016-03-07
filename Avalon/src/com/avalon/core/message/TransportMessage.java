@@ -404,8 +404,9 @@ public interface TransportMessage extends Serializable {
 
 	/**
 	 * The Class SessionSessionMessage.
+	 * Avtor发送消息到会话Session
 	 */
-	public static class SessionSessionMessage implements TransportMessage {
+	public static class ActorSendMessageToSession implements TransportMessage {
 
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = -5044288418273438309L;
@@ -418,7 +419,7 @@ public interface TransportMessage extends Serializable {
 		 *
 		 * @param messagePackage the message package
 		 */
-		public SessionSessionMessage(IoMessagePackage messagePackage)
+		public ActorSendMessageToSession(IoMessagePackage messagePackage)
 		{
 			super();
 			this.messagePackage = messagePackage;
