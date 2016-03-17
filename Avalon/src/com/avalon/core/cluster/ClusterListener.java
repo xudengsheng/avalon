@@ -349,7 +349,6 @@ import org.slf4j.LoggerFactory;
 import com.avalon.core.AvalonEngine;
 import com.avalon.core.message.ServerSupervisorMessage;
 import com.avalon.core.subscribe.ServerSupervisorSubscriber;
-import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.AkkaPathDecorate;
 
 import akka.actor.ActorRef;
@@ -364,8 +363,6 @@ import akka.cluster.ClusterEvent.UnreachableMember;
 import akka.cluster.Member;
 import akka.cluster.UniqueAddress;
 import akka.cluster.pubsub.DistributedPubSub;
-import akka.event.Logging;
-import akka.event.LoggingAdapter;
 
 // TODO: Auto-generated Javadoc
 /**

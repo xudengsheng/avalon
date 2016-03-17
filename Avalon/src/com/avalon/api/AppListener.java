@@ -341,6 +341,8 @@ Public License instead of this License.
  */
 package com.avalon.api;
 
+import com.avalon.util.PropertiesWrapper;
+
 import akka.actor.ActorRef;
 
 // TODO: Auto-generated Javadoc
@@ -353,10 +355,11 @@ public interface AppListener {
 	
 	/**
 	 * 初始化上层游戏逻辑服务器相关.
+	 * @param propertiesWrapper 
 	 *
 	 * @return true, if successful
 	 */
-	boolean initialize();
+	boolean initialize(PropertiesWrapper propertiesWrapper);
 	
 	/**
 	 * 新的会话登入.

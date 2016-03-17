@@ -1,7 +1,5 @@
 package test.avalon.core;
 
-import java.util.Calendar;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

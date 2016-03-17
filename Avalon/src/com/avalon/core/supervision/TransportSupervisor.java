@@ -372,8 +372,6 @@ import akka.actor.Props;
 import akka.actor.Scheduler;
 import akka.actor.Terminated;
 import akka.actor.UntypedActor;
-import akka.event.Logging;
-import akka.event.LoggingAdapter;
 import scala.concurrent.duration.Duration;
 
 // TODO: Auto-generated Javadoc

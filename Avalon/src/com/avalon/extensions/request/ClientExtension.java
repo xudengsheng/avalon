@@ -360,6 +360,7 @@ public abstract class ClientExtension {
 
 	/** The filter chain. */
 	private final IFilterChain filterChain = new ClientExtensionFilterChain(this);
+	
 
 	/**
 	 * Destroy.

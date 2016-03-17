@@ -347,7 +347,7 @@ import com.avalon.extensions.request.ClientExtension;
 /**
  * 过滤器.
  *
- * @author 小龙
+ * @author zero
  */
 public interface IFilter {
 

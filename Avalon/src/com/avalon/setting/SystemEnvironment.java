@@ -357,6 +357,8 @@ public class SystemEnvironment {
 	public static final String APP_NAME = APP_ROOT + ".app.name";
 
 	/** The Constant APP_ID. */
+	public static final String DEBUG = APP_ROOT + ".debug";
+	
 	public static final String APP_ID = APP_ROOT + ".app.id";
 	
 	/** The Constant APP_ID. */
@@ -418,6 +420,10 @@ public class SystemEnvironment {
 
 	/** The Constant MINA_SERVER_NAME. */
 	public static final String MINA_SERVER_NAME = APP_ROOT + ".mina.server.name";
+
+	public static final String DB_MYBATIS_CACHE = APP_ROOT + ".mybatis.cached";
+
+	public static final String DB_MYBATIS_CACHE_TIME = APP_ROOT+ ".mybatis.cached.time";
 
 	
 

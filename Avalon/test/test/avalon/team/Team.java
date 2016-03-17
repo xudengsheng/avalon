@@ -3,8 +3,6 @@ package test.avalon.team;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hyperic.sigar.cmd.Ls;
-
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 

@@ -54,6 +54,7 @@ public class ManagementService {
 				}
 			}
 		} catch (Exception e) {
+			logger.warn("AvalonInstanceMediator destroy error",e);
 		}
 	}
 
@@ -67,7 +68,7 @@ public class ManagementService {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("AvalonInstanceMediator shutdownAll error",e); 
 		}
 	}
 
@@ -83,7 +84,9 @@ public class ManagementService {
 		try {
 			return new ObjectName(DOMAIN, properties);
 		} catch (MalformedObjectNameException e) {
+			logger.warn("AvalonInstanceMediator createObjectName error",e); 
 			throw new IllegalArgumentException();
+			
 		}
 	}
 

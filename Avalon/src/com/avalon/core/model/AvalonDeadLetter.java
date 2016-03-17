@@ -347,9 +347,6 @@ import org.slf4j.LoggerFactory;
 import akka.actor.ActorRef;
 import akka.actor.DeadLetter;
 import akka.actor.UntypedActor;
-import akka.event.Logging;
-import akka.event.LoggingAdapter;
-// TODO: Auto-generated Javadoc
 
 /**
  * 自定义无效信件接收器.

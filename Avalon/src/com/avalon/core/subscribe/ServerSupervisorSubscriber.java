@@ -24,6 +24,7 @@ import com.avalon.util.PropertiesWrapper;
 import akka.actor.ActorRef;
 import akka.actor.ActorSelection;
 import akka.actor.ActorSystem;
+import akka.actor.Cancellable;
 import akka.actor.Scheduler;
 import akka.actor.UntypedActor;
 import akka.cluster.Member;
@@ -58,6 +59,8 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 	 * 广播使用的
 	 */
 	ActorRef mediator;
+	
+	Cancellable pingSchedule;
 
 	private int serverId;
 	/**
@@ -133,7 +136,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 				Scheduler scheduler = actorSystem.scheduler();
 				FiniteDuration delayTime = Duration.create(60, TimeUnit.SECONDS);
 				FiniteDuration periodTime = Duration.create(60, TimeUnit.SECONDS);
-				scheduler.schedule(delayTime, periodTime, new Runnable() {
+				pingSchedule = scheduler.schedule(delayTime, periodTime, new Runnable() {
 					@Override
 					public void run() {
 						ServerSupervisorMessage supervisorMessage = new ServerSupervisorMessage.Ping(
@@ -147,6 +150,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 
 		// 失去一个节点
 		else if (msg instanceof ServerSupervisorMessage.ServerLost) {
+			logger.debug("msg is ServerSupervisorMessage.ServerLost");
 			for (MemberWaper member : members) {
 				if (member.uid == ((ServerSupervisorMessage.ServerLost) msg).memberUid) {
 					members.remove(member);
@@ -157,6 +161,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 		}
 		// 发送重定向信息
 		else if (msg instanceof ServerSupervisorMessage.SendRedirectMessage) {
+			logger.debug("msg is ServerSupervisorMessage.SendRedirectMessage");
 			ServerSupervisorMessage reciveRedirectMessage = new ServerSupervisorMessage.ReciveRedirectMessage(
 					((ServerSupervisorMessage.SendRedirectMessage) msg).sender,
 					((ServerSupervisorMessage.SendRedirectMessage) msg).path,
@@ -167,6 +172,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 		}
 		// 收到重定向信息，转发
 		else if (msg instanceof ServerSupervisorMessage.ReciveRedirectMessage) {
+			logger.debug("msg is ServerSupervisorMessage.ReciveRedirectMessage");
 			String path = ((ServerSupervisorMessage.ReciveRedirectMessage) msg).path;
 			ActorSelection actorSelection = getContext().actorSelection(path);
 			Object message = ((ServerSupervisorMessage.ReciveRedirectMessage) msg).message;
@@ -176,6 +182,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 		}
 		// 收到重定向信息，转发
 		else if (msg instanceof ServerSupervisorMessage.Ping) {
+			logger.debug("msg is ServerSupervisorMessage.Ping");
 			String uuid = ((ServerSupervisorMessage.Ping) msg).UUID;
 			int addressUid = ((ServerSupervisorMessage.Ping) msg).addressUid;
 			int type = ((ServerSupervisorMessage.Ping) msg).type;
@@ -203,6 +210,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 		 * 收到从网关Server的节点绑定信息，根据现在拥有的游戏服务器进行分发
 		 */
 		else if (msg instanceof ServerSupervisorMessage.DistributionConnectionSessionsProtocol) {
+			logger.debug("msg is ServerSupervisorMessage.DistributionConnectionSessionsProtocol");
 			int serverid = ((ServerSupervisorMessage.DistributionConnectionSessionsProtocol) msg).serverid;
 			ActorRef sender = ((ServerSupervisorMessage.DistributionConnectionSessionsProtocol) msg).sender;
 			Object origins = ((ServerSupervisorMessage.DistributionConnectionSessionsProtocol) msg).origins;

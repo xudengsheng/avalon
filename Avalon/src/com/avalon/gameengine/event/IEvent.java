@@ -343,7 +343,6 @@ package com.avalon.gameengine.event;
 
 import java.io.Serializable;
 
-import com.avalon.gameengine.ANObject;
 import com.avalon.gameengine.extended.IExtendedHandler;
 
 // TODO: Auto-generated Javadoc

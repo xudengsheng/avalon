@@ -345,14 +345,13 @@ package com.avalon.extensions.request.filter;
 /**
  * 过滤链条的下面是否执行.
  *
- * @author 小龙
+ * @author zero
  * @Code{FilterAction.HALT 挂起状态，对应的handler不执行
  */
-public enum FilterAction
-{
-	
+public enum FilterAction {
+
 	/** The continue. */
-	CONTINUE, 
- /** The halt. */
- HALT;
+	CONTINUE,
+	/** The halt. */
+	HALT;
 }

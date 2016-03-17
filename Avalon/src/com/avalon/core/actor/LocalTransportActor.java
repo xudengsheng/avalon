@@ -349,15 +349,13 @@ import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.core.message.ConnectionSessionMessage;
 import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
 import com.avalon.core.message.TransportMessage;
-import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
 import com.avalon.core.message.TransportMessage.ActorSendMessageToSession;
+import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
 import com.avalon.core.message.TransportSupervisorMessage;
 import com.avalon.util.AkkaDecorate;
 
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
-import akka.event.Logging;
-import akka.event.LoggingAdapter;
 
 // TODO: Auto-generated Javadoc
 /**

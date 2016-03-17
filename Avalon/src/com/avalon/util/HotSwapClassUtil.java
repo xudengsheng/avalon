@@ -38,6 +38,11 @@ public class HotSwapClassUtil {
 		this.path = wrapper.getProperty(SystemEnvironment.RELOAD_PATH, "./reload");
 		this.hotSwapper = new HotSwapper(port);
 	}
+	
+	
+
+
+
 
 	/**
 	 * 类替换

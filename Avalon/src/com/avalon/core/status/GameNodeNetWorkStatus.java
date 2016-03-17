@@ -343,21 +343,22 @@ package com.avalon.core.status;
 // TODO: Auto-generated Javadoc
 
 /**
- *  网络状态.
+ * 网络状态.
  *
  * @author ZERO
  */
 public enum GameNodeNetWorkStatus {
-	//联通，阻塞
+	// 联通，阻塞
 	/** The unicom. */
-	UNICOM(1), 
- /** The block. */
- BLOCK(0);
+	UNICOM(1),
+	/** The block. */
+	BLOCK(0);
 
 	/**
 	 * Instantiates a new game node net work status.
 	 *
-	 * @param state the state
+	 * @param state
+	 *            the state
 	 */
 	private GameNodeNetWorkStatus(int state) {
 		State = state;

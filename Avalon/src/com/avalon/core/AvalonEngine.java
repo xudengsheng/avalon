@@ -344,7 +344,6 @@ package com.avalon.core;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -527,7 +526,7 @@ public class AvalonEngine implements AvalonInstanceMXBean {
 			// 启动上层逻辑应用
 			listener = (propertiesWrapper).getClassInstanceProperty(SystemEnvironment.APP_LISTENER, AppListener.class,
 					new Class[] {});
-			listener.initialize();
+			listener.initialize(propertiesWrapper);
 			application.setAppListener(listener);
 		}
 

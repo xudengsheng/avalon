@@ -346,7 +346,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 /**
  * 处理客户端的请求.
  *
- * @author 小龙
+ * @author zero
  */
 public interface IClientRequestHandler {
 
