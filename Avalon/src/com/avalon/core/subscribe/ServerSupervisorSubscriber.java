@@ -36,7 +36,7 @@ import scala.concurrent.duration.FiniteDuration;
 
 /**
  * 服务器状态监听
- * 
+ * 添加其他节点服务器
  * @author zero
  *
  */
@@ -73,6 +73,14 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 		mediator = DistributedPubSub.get(getContext().system()).mediator();
 		mediator.tell(new DistributedPubSubMediator.Subscribe(ClusterListener.shardName, getSelf()), getSelf());
 	}
+	
+	private void addMemberWaper(MemberWaper memberWaper){
+		members.add(memberWaper);
+		if (avalonServerMode.hasAppListener&&memberWaper.serverId!=serverId) {
+			System.out.println(memberWaper.serverId+"===="+serverId);
+			ContextResolver.getAppListener().nodeOnline(memberWaper.serverId,memberWaper.address);
+		}
+	}
 
 	@Override
 	public void onReceive(Object msg) throws Exception {
@@ -86,66 +94,20 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 			} else {
 				for (MemberWaper member : members) {
 					if (serverOnline.addressUid == member.uid) {
-						logger.debug("msg is ServerSupervisorMessage.ServerOnline:it has same" + member.uid);
+						logger.debug("msg is ServerSupervisorMessage.ServerOnline:it has same" + member.uid+"=="+serverOnline.addressUid+"===="+serverId);
 						return;
 					}
 				}
 				logger.debug("add new Server cool");
 				MemberWaper memberWaper = new MemberWaper(serverOnline.serverId, serverOnline.addressUid,
 						AvalonServerMode.getSeverMode(serverOnline.type), serverOnline.addressPath);
-				members.add(memberWaper);
-
-				// 检查自己是否已经获得自己机器的节点信息，并检查这个消息是否需要回复
-				if (ServerSupervisorSubscriber.member != null && !serverOnline.noBack) {
-					logger.debug("msg is ServerSupervisorMessage.ServerOnline:send back message");
-					int ServerId;
-					if (avalonServerMode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
-						ServerId = propertiesWrapper.getIntProperty(SystemEnvironment.GATE_BINDING, DEFAULT_SERVRE_ID);
-					} else {
-						ServerId = propertiesWrapper.getIntProperty(SystemEnvironment.APP_ID, DEFAULT_SERVRE_ID);
-					}
-					ServerSupervisorMessage supervisorMessage = new ServerSupervisorMessage.ServerOnline(
-							ClusterListener.GEUID, avalonServerMode.type,
-							ServerSupervisorSubscriber.member.address().toString(),
-							ServerSupervisorSubscriber.member.uniqueAddress().uid(), ServerId, true);
-					getSender().tell(supervisorMessage, self());
-				}
+				addMemberWaper(memberWaper);
+				chekNeedBackMessage(propertiesWrapper, serverOnline);
 			}
 		}
 		// 检查是不是同一个节点，并赋予自己节点信息
 		else if (msg instanceof ServerSupervisorMessage.ServerIsTheSame) {
-			if (((ServerSupervisorMessage.ServerIsTheSame) msg).UUID.equals(ClusterListener.GEUID)) {
-				logger.debug("msg is ServerSupervisorMessage.ServerIsTheSame find self");
-				ServerSupervisorSubscriber.member = ((ServerSupervisorMessage.ServerIsTheSame) msg).member;
-				this.avalonServerMode = AvalonServerMode.getSeverMode(((ServerSupervisorMessage.ServerIsTheSame) msg).type);
-				AvalonServerMode serverMode = AvalonEngine.mode;
-
-				if (avalonServerMode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
-					serverId = propertiesWrapper.getIntProperty(SystemEnvironment.GATE_BINDING, DEFAULT_SERVRE_ID);
-				} else {
-					serverId = propertiesWrapper.getIntProperty(SystemEnvironment.APP_ID, DEFAULT_SERVRE_ID);
-				}
-				String addressStr = member.address().toString();
-				int addressUid = member.uniqueAddress().uid();
-
-				ServerSupervisorMessage supervisorMessage = 
-						new ServerSupervisorMessage.ServerOnline(ClusterListener.GEUID, serverMode.type, addressStr, addressUid, serverId);
-				mediator.tell(new DistributedPubSubMediator.Publish(ClusterListener.shardName, supervisorMessage),getSelf());
-
-				ActorSystem actorSystem = AkkaDecorate.getActorSystem();
-				Scheduler scheduler = actorSystem.scheduler();
-				FiniteDuration delayTime = Duration.create(60, TimeUnit.SECONDS);
-				FiniteDuration periodTime = Duration.create(60, TimeUnit.SECONDS);
-				pingSchedule = scheduler.schedule(delayTime, periodTime, new Runnable() {
-					@Override
-					public void run() {
-						ServerSupervisorMessage supervisorMessage = new ServerSupervisorMessage.Ping(
-								ClusterListener.GEUID, addressUid, serverMode.type, serverId);
-						DistributedPubSubMediator.Publish publish = new DistributedPubSubMediator.Publish(ClusterListener.shardName, supervisorMessage);
-						mediator.tell(publish,getSelf());
-					}
-				}, actorSystem.dispatcher());
-			}
+			checkIsSameNodeAndCreatePing(msg, propertiesWrapper);
 		}
 
 		// 失去一个节点
@@ -201,7 +163,7 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 			}
 			if (!getPing) {
 				MemberWaper memberWaper = new MemberWaper(serverId2, addressUid, AvalonServerMode.getSeverMode(type),getSender().path().address().toString());
-				members.add(memberWaper);
+				addMemberWaper(memberWaper);
 				logger.debug("add new server by ping");
 			}
 			logger.debug("get ping actor " + getSender().path().address().toString());
@@ -250,6 +212,63 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 			unhandled(msg);
 		}
 	}
+	/**
+	 * 检查是不是同一个节点，如果不是则建立心跳
+	 * @param msg
+	 * @param propertiesWrapper
+	 */
+	private void checkIsSameNodeAndCreatePing(Object msg, PropertiesWrapper propertiesWrapper) {
+		if (((ServerSupervisorMessage.ServerIsTheSame) msg).UUID.equals(ClusterListener.GEUID)) {
+			logger.debug("msg is ServerSupervisorMessage.ServerIsTheSame find self");
+			ServerSupervisorSubscriber.member = ((ServerSupervisorMessage.ServerIsTheSame) msg).member;
+			this.avalonServerMode = AvalonServerMode.getSeverMode(((ServerSupervisorMessage.ServerIsTheSame) msg).type);
+			AvalonServerMode serverMode = AvalonEngine.mode;
+
+			if (avalonServerMode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
+				serverId = propertiesWrapper.getIntProperty(SystemEnvironment.GATE_BINDING, DEFAULT_SERVRE_ID);
+			} else {
+				serverId = propertiesWrapper.getIntProperty(SystemEnvironment.APP_ID, DEFAULT_SERVRE_ID);
+			}
+			String addressStr = member.address().toString();
+			int addressUid = member.uniqueAddress().uid();
+
+			ServerSupervisorMessage supervisorMessage = 
+					new ServerSupervisorMessage.ServerOnline(ClusterListener.GEUID, serverMode.type, addressStr, addressUid, serverId);
+			mediator.tell(new DistributedPubSubMediator.Publish(ClusterListener.shardName, supervisorMessage),getSelf());
+
+			ActorSystem actorSystem = AkkaDecorate.getActorSystem();
+			Scheduler scheduler = actorSystem.scheduler();
+			FiniteDuration delayTime = Duration.create(60, TimeUnit.SECONDS);
+			FiniteDuration periodTime = Duration.create(60, TimeUnit.SECONDS);
+			pingSchedule = scheduler.schedule(delayTime, periodTime, new Runnable() {
+				@Override
+				public void run() {
+					ServerSupervisorMessage supervisorMessage = new ServerSupervisorMessage.Ping(
+							ClusterListener.GEUID, addressUid, serverMode.type, serverId);
+					DistributedPubSubMediator.Publish publish = new DistributedPubSubMediator.Publish(ClusterListener.shardName, supervisorMessage);
+					mediator.tell(publish,getSelf());
+				}
+			}, actorSystem.dispatcher());
+		}
+	}
+
+	private void chekNeedBackMessage(PropertiesWrapper propertiesWrapper, ServerOnline serverOnline) {
+		// 检查自己是否已经获得自己机器的节点信息，并检查这个消息是否需要回复
+		if (ServerSupervisorSubscriber.member != null && !serverOnline.noBack) {
+			logger.debug("msg is ServerSupervisorMessage.ServerOnline:send back message");
+			int ServerId;
+			if (avalonServerMode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
+				ServerId = propertiesWrapper.getIntProperty(SystemEnvironment.GATE_BINDING, DEFAULT_SERVRE_ID);
+			} else {
+				ServerId = propertiesWrapper.getIntProperty(SystemEnvironment.APP_ID, DEFAULT_SERVRE_ID);
+			}
+			ServerSupervisorMessage supervisorMessage = new ServerSupervisorMessage.ServerOnline(
+					ClusterListener.GEUID, avalonServerMode.type,
+					ServerSupervisorSubscriber.member.address().toString(),
+					ServerSupervisorSubscriber.member.uniqueAddress().uid(), ServerId, true);
+			getSender().tell(supervisorMessage, self());
+		}
+	}
 
 	private void lostServer(int serverId) {
 		TransportSupervisorMessage message=new TransportSupervisorMessage.ServerLost(serverId);
@@ -269,10 +288,26 @@ public class ServerSupervisorSubscriber extends UntypedActor {
 }
 
 class MemberWaper {
+
+	/**
+	 * 服务器id
+	 */
 	public final int serverId;
+	/**
+	 * 服务器唯一id（akka生成）
+	 */
 	public final int uid;
+	/**
+	 * 服务器的启动模式
+	 */
 	public final AvalonServerMode mode;
+	/**
+	 * 服务器的IP地址
+	 */
 	public final String address;
+	/**
+	 * 最后一次ping
+	 */
 	public long lastPingTime;
 
 	public MemberWaper(int serverId, int uid, AvalonServerMode mode, String address) {
@@ -284,4 +319,5 @@ class MemberWaper {
 		this.lastPingTime = System.currentTimeMillis();
 	}
 
+	
 }

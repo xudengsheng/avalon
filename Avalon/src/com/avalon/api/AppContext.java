@@ -349,6 +349,7 @@ import com.avalon.api.internal.InternalContext;
 import com.avalon.exception.ManagerNotFoundException;
 
 import akka.actor.ActorPath;
+import akka.actor.ActorSelection;
 import akka.actor.ActorSystem;
 
 // TODO: Auto-generated Javadoc
@@ -404,6 +405,23 @@ public final class AppContext {
 		try
 		{
 			return InternalContext.getManagerLocator().getActorSystem();
+		} catch (IllegalStateException ise)
+		{
+			throw new ManagerNotFoundException("ManagerLocator is " + "unavailable", ise);
+		}
+	}
+	
+	/**
+	 * 获得全路径actor
+	 * @param address actor的地址
+	 * @param actorName actor的名称
+	 * @return
+	 */
+	public static ActorSelection getActorSelection(String address,String actorName){
+		try
+		{
+			ActorSystem actorSystem = InternalContext.getManagerLocator().getActorSystem();
+			return actorSystem.actorSelection(address+"/user/"+ actorName);
 		} catch (IllegalStateException ise)
 		{
 			throw new ManagerNotFoundException("ManagerLocator is " + "unavailable", ise);

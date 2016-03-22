@@ -361,7 +361,7 @@ import akka.actor.Props;
 public class InstanceWorld extends ANObject implements ICreateANObeject{
 
 	/** The Constant IDENTITY. */
-	public static final String IDENTITY = InstanceWorld.class.getSimpleName();
+	public static final String IDENTITY = "AVALON_WORLD";
 
 	private Map<String, ActorRef> anObjects=new ConcurrentHashMap<String, ActorRef>();
 	/** The avalon world. */
@@ -381,6 +381,9 @@ public class InstanceWorld extends ANObject implements ICreateANObeject{
 				((IEvent.CreateANObject) message).back.callBack(createANObject);
 			}
 		} 
+		else if (message instanceof String) {
+			System.out.println(message);
+		}
 
 	}
 
@@ -389,14 +392,12 @@ public class InstanceWorld extends ANObject implements ICreateANObeject{
 	 */
 	@Override
 	public void postRestart(Throwable reason) throws Exception {
-		super.postRestart(reason);
 		Iterable<ActorRef> children = getContext().getChildren();
 		Iterator<ActorRef> iterator = children.iterator();
 		while (iterator.hasNext()) {
 			ActorRef next = iterator.next();
 			next.tell(new IEvent.WorldRestart(), getSelf());
 		}
-		actorExtendedRestart();
 	}
 
 	/* (non-Javadoc)
@@ -404,7 +405,6 @@ public class InstanceWorld extends ANObject implements ICreateANObeject{
 	 */
 	@Override
 	public void postStop() throws Exception {
-		super.postStop();
 		actorExtendedStop();
 	}
 
@@ -413,9 +413,8 @@ public class InstanceWorld extends ANObject implements ICreateANObeject{
 	 */
 	@Override
 	public void preStart() throws Exception {
-		super.preStart();
 		InstanceWorld.worldRef = getSelf();
-		actorExtendedStart(this);
+		actorExtendedStart(this, InstanceWorld.worldRef);
 	}
 
 

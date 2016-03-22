@@ -350,6 +350,7 @@ import com.avalon.util.AkkaDecorate;
 // TODO: Auto-generated Javadoc
 /**
  * The Class DistributedTaskManagerService.
+ * 分布式任务管理器
  */
 public class DistributedTaskManagerService implements DistributedTaskManager {
 

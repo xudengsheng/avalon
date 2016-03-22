@@ -20,7 +20,6 @@
 	<classpathentry kind="lib" path="lib/akka/leveldbjni-all-1.8.jar"/>
 	<classpathentry kind="lib" path="lib/akka/netty-3.10.3.Final.jar"/>
 	<classpathentry kind="lib" path="lib/akka/sigar-loader-1.6.6-rev002.jar"/>
-	<classpathentry kind="lib" path="lib/akka/test-interface-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/akka/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="lib/akka/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/akka/commons-math-2.2.jar"/>
@@ -44,5 +43,16 @@
 	<classpathentry kind="lib" path="lib/akka/akka-testkit_2.11-2.4.2.jar"/>
 	<classpathentry kind="lib" path="lib/akka/akka-remote_2.11-2.4.2.jar"/>
 	<classpathentry kind="lib" path="/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/lib/tools.jar"/>
+	<classpathentry kind="lib" path="lib/akka/akka-http-core_2.11-2.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/akka/akka-http-experimental_2.11-2.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/akka/akka-http-jackson-experimental_2.11-2.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/akka/akka-stream_2.11-2.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/akka/akka-parsing_2.11-2.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/akka/ssl-config-akka_2.11-0.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/akka/ssl-config-core_2.11-0.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/akka/scala-parser-combinators_2.11-1.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/akka/reactive-streams-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/akka/scala-java8-compat_2.11-0.7.0.jar"/>
+	<classpathentry kind="lib" path="lib/akka/akka-http-xml-experimental_2.11-2.4.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

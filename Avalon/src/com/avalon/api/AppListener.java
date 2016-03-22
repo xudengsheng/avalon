@@ -363,7 +363,6 @@ public interface AppListener {
 	
 	/**
 	 * 新的会话登入.
-	 *
 	 * @param ref the ref
 	 */
 	void actorLogin(ActorRef ref);
@@ -379,7 +378,11 @@ public interface AppListener {
 	 * @return
 	 */
 	boolean shutDown();
-	
-	void nodeOnline();
+	/**
+	 * 新加的节点
+	 * @param ServerId id
+	 * @param nodeAddress akka.tcp://AVALON@127.0.0.1:2552
+	 */
+	void nodeOnline(int ServerId,String nodeAddress);
 	
 }

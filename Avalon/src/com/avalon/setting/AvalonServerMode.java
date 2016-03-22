@@ -353,19 +353,22 @@ import java.util.EnumSet;
 public enum AvalonServerMode {
 
 	/** The unknow. */
-	UNKNOW("UNKNOW", 0),
+	UNKNOW("UNKNOW", 0, false),
 
 	/** 单服务器模式. */
-	SERVER_TYPE_SINGLE("SINGLE", 1),
+	SERVER_TYPE_SINGLE("SINGLE", 1, true),
 
 	/** 逻辑服务器模式. */
-	SERVER_TYPE_GAME("GAME", 2),
+	SERVER_TYPE_GAME("GAME", 2, true),
 
 	/** 网关服务器模式. */
-	SERVER_TYPE_GATE("GATE", 3);
+	SERVER_TYPE_GATE("GATE", 3, false),
 
+	/** 测试服务器模式. */
+	SERVER_TYPE_TEST("TEST", 4, false);
 	/** The enums. */
 	public static EnumSet<AvalonServerMode> enums = EnumSet.allOf(AvalonServerMode.class);
+
 
 	/**
 	 * Instantiates a new avalon server mode.
@@ -373,15 +376,18 @@ public enum AvalonServerMode {
 	 * @param name
 	 *            the name
 	 */
-	private AvalonServerMode(String name, int type) {
+	private AvalonServerMode(String name, int type, boolean hasAppListener) {
 		this.modeName = name;
 		this.type = type;
+		this.hasAppListener = hasAppListener;
 	}
 
 	/** The mode name. */
 	public final String modeName;
 
 	public final int type;
+
+	public final boolean hasAppListener;
 
 	/**
 	 * Gets the sever mode.
