@@ -1,0 +1,89 @@
+2016-06-07 16:25:32,711 INFO [main] AvalonEngine [AvalonEngine.java:545] File path=/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame
+2016-06-07 16:25:32,747 DEBUG [main] AvalonEngine [AvalonEngine.java:426] create AvalonEngine
+2016-06-07 16:25:32,750 DEBUG [main] AvalonEngine [AvalonEngine.java:433] Severid=1 modelName=GAME
+2016-06-07 16:25:32,750 DEBUG [main] AvalonEngine [ComponentRegistryImpl.java:376] ComponentRegistryImpl create
+2016-06-07 16:25:32,755 DEBUG [main] AvalonEngine [ComponentRegistryImpl.java:376] ComponentRegistryImpl create
+2016-06-07 16:25:32,755 DEBUG [main] AvalonEngine [AvalonEngine.java:438] AvalonEngine start create application
+2016-06-07 16:25:32,756 DEBUG [main] AvalonEngine [AvalonEngine.java:447] AvalonEngine start createServices
+2016-06-07 16:25:32,758 DEBUG [main] AvalonEngine [ManagementService.java:28] ManagementService init
+2016-06-07 16:25:32,770 DEBUG [main] AvalonEngine [ComponentRegistryImpl.java:426] Component add component AvalonMediator 
+2016-06-07 16:25:32,772 DEBUG [main] AvalonEngine [AvalonMediator.java:404] AvalonMediator init
+2016-06-07 16:25:32,773 DEBUG [main] AvalonEngine [AvalonMediator.java:407] conf path:/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame/conf
+2016-06-07 16:25:32,773 DEBUG [main] AvalonEngine [AvalonMediator.java:410] akka conf path:/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame/conf
+2016-06-07 16:25:32,787 DEBUG [main] AvalonEngine [AvalonMediator.java:414] AKKA_NAME:AVALON
+2016-06-07 16:25:32,787 DEBUG [main] AvalonEngine [AvalonMediator.java:416] configName:AVALON
+2016-06-07 16:25:32,787 DEBUG [main] AvalonEngine [AvalonMediator.java:426] initActorSystem start: akkaName=AVALON configName:AVALON
+2016-06-07 16:25:33,535 INFO [AVALON-akka.actor.default-dispatcher-2] a.e.s.Slf4jLogger [Slf4jLogger.scala:85] Slf4jLogger started
+2016-06-07 16:25:33,546 DEBUG [AVALON-akka.actor.default-dispatcher-2] a.e.EventStream [Slf4jLogger.scala:82] logger log1-Slf4jLogger started
+2016-06-07 16:25:33,551 DEBUG [AVALON-akka.actor.default-dispatcher-2] a.e.EventStream [Slf4jLogger.scala:82] Default Loggers started
+2016-06-07 16:25:33,667 INFO [AVALON-akka.actor.default-dispatcher-2] a.r.Remoting [Slf4jLogger.scala:79] Starting remoting
+2016-06-07 16:25:33,843 INFO [AVALON-akka.actor.default-dispatcher-2] a.r.Remoting [Slf4jLogger.scala:79] Remoting started; listening on addresses :[akka.tcp://AVALON@10.1.37.203:2551]
+2016-06-07 16:25:33,948 DEBUG [main] AvalonEngine [AvalonMediator.java:432] initActorSystem end
+2016-06-07 16:25:33,953 DEBUG [main] AvalonEngine [AvalonEngine.java:450] AvalonEngine start Application
+2016-06-07 16:25:33,956 DEBUG [AVALON-akka.actor.default-dispatcher-15] ServerSupervisorSubscriber [ServerSupervisorSubscriber.java:72] ServerSupervisorSubscriber create
+2016-06-07 16:25:33,956 INFO [main] GameServerListener [GameServerListener.java:37] GameServerListener 初始化服务
+2016-06-07 16:25:33,957 INFO [AVALON-akka.actor.default-dispatcher-2] AvalonEngine [AvalonActorSystem.java:484] Server model is game
+2016-06-07 16:25:33,987 DEBUG [AVALON-akka.actor.default-dispatcher-17] AvalonEngine [LogUtil.java:11] AvaLongObecj init=com.avalon.gameengine.InstanceWorld
+2016-06-07 16:25:34,051 DEBUG [AVALON-akka.actor.default-dispatcher-15] ServerSupervisorSubscriber [ServerSupervisorSubscriber.java:210] subscribing ack
+2016-06-07 16:25:34,183 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:19] 开始查找DB Class类
+2016-06-07 16:25:34,190 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:25] 发现持久化类文件:Account
+2016-06-07 16:25:34,191 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:25] 发现持久化类文件:example.AccountExample$Criteria
+2016-06-07 16:25:34,195 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:25] 发现持久化类文件:example.AccountExample$Criterion
+2016-06-07 16:25:34,196 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:25] 发现持久化类文件:example.AccountExample$GeneratedCriteria
+2016-06-07 16:25:34,196 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:25] 发现持久化类文件:example.AccountExample
+2016-06-07 16:25:34,197 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:25] 发现持久化类文件:example.AccountMapper
+2016-06-07 16:25:34,199 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:38] 结束查找DB Class类
+2016-06-07 16:25:34,200 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:73] 发现持久化类操作Mapper文件:AccountMapper
+2016-06-07 16:25:34,222 WARN [AVALON-akka.actor.default-dispatcher-15] a.r.ReliableDeliverySupervisor [Slf4jLogger.scala:76] Association with remote system [akka.tcp://AVALON@10.1.38.173:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.38.173:2552]] Caused by: [Host is down]
+2016-06-07 16:25:34,228 DEBUG [main] o.a.i.l.LogFactory [LogFactory.java:135] Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2016-06-07 16:25:34,240 INFO [AVALON-akka.actor.default-dispatcher-15] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-966483931] to Actor[akka://AVALON/deadLetters] was not delivered. [1] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-07 16:25:34,241 INFO [AVALON-akka.actor.default-dispatcher-15] a.a.LocalActorRef [Slf4jLogger.scala:79] Message [akka.remote.EndpointWriter$AckIdleCheckTimer$] from Actor[akka://AVALON/system/endpointManager/reliableEndpointWriter-akka.tcp%3A%2F%2FAVALON%4010.1.38.173%3A2552-0/endpointWriter#1773170129] to Actor[akka://AVALON/system/endpointManager/reliableEndpointWriter-akka.tcp%3A%2F%2FAVALON%4010.1.38.173%3A2552-0/endpointWriter#1773170129] was not delivered. [2] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-07 16:25:34,986 INFO [AVALON-akka.actor.default-dispatcher-15] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-966483931] to Actor[akka://AVALON/deadLetters] was not delivered. [3] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-07 16:25:35,017 INFO [main] c.a.d.DBCheckHandler [DBCheckHandler.java:64] 添加已有键：Account
+2016-06-07 16:25:35,020 DEBUG [main] c.a.d.h.CachedCommonHandler [MybatisCommonDBHandler.java:48] AccountMapper 初始化Id seed 5
+2016-06-07 16:25:35,021 DEBUG [main] AvalonEngine [ComponentRegistryImpl.java:426] Component add component com.avalon.db.MybatisDataManagerImpl@4f453e63
+2016-06-07 16:25:35,030 DEBUG [main] AvalonEngine [ComponentRegistryImpl.java:426] Component add component com.zero.example.core.ExampleClientExtension@21d1b321
+2016-06-07 16:25:35,987 INFO [AVALON-akka.actor.default-dispatcher-18] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-966483931] to Actor[akka://AVALON/deadLetters] was not delivered. [4] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-07 16:25:36,988 INFO [AVALON-akka.actor.default-dispatcher-21] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-966483931] to Actor[akka://AVALON/deadLetters] was not delivered. [5] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-07 16:25:37,988 INFO [AVALON-akka.actor.default-dispatcher-21] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-966483931] to Actor[akka://AVALON/deadLetters] was not delivered. [6] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-07 16:25:39,007 DEBUG [AVALON-akka.actor.default-dispatcher-19] ServerSupervisorSubscriber [ServerSupervisorSubscriber.java:222] msg is ServerSupervisorMessage.ServerIsTheSame find self
+2016-06-07 16:25:39,007 DEBUG [AVALON-akka.actor.default-dispatcher-2] AvalonEngine [ClusterListener.java:428] ClusterListener Member is Up: Member(address = akka.tcp://AVALON@10.1.37.203:2551, status = Up)
+2016-06-07 16:25:39,013 DEBUG [AVALON-akka.actor.default-dispatcher-4] ServerSupervisorSubscriber [ServerSupervisorSubscriber.java:92] msg is ServerSupervisorMessage.ServerOnline: is then same
+2016-06-07 16:25:43,871 ERROR [AVALON-akka.actor.default-dispatcher-17] a.a.OneForOneStrategy [Slf4jLogger.scala:71] unknown actor creator [class java.lang.Class]
+akka.actor.ActorInitializationException: akka://AVALON/user/AVALON_WORLD: exception during creation
+	at akka.actor.ActorInitializationException$.apply(Actor.scala:174)
+	at akka.actor.ActorCell.create(ActorCell.scala:606)
+	at akka.actor.ActorCell.invokeAll$1(ActorCell.scala:461)
+	at akka.actor.ActorCell.systemInvoke(ActorCell.scala:483)
+	at akka.dispatch.Mailbox.processAllSystemMessages(Mailbox.scala:282)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:223)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.lang.IllegalArgumentException: unknown actor creator [class java.lang.Class]
+	at akka.actor.IndirectActorProducer$.apply(IndirectActorProducer.scala:62)
+	at akka.actor.Props.producer(Props.scala:131)
+	at akka.actor.Props.<init>(Props.scala:144)
+	at akka.actor.AbstractProps$class.create(AbstractProps.scala:32)
+	at akka.actor.Props$.create(Props.scala:22)
+	at akka.actor.AbstractProps$class.create(AbstractProps.scala:32)
+	at akka.actor.Props$.create(Props.scala:22)
+	at akka.actor.Props.create(Props.scala)
+	at com.avalon.gameengine.InstanceWorld.createANObject(InstanceWorld.java:423)
+	at com.zero.example.extrnded.WorldManagerIExtendedControl.actorExtendedStart(WorldManagerIExtendedControl.java:91)
+	at com.avalon.gameengine.ANObject.actorExtendedStart(ANObject.java:47)
+	at com.avalon.gameengine.InstanceWorld.preStart(InstanceWorld.java:417)
+	at akka.actor.Actor$class.aroundPreStart(Actor.scala:487)
+	at akka.actor.UntypedActor.aroundPreStart(UntypedActor.scala:95)
+	at akka.actor.ActorCell.create(ActorCell.scala:590)
+	... 9 common frames omitted
+2016-06-07 16:25:49,111 INFO [AVALON-akka.actor.default-dispatcher-21] a.r.t.ProtocolStateActor [Slf4jLogger.scala:79] No response from remote for outbound association. Associate timed out after [15000 ms].
+2016-06-07 16:25:49,112 INFO [AVALON-akka.actor.default-dispatcher-21] a.r.t.ProtocolStateActor [Slf4jLogger.scala:79] No response from remote for outbound association. Associate timed out after [15000 ms].
+2016-06-07 16:25:49,113 WARN [AVALON-akka.actor.default-dispatcher-21] a.r.ReliableDeliverySupervisor [Slf4jLogger.scala:76] Association with remote system [akka.tcp://AVALON@10.1.7.163:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.7.163:2552]] Caused by: [No response from remote for outbound association. Associate timed out after [15000 ms].]
+2016-06-07 16:25:49,114 WARN [AVALON-akka.actor.default-dispatcher-21] a.r.ReliableDeliverySupervisor [Slf4jLogger.scala:76] Association with remote system [akka.tcp://AVALON@10.1.7.163:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.7.163:2551]] Caused by: [No response from remote for outbound association. Associate timed out after [15000 ms].]
+2016-06-07 16:25:49,114 INFO [AVALON-akka.actor.default-dispatcher-21] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-966483931] to Actor[akka://AVALON/deadLetters] was not delivered. [7] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-07 16:25:49,115 INFO [AVALON-akka.actor.default-dispatcher-21] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-966483931] to Actor[akka://AVALON/deadLetters] was not delivered. [8] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-07 16:25:49,116 INFO [AVALON-akka.actor.default-dispatcher-21] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-966483931] to Actor[akka://AVALON/deadLetters] was not delivered. [9] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-07 16:25:49,116 INFO [AVALON-akka.actor.default-dispatcher-21] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-966483931] to Actor[akka://AVALON/deadLetters] was not delivered. [10] dead letters encountered, no more dead letters will be logged. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.

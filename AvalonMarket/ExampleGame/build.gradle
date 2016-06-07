@@ -1,0 +1,68 @@
+apply plugin: 'application'
+project.archivesBaseName = "ExampleGame";
+version = '1.0.0-Extension'
+
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile project(':Avalon')
+    compile project(':MybatisPlug')
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    compile 'org.jodd:jodd-core:3.7'
+    compile 'org.jodd:jodd-props:3.7'
+    compile 'com.google.guava:guava:19.0'
+    compile 'org.javassist:javassist:3.20.0-GA'
+    compile 'io.netty:netty-all:5.0.0.Alpha2'
+    compile 'ch.qos.logback:logback-classic:1.1.7'
+    compile 'ch.qos.logback:logback-core:1.1.7'
+    compile 'ch.qos.logback:logback-access:1.1.7'
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    
+    compile 'c3p0:c3p0:0.9.1.2'
+    compile 'commons-io:commons-io:2.4'
+    compile 'freemarker:freemarker:2.3.9'
+    compile 'net.vidageek:mirror:1.6.1'
+    compile 'org.mybatis:mybatis:3.3.1'
+    compile 'mysql:mysql-connector-java:5.1.38'
+    compile 'com.j256.ormlite:ormlite-core:4.48'
+    compile 'com.j256.ormlite:ormlite-jdbc:4.48'
+    compile group: 'com.google.protobuf', name: 'protobuf-java', version: '2.5.0'
+    
+    
+    compile 'com.typesafe.akka:akka-actor_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-agent_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-camel_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-cluster_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-cluster-metrics_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-cluster-sharding_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-cluster-tools_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-contrib_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-http-core_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-http-testkit_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-multi-node-testkit_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-osgi_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-persistence_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-persistence-tck_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-remote_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-slf4j_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-stream_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-stream-testkit_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-testkit_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-distributed-data-experimental_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-typed-experimental_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-http-experimental_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-http-jackson-experimental_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-http-spray-json-experimental_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-http-xml-experimental_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-persistence-query-experimental_2.11:2.4.4'
+    compile 'com.typesafe.akka:akka-typed-experimental_2.11:2.4.4'
+    testCompile 'junit:junit:4.12'
+    runtime fileTree(dir: 'lib', include: '*.jar')
+}
+
+task helloGradle << {
+     
+}

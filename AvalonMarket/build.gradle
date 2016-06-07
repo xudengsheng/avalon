@@ -1,0 +1,21 @@
+allprojects {
+    apply plugin: 'eclipse'
+}
+
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.8
+    
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compile "javax.servlet:servlet-api:2.5"
+        testCompile 'junit:junit:4.11'
+    }
+}

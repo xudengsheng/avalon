@@ -1,0 +1,65 @@
+2016-06-07 16:23:58,385 INFO [main] AvalonEngine [AvalonEngine.java:545] File path=/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame
+2016-06-07 16:23:58,406 DEBUG [main] AvalonEngine [AvalonEngine.java:426] create AvalonEngine
+2016-06-07 16:23:58,408 DEBUG [main] AvalonEngine [AvalonEngine.java:433] Severid=1 modelName=GAME
+2016-06-07 16:23:58,408 DEBUG [main] AvalonEngine [ComponentRegistryImpl.java:376] ComponentRegistryImpl create
+2016-06-07 16:23:58,412 DEBUG [main] AvalonEngine [ComponentRegistryImpl.java:376] ComponentRegistryImpl create
+2016-06-07 16:23:58,413 DEBUG [main] AvalonEngine [AvalonEngine.java:438] AvalonEngine start create application
+2016-06-07 16:23:58,413 DEBUG [main] AvalonEngine [AvalonEngine.java:447] AvalonEngine start createServices
+2016-06-07 16:23:58,415 DEBUG [main] AvalonEngine [ManagementService.java:28] ManagementService init
+2016-06-07 16:23:58,425 DEBUG [main] AvalonEngine [ComponentRegistryImpl.java:426] Component add component AvalonMediator 
+2016-06-07 16:23:58,427 DEBUG [main] AvalonEngine [AvalonMediator.java:404] AvalonMediator init
+2016-06-07 16:23:58,427 DEBUG [main] AvalonEngine [AvalonMediator.java:407] conf path:/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame/conf
+2016-06-07 16:23:58,428 DEBUG [main] AvalonEngine [AvalonMediator.java:410] akka conf path:/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame/conf
+2016-06-07 16:23:58,437 DEBUG [main] AvalonEngine [AvalonMediator.java:414] AKKA_NAME:AVALON
+2016-06-07 16:23:58,438 DEBUG [main] AvalonEngine [AvalonMediator.java:416] configName:AVALON
+2016-06-07 16:23:58,438 DEBUG [main] AvalonEngine [AvalonMediator.java:426] initActorSystem start: akkaName=AVALON configName:AVALON
+2016-06-07 16:23:59,051 INFO [AVALON-akka.actor.default-dispatcher-4] a.e.s.Slf4jLogger [Slf4jLogger.scala:85] Slf4jLogger started
+2016-06-07 16:23:59,060 DEBUG [AVALON-akka.actor.default-dispatcher-4] a.e.EventStream [Slf4jLogger.scala:82] logger log1-Slf4jLogger started
+2016-06-07 16:23:59,065 DEBUG [AVALON-akka.actor.default-dispatcher-4] a.e.EventStream [Slf4jLogger.scala:82] Default Loggers started
+2016-06-07 16:23:59,151 INFO [AVALON-akka.actor.default-dispatcher-4] a.r.Remoting [Slf4jLogger.scala:79] Starting remoting
+2016-06-07 16:23:59,279 ERROR [AVALON-akka.actor.default-dispatcher-4] a.r.t.n.NettyTransport [Slf4jLogger.scala:70] failed to bind to /10.1.38.173:2552, shutting down Netty transport
+2016-06-07 16:23:59,286 ERROR [main] AvalonEngine [AvalonEngine.java:487] Server Exception
+org.jboss.netty.channel.ChannelException: Failed to bind to: /10.1.38.173:2552
+	at org.jboss.netty.bootstrap.ServerBootstrap.bind(ServerBootstrap.java:272)
+	at akka.remote.transport.netty.NettyTransport$$anonfun$listen$1.apply(NettyTransport.scala:415)
+	at akka.remote.transport.netty.NettyTransport$$anonfun$listen$1.apply(NettyTransport.scala:411)
+	at scala.util.Success$$anonfun$map$1.apply(Try.scala:237)
+	at scala.util.Try$.apply(Try.scala:192)
+	at scala.util.Success.map(Try.scala:237)
+	at scala.concurrent.Future$$anonfun$map$1.apply(Future.scala:237)
+	at scala.concurrent.Future$$anonfun$map$1.apply(Future.scala:237)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:32)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch$$anonfun$run$1.apply$mcV$sp(BatchingExecutor.scala:91)
+	at akka.dispatch.BatchingExecutor$BlockableBatch$$anonfun$run$1.apply(BatchingExecutor.scala:91)
+	at akka.dispatch.BatchingExecutor$BlockableBatch$$anonfun$run$1.apply(BatchingExecutor.scala:91)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:72)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:90)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.net.BindException: Can't assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.Net.bind(Net.java:428)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.jboss.netty.channel.socket.nio.NioServerBoss$RegisterTask.run(NioServerBoss.java:193)
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.processTaskQueue(AbstractNioSelector.java:391)
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:315)
+	at org.jboss.netty.channel.socket.nio.NioServerBoss.run(NioServerBoss.java:42)
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)
+	at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2016-06-07 16:23:59,287 DEBUG [main] AvalonEngine [AvalonEngine.java:450] AvalonEngine start Application
+2016-06-07 16:23:59,291 INFO [AVALON-akka.actor.default-dispatcher-2] a.r.RemoteActorRefProvider$RemotingTerminator [Slf4jLogger.scala:79] Shutting down remote daemon.
+2016-06-07 16:23:59,295 INFO [main] GameServerListener [GameServerListener.java:37] GameServerListener 初始化服务
+2016-06-07 16:23:59,295 INFO [AVALON-akka.actor.default-dispatcher-2] a.r.RemoteActorRefProvider$RemotingTerminator [Slf4jLogger.scala:79] Remote daemon shut down; proceeding with flushing remote transports.
+2016-06-07 16:23:59,297 ERROR [AVALON-akka.actor.default-dispatcher-3] a.r.Remoting [Slf4jLogger.scala:70] Remoting system has been terminated abrubtly. Attempting to shut down transports
+2016-06-07 16:23:59,298 INFO [AVALON-akka.actor.default-dispatcher-3] a.r.RemoteActorRefProvider$RemotingTerminator [Slf4jLogger.scala:79] Remoting shut down.
+2016-06-07 16:23:59,299 DEBUG [AVALON-akka.actor.default-dispatcher-3] a.e.EventStream [Slf4jLogger.scala:82] shutting down: StandardOutLogger started

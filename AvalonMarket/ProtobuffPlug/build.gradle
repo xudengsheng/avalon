@@ -1,0 +1,29 @@
+apply plugin: 'java'
+project.archivesBaseName = "ProtobuffPlug";
+version = '1.0.0-Extension'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    // Use 'jcenter' for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    compile project(':Avalon')
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    compile 'com.typesafe.akka:akka-actor_2.11:2.4.4'
+    compile 'commons-io:commons-io:2.4'
+    
+    compile 'org.jodd:jodd-core:3.7'
+    compile 'org.jodd:jodd-props:3.7'
+    compile 'com.google.guava:guava:19.0'
+    compile 'net.vidageek:mirror:1.6.1'
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'ch.qos.logback:logback-classic:1.1.7'
+    compile 'ch.qos.logback:logback-core:1.1.7'
+    compile 'ch.qos.logback:logback-access:1.1.7'
+    compile group: 'com.google.protobuf', name: 'protobuf-java', version: '2.5.0'
+    compile group: 'freemarker', name: 'freemarker', version: '2.3.9'
+}

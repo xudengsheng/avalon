@@ -1,0 +1,223 @@
+16:23:58.385 [main] INFO  AvalonEngine
+				[AvalonEngine.java:545] - File path=/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame
+16:23:58.406 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:426] - create AvalonEngine
+16:23:58.408 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:433] - Severid=1 modelName=GAME
+16:23:58.408 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+16:23:58.412 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+16:23:58.413 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:438] - AvalonEngine start create application
+16:23:58.413 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:447] - AvalonEngine start createServices
+16:23:58.415 [main] DEBUG AvalonEngine
+				[ManagementService.java:28] - ManagementService init
+16:23:58.425 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component AvalonMediator 
+16:23:58.427 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:404] - AvalonMediator init
+16:23:58.427 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:407] - conf path:/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame/conf
+16:23:58.428 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:410] - akka conf path:/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame/conf
+16:23:58.437 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:414] - AKKA_NAME:AVALON
+16:23:58.438 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:416] - configName:AVALON
+16:23:58.438 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:426] - initActorSystem start: akkaName=AVALON configName:AVALON
+16:23:59.286 [main] ERROR AvalonEngine
+				[AvalonEngine.java:487] - Server Exception
+org.jboss.netty.channel.ChannelException: Failed to bind to: /10.1.38.173:2552
+	at org.jboss.netty.bootstrap.ServerBootstrap.bind(ServerBootstrap.java:272)
+	at akka.remote.transport.netty.NettyTransport$$anonfun$listen$1.apply(NettyTransport.scala:415)
+	at akka.remote.transport.netty.NettyTransport$$anonfun$listen$1.apply(NettyTransport.scala:411)
+	at scala.util.Success$$anonfun$map$1.apply(Try.scala:237)
+	at scala.util.Try$.apply(Try.scala:192)
+	at scala.util.Success.map(Try.scala:237)
+	at scala.concurrent.Future$$anonfun$map$1.apply(Future.scala:237)
+	at scala.concurrent.Future$$anonfun$map$1.apply(Future.scala:237)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:32)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch$$anonfun$run$1.apply$mcV$sp(BatchingExecutor.scala:91)
+	at akka.dispatch.BatchingExecutor$BlockableBatch$$anonfun$run$1.apply(BatchingExecutor.scala:91)
+	at akka.dispatch.BatchingExecutor$BlockableBatch$$anonfun$run$1.apply(BatchingExecutor.scala:91)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:72)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:90)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.net.BindException: Can't assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.Net.bind(Net.java:428)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.jboss.netty.channel.socket.nio.NioServerBoss$RegisterTask.run(NioServerBoss.java:193)
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.processTaskQueue(AbstractNioSelector.java:391)
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:315)
+	at org.jboss.netty.channel.socket.nio.NioServerBoss.run(NioServerBoss.java:42)
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)
+	at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+16:23:59.287 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:450] - AvalonEngine start Application
+16:25:14.586 [main] INFO  AvalonEngine
+				[AvalonEngine.java:545] - File path=/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame
+16:25:14.612 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:426] - create AvalonEngine
+16:25:14.615 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:433] - Severid=1 modelName=GAME
+16:25:14.615 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+16:25:14.622 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+16:25:14.623 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:438] - AvalonEngine start create application
+16:25:14.623 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:447] - AvalonEngine start createServices
+16:25:14.626 [main] DEBUG AvalonEngine
+				[ManagementService.java:28] - ManagementService init
+16:25:14.638 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component AvalonMediator 
+16:25:14.641 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:404] - AvalonMediator init
+16:25:14.642 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:407] - conf path:/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame/conf
+16:25:14.642 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:410] - akka conf path:/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame/conf
+16:25:14.665 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:414] - AKKA_NAME:AVALON
+16:25:14.666 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:416] - configName:AVALON
+16:25:14.666 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:426] - initActorSystem start: akkaName=AVALON configName:AVALON
+16:25:15.950 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:432] - initActorSystem end
+16:25:15.954 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:450] - AvalonEngine start Application
+16:25:15.957 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:72] - ServerSupervisorSubscriber create
+16:25:15.960 [AVALON-akka.actor.default-dispatcher-4] INFO  AvalonEngine
+				[AvalonActorSystem.java:484] - Server model is game
+16:25:15.971 [AVALON-akka.actor.default-dispatcher-18] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.avalon.gameengine.InstanceWorld
+16:25:16.026 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:210] - subscribing ack
+16:25:21.003 [AVALON-akka.actor.default-dispatcher-19] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:222] - msg is ServerSupervisorMessage.ServerIsTheSame find self
+16:25:21.003 [AVALON-akka.actor.default-dispatcher-16] DEBUG AvalonEngine
+				[ClusterListener.java:428] - ClusterListener Member is Up: Member(address = akka.tcp://AVALON@10.1.37.203:2551, status = Up)
+16:25:21.006 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:92] - msg is ServerSupervisorMessage.ServerOnline: is then same
+16:25:32.711 [main] INFO  AvalonEngine
+				[AvalonEngine.java:545] - File path=/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame
+16:25:32.747 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:426] - create AvalonEngine
+16:25:32.750 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:433] - Severid=1 modelName=GAME
+16:25:32.750 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+16:25:32.755 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+16:25:32.755 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:438] - AvalonEngine start create application
+16:25:32.756 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:447] - AvalonEngine start createServices
+16:25:32.758 [main] DEBUG AvalonEngine
+				[ManagementService.java:28] - ManagementService init
+16:25:32.770 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component AvalonMediator 
+16:25:32.772 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:404] - AvalonMediator init
+16:25:32.773 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:407] - conf path:/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame/conf
+16:25:32.773 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:410] - akka conf path:/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame/conf
+16:25:32.787 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:414] - AKKA_NAME:AVALON
+16:25:32.787 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:416] - configName:AVALON
+16:25:32.787 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:426] - initActorSystem start: akkaName=AVALON configName:AVALON
+16:25:33.948 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:432] - initActorSystem end
+16:25:33.953 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:450] - AvalonEngine start Application
+16:25:33.956 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:72] - ServerSupervisorSubscriber create
+16:25:33.957 [AVALON-akka.actor.default-dispatcher-2] INFO  AvalonEngine
+				[AvalonActorSystem.java:484] - Server model is game
+16:25:33.987 [AVALON-akka.actor.default-dispatcher-17] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.avalon.gameengine.InstanceWorld
+16:25:34.051 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:210] - subscribing ack
+16:25:35.021 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.avalon.db.MybatisDataManagerImpl@4f453e63
+16:25:35.030 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.zero.example.core.ExampleClientExtension@21d1b321
+16:25:39.007 [AVALON-akka.actor.default-dispatcher-19] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:222] - msg is ServerSupervisorMessage.ServerIsTheSame find self
+16:25:39.007 [AVALON-akka.actor.default-dispatcher-2] DEBUG AvalonEngine
+				[ClusterListener.java:428] - ClusterListener Member is Up: Member(address = akka.tcp://AVALON@10.1.37.203:2551, status = Up)
+16:25:39.013 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:92] - msg is ServerSupervisorMessage.ServerOnline: is then same
+16:35:14.931 [main] INFO  AvalonEngine
+				[AvalonEngine.java:545] - File path=/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame
+16:35:14.957 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:426] - create AvalonEngine
+16:35:14.959 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:433] - Severid=1 modelName=GAME
+16:35:14.960 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+16:35:14.967 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+16:35:14.967 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:438] - AvalonEngine start create application
+16:35:14.967 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:447] - AvalonEngine start createServices
+16:35:14.970 [main] DEBUG AvalonEngine
+				[ManagementService.java:28] - ManagementService init
+16:35:14.983 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component AvalonMediator 
+16:35:14.986 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:404] - AvalonMediator init
+16:35:14.986 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:407] - conf path:/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame/conf
+16:35:14.986 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:410] - akka conf path:/Users/zero/Documents/workspace4.5/AvalonMarket/ExampleGame/conf
+16:35:15.001 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:414] - AKKA_NAME:AVALON
+16:35:15.002 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:416] - configName:AVALON
+16:35:15.002 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:426] - initActorSystem start: akkaName=AVALON configName:AVALON
+16:35:16.226 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:432] - initActorSystem end
+16:35:16.231 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:450] - AvalonEngine start Application
+16:35:16.233 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:72] - ServerSupervisorSubscriber create
+16:35:16.235 [AVALON-akka.actor.default-dispatcher-4] INFO  AvalonEngine
+				[AvalonActorSystem.java:484] - Server model is game
+16:35:16.253 [AVALON-akka.actor.default-dispatcher-21] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.avalon.gameengine.InstanceWorld
+16:35:16.308 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:210] - subscribing ack
+16:35:17.060 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.avalon.db.MybatisDataManagerImpl@1433046b
+16:35:17.068 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.zero.example.core.ExampleClientExtension@5778826f
+16:35:21.308 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:222] - msg is ServerSupervisorMessage.ServerIsTheSame find self
+16:35:21.308 [AVALON-akka.actor.default-dispatcher-2] DEBUG AvalonEngine
+				[ClusterListener.java:428] - ClusterListener Member is Up: Member(address = akka.tcp://AVALON@10.1.37.203:2551, status = Up)
+16:35:21.312 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:92] - msg is ServerSupervisorMessage.ServerOnline: is then same

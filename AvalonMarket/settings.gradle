@@ -1,0 +1,6 @@
+rootProject.name = 'AvalonMarket'
+
+include 'Avalon'
+include 'MybatisPlug'
+include 'ExampleGame'
+include 'ProtobuffPlug'
