@@ -420,7 +420,7 @@ public class InstanceWorld extends ANObject implements ICreateANObeject{
 
 	@Override
 	public ActorRef createANObject(Class<?> anObject,String id, Object... arg) {
-		Props create = Props.create(anObject.getClass(),arg);
+		Props create = Props.create(anObject,arg);
 		ActorRef actorOf = getContext().actorOf(create,id);
 		anObjects.put(id, actorOf);
 		getContext().watch(actorOf);
@@ -429,7 +429,7 @@ public class InstanceWorld extends ANObject implements ICreateANObeject{
 
 	@Override
 	public ActorRef createANObject(Class<?> anObject, String id) {
-		Props create = Props.create(anObject.getClass());
+		Props create = Props.create(anObject);
 		ActorRef actorOf = getContext().actorOf(create,id);
 		anObjects.put(id, actorOf);
 		getContext().watch(actorOf);
