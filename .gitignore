@@ -6,4 +6,5 @@
 *.ear
 *.DS_Store
 .bin
+.gradle
 .*
