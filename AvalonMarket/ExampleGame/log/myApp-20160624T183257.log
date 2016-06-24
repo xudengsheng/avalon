@@ -1,0 +1,100 @@
+2016-06-24 18:32:57,107 INFO [main] AvalonEngine [AvalonEngine.java:545] File path=/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame
+2016-06-24 18:32:57,140 DEBUG [main] AvalonEngine [AvalonEngine.java:426] create AvalonEngine
+2016-06-24 18:32:57,143 DEBUG [main] AvalonEngine [AvalonEngine.java:433] Severid=1 modelName=SINGLE
+2016-06-24 18:32:57,143 DEBUG [main] AvalonEngine [ComponentRegistryImpl.java:376] ComponentRegistryImpl create
+2016-06-24 18:32:57,151 DEBUG [main] AvalonEngine [ComponentRegistryImpl.java:376] ComponentRegistryImpl create
+2016-06-24 18:32:57,152 DEBUG [main] AvalonEngine [AvalonEngine.java:438] AvalonEngine start create application
+2016-06-24 18:32:57,152 DEBUG [main] AvalonEngine [AvalonEngine.java:447] AvalonEngine start createServices
+2016-06-24 18:32:57,159 DEBUG [main] AvalonEngine [ComponentRegistryImpl.java:426] Component add component NettyServer
+2016-06-24 18:32:57,160 DEBUG [main] AvalonEngine [ManagementService.java:28] ManagementService init
+2016-06-24 18:32:57,176 DEBUG [main] AvalonEngine [ComponentRegistryImpl.java:426] Component add component AvalonMediator 
+2016-06-24 18:32:57,179 INFO [main] c.a.i.n.NettyServer [NettyServer.java:435] 初始化Netty 开始
+2016-06-24 18:32:57,182 INFO [main] c.a.i.n.NettyServer [NettyServer.java:464] 初始化Netty 线程启动
+2016-06-24 18:32:57,182 DEBUG [main] AvalonEngine [AvalonMediator.java:405] AvalonMediator init
+2016-06-24 18:32:57,182 DEBUG [main] AvalonEngine [AvalonMediator.java:408] conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+2016-06-24 18:32:57,182 DEBUG [main] AvalonEngine [AvalonMediator.java:411] akka conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+2016-06-24 18:32:57,197 DEBUG [NettyStartThread] i.n.u.i.l.InternalLoggerFactory [Slf4JLogger.java:71] Using SLF4J as the default logging framework
+2016-06-24 18:32:57,200 DEBUG [main] AvalonEngine [AvalonMediator.java:415] AKKA_NAME:AVALON
+2016-06-24 18:32:57,201 DEBUG [main] AvalonEngine [AvalonMediator.java:417] configName:AVALON
+2016-06-24 18:32:57,201 DEBUG [main] AvalonEngine [AvalonMediator.java:427] initActorSystem start: akkaName=AVALON configName:AVALON
+2016-06-24 18:32:57,210 DEBUG [NettyStartThread] i.n.c.MultithreadEventLoopGroup [Slf4JLogger.java:76] -Dio.netty.eventLoopThreads: 16
+2016-06-24 18:32:57,274 DEBUG [NettyStartThread] i.n.u.i.PlatformDependent0 [Slf4JLogger.java:76] java.nio.Buffer.address: available
+2016-06-24 18:32:57,274 DEBUG [NettyStartThread] i.n.u.i.PlatformDependent0 [Slf4JLogger.java:76] sun.misc.Unsafe.theUnsafe: available
+2016-06-24 18:32:57,275 DEBUG [NettyStartThread] i.n.u.i.PlatformDependent0 [Slf4JLogger.java:71] sun.misc.Unsafe.copyMemory: available
+2016-06-24 18:32:57,275 DEBUG [NettyStartThread] i.n.u.i.PlatformDependent0 [Slf4JLogger.java:76] java.nio.Bits.unaligned: true
+2016-06-24 18:32:57,276 DEBUG [NettyStartThread] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] Java version: 8
+2016-06-24 18:32:57,276 DEBUG [NettyStartThread] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.noUnsafe: false
+2016-06-24 18:32:57,276 DEBUG [NettyStartThread] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] sun.misc.Unsafe: available
+2016-06-24 18:32:57,277 DEBUG [NettyStartThread] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.noJavassist: false
+2016-06-24 18:32:57,423 DEBUG [NettyStartThread] i.n.u.i.PlatformDependent [Slf4JLogger.java:71] Javassist: available
+2016-06-24 18:32:57,424 DEBUG [NettyStartThread] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+2016-06-24 18:32:57,425 DEBUG [NettyStartThread] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.bitMode: 64 (sun.arch.data.model)
+2016-06-24 18:32:57,425 DEBUG [NettyStartThread] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.noPreferDirect: false
+2016-06-24 18:32:57,426 DEBUG [NettyStartThread] i.n.c.n.NioEventLoop [Slf4JLogger.java:76] -Dio.netty.noKeySetOptimization: false
+2016-06-24 18:32:57,426 DEBUG [NettyStartThread] i.n.c.n.NioEventLoop [Slf4JLogger.java:76] -Dio.netty.selectorAutoRebuildThreshold: 512
+2016-06-24 18:32:57,486 DEBUG [NettyStartThread] i.n.c.DefaultChannelId [Slf4JLogger.java:76] -Dio.netty.processId: 1217 (auto-detected)
+2016-06-24 18:32:57,492 DEBUG [NettyStartThread] i.n.c.DefaultChannelId [Slf4JLogger.java:76] -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+2016-06-24 18:32:57,494 DEBUG [NettyStartThread] i.n.u.i.ThreadLocalRandom [Slf4JLogger.java:71] -Dio.netty.initialSeedUniquifier: 0x65df9814c8a2f5dc (took 13 ms)
+2016-06-24 18:32:57,532 DEBUG [NettyStartThread] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.numHeapArenas: 8
+2016-06-24 18:32:57,532 DEBUG [NettyStartThread] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.numDirectArenas: 8
+2016-06-24 18:32:57,533 DEBUG [NettyStartThread] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.pageSize: 8192
+2016-06-24 18:32:57,533 DEBUG [NettyStartThread] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.maxOrder: 11
+2016-06-24 18:32:57,533 DEBUG [NettyStartThread] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.chunkSize: 16777216
+2016-06-24 18:32:57,533 DEBUG [NettyStartThread] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.tinyCacheSize: 512
+2016-06-24 18:32:57,534 DEBUG [NettyStartThread] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.smallCacheSize: 256
+2016-06-24 18:32:57,534 DEBUG [NettyStartThread] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.normalCacheSize: 64
+2016-06-24 18:32:57,534 DEBUG [NettyStartThread] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+2016-06-24 18:32:57,534 DEBUG [NettyStartThread] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.cacheTrimInterval: 8192
+2016-06-24 18:32:57,541 DEBUG [NettyStartThread] i.n.b.ByteBufUtil [Slf4JLogger.java:76] -Dio.netty.allocator.type: pooled
+2016-06-24 18:32:57,542 DEBUG [NettyStartThread] i.n.b.ByteBufUtil [Slf4JLogger.java:76] -Dio.netty.threadLocalDirectBufferSize: 65536
+2016-06-24 18:32:57,544 DEBUG [NettyStartThread] i.n.u.NetUtil [Slf4JLogger.java:86] Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1)
+2016-06-24 18:32:57,544 DEBUG [NettyStartThread] i.n.u.NetUtil [Slf4JLogger.java:81] /proc/sys/net/core/somaxconn: 128 (non-existent)
+2016-06-24 18:32:57,561 INFO [nioEventLoopGroup-0-0] i.n.h.l.LoggingHandler [Slf4JLogger.java:101] [id: 0x311e8896] REGISTERED
+2016-06-24 18:32:57,563 INFO [nioEventLoopGroup-0-0] i.n.h.l.LoggingHandler [Slf4JLogger.java:101] [id: 0x311e8896] BIND: 0.0.0.0/0.0.0.0:12345
+2016-06-24 18:32:57,568 INFO [nioEventLoopGroup-0-0] i.n.h.l.LoggingHandler [Slf4JLogger.java:101] [id: 0x311e8896, /0:0:0:0:0:0:0:0:12345] ACTIVE
+2016-06-24 18:32:58,135 INFO [AVALON-akka.actor.default-dispatcher-4] a.e.s.Slf4jLogger [Slf4jLogger.scala:85] Slf4jLogger started
+2016-06-24 18:32:58,146 DEBUG [AVALON-akka.actor.default-dispatcher-4] a.e.EventStream [Slf4jLogger.scala:82] logger log1-Slf4jLogger started
+2016-06-24 18:32:58,149 DEBUG [AVALON-akka.actor.default-dispatcher-4] a.e.EventStream [Slf4jLogger.scala:82] Default Loggers started
+2016-06-24 18:32:58,349 INFO [AVALON-akka.actor.default-dispatcher-4] a.r.Remoting [Slf4jLogger.scala:79] Starting remoting
+2016-06-24 18:32:58,571 INFO [AVALON-akka.actor.default-dispatcher-4] a.r.Remoting [Slf4jLogger.scala:79] Remoting started; listening on addresses :[akka.tcp://AVALON@10.1.37.203:2551]
+2016-06-24 18:32:58,680 DEBUG [main] AvalonEngine [AvalonMediator.java:433] initActorSystem end
+2016-06-24 18:32:58,694 DEBUG [main] AvalonEngine [AvalonEngine.java:450] AvalonEngine start Application
+2016-06-24 18:32:58,697 INFO [main] GameServerListener [GameServerListener.java:37] GameServerListener 初始化服务
+2016-06-24 18:32:58,698 DEBUG [AVALON-akka.actor.default-dispatcher-16] ServerSupervisorSubscriber [ServerSupervisorSubscriber.java:81] ServerSupervisorSubscriber create
+2016-06-24 18:32:58,701 INFO [AVALON-akka.actor.default-dispatcher-18] AvalonEngine [AvalonActorSystem.java:491] Server model is single
+2016-06-24 18:32:58,709 DEBUG [AVALON-akka.actor.default-dispatcher-15] TransportSupervisor [TransportSupervisor.java:427] TransportSupervisor init ,is gate=false
+2016-06-24 18:32:58,711 DEBUG [AVALON-akka.actor.default-dispatcher-15] TransportSupervisor [TransportSupervisor.java:559] CheckNoSessionTransport
+2016-06-24 18:32:58,712 DEBUG [AVALON-akka.actor.default-dispatcher-15] TransportSupervisor [TransportSupervisor.java:551] TransportSupervisorMessage.TransportLostNetSessionActor[akka://AVALON/user/TransportSupervisor#138337497]
+2016-06-24 18:32:58,718 DEBUG [AVALON-akka.actor.default-dispatcher-14] AvalonEngine [LogUtil.java:11] AvaLongObecj init=com.avalon.gameengine.InstanceWorld
+2016-06-24 18:32:58,721 DEBUG [AVALON-akka.actor.default-dispatcher-14] AvalonEngine [LogUtil.java:11] AvaLongObecj extended actorExtendedStart=com.zero.example.extrnded.WorldManagerIExtendedControl
+2016-06-24 18:32:58,721 DEBUG [AVALON-akka.actor.default-dispatcher-15] AvalonEngine [LogUtil.java:11] AvaLongObecj init=com.zero.example.manager.ZoneManager
+2016-06-24 18:32:58,755 DEBUG [AVALON-akka.actor.default-dispatcher-17] ServerSupervisorSubscriber [ServerSupervisorSubscriber.java:136] subscribing ack
+2016-06-24 18:32:58,902 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:19] 开始查找DB Class类
+2016-06-24 18:32:58,908 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:25] 发现持久化类文件:Account
+2016-06-24 18:32:58,910 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:25] 发现持久化类文件:example.AccountExample$Criteria
+2016-06-24 18:32:58,912 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:25] 发现持久化类文件:example.AccountExample$Criterion
+2016-06-24 18:32:58,914 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:25] 发现持久化类文件:example.AccountExample$GeneratedCriteria
+2016-06-24 18:32:58,914 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:25] 发现持久化类文件:example.AccountExample
+2016-06-24 18:32:58,915 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:25] 发现持久化类文件:example.AccountMapper
+2016-06-24 18:32:58,916 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:38] 结束查找DB Class类
+2016-06-24 18:32:58,917 INFO [main] c.a.d.u.ScanManagedObjectUtil [ScanManagedObjectUtil.java:73] 发现持久化类操作Mapper文件:AccountMapper
+2016-06-24 18:32:58,940 DEBUG [main] o.a.i.l.LogFactory [LogFactory.java:135] Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2016-06-24 18:33:03,734 DEBUG [AVALON-akka.actor.default-dispatcher-18] AvalonEngine [ClusterListener.java:430] ClusterListener Member is Up: Member(address = akka.tcp://AVALON@10.1.37.203:2551, status = Up)
+2016-06-24 18:33:03,734 DEBUG [AVALON-akka.actor.default-dispatcher-15] ServerSupervisorSubscriber [ServerSupervisorSubscriber.java:290] msg is ServerSupervisorMessage.ServerIsTheSame find self
+2016-06-24 18:33:03,739 DEBUG [AVALON-akka.actor.default-dispatcher-2] ServerSupervisorSubscriber [ServerSupervisorSubscriber.java:259] msg is ServerSupervisorMessage.ServerOnline: is then same
+2016-06-24 18:33:13,810 INFO [AVALON-akka.actor.default-dispatcher-16] a.r.t.ProtocolStateActor [Slf4jLogger.scala:79] No response from remote for outbound association. Associate timed out after [15000 ms].
+2016-06-24 18:33:13,811 INFO [AVALON-akka.actor.default-dispatcher-16] a.r.t.ProtocolStateActor [Slf4jLogger.scala:79] No response from remote for outbound association. Associate timed out after [15000 ms].
+2016-06-24 18:33:13,830 INFO [AVALON-akka.actor.default-dispatcher-16] a.r.t.ProtocolStateActor [Slf4jLogger.scala:79] No response from remote for outbound association. Associate timed out after [15000 ms].
+2016-06-24 18:33:13,833 WARN [AVALON-akka.actor.default-dispatcher-16] a.r.ReliableDeliverySupervisor [Slf4jLogger.scala:76] Association with remote system [akka.tcp://AVALON@10.1.7.163:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.7.163:2552]] Caused by: [No response from remote for outbound association. Associate timed out after [15000 ms].]
+2016-06-24 18:33:13,834 WARN [AVALON-akka.actor.default-dispatcher-16] a.r.ReliableDeliverySupervisor [Slf4jLogger.scala:76] Association with remote system [akka.tcp://AVALON@10.1.38.173:2552] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.38.173:2552]] Caused by: [No response from remote for outbound association. Associate timed out after [15000 ms].]
+2016-06-24 18:33:13,837 WARN [AVALON-akka.actor.default-dispatcher-16] a.r.ReliableDeliverySupervisor [Slf4jLogger.scala:76] Association with remote system [akka.tcp://AVALON@10.1.7.163:2551] has failed, address is now gated for [5000] ms. Reason: [Association failed with [akka.tcp://AVALON@10.1.7.163:2551]] Caused by: [No response from remote for outbound association. Associate timed out after [15000 ms].]
+2016-06-24 18:33:13,841 INFO [AVALON-akka.actor.default-dispatcher-14] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-1576848791] to Actor[akka://AVALON/deadLetters] was not delivered. [1] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-24 18:33:13,842 INFO [AVALON-akka.actor.default-dispatcher-14] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-1576848791] to Actor[akka://AVALON/deadLetters] was not delivered. [2] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-24 18:33:13,842 INFO [AVALON-akka.actor.default-dispatcher-14] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-1576848791] to Actor[akka://AVALON/deadLetters] was not delivered. [3] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-24 18:33:13,843 INFO [AVALON-akka.actor.default-dispatcher-14] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-1576848791] to Actor[akka://AVALON/deadLetters] was not delivered. [4] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-24 18:33:13,843 INFO [AVALON-akka.actor.default-dispatcher-14] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-1576848791] to Actor[akka://AVALON/deadLetters] was not delivered. [5] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-24 18:33:13,843 INFO [AVALON-akka.actor.default-dispatcher-14] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-1576848791] to Actor[akka://AVALON/deadLetters] was not delivered. [6] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-24 18:33:13,844 INFO [AVALON-akka.actor.default-dispatcher-14] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-1576848791] to Actor[akka://AVALON/deadLetters] was not delivered. [7] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-24 18:33:13,844 INFO [AVALON-akka.actor.default-dispatcher-14] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-1576848791] to Actor[akka://AVALON/deadLetters] was not delivered. [8] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-24 18:33:13,844 INFO [AVALON-akka.actor.default-dispatcher-14] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-1576848791] to Actor[akka://AVALON/deadLetters] was not delivered. [9] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2016-06-24 18:33:13,845 INFO [AVALON-akka.actor.default-dispatcher-14] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef [Slf4jLogger.scala:79] Message [akka.cluster.InternalClusterAction$InitJoin$] from Actor[akka://AVALON/system/cluster/core/daemon/firstSeedNodeProcess-1#-1576848791] to Actor[akka://AVALON/deadLetters] was not delivered. [10] dead letters encountered, no more dead letters will be logged. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.

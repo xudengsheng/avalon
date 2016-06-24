@@ -349,11 +349,12 @@ import org.slf4j.LoggerFactory;
 
 import com.avalon.core.ContextResolver;
 import com.avalon.core.actor.ConnectionSession;
-import com.avalon.core.message.ConnectionSessionMessage;
-import com.avalon.core.message.ConnectionSessionMessage.DirectSessionMessage;
-import com.avalon.core.message.ConnectionSessionMessage.HasSenderPathMessage;
-import com.avalon.core.message.ConnectionSessionSupervisorMessage.CluserSessionMessage;
-import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
+import com.avalon.core.message.AvaloneMessage;
+import com.avalon.core.message.CluserSessionMessage;
+import com.avalon.core.message.DirectSessionMessage;
+import com.avalon.core.message.HasSenderPathMessage;
+import com.avalon.core.message.IoMessagePackageMessage;
+import com.avalon.core.message.MessageType;
 import com.avalon.setting.SystemEnvironment;
 
 import akka.actor.ActorRef;
@@ -372,7 +373,6 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 	/** The log. */
 	private static Logger logger = LoggerFactory.getLogger("ConnectionSessionSupervisor");
 
-
 	/** The session num. */
 	int sessionNum = 0;
 
@@ -383,87 +383,100 @@ public class ConnectionSessionSupervisor extends UntypedActor {
 	private Map<String, ActorRef> keyConnectionSession = new HashMap<String, ActorRef>();
 
 	private int serverId;
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see akka.actor.UntypedActor#preStart()
 	 */
 	@Override
-	public void preStart() throws Exception
-	{
+	public void preStart() throws Exception {
 		super.preStart();
-		serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID,-1);
+		serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID, -1);
 	}
 
-	
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
 	 */
 	@Override
-	public void onReceive(Object msg) throws Exception
-	{
-		if (msg instanceof CluserSessionMessage)
-		{
-			logger.debug("Geting CluserSessionMessage");
-			
-			ActorRef sender = ((CluserSessionMessage) msg).sender;
-			String name = String.valueOf(sender.path().uid());
-			
-			if (keyConnectionSession.containsKey(name))
-			{
-				logger.debug("keyConnectionSession has key=" + name);
-				ActorRef actorRef = keyConnectionSession.get(keyConnectionSession);
-				ConnectionSessionMessage.DirectSessionMessage directSessionMessage = new DirectSessionMessage(((LocalSessionMessage) msg).messagePackage);
-				actorRef.tell(directSessionMessage, getSender());
-			} else
-			{
-				logger.debug("keyConnectionSession has not key=" + name);
-				ActorRef actorOf = getContext().actorOf(Props.create(ConnectionSession.class), name);
-				getContext().watch(actorOf);
-
-				Object origins = ((CluserSessionMessage) msg).origins;
-				HasSenderPathMessage message = new HasSenderPathMessage(serverId,sender, origins);
-
-				actorOf.tell(message, getSelf());
-				sessionNum += 1;
+	public void onReceive(Object msg) throws Exception {
+		if (msg instanceof AvaloneMessage) {
+			switch (((AvaloneMessage) msg).getMessageType()) {
+			case CluserSessionMessage:
+				processCluserSessionMessage(msg);
+				break;
+			case LocalSessionMessage:
+				processLocalSessionMessage(msg);
+				break;
+			default:
+				break;
 			}
-			return;
+
 		}
 		// 单服的消息策略
-		else if (msg instanceof LocalSessionMessage)
-		{
-			logger.debug("Geting LocalSessionMessage");
-			// 放置延时的策略
-			// be645988-0ff5-4e7a-bcd0-566ec1789cb7
-			String name = getSender().path().name();
-			if (keyConnectionSession.containsKey(name))
-			{
-				logger.debug("keyConnectionSession has name=" + name);
-				ActorRef actorRef = keyConnectionSession.get(keyConnectionSession);
-				ConnectionSessionMessage.DirectSessionMessage directSessionMessage = new DirectSessionMessage(((LocalSessionMessage) msg).messagePackage);
-				actorRef.tell(directSessionMessage, getSender());
-			} else
-			{
-				logger.debug("keyConnectionSession has not name=" + name);
-
-				ActorRef actorOf = getContext().actorOf(Props.create(ConnectionSession.class), name);
-				getContext().watch(actorOf);
-
-				HasSenderPathMessage message = new HasSenderPathMessage(serverId,getSender(), ((LocalSessionMessage) msg).messagePackage);
-				actorOf.tell(message, getSelf());
-
-				sessionNum += 1;
-				keyConnectionSession.put(name, actorOf);
-			}
-			return;
-		} else if (msg instanceof Terminated)
-		{
+		 else if (msg instanceof Terminated) {
 			// 一个被监听Actor销毁掉了
 			sessionNum -= 1;
 			return;
-		} else
-		{
+		} else {
 			unhandled(msg);
 		}
 
+	}
+
+	private void processLocalSessionMessage(Object msg) {
+		logger.debug("Geting LocalSessionMessage");
+		// 放置延时的策略
+		// be645988-0ff5-4e7a-bcd0-566ec1789cb7
+		ActorRef sender = getSender();
+		String name = sender.path().uid() + "";
+		if (keyConnectionSession.containsKey(name)) {
+			logger.debug("keyConnectionSession has name=" + name);
+			ActorRef actorRef = keyConnectionSession.get(keyConnectionSession);
+			DirectSessionMessage directSessionMessage = new DirectSessionMessage(MessageType.DirectSessionMessage,
+					((IoMessagePackageMessage) msg).messagePackage);
+			actorRef.tell(directSessionMessage, getSender());
+		} else {
+			logger.debug("keyConnectionSession has not name=" + name);
+
+			ActorRef actorOf = getContext().actorOf(Props.create(ConnectionSession.class), name);
+			getContext().watch(actorOf);
+
+			HasSenderPathMessage message = new HasSenderPathMessage(MessageType.HasSenderPathMessage, serverId,
+					getSender(), ((IoMessagePackageMessage) msg).messagePackage);
+			actorOf.tell(message, getSelf());
+
+			sessionNum += 1;
+			keyConnectionSession.put(name, actorOf);
+		}
+	}
+
+	private void processCluserSessionMessage(Object msg) {
+		logger.debug("Geting CluserSessionMessage");
+
+		ActorRef sender = ((CluserSessionMessage) msg).sender;
+		String name = String.valueOf(sender.path().uid());
+
+		if (keyConnectionSession.containsKey(name)) {
+			logger.debug("keyConnectionSession has key=" + name);
+			ActorRef actorRef = keyConnectionSession.get(keyConnectionSession);
+			DirectSessionMessage directSessionMessage = new DirectSessionMessage(MessageType.DirectSessionMessage,
+					((IoMessagePackageMessage) msg).messagePackage);
+			actorRef.tell(directSessionMessage, getSender());
+		} else {
+			logger.debug("keyConnectionSession has not key=" + name);
+			ActorRef actorOf = getContext().actorOf(Props.create(ConnectionSession.class), name);
+			getContext().watch(actorOf);
+
+			Object origins = ((CluserSessionMessage) msg).origins;
+			HasSenderPathMessage message = new HasSenderPathMessage(MessageType.HasSenderPathMessage, serverId, sender,
+					origins);
+
+			actorOf.tell(message, getSelf());
+			sessionNum += 1;
+		}
 	}
 
 }

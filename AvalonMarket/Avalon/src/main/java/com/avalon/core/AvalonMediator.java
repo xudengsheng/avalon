@@ -347,7 +347,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.avalon.api.internal.IService;
-import com.avalon.core.message.AvalonMessageEvent;
+import com.avalon.core.message.AvaloneMessage;
+import com.avalon.core.message.MessageType;
 import com.avalon.jmx.ManagementService;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.AkkaDecorate;
@@ -418,7 +419,7 @@ public class AvalonMediator implements IService {
 
 		avalonActorRef = system.actorOf(Props.create(AvalonActorSystem.class, system),	SystemEnvironment.AVALON_NAME);
 		
-		AkkaDecorate.getInbox().send(avalonActorRef, new AvalonMessageEvent.InitAvalon());
+		AkkaDecorate.getInbox().send(avalonActorRef, new AvaloneMessage(MessageType.InitAvalon));
 
 	}
 

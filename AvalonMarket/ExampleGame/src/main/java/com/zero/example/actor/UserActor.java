@@ -1,23 +1,16 @@
 package com.zero.example.actor;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorSelection;
-import akka.actor.Props;
-import akka.actor.UntypedActor;
-import akka.japi.Creator;
-
-import com.avalon.api.AppContext;
 import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.core.message.ServerSupervisorMessage;
-import com.avalon.core.subscribe.ServerSupervisorSubscriber;
 import com.avalon.gameengine.InstanceWorld;
-import com.avalon.io.MessagePackImpl;
-import com.avalon.setting.SystemEnvironment;
-import com.example.protocol.MessageKey;
 import com.zero.example.SessionLisenter;
 import com.zero.example.message.SessionLisenterMessage;
 import com.zero.example.message.UserActorMessage;
 import com.zero.example.message.WorldMessage;
+
+import akka.actor.ActorRef;
+import akka.actor.Props;
+import akka.actor.UntypedActor;
+import akka.japi.Creator;
 
 public class UserActor extends UntypedActor {
 	/**
@@ -99,11 +92,6 @@ public class UserActor extends UntypedActor {
 					ioMessagePackage);
 			sessionLisenter.receivedActorMessage(getSelf(), sessionLisenterMessage);
 
-			ServerSupervisorMessage serverSupervisorMessage = new ServerSupervisorMessage.SendRedirectMessage(getSelf(),
-					getSelf().path().toString(), "Hello world");
-			ActorSelection actorSelection = AppContext.getActorSystem()
-					.actorSelection(SystemEnvironment.AKKA_USER_PATH + ServerSupervisorSubscriber.IDENTIFY);
-			actorSelection.tell(serverSupervisorMessage, getSelf());
 		} else if (message instanceof String) {
 			System.out.println(message);
 		}

@@ -344,7 +344,7 @@ package com.avalon.core.task;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import com.avalon.core.message.TaskManagerMessage;
+import com.avalon.core.message.TaskMessage;
 import com.google.common.collect.Maps;
 
 import akka.actor.ActorRef;
@@ -389,13 +389,13 @@ public class GlobleTaskManagerActor extends UntypedActor {
 	@Override
 	public void onReceive(Object msg) throws Exception
 	{
-		if (msg instanceof TaskManagerMessage.createTaskMessage)
+		if (msg instanceof TaskMessage)
 		{
-			long createTime = ((TaskManagerMessage.createTaskMessage) msg).createTime;
-			long delay = ((TaskManagerMessage.createTaskMessage) msg).delay;
-			long period = ((TaskManagerMessage.createTaskMessage) msg).period;
-			Runnable runnable = ((TaskManagerMessage.createTaskMessage) msg).runnable;
-			int serverID = ((TaskManagerMessage.createTaskMessage) msg).serverID;
+			long createTime = ((TaskMessage) msg).createTime;
+			long delay = ((TaskMessage) msg).delay;
+			long period = ((TaskMessage) msg).period;
+			Runnable runnable = ((TaskMessage) msg).runnable;
+			int serverID = ((TaskMessage) msg).serverID;
 			ActorSystem actorSystem = getContext().system();
 			//执行一次
 			if (delay == -1 && period == -1)
@@ -419,11 +419,11 @@ public class GlobleTaskManagerActor extends UntypedActor {
 				if (periodicTask.containsKey(serverID))
 				{
 					Map<String, Cancellable> map = periodicTask.get(serverID);
-					map.put(((TaskManagerMessage.createTaskMessage) msg).TaskUid, schedule);
+					map.put(((TaskMessage) msg).TaskUid, schedule);
 				} else
 				{
 					Map<String, Cancellable> map = Maps.newTreeMap();
-					map.put(((TaskManagerMessage.createTaskMessage) msg).TaskUid, schedule);
+					map.put(((TaskMessage) msg).TaskUid, schedule);
 					periodicTask.put(serverID, map);
 				}
 			}

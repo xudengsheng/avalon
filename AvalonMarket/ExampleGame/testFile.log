@@ -221,3 +221,908 @@ Caused by: java.net.BindException: Can't assign requested address
 				[ClusterListener.java:428] - ClusterListener Member is Up: Member(address = akka.tcp://AVALON@10.1.37.203:2551, status = Up)
 16:35:21.312 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
 				[ServerSupervisorSubscriber.java:92] - msg is ServerSupervisorMessage.ServerOnline: is then same
+16:48:59.634 [main] INFO  AvalonEngine
+				[AvalonEngine.java:545] - File path=/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame
+16:48:59.670 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:426] - create AvalonEngine
+16:48:59.673 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:433] - Severid=1 modelName=GAME
+16:48:59.674 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+16:48:59.679 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+16:48:59.680 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:438] - AvalonEngine start create application
+16:48:59.680 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:447] - AvalonEngine start createServices
+16:48:59.684 [main] DEBUG AvalonEngine
+				[ManagementService.java:28] - ManagementService init
+16:48:59.701 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component AvalonMediator 
+16:48:59.705 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:404] - AvalonMediator init
+16:48:59.705 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:407] - conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+16:48:59.705 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:410] - akka conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+16:48:59.723 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:414] - AKKA_NAME:AVALON
+16:48:59.724 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:416] - configName:AVALON
+16:48:59.724 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:426] - initActorSystem start: akkaName=AVALON configName:AVALON
+16:49:00.852 [main] ERROR AvalonEngine
+				[AvalonEngine.java:487] - Server Exception
+org.jboss.netty.channel.ChannelException: Failed to bind to: /10.1.37.203:2551
+	at org.jboss.netty.bootstrap.ServerBootstrap.bind(ServerBootstrap.java:272)
+	at akka.remote.transport.netty.NettyTransport$$anonfun$listen$1.apply(NettyTransport.scala:415)
+	at akka.remote.transport.netty.NettyTransport$$anonfun$listen$1.apply(NettyTransport.scala:411)
+	at scala.util.Success$$anonfun$map$1.apply(Try.scala:237)
+	at scala.util.Try$.apply(Try.scala:192)
+	at scala.util.Success.map(Try.scala:237)
+	at scala.concurrent.Future$$anonfun$map$1.apply(Future.scala:237)
+	at scala.concurrent.Future$$anonfun$map$1.apply(Future.scala:237)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:32)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch$$anonfun$run$1.apply$mcV$sp(BatchingExecutor.scala:91)
+	at akka.dispatch.BatchingExecutor$BlockableBatch$$anonfun$run$1.apply(BatchingExecutor.scala:91)
+	at akka.dispatch.BatchingExecutor$BlockableBatch$$anonfun$run$1.apply(BatchingExecutor.scala:91)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:72)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:90)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.Net.bind(Net.java:428)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.jboss.netty.channel.socket.nio.NioServerBoss$RegisterTask.run(NioServerBoss.java:193)
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.processTaskQueue(AbstractNioSelector.java:391)
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:315)
+	at org.jboss.netty.channel.socket.nio.NioServerBoss.run(NioServerBoss.java:42)
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)
+	at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+16:49:00.853 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:450] - AvalonEngine start Application
+16:50:19.975 [main] INFO  AvalonEngine
+				[AvalonEngine.java:545] - File path=/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame
+16:50:20.001 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:426] - create AvalonEngine
+16:50:20.003 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:433] - Severid=1 modelName=GAME
+16:50:20.004 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+16:50:20.009 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+16:50:20.009 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:438] - AvalonEngine start create application
+16:50:20.009 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:447] - AvalonEngine start createServices
+16:50:20.012 [main] DEBUG AvalonEngine
+				[ManagementService.java:28] - ManagementService init
+16:50:20.024 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component AvalonMediator 
+16:50:20.027 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:404] - AvalonMediator init
+16:50:20.027 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:407] - conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+16:50:20.028 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:410] - akka conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+16:50:20.040 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:414] - AKKA_NAME:AVALON
+16:50:20.040 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:416] - configName:AVALON
+16:50:20.040 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:426] - initActorSystem start: akkaName=AVALON configName:AVALON
+16:50:21.238 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:432] - initActorSystem end
+16:50:21.245 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:450] - AvalonEngine start Application
+16:50:21.250 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:72] - ServerSupervisorSubscriber create
+16:50:21.253 [AVALON-akka.actor.default-dispatcher-14] INFO  AvalonEngine
+				[AvalonActorSystem.java:484] - Server model is game
+16:50:21.280 [AVALON-akka.actor.default-dispatcher-17] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.avalon.gameengine.InstanceWorld
+16:50:21.289 [AVALON-akka.actor.default-dispatcher-14] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.zero.example.manager.ZoneManager
+16:50:21.289 [AVALON-akka.actor.default-dispatcher-17] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj extended actorExtendedStart=com.zero.example.extrnded.WorldManagerIExtendedControl
+16:50:21.366 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:210] - subscribing ack
+16:50:22.299 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.avalon.db.MybatisDataManagerImpl@72d0f2b4
+16:50:22.310 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.zero.example.core.ExampleClientExtension@41fed14f
+16:50:26.312 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:222] - msg is ServerSupervisorMessage.ServerIsTheSame find self
+16:50:26.311 [AVALON-akka.actor.default-dispatcher-14] DEBUG AvalonEngine
+				[ClusterListener.java:428] - ClusterListener Member is Up: Member(address = akka.tcp://AVALON@10.1.37.203:2551, status = Up)
+16:50:26.315 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:92] - msg is ServerSupervisorMessage.ServerOnline: is then same
+16:51:26.324 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+16:51:26.325 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+16:52:26.323 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+16:52:26.324 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+16:53:26.322 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+16:53:26.329 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+16:54:26.320 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+16:54:26.320 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+16:55:26.318 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+16:55:26.319 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+16:56:26.316 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+16:56:26.324 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+16:57:26.314 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+16:57:26.321 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+16:58:26.311 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+16:58:26.312 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+16:59:26.311 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+16:59:26.312 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:00:26.310 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:00:26.310 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:01:26.306 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:01:26.307 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:02:26.306 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:02:26.307 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:03:26.302 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:03:26.303 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:04:26.301 [AVALON-akka.actor.default-dispatcher-20] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:04:26.308 [AVALON-akka.actor.default-dispatcher-20] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:05:26.301 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:05:26.307 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:06:26.299 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:06:26.299 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:07:26.297 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:07:26.298 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:08:26.296 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:08:26.303 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:09:26.293 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:09:26.293 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:10:26.291 [AVALON-akka.actor.default-dispatcher-20] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:10:26.292 [AVALON-akka.actor.default-dispatcher-20] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:11:26.288 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:11:26.289 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:12:26.289 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:12:26.289 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:13:26.286 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:13:26.287 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:14:26.283 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:14:26.283 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:15:26.282 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:15:26.283 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:16:26.280 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:16:26.281 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:17:26.279 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:17:26.279 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:18:26.276 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:18:26.276 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:19:26.275 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:19:26.275 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:20:26.275 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:20:26.275 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:21:26.272 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:21:26.272 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:22:26.269 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:22:26.269 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:23:26.268 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:23:26.269 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:24:26.267 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:24:26.267 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:25:26.265 [AVALON-akka.actor.default-dispatcher-20] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:25:26.266 [AVALON-akka.actor.default-dispatcher-20] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:26:26.262 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:26:26.263 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:27:26.261 [AVALON-akka.actor.default-dispatcher-19] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:27:26.262 [AVALON-akka.actor.default-dispatcher-19] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:28:26.260 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:28:26.260 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:29:26.259 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:29:26.259 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:30:26.256 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:30:26.257 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:31:26.255 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:31:26.256 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:32:26.253 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:32:26.253 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:33:26.251 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:33:26.252 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:34:26.250 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:34:26.251 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:35:26.250 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:35:26.251 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:36:26.247 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:36:26.248 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:37:26.244 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:37:26.244 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:38:26.242 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:38:26.243 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:39:26.241 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:39:26.242 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:40:26.240 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:40:26.241 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:41:26.239 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:41:26.240 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:42:26.238 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:42:26.238 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:43:26.236 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:43:26.237 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:44:26.232 [AVALON-akka.actor.default-dispatcher-20] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:44:26.232 [AVALON-akka.actor.default-dispatcher-20] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:45:26.233 [AVALON-akka.actor.default-dispatcher-20] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:45:26.234 [AVALON-akka.actor.default-dispatcher-20] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:46:26.230 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:46:26.232 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:47:26.226 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:47:26.227 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:48:26.228 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:48:26.229 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:49:26.227 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:49:26.227 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:50:26.220 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:50:26.221 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:51:26.220 [AVALON-akka.actor.default-dispatcher-19] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:51:26.222 [AVALON-akka.actor.default-dispatcher-19] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:52:26.221 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:52:26.222 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:53:26.216 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:53:26.216 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:54:26.214 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:54:26.215 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:55:26.213 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:55:26.214 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:56:26.212 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:56:26.212 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:57:26.210 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:57:26.211 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:58:26.208 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:58:26.208 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+17:59:26.204 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+17:59:26.205 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+18:00:26.204 [AVALON-akka.actor.default-dispatcher-19] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+18:00:26.205 [AVALON-akka.actor.default-dispatcher-19] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+18:01:26.201 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+18:01:26.202 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+18:32:04.993 [main] INFO  AvalonEngine
+				[AvalonEngine.java:545] - File path=/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame
+18:32:05.030 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:426] - create AvalonEngine
+18:32:05.033 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:433] - Severid=1 modelName=GAME
+18:32:05.034 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+18:32:05.042 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+18:32:05.043 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:438] - AvalonEngine start create application
+18:32:05.043 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:447] - AvalonEngine start createServices
+18:32:05.046 [main] DEBUG AvalonEngine
+				[ManagementService.java:28] - ManagementService init
+18:32:05.064 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component AvalonMediator 
+18:32:05.068 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:404] - AvalonMediator init
+18:32:05.068 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:407] - conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+18:32:05.068 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:410] - akka conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+18:32:05.087 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:414] - AKKA_NAME:AVALON
+18:32:05.087 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:416] - configName:AVALON
+18:32:05.087 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:426] - initActorSystem start: akkaName=AVALON configName:AVALON
+18:32:06.373 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:432] - initActorSystem end
+18:32:06.382 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:450] - AvalonEngine start Application
+18:32:06.385 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:72] - ServerSupervisorSubscriber create
+18:32:06.388 [AVALON-akka.actor.default-dispatcher-14] INFO  AvalonEngine
+				[AvalonActorSystem.java:484] - Server model is game
+18:32:06.444 [AVALON-akka.actor.default-dispatcher-2] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.avalon.gameengine.InstanceWorld
+18:32:06.453 [AVALON-akka.actor.default-dispatcher-2] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj extended actorExtendedStart=com.zero.example.extrnded.WorldManagerIExtendedControl
+18:32:06.453 [AVALON-akka.actor.default-dispatcher-16] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.zero.example.manager.ZoneManager
+18:32:06.512 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:210] - subscribing ack
+18:32:11.439 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:222] - msg is ServerSupervisorMessage.ServerIsTheSame find self
+18:32:11.439 [AVALON-akka.actor.default-dispatcher-16] DEBUG AvalonEngine
+				[ClusterListener.java:428] - ClusterListener Member is Up: Member(address = akka.tcp://AVALON@10.1.37.203:2551, status = Up)
+18:32:11.444 [AVALON-akka.actor.default-dispatcher-22] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:92] - msg is ServerSupervisorMessage.ServerOnline: is then same
+18:32:36.492 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.avalon.db.MybatisDataManagerImpl@71cb3139
+18:32:36.505 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.zero.example.core.ExampleClientExtension@2eaef76d
+18:33:20.601 [main] INFO  AvalonEngine
+				[AvalonEngine.java:545] - File path=/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame
+18:33:20.639 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:426] - create AvalonEngine
+18:33:20.641 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:433] - Severid=1 modelName=GAME
+18:33:20.642 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+18:33:20.650 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+18:33:20.651 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:438] - AvalonEngine start create application
+18:33:20.651 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:447] - AvalonEngine start createServices
+18:33:20.654 [main] DEBUG AvalonEngine
+				[ManagementService.java:28] - ManagementService init
+18:33:20.669 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component AvalonMediator 
+18:33:20.672 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:404] - AvalonMediator init
+18:33:20.673 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:407] - conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+18:33:20.673 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:410] - akka conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+18:33:20.690 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:414] - AKKA_NAME:AVALON
+18:33:20.690 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:416] - configName:AVALON
+18:33:20.690 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:426] - initActorSystem start: akkaName=AVALON configName:AVALON
+18:33:22.193 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:432] - initActorSystem end
+18:33:22.204 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:450] - AvalonEngine start Application
+18:33:22.208 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:72] - ServerSupervisorSubscriber create
+18:33:22.211 [AVALON-akka.actor.default-dispatcher-16] INFO  AvalonEngine
+				[AvalonActorSystem.java:484] - Server model is game
+18:33:22.247 [AVALON-akka.actor.default-dispatcher-17] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.avalon.gameengine.InstanceWorld
+18:33:22.253 [AVALON-akka.actor.default-dispatcher-17] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj extended actorExtendedStart=com.zero.example.extrnded.WorldManagerIExtendedControl
+18:33:22.253 [AVALON-akka.actor.default-dispatcher-16] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.zero.example.manager.ZoneManager
+18:33:22.369 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:210] - subscribing ack
+18:33:23.503 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.avalon.db.MybatisDataManagerImpl@7bc6d27a
+18:33:23.517 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.zero.example.core.ExampleClientExtension@63bde6c2
+18:33:27.269 [AVALON-akka.actor.default-dispatcher-17] DEBUG AvalonEngine
+				[ClusterListener.java:428] - ClusterListener Member is Up: Member(address = akka.tcp://AVALON@10.1.37.203:2551, status = Up)
+18:33:27.269 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:222] - msg is ServerSupervisorMessage.ServerIsTheSame find self
+18:33:27.275 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:92] - msg is ServerSupervisorMessage.ServerOnline: is then same
+18:34:27.284 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+18:34:27.292 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+18:35:21.673 [main] INFO  AvalonEngine
+				[AvalonEngine.java:545] - File path=/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame
+18:35:21.702 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:426] - create AvalonEngine
+18:35:21.712 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:433] - Severid=1 modelName=SINGLE
+18:35:21.712 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+18:35:21.718 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+18:35:21.718 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:438] - AvalonEngine start create application
+18:35:21.718 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:447] - AvalonEngine start createServices
+18:35:26.012 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component NettyServer
+18:35:26.014 [main] DEBUG AvalonEngine
+				[ManagementService.java:28] - ManagementService init
+18:35:26.034 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component AvalonMediator 
+18:35:26.041 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:404] - AvalonMediator init
+18:35:26.042 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:407] - conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+18:35:26.042 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:410] - akka conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+18:35:26.061 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:414] - AKKA_NAME:AVALON
+18:35:26.061 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:416] - configName:AVALON
+18:35:26.062 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:426] - initActorSystem start: akkaName=AVALON configName:AVALON
+18:35:27.759 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:432] - initActorSystem end
+18:35:27.767 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:450] - AvalonEngine start Application
+18:35:27.770 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:72] - ServerSupervisorSubscriber create
+18:35:27.772 [AVALON-akka.actor.default-dispatcher-14] INFO  AvalonEngine
+				[AvalonActorSystem.java:463] - Server model is single
+18:35:27.776 [AVALON-akka.actor.default-dispatcher-2] DEBUG TransportSupervisor
+				[TransportSupervisor.java:418] - TransportSupervisor init ,is gate=false
+18:35:27.783 [AVALON-akka.actor.default-dispatcher-2] DEBUG TransportSupervisor
+				[TransportSupervisor.java:477] - CheckNoSessionTransport
+18:35:27.802 [AVALON-akka.actor.default-dispatcher-15] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.avalon.gameengine.InstanceWorld
+18:35:27.806 [AVALON-akka.actor.default-dispatcher-15] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj extended actorExtendedStart=com.zero.example.extrnded.WorldManagerIExtendedControl
+18:35:27.806 [AVALON-akka.actor.default-dispatcher-4] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.zero.example.manager.ZoneManager
+18:35:27.817 [AVALON-akka.actor.default-dispatcher-14] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:210] - subscribing ack
+18:35:28.973 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.avalon.db.MybatisDataManagerImpl@36361ddb
+18:35:28.984 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.zero.example.core.ExampleClientExtension@76c387f9
+18:35:32.760 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:222] - msg is ServerSupervisorMessage.ServerIsTheSame find self
+18:35:32.760 [AVALON-akka.actor.default-dispatcher-17] DEBUG AvalonEngine
+				[ClusterListener.java:428] - ClusterListener Member is Up: Member(address = akka.tcp://AVALON@10.1.37.203:2551, status = Up)
+18:35:32.766 [AVALON-akka.actor.default-dispatcher-20] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:92] - msg is ServerSupervisorMessage.ServerOnline: is then same
+18:35:37.189 [AVALON-akka.actor.default-dispatcher-20] DEBUG TransportSupervisor
+				[TransportSupervisor.java:456] - TransportSupervisor CreateIOSessionActor
+18:35:37.191 [nioEventLoopGroup-1-0] DEBUG NetHandler
+				[NettyHandler.java:434] - 注册
+18:35:47.756 [nioEventLoopGroup-1-1] DEBUG NetHandler
+				[NettyHandler.java:466] - bindingTransportActor Send message
+18:35:47.759 [AVALON-akka.actor.default-dispatcher-17] DEBUG ConnectionSessionSupervisor
+				[ConnectionSessionSupervisor.java:433] - Geting LocalSessionMessage
+18:35:47.759 [AVALON-akka.actor.default-dispatcher-17] DEBUG ConnectionSessionSupervisor
+				[ConnectionSessionSupervisor.java:445] - keyConnectionSession has not name=$a
+18:36:07.014 [nioEventLoopGroup-1-1] DEBUG NetHandler
+				[NettyHandler.java:466] - bindingTransportActor Send message
+18:36:07.014 [AVALON-akka.actor.default-dispatcher-15] DEBUG ConnectionSessionSupervisor
+				[ConnectionSessionSupervisor.java:433] - Geting LocalSessionMessage
+18:36:09.604 [AVALON-akka.actor.default-dispatcher-15] DEBUG ConnectionSessionSupervisor
+				[ConnectionSessionSupervisor.java:445] - keyConnectionSession has not name=$a
+18:36:27.784 [AVALON-akka.actor.default-dispatcher-15] DEBUG TransportSupervisor
+				[TransportSupervisor.java:477] - CheckNoSessionTransport
+18:36:32.773 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+18:36:32.774 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+18:36:55.297 [nioEventLoopGroup-1-2] DEBUG NetHandler
+				[NettyHandler.java:466] - bindingTransportActor Send message
+18:36:57.307 [AVALON-akka.actor.default-dispatcher-17] DEBUG ConnectionSessionSupervisor
+				[ConnectionSessionSupervisor.java:433] - Geting LocalSessionMessage
+18:37:27.791 [AVALON-akka.actor.default-dispatcher-4] DEBUG TransportSupervisor
+				[TransportSupervisor.java:477] - CheckNoSessionTransport
+18:37:32.774 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:147] - msg is ServerSupervisorMessage.Ping
+18:37:32.774 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+18:38:16.039 [main] INFO  AvalonEngine
+				[AvalonEngine.java:545] - File path=/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame
+18:38:16.067 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:426] - create AvalonEngine
+18:38:16.070 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:433] - Severid=1 modelName=SINGLE
+18:38:16.070 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+18:38:16.075 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+18:38:16.076 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:438] - AvalonEngine start create application
+18:38:16.076 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:447] - AvalonEngine start createServices
+18:38:16.083 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component NettyServer
+18:38:16.084 [main] DEBUG AvalonEngine
+				[ManagementService.java:28] - ManagementService init
+18:38:16.100 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component AvalonMediator 
+18:38:16.106 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:404] - AvalonMediator init
+18:38:16.107 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:407] - conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+18:38:16.107 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:410] - akka conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+18:38:16.131 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:414] - AKKA_NAME:AVALON
+18:38:16.131 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:416] - configName:AVALON
+18:38:16.131 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:426] - initActorSystem start: akkaName=AVALON configName:AVALON
+18:38:17.574 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:432] - initActorSystem end
+18:38:17.586 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:450] - AvalonEngine start Application
+18:38:17.590 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:72] - ServerSupervisorSubscriber create
+18:38:17.592 [AVALON-akka.actor.default-dispatcher-18] INFO  AvalonEngine
+				[AvalonActorSystem.java:463] - Server model is single
+18:38:17.604 [AVALON-akka.actor.default-dispatcher-3] DEBUG TransportSupervisor
+				[TransportSupervisor.java:418] - TransportSupervisor init ,is gate=false
+18:38:17.609 [AVALON-akka.actor.default-dispatcher-3] DEBUG TransportSupervisor
+				[TransportSupervisor.java:477] - CheckNoSessionTransport
+18:38:17.637 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:210] - subscribing ack
+18:38:17.638 [AVALON-akka.actor.default-dispatcher-4] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.avalon.gameengine.InstanceWorld
+18:38:17.643 [AVALON-akka.actor.default-dispatcher-4] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj extended actorExtendedStart=com.zero.example.extrnded.WorldManagerIExtendedControl
+18:38:17.643 [AVALON-akka.actor.default-dispatcher-18] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.zero.example.manager.ZoneManager
+18:38:18.597 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.avalon.db.MybatisDataManagerImpl@73545b80
+18:38:18.607 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.zero.example.core.ExampleClientExtension@327ed9f5
+18:38:22.599 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:222] - msg is ServerSupervisorMessage.ServerIsTheSame find self
+18:38:22.599 [AVALON-akka.actor.default-dispatcher-3] DEBUG AvalonEngine
+				[ClusterListener.java:428] - ClusterListener Member is Up: Member(address = akka.tcp://AVALON@10.1.37.203:2551, status = Up)
+18:38:22.603 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:92] - msg is ServerSupervisorMessage.ServerOnline: is then same
+18:38:28.639 [AVALON-akka.actor.default-dispatcher-16] DEBUG TransportSupervisor
+				[TransportSupervisor.java:456] - TransportSupervisor CreateIOSessionActor
+18:38:28.640 [nioEventLoopGroup-1-0] DEBUG NetHandler
+				[NettyHandler.java:434] - 注册
+18:38:32.298 [nioEventLoopGroup-1-1] DEBUG NetHandler
+				[NettyHandler.java:466] - bindingTransportActor Send message
+18:38:32.300 [AVALON-akka.actor.default-dispatcher-18] DEBUG ConnectionSessionSupervisor
+				[ConnectionSessionSupervisor.java:433] - Geting LocalSessionMessage
+18:39:16.672 [AVALON-akka.actor.default-dispatcher-18] DEBUG ConnectionSessionSupervisor
+				[ConnectionSessionSupervisor.java:433] - Geting LocalSessionMessage
+18:39:17.608 [AVALON-akka.actor.default-dispatcher-17] DEBUG TransportSupervisor
+				[TransportSupervisor.java:477] - CheckNoSessionTransport
+19:41:25.261 [main] INFO  AvalonEngine
+				[AvalonEngine.java:545] - File path=/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame
+19:41:25.287 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:426] - create AvalonEngine
+19:41:25.290 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:433] - Severid=1 modelName=SINGLE
+19:41:25.291 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+19:41:25.298 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+19:41:25.298 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:438] - AvalonEngine start create application
+19:41:25.298 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:447] - AvalonEngine start createServices
+19:41:25.305 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component NettyServer
+19:41:25.306 [main] DEBUG AvalonEngine
+				[ManagementService.java:28] - ManagementService init
+19:41:25.320 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component AvalonMediator 
+19:41:25.327 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:405] - AvalonMediator init
+19:41:25.327 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:408] - conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+19:41:25.328 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:411] - akka conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+19:41:25.348 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:415] - AKKA_NAME:AVALON
+19:41:25.349 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:417] - configName:AVALON
+19:41:25.349 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:427] - initActorSystem start: akkaName=AVALON configName:AVALON
+19:41:26.648 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:433] - initActorSystem end
+19:41:26.653 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:450] - AvalonEngine start Application
+19:41:26.656 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:74] - ServerSupervisorSubscriber create
+19:41:26.658 [AVALON-akka.actor.default-dispatcher-2] INFO  AvalonEngine
+				[AvalonActorSystem.java:463] - Server model is single
+19:41:26.664 [AVALON-akka.actor.default-dispatcher-15] DEBUG TransportSupervisor
+				[TransportSupervisor.java:427] - TransportSupervisor init ,is gate=false
+19:41:26.665 [AVALON-akka.actor.default-dispatcher-15] DEBUG TransportSupervisor
+				[TransportSupervisor.java:559] - CheckNoSessionTransport
+19:41:26.666 [AVALON-akka.actor.default-dispatcher-15] DEBUG TransportSupervisor
+				[TransportSupervisor.java:551] - TransportSupervisorMessage.TransportLostNetSessionActor[akka://AVALON/user/TransportSupervisor#2062539387]
+19:41:26.668 [AVALON-akka.actor.default-dispatcher-19] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.avalon.gameengine.InstanceWorld
+19:41:26.671 [AVALON-akka.actor.default-dispatcher-15] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.zero.example.manager.ZoneManager
+19:41:26.671 [AVALON-akka.actor.default-dispatcher-19] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj extended actorExtendedStart=com.zero.example.extrnded.WorldManagerIExtendedControl
+19:41:26.706 [AVALON-akka.actor.default-dispatcher-3] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:212] - subscribing ack
+19:41:31.693 [AVALON-akka.actor.default-dispatcher-18] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:224] - msg is ServerSupervisorMessage.ServerIsTheSame find self
+19:41:31.693 [AVALON-akka.actor.default-dispatcher-3] DEBUG AvalonEngine
+				[ClusterListener.java:428] - ClusterListener Member is Up: Member(address = akka.tcp://AVALON@10.1.37.203:2551, status = Up)
+19:41:31.699 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:94] - msg is ServerSupervisorMessage.ServerOnline: is then same
+19:41:43.355 [AVALON-akka.actor.default-dispatcher-19] DEBUG TransportSupervisor
+				[TransportSupervisor.java:597] - TransportSupervisor CreateIOSessionActor
+19:41:43.356 [nioEventLoopGroup-1-0] DEBUG NetHandler
+				[NettyHandler.java:442] - 注册
+19:41:47.382 [nioEventLoopGroup-1-1] DEBUG NetHandler
+				[NettyHandler.java:479] - bindingTransportActor Send message
+19:41:47.382 [AVALON-akka.actor.default-dispatcher-4] DEBUG ConnectionSessionSupervisor
+				[ConnectionSessionSupervisor.java:430] - Geting LocalSessionMessage
+19:41:47.383 [AVALON-akka.actor.default-dispatcher-4] DEBUG ConnectionSessionSupervisor
+				[ConnectionSessionSupervisor.java:442] - keyConnectionSession has not name=1052575232
+19:41:56.532 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.avalon.db.MybatisDataManagerImpl@78fb9a67
+19:41:56.541 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.zero.example.core.ExampleClientExtension@b968a76
+18:32:57.107 [main] INFO  AvalonEngine
+				[AvalonEngine.java:545] - File path=/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame
+18:32:57.140 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:426] - create AvalonEngine
+18:32:57.143 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:433] - Severid=1 modelName=SINGLE
+18:32:57.143 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+18:32:57.151 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+18:32:57.152 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:438] - AvalonEngine start create application
+18:32:57.152 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:447] - AvalonEngine start createServices
+18:32:57.159 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component NettyServer
+18:32:57.160 [main] DEBUG AvalonEngine
+				[ManagementService.java:28] - ManagementService init
+18:32:57.176 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component AvalonMediator 
+18:32:57.182 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:405] - AvalonMediator init
+18:32:57.182 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:408] - conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+18:32:57.182 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:411] - akka conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+18:32:57.200 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:415] - AKKA_NAME:AVALON
+18:32:57.201 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:417] - configName:AVALON
+18:32:57.201 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:427] - initActorSystem start: akkaName=AVALON configName:AVALON
+18:32:58.680 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:433] - initActorSystem end
+18:32:58.694 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:450] - AvalonEngine start Application
+18:32:58.698 [AVALON-akka.actor.default-dispatcher-16] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:81] - ServerSupervisorSubscriber create
+18:32:58.701 [AVALON-akka.actor.default-dispatcher-18] INFO  AvalonEngine
+				[AvalonActorSystem.java:491] - Server model is single
+18:32:58.709 [AVALON-akka.actor.default-dispatcher-15] DEBUG TransportSupervisor
+				[TransportSupervisor.java:427] - TransportSupervisor init ,is gate=false
+18:32:58.711 [AVALON-akka.actor.default-dispatcher-15] DEBUG TransportSupervisor
+				[TransportSupervisor.java:559] - CheckNoSessionTransport
+18:32:58.712 [AVALON-akka.actor.default-dispatcher-15] DEBUG TransportSupervisor
+				[TransportSupervisor.java:551] - TransportSupervisorMessage.TransportLostNetSessionActor[akka://AVALON/user/TransportSupervisor#138337497]
+18:32:58.718 [AVALON-akka.actor.default-dispatcher-14] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.avalon.gameengine.InstanceWorld
+18:32:58.721 [AVALON-akka.actor.default-dispatcher-14] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj extended actorExtendedStart=com.zero.example.extrnded.WorldManagerIExtendedControl
+18:32:58.721 [AVALON-akka.actor.default-dispatcher-15] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.zero.example.manager.ZoneManager
+18:32:58.755 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:136] - subscribing ack
+18:33:03.734 [AVALON-akka.actor.default-dispatcher-18] DEBUG AvalonEngine
+				[ClusterListener.java:430] - ClusterListener Member is Up: Member(address = akka.tcp://AVALON@10.1.37.203:2551, status = Up)
+18:33:03.734 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:290] - msg is ServerSupervisorMessage.ServerIsTheSame find self
+18:33:03.739 [AVALON-akka.actor.default-dispatcher-2] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:259] - msg is ServerSupervisorMessage.ServerOnline: is then same
+18:33:40.244 [main] INFO  AvalonEngine
+				[AvalonEngine.java:545] - File path=/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame
+18:33:40.264 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:426] - create AvalonEngine
+18:33:40.267 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:433] - Severid=1 modelName=SINGLE
+18:33:40.267 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+18:33:40.271 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:376] - ComponentRegistryImpl create
+18:33:40.272 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:438] - AvalonEngine start create application
+18:33:40.272 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:447] - AvalonEngine start createServices
+18:33:40.277 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component NettyServer
+18:33:40.279 [main] DEBUG AvalonEngine
+				[ManagementService.java:28] - ManagementService init
+18:33:40.292 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component AvalonMediator 
+18:33:40.296 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:405] - AvalonMediator init
+18:33:40.296 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:408] - conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+18:33:40.297 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:411] - akka conf path:/Users/zero/Documents/github/Avalon/AvalonMarket/ExampleGame/conf
+18:33:40.309 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:415] - AKKA_NAME:AVALON
+18:33:40.309 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:417] - configName:AVALON
+18:33:40.309 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:427] - initActorSystem start: akkaName=AVALON configName:AVALON
+18:33:41.346 [main] DEBUG AvalonEngine
+				[AvalonMediator.java:433] - initActorSystem end
+18:33:41.355 [main] DEBUG AvalonEngine
+				[AvalonEngine.java:450] - AvalonEngine start Application
+18:33:41.358 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:81] - ServerSupervisorSubscriber create
+18:33:41.359 [AVALON-akka.actor.default-dispatcher-18] INFO  AvalonEngine
+				[AvalonActorSystem.java:491] - Server model is single
+18:33:41.366 [AVALON-akka.actor.default-dispatcher-14] DEBUG TransportSupervisor
+				[TransportSupervisor.java:427] - TransportSupervisor init ,is gate=false
+18:33:41.367 [AVALON-akka.actor.default-dispatcher-14] DEBUG TransportSupervisor
+				[TransportSupervisor.java:559] - CheckNoSessionTransport
+18:33:41.368 [AVALON-akka.actor.default-dispatcher-14] DEBUG TransportSupervisor
+				[TransportSupervisor.java:551] - TransportSupervisorMessage.TransportLostNetSessionActor[akka://AVALON/user/TransportSupervisor#575102111]
+18:33:41.371 [AVALON-akka.actor.default-dispatcher-14] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.avalon.gameengine.InstanceWorld
+18:33:41.373 [AVALON-akka.actor.default-dispatcher-14] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj extended actorExtendedStart=com.zero.example.extrnded.WorldManagerIExtendedControl
+18:33:41.373 [AVALON-akka.actor.default-dispatcher-4] DEBUG AvalonEngine
+				[LogUtil.java:11] - AvaLongObecj init=com.zero.example.manager.ZoneManager
+18:33:41.398 [AVALON-akka.actor.default-dispatcher-4] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:136] - subscribing ack
+18:33:42.167 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.avalon.db.MybatisDataManagerImpl@56f6d40b
+18:33:42.175 [main] DEBUG AvalonEngine
+				[ComponentRegistryImpl.java:426] - Component add component com.zero.example.core.ExampleClientExtension@4d098f9b
+18:33:46.380 [AVALON-akka.actor.default-dispatcher-14] DEBUG AvalonEngine
+				[ClusterListener.java:430] - ClusterListener Member is Up: Member(address = akka.tcp://AVALON@10.1.37.203:2551, status = Up)
+18:33:46.380 [AVALON-akka.actor.default-dispatcher-15] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:290] - msg is ServerSupervisorMessage.ServerIsTheSame find self
+18:33:46.383 [AVALON-akka.actor.default-dispatcher-20] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:259] - msg is ServerSupervisorMessage.ServerOnline: is then same
+18:34:41.371 [AVALON-akka.actor.default-dispatcher-2] DEBUG TransportSupervisor
+				[TransportSupervisor.java:559] - CheckNoSessionTransport
+18:34:41.372 [AVALON-akka.actor.default-dispatcher-2] DEBUG TransportSupervisor
+				[TransportSupervisor.java:551] - TransportSupervisorMessage.TransportLostNetSessionActor[akka://AVALON/user/TransportSupervisor#575102111]
+18:34:46.398 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:146] - msg is ServerSupervisorMessage.Ping
+18:34:46.399 [AVALON-akka.actor.default-dispatcher-17] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self
+18:35:46.391 [AVALON-akka.actor.default-dispatcher-21] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:146] - msg is ServerSupervisorMessage.Ping
+18:35:46.392 [AVALON-akka.actor.default-dispatcher-21] DEBUG ServerSupervisorSubscriber
+				[ServerSupervisorSubscriber.java:153] - msg is ServerSupervisorMessage.Ping find self

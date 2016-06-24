@@ -1,7 +1,7 @@
 package com.zero.example.core;
 
 import com.avalon.extensions.request.IClientRequestHandler;
-import com.avalon.protobuff.JavaProtocolTransform;
+import com.avalon.protocol.JavaProtocolTransform;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public abstract class AbstractClientRequestHandler implements IClientRequestHandler {

@@ -375,6 +375,6 @@ public interface IoSession {
 	 *
 	 * @param actorCallBack the new sesssion actor call back
 	 */
-	void setActorBridge(ActorBridge actorCallBack);
+//	void setActorBridge(ActorBridge actorCallBack);
 
 }

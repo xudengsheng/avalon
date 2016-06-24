@@ -343,7 +343,8 @@ package com.avalon.core.service;
 
 import com.avalon.api.DistributedTaskManager;
 import com.avalon.core.ContextResolver;
-import com.avalon.core.message.TaskManagerMessage;
+import com.avalon.core.message.MessageType;
+import com.avalon.core.message.TaskMessage;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.AkkaDecorate;
 
@@ -362,7 +363,7 @@ public class DistributedTaskManagerService implements DistributedTaskManager {
 	public void scheduleTask(Runnable runnable)
 	{
 		int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID, 1);
-		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,serverId,-1,-1);
+		TaskMessage createTaskMessage = new TaskMessage(MessageType.TaskMessage,runnable,serverId,-1,-1);
 		AkkaDecorate.getInbox().send(AkkaDecorate.getAvalonActorRef(), createTaskMessage);
 	}
 
@@ -373,7 +374,7 @@ public class DistributedTaskManagerService implements DistributedTaskManager {
 	public void scheduleTask(long delay, Runnable runnable)
 	{
 		int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID, 1);
-		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,serverId,delay,-1);
+		TaskMessage createTaskMessage = new TaskMessage(MessageType.TaskMessage,runnable,serverId,delay,-1);
 		AkkaDecorate.getInbox().send(AkkaDecorate.getAvalonActorRef(), createTaskMessage);
 	}
 
@@ -384,7 +385,7 @@ public class DistributedTaskManagerService implements DistributedTaskManager {
 	public void scheduleTask(long delay, long period, Runnable runnable)
 	{
 		int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.APP_ID, 1);
-		TaskManagerMessage.createTaskMessage createTaskMessage = new TaskManagerMessage.createTaskMessage(runnable,serverId,delay,period);
+		TaskMessage createTaskMessage = new TaskMessage(MessageType.TaskMessage,runnable,serverId,delay,period);
 		AkkaDecorate.getInbox().send(AkkaDecorate.getAvalonActorRef(), createTaskMessage);
 	}
 

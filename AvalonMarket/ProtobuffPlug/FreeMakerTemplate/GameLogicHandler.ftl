@@ -5,7 +5,7 @@ import ${package}.${fileName}${protoName}.${java_class_name};
 import ${package}.${helpPix}.${fileName}${helperpfix};
 import ${package}.${namePix}.${java_class_name}${beanpfix};
 
-import com.avalon.protobuff.JavaProtocolTransform;
+import com.avalon.protocol.JavaProtocolTransform;
 import com.avalon.api.internal.IoMessagePackage;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.zero.example.core.AbstractClientRequestHandler;

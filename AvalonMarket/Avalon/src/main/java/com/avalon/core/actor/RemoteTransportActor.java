@@ -347,14 +347,14 @@ import org.slf4j.LoggerFactory;
 import com.avalon.api.IoSession;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.core.ContextResolver;
-import com.avalon.core.message.ConnectionSessionMessage;
-import com.avalon.core.message.ConnectionSessionMessage.DirectSessionMessage;
-import com.avalon.core.message.ServerSupervisorMessage;
-import com.avalon.core.message.TransportMessage;
-import com.avalon.core.message.TransportMessage.ActorSendMessageToSession;
-import com.avalon.core.message.TransportMessage.IOSessionReciveDirectMessage;
-import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
-import com.avalon.core.message.TransportSupervisorMessage;
+import com.avalon.core.message.AvaloneMessage;
+import com.avalon.core.message.ConnectionSessionsBinding;
+import com.avalon.core.message.DirectSessionMessage;
+import com.avalon.core.message.DistributionConnectionSessionsProtocol;
+import com.avalon.core.message.IoMessagePackageMessage;
+import com.avalon.core.message.MessageType;
+import com.avalon.core.message.TransportBindingServer;
+import com.avalon.io.netty.NettyHandler;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.AkkaDecorate;
 
@@ -367,7 +367,8 @@ import akka.actor.UntypedActor;
  *
  * @author ZERO
  */
-public class RemoteTransportActor extends UntypedActor {
+public class RemoteTransportActor extends UntypedActor
+{
 
 	/** The log. */
 	private static Logger logger = LoggerFactory.getLogger("RemoteTransportActor");
@@ -394,15 +395,17 @@ public class RemoteTransportActor extends UntypedActor {
 	 * @param ioSession
 	 *            the io session
 	 */
-	public RemoteTransportActor(IoSession ioSession) {
+	public RemoteTransportActor(IoSession ioSession)
+	{
 		super();
 		this.ioSession = ioSession;
 	}
 
 	@Override
-	public void preStart() throws Exception {
+	public void preStart() throws Exception
+	{
 		super.preStart();
-		ioSession.setActorBridge(new InnerLocalActorBringe(getSelf().path().uid(), getSelf()));
+		((NettyHandler) ioSession).setActorBridge(new InnerLocalActorBringe(getSelf().path().uid(), getSelf()));
 	}
 
 	/*
@@ -411,70 +414,121 @@ public class RemoteTransportActor extends UntypedActor {
 	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
 	 */
 	@Override
-	public void onReceive(Object msg) throws Exception {
+	public void onReceive(Object msg) throws Exception
+	{
 		ActorRef self = getSelf();
-		if (msg instanceof TransportMessage.IOSessionReciveMessage) {
-			logger.debug("RemoteTransportActor IOSessionReciveMessage");
-			if (!bindingConnectionSession) {
-				logger.debug("RemoteTransportActor IOSessionReciveMessage not binding");
-				// 发送到集群分割器
-				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
-				// 11c417d8-6e62-4e5d-a97b-2d8ab10bb2ab
-				int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.GATE_BINDING,-1);
-				
-				ServerSupervisorMessage commandSessionProtocol = new ServerSupervisorMessage.DistributionConnectionSessionsProtocol(self, messagePackage, serverId);
-				ActorRef serverSupervisorSubscriberRef = AkkaDecorate.getServerSupervisorSubscriberRef();
-				serverSupervisorSubscriberRef.tell(commandSessionProtocol, self);
-			} else {
-				logger.debug("RemoteTransportActor IOSessionReciveMessage binding");
-				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
-				DirectSessionMessage commandSessionProtocol = new DirectSessionMessage(messagePackage);
-				connectionSessionsRef.tell(commandSessionProtocol, self);
+		if (msg instanceof AvaloneMessage)
+		{
+			switch (((AvaloneMessage) msg).getMessageType())
+			{
+				case IOSessionReciveMessage :
+					processIOSessionReciveMessage((IoMessagePackageMessage) msg, self);
+					break;
+				case IOSessionReciveDirectMessage :
+					processIOSessionReciveDirectMessage((IoMessagePackageMessage) msg, self);
+					break;
+				case ActorSendMessageToSession :
+					processActorSendMessageToSession((IoMessagePackageMessage) msg);
+					break;
+				case ConnectionSessionsBinding :
+					processConnectionSessionsBinding((ConnectionSessionsBinding) msg, self);
+					break;
+				case CloseConnectionSessions :
+					processCloseConnectionSessions(self);
+					break;
+				case ServerClose :
+					processServerClose();
+					break;
+				default :
+					break;
 			}
-		} 
-		else if (msg instanceof IOSessionReciveDirectMessage) {
-			logger.debug("RemoteTransportActor IOSessionReciveDirectMessage");
-			IoMessagePackage messagePackage = ((TransportMessage.IOSessionReciveDirectMessage) msg).messagePackage;
-			ConnectionSessionMessage message = new ConnectionSessionMessage.DirectSessionMessage(messagePackage);
-			connectionSessionsRef.tell(message, self);
+
 		}
-		
-		else if (msg instanceof TransportMessage.ActorSendMessageToSession) {
-			logger.debug("RemoteTransportActor SessionSessionMessage");
-			IoMessagePackage messagePackage = ((ActorSendMessageToSession) msg).messagePackage;
-			ioSession.write(messagePackage);
-		} 
-		else if (msg instanceof TransportMessage.ConnectionSessionsBinding) {
-			logger.debug("RemoteTransportActor cluster binding");
-			
-			int serverId = ((TransportMessage.ConnectionSessionsBinding) msg).serverId;
-			bindingConnectionSession = true;
-			this.connectionSessionsRef = getSender();
-			
-			TransportSupervisorMessage message = new TransportSupervisorMessage.TransportBindingServer(serverId);
-			AkkaDecorate.getTransportSupervisorRef().tell(message, self);
-		} 
-		else if (msg instanceof TransportMessage.CloseConnectionSessions) {
-			logger.debug("RemoteTransportActor CloseConnectionSessions");
-			if (bindingConnectionSession) {
-				logger.debug("RemoteTransportActor CloseConnectionSessions binding tell");
-				connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), self);
-			}
-			TransportSupervisorMessage message = new TransportSupervisorMessage.TransportLostNetSession();
-			AkkaDecorate.getTransportSupervisorRef().tell(message, self);
-		} else if (msg instanceof TransportMessage.ServerClose) {
-			logger.debug("RemoteTransportActor ServerClose");
-			ioSession.close();
-		} else {
+
+		else
+		{
 			unhandled(msg);
 		}
 
 	}
 
+	private void processServerClose()
+	{
+		logger.debug("RemoteTransportActor ServerClose");
+		ioSession.close();
+	}
+
+	private void processCloseConnectionSessions(ActorRef self)
+	{
+		logger.debug("RemoteTransportActor CloseConnectionSessions");
+		if (bindingConnectionSession)
+		{
+			logger.debug("RemoteTransportActor CloseConnectionSessions binding tell");
+			connectionSessionsRef.tell(new AvaloneMessage(MessageType.LostConnect), self);
+		}
+		AvaloneMessage message = new AvaloneMessage(MessageType.TransportLostNetSession);
+		AkkaDecorate.getTransportSupervisorRef().tell(message, self);
+	}
+
+	private void processConnectionSessionsBinding(ConnectionSessionsBinding msg, ActorRef self)
+	{
+		logger.debug("RemoteTransportActor cluster binding");
+
+		int serverId = msg.serverId;
+		bindingConnectionSession = true;
+		this.connectionSessionsRef = getSender();
+
+		TransportBindingServer message = new TransportBindingServer(MessageType.TransportBindingServer, serverId);
+		AkkaDecorate.getTransportSupervisorRef().tell(message, self);
+	}
+
+	private void processActorSendMessageToSession(IoMessagePackageMessage msg)
+	{
+		logger.debug("RemoteTransportActor SessionSessionMessage");
+		IoMessagePackage messagePackage = msg.messagePackage;
+		ioSession.write(messagePackage);
+	}
+
+	private void processIOSessionReciveDirectMessage(IoMessagePackageMessage msg, ActorRef self)
+	{
+		logger.debug("RemoteTransportActor IOSessionReciveDirectMessage");
+		IoMessagePackage messagePackage = msg.messagePackage;
+		DirectSessionMessage message = new DirectSessionMessage(MessageType.DirectSessionMessage, messagePackage);
+		connectionSessionsRef.tell(message, self);
+	}
+
+	private void processIOSessionReciveMessage(IoMessagePackageMessage msg, ActorRef self)
+	{
+		logger.debug("RemoteTransportActor IoMessagePackageMessage");
+		if (!bindingConnectionSession)
+		{
+			logger.debug("RemoteTransportActor IoMessagePackageMessage not binding");
+			// 发送到集群分割器
+			IoMessagePackage messagePackage = msg.messagePackage;
+			// 11c417d8-6e62-4e5d-a97b-2d8ab10bb2ab
+			int serverId = ContextResolver.getPropertiesWrapper().getIntProperty(SystemEnvironment.GATE_BINDING, -1);
+
+			DistributionConnectionSessionsProtocol commandSessionProtocol = new DistributionConnectionSessionsProtocol(
+					self, serverId, messagePackage);
+			ActorRef serverSupervisorSubscriberRef = AkkaDecorate.getServerSupervisorSubscriberRef();
+			serverSupervisorSubscriberRef.tell(commandSessionProtocol, self);
+		}
+		else
+		{
+			logger.debug("RemoteTransportActor IoMessagePackageMessage binding");
+			IoMessagePackage messagePackage = msg.messagePackage;
+			DirectSessionMessage commandSessionProtocol = new DirectSessionMessage(MessageType.DirectSessionMessage,
+					messagePackage);
+			connectionSessionsRef.tell(commandSessionProtocol, self);
+		}
+	}
+
 	@Override
-	public void postStop() throws Exception {
+	public void postStop() throws Exception
+	{
 		super.postStop();
-		if (connectionSessionsRef != null) {
+		if (connectionSessionsRef != null)
+		{
 			connectionSessionsRef.tell(akka.actor.PoisonPill.getInstance(), getSelf());
 		}
 	}

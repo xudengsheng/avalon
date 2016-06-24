@@ -347,7 +347,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.avalon.core.AvalonEngine;
-import com.avalon.core.message.ServerSupervisorMessage;
+import com.avalon.core.message.ServerIsTheSame;
+import com.avalon.core.message.ServerLost;
+import com.avalon.core.message.ServerOnline;
 import com.avalon.core.subscribe.ServerSupervisorSubscriber;
 import com.avalon.util.AkkaPathDecorate;
 
@@ -420,7 +422,7 @@ public class ClusterListener extends UntypedActor {
 			UniqueAddress uniqueAddress = member.uniqueAddress();
 			//akka.tcp://AVALON@127.0.0.1:2551
 			String addressString = uniqueAddress.address().toString();
-			ServerSupervisorMessage serverSupervisorMessage = new ServerSupervisorMessage.ServerIsTheSame(GEUID,AvalonEngine.mode.type, member);
+			ServerIsTheSame serverSupervisorMessage = new ServerIsTheSame(GEUID,AvalonEngine.mode.type, member);
 			String path = AkkaPathDecorate.getFixSupervisorPath(addressString, ServerSupervisorSubscriber.IDENTIFY);
 			ActorSelection actorSelection = getContext().actorSelection(path);
 			actorSelection.tell(serverSupervisorMessage, getSelf());
@@ -434,14 +436,14 @@ public class ClusterListener extends UntypedActor {
 		} else if (message instanceof MemberRemoved) {
 			MemberRemoved mRemoved = (MemberRemoved) message;
 			Member member = mRemoved.member();
-			ServerSupervisorMessage serverSupervisorMessage = new ServerSupervisorMessage.ServerLost(member.uniqueAddress().uid());
+			ServerLost serverSupervisorMessage = new ServerLost(member.uniqueAddress().uid());
 
 			ActorSelection actorSelection = getContext().actorSelection(AkkaPathDecorate.getLocalFixSubscriberPath(ServerSupervisorSubscriber.IDENTIFY));
 			actorSelection.tell(serverSupervisorMessage, getSelf());
 			logger.debug("ClusterListener Member is Removed: {}", member);
 		}
-		else if (message instanceof ServerSupervisorMessage.ServerOnline) {
-			if (((ServerSupervisorMessage.ServerOnline) message).UUID.equals(GEUID)) {
+		else if (message instanceof ServerOnline) {
+			if (((ServerOnline) message).UUID.equals(GEUID)) {
 				logger.debug("ClusterListener The same member");
 			} else {
 				ActorSelection actorSelection = getContext().actorSelection(AkkaPathDecorate.getLocalFixSubscriberPath(ServerSupervisorSubscriber.IDENTIFY));

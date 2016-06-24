@@ -345,8 +345,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.avalon.core.cluster.ClusterListener;
-import com.avalon.core.message.AvalonMessageEvent;
-import com.avalon.core.message.TaskManagerMessage;
+import com.avalon.core.message.AvaloneMessage;
+import com.avalon.core.message.MessageType;
+import com.avalon.core.message.TaskMessage;
 import com.avalon.core.model.AvalonDeadLetter;
 import com.avalon.core.subscribe.ServerSupervisorSubscriber;
 import com.avalon.core.supervision.ConnectionSessionSupervisor;
@@ -445,84 +446,83 @@ public class AvalonActorSystem extends UntypedActor {
 	 */
 	@Override
 	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof AvalonMessageEvent.InitAvalon) {
-			// 服务器监听
-			Props create = Props.create(ServerSupervisorSubscriber.class);
-			AvalonMediator instance = ContextResolver.getComponent(AvalonMediator.class);
+		if (msg instanceof AvaloneMessage) {
+			switch (((AvaloneMessage) msg).getMessageType())
+			{
+				case InitAvalon:
+					processInitAvalon();
+					break;
+				case TaskMessage:
+					processTaskMessage(msg);
+					break;
+				default :
+					break;
+			}
+
+		}
+
+	}
+
+	private void processTaskMessage(Object msg)
+	{
+		if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_GAME)) {
+			AkkaDecorate.getServerSupervisorSubscriberRef().tell(msg, ActorRef.noSender());
+		} else if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE)) {
+			AkkaDecorate.getGlobleTaskManagerActorRef().tell(msg, ActorRef.noSender());
+		}
+	}
+
+	private void processInitAvalon()
+	{
+		// 服务器监听
+		Props create = Props.create(ServerSupervisorSubscriber.class);
+		AvalonMediator instance = ContextResolver.getComponent(AvalonMediator.class);
+		
+		ActorRef serverSupervisorSubscriberRef = actorSystem.actorOf(create, ServerSupervisorSubscriber.IDENTIFY);
+		instance.setServerSupervisorSubscriberRef(serverSupervisorSubscriberRef);
+		this.getContext().watch(serverSupervisorSubscriberRef);
+
+		// 集群监听
+		ActorRef clusterListener = actorSystem.actorOf(Props.create(ClusterListener.class), ClusterListener.IDENTIFY);
+		instance.setClusterListener(clusterListener);
+		this.getContext().watch(clusterListener);
+
+		if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE)) {
+			logger.info("Server model is single");
+
+			ActorRef connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
+			instance.setConnectionSessionSupervisor(connectionSessionSupervisor);
+			this.getContext().watch(connectionSessionSupervisor);
+
+			ActorRef transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, false),TransportSupervisor.IDENTIFY);
+			instance.setTransportSupervisorRef(transportSupervisorRef);
+			this.getContext().watch(transportSupervisorRef);
+		}
+		// 启动模式为网关服务器（不包含游戏逻辑服务器的任何逻辑）
+		else if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
+			logger.info("Server model is gate");
+
+			ActorRef transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, true),TransportSupervisor.IDENTIFY);
+			instance.setTransportSupervisorRef(transportSupervisorRef);
+			this.getContext().watch(transportSupervisorRef);
+
+		}
+		// 逻辑服务器模式（将不会开启对外的网络服务）
+		else {
+			logger.info("Server model is game");
+
+			ActorRef connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
+			instance.setConnectionSessionSupervisor(connectionSessionSupervisor);
+			this.getContext().watch(connectionSessionSupervisor);
 			
-			ActorRef serverSupervisorSubscriberRef = actorSystem.actorOf(create, ServerSupervisorSubscriber.IDENTIFY);
-			instance.setServerSupervisorSubscriberRef(serverSupervisorSubscriberRef);
-			this.getContext().watch(serverSupervisorSubscriberRef);
-
-			// 集群监听
-			ActorRef clusterListener = actorSystem.actorOf(Props.create(ClusterListener.class), ClusterListener.IDENTIFY);
-			instance.setClusterListener(clusterListener);
-			this.getContext().watch(clusterListener);
-
-			if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE)) {
-				logger.info("Server model is single");
-
-				ActorRef connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
-				instance.setConnectionSessionSupervisor(connectionSessionSupervisor);
-				this.getContext().watch(connectionSessionSupervisor);
-
-				ActorRef transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, false),TransportSupervisor.IDENTIFY);
-				instance.setTransportSupervisorRef(transportSupervisorRef);
-				this.getContext().watch(transportSupervisorRef);
-			}
-			// 启动模式为网关服务器（不包含游戏逻辑服务器的任何逻辑）
-			else if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_GATE)) {
-				logger.info("Server model is gate");
-
-				ActorRef transportSupervisorRef = actorSystem.actorOf(Props.create(TransportSupervisor.class, true),TransportSupervisor.IDENTIFY);
-				instance.setTransportSupervisorRef(transportSupervisorRef);
-				this.getContext().watch(transportSupervisorRef);
-
-			}
-			// 逻辑服务器模式（将不会开启对外的网络服务）
-			else {
-				logger.info("Server model is game");
-
-				ActorRef connectionSessionSupervisor = actorSystem.actorOf(Props.create(ConnectionSessionSupervisor.class),ConnectionSessionSupervisor.IDENTIFY);
-				instance.setConnectionSessionSupervisor(connectionSessionSupervisor);
-				this.getContext().watch(connectionSessionSupervisor);
-				
-				ActorRef globleTaskManagerActor = actorSystem.actorOf(Props.create(GlobleTaskManagerActor.class),GlobleTaskManagerActor.IDENTIFY);
-				instance.setGlobleTaskManagerActor(connectionSessionSupervisor);
-				this.getContext().watch(globleTaskManagerActor);
-			}
-
-			Props avalonDeadLetterProps = Props.create(AvalonDeadLetter.class);
-			ActorRef avalonDeadLetterRef = actorSystem.actorOf(avalonDeadLetterProps);
-			actorSystem.eventStream().subscribe(avalonDeadLetterRef, DeadLetter.class);
-
-			// this.metricsListener = actorSystem.actorOf(Props.create(MetricsListener.class));
-		}
-//		else if (msg instanceof TransportSupervisorMessage.IOSessionRegedit) {
-//			
-//			IoSession ioSession = ((TransportSupervisorMessage.IOSessionRegedit) msg).ioSession;
-//
-//			UUID randomUUID = UUID.randomUUID();
-//			String sessionActorId = randomUUID.toString();
-//
-//			TransportSupervisorMessage.CreateIOSessionActor message = new TransportSupervisorMessage.CreateIOSessionActor(ioSession);
-//
-//			AkkaServerManager.transportSupervisorRef.tell(message, getSelf());
-//		}
-		// 转发给传输的transportSupervisor
-//		else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage) {
-//			AkkaServerManager.transportSupervisorRef.forward(msg, getContext());
-//		} 
-		// 任务创建消息
-		else if (msg instanceof TaskManagerMessage.createTaskMessage) {
-			if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_GAME)) {
-				AkkaDecorate.getServerSupervisorSubscriberRef().tell(msg, ActorRef.noSender());
-			} else if (AvalonEngine.mode.equals(AvalonServerMode.SERVER_TYPE_SINGLE)) {
-				AkkaDecorate.getGlobleTaskManagerActorRef().tell(msg, ActorRef.noSender());
-			}
-
+			ActorRef globleTaskManagerActor = actorSystem.actorOf(Props.create(GlobleTaskManagerActor.class),GlobleTaskManagerActor.IDENTIFY);
+			instance.setGlobleTaskManagerActor(connectionSessionSupervisor);
+			this.getContext().watch(globleTaskManagerActor);
 		}
 
+		Props avalonDeadLetterProps = Props.create(AvalonDeadLetter.class);
+		ActorRef avalonDeadLetterRef = actorSystem.actorOf(avalonDeadLetterProps);
+		actorSystem.eventStream().subscribe(avalonDeadLetterRef, DeadLetter.class);
 	}
 
 

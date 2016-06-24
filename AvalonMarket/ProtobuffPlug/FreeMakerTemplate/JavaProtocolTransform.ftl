@@ -2,7 +2,7 @@ package ${java_package}.${namePix};
 
 import com.google.protobuf.Message;
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.avalon.protobuff.JavaProtocolTransform;
+import com.avalon.protocol.JavaProtocolTransform;
 import ${java_package}.${java_outer_classname}.*;
 import ${java_package}.${java_outer_classname}.${protoName};
 import ${java_package}.${java_outer_classname}.${protoName}.Builder;

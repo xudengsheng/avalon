@@ -357,8 +357,13 @@ import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.core.ContextResolver;
 import com.avalon.core.actor.LocalTransportActor;
 import com.avalon.core.actor.RemoteTransportActor;
-import com.avalon.core.message.TransportMessage;
-import com.avalon.core.message.TransportSupervisorMessage;
+import com.avalon.core.message.AvaloneMessage;
+import com.avalon.core.message.CreateIOSessionActor;
+import com.avalon.core.message.IoMessagePackageMessage;
+import com.avalon.core.message.MessageType;
+import com.avalon.core.message.ReciveIOSessionMessage;
+import com.avalon.core.message.NetServerLost;
+import com.avalon.core.message.TransportBindingServer;
 import com.avalon.core.proxy.TransportSupervisorProxy;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.AkkaDecorate;
@@ -380,10 +385,12 @@ import scala.concurrent.duration.Duration;
  *
  * @author ZERO
  */
-public class TransportSupervisor extends UntypedActor {
+public class TransportSupervisor extends UntypedActor
+{
 
 	/** The log. */
-	private static Logger logger = LoggerFactory.getLogger("TransportSupervisor");
+	private static Logger logger = LoggerFactory
+			.getLogger("TransportSupervisor");
 
 	/** The Constant IDENTIFY. */
 	public static final String IDENTIFY = "TransportSupervisor";
@@ -399,7 +406,8 @@ public class TransportSupervisor extends UntypedActor {
 	private Cancellable cancellable;
 
 	@Override
-	public void postStop() throws Exception {
+	public void postStop() throws Exception
+	{
 		super.postStop();
 		cancellable.cancel();
 	}
@@ -413,19 +421,25 @@ public class TransportSupervisor extends UntypedActor {
 	 * @param localRegionPath
 	 *            the local region path
 	 */
-	public TransportSupervisor(boolean netGateMode) {
+	public TransportSupervisor(boolean netGateMode)
+	{
 		super();
 		logger.debug("TransportSupervisor init ,is gate=" + netGateMode);
 		this.netGateMode = netGateMode;
-		TransportSupervisorMessage message = new TransportSupervisorMessage.CheckNoSessionTransport();
-		PropertiesWrapper propertiesWrapper = ContextResolver.getPropertiesWrapper();
-		sessionTimeOut = propertiesWrapper.getIntProperty(SystemEnvironment.GATE_SESSION_TIME_OUT, 60);
-		sessionCheckTime = propertiesWrapper.getIntProperty(SystemEnvironment.GATE_SESSION_CHECK_TIME, 60);
+		AvaloneMessage message = new AvaloneMessage(
+				MessageType.CheckNoSessionTransport);
+		PropertiesWrapper propertiesWrapper = ContextResolver
+				.getPropertiesWrapper();
+		sessionTimeOut = propertiesWrapper
+				.getIntProperty(SystemEnvironment.GATE_SESSION_TIME_OUT, 60);
+		sessionCheckTime = propertiesWrapper
+				.getIntProperty(SystemEnvironment.GATE_SESSION_CHECK_TIME, 60);
 
 		ActorSystem actorSystem = AkkaDecorate.getActorSystem();
 		Scheduler scheduler = actorSystem.scheduler();
-		cancellable = scheduler.schedule(Duration.Zero(), Duration.create(sessionCheckTime, TimeUnit.SECONDS),
-				getSelf(), message, actorSystem.dispatcher(), getSelf());
+		cancellable = scheduler.schedule(Duration.Zero(),
+				Duration.create(sessionCheckTime, TimeUnit.SECONDS), getSelf(),
+				message, actorSystem.dispatcher(), getSelf());
 	}
 
 	/**
@@ -434,10 +448,14 @@ public class TransportSupervisor extends UntypedActor {
 	 * @return
 	 * @throws ClassNotFoundException
 	 */
-	public Class<?> getTransportClass() throws ClassNotFoundException {
-		if (netGateMode) {
+	public Class<?> getTransportClass() throws ClassNotFoundException
+	{
+		if (netGateMode)
+		{
 			return RemoteTransportActor.class;
-		} else {
+		}
+		else
+		{
 			return LocalTransportActor.class;
 		}
 	}
@@ -448,50 +466,46 @@ public class TransportSupervisor extends UntypedActor {
 	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
 	 */
 	@Override
-	public void onReceive(Object msg) throws Exception {
+	public void onReceive(Object msg) throws Exception
+	{
 		/**
 		 * 创建会话绑定第一个transport Actor
 		 */
-		if (msg instanceof TransportSupervisorMessage.CreateIOSessionActor) {
-			logger.debug("TransportSupervisor CreateIOSessionActor");
-			IoSession ioSession = ((TransportSupervisorMessage.CreateIOSessionActor) msg).ioSession;
-			Props create = Props.create(getTransportClass(), ioSession);
-			ActorRef actorOf = getContext().actorOf(create);
-			getContext().watch(actorOf);
-			TransportSupervisorProxy.getInstance().addTransportNum();
+		if (msg instanceof AvaloneMessage)
+		{
+			switch (((AvaloneMessage) msg).getMessageType())
+			{
+				case CreateIOSessionActor :
+					processCreateIOSessionActor(msg);
+					break;
+				case ReciveIOSessionMessage :
+					processReciveIOSessionMessage(msg);
+					break;
+				case CheckNoSessionTransport:
+					processCheckNoSessionTransport();
+				case TransportLostNetSession:
+					processTransportLostNetSession();
+					break;
+				case TransportBindingServer:
+					processTransportBindingServer(msg);
+					break;
+				case NetServerLost:
+					processServerLost(msg);
+					break;
+				default :
+					break;
+			}
+
 		}
 		/**
 		 * 第一次收到网络消息的情况下，TransportAcotr没有与ConnectionActor进行绑定，所以在这里进行第一次绑定
 		 */
-		else if (msg instanceof TransportSupervisorMessage.ReciveIOSessionMessage) {
-			logger.debug("ReciveIOSessionMessage");
-			String transportPath = ((TransportSupervisorMessage.ReciveIOSessionMessage) msg).transportPath;
-			ActorSelection actorSelection = getContext().actorSelection(transportPath);
-
-			IoMessagePackage messagePackage = ((TransportSupervisorMessage.ReciveIOSessionMessage) msg).messagePackage;
-			TransportMessage message = new TransportMessage.IOSessionReciveMessage(messagePackage);
-			actorSelection.tell(message, getSender());
-		}
+		// else if (msg instanceof
+		// TransportSupervisorMessage.ReciveIOSessionMessage) {}
 		// 检查丢失会话的transport
-		else if (msg instanceof TransportSupervisorMessage.CheckNoSessionTransport) {
-			logger.debug("CheckNoSessionTransport");
-			List<LostNetActor> remove = new ArrayList<>();
-			for (LostNetActor lostNetActor : lostNetActors) {
-				long currentTimeMillis = System.currentTimeMillis();
-				long lostTime = lostNetActor.lostNetTime + sessionTimeOut;
-				if (lostTime < currentTimeMillis) {
-					getContext().stop(lostNetActor.actorRef);
-					remove.add(lostNetActor);
-				} else {
-					break;
-				}
-			}
-			if (remove.size()>0) {
-				lostNetActors.removeAll(remove);
-			}
-		}
 		// 一个被监听Actor销毁掉了
-		else if (msg instanceof Terminated) {
+		else if (msg instanceof Terminated)
+		{
 			logger.debug("an actor Terminated");
 			ActorRef actor = ((Terminated) msg).actor();
 			transports.remove(actor);
@@ -499,42 +513,104 @@ public class TransportSupervisor extends UntypedActor {
 			TransportSupervisorProxy.getInstance().subTransportNum();
 		}
 		// actor 绑定对已的server
-		else if (msg instanceof TransportSupervisorMessage.TransportBindingServer) {
-			logger.debug("TransportSupervisorMessage.TransportBindingServer");
-			int serverId = ((TransportSupervisorMessage.TransportBindingServer) msg).serverId;
-			transports.put(getSender(), serverId);
-		}
 
-		else if (msg instanceof TransportSupervisorMessage.ServerLost) {
-			int serverId = ((TransportSupervisorMessage.ServerLost) msg).serverId;
-			logger.debug("lost server serverId="+serverId);
-			for (Entry<ActorRef, Integer> entry : transports.entrySet()) {
-				if (entry.getValue() == serverId) {
-					TransportMessage message = new TransportMessage.ServerClose();
-					ActorRef key = entry.getKey();
-					key.tell(message, getSelf());
-				}
-			}
-		}
 
 		// 一个被监听Actor会话丢失链接
-		else if (msg instanceof TransportSupervisorMessage.TransportLostNetSession) {
-			ActorRef actorRef = getSender();
-			logger.debug("TransportSupervisorMessage.TransportLostNetSession"+actorRef);
-			LostNetActor actor = new LostNetActor(actorRef);
-			lostNetActors.addLast(actor);
-		} else {
+		else
+		{
 			unhandled(msg);
 		}
 	}
 
+	private void processServerLost(Object msg)
+	{
+		int serverId = ((NetServerLost) msg).serverId;
+		logger.debug("lost server serverId=" + serverId);
+		for (Entry<ActorRef, Integer> entry : transports.entrySet())
+		{
+			if (entry.getValue() == serverId)
+			{
+				AvaloneMessage message = new AvaloneMessage(
+						MessageType.ServerClose);
+				ActorRef key = entry.getKey();
+				key.tell(message, getSelf());
+			}
+		}
+	}
+
+	private void processTransportBindingServer(Object msg)
+	{
+		logger.debug("TransportSupervisorMessage.TransportBindingServer");
+		int serverId = ((TransportBindingServer) msg).serverId;
+		transports.put(getSender(), serverId);
+	}
+
+	private void processTransportLostNetSession()
+	{
+		ActorRef actorRef = getSender();
+		logger.debug("TransportSupervisorMessage.TransportLostNetSession"
+				+ actorRef);
+		LostNetActor actor = new LostNetActor(actorRef);
+		lostNetActors.addLast(actor);
+	}
+
+	private void processCheckNoSessionTransport()
+	{
+		logger.debug("CheckNoSessionTransport");
+		List<LostNetActor> remove = new ArrayList<>();
+		for (LostNetActor lostNetActor : lostNetActors)
+		{
+			long currentTimeMillis = System.currentTimeMillis();
+			long lostTime = lostNetActor.lostNetTime + sessionTimeOut;
+			if (lostTime < currentTimeMillis)
+			{
+				getContext().stop(lostNetActor.actorRef);
+				remove.add(lostNetActor);
+			}
+			else
+			{
+				break;
+			}
+		}
+		if (remove.size() > 0)
+		{
+			lostNetActors.removeAll(remove);
+		}
+	}
+
+	private void processReciveIOSessionMessage(Object msg)
+	{
+		logger.debug("ReciveIOSessionMessage");
+		String transportPath = ((ReciveIOSessionMessage) msg).transportPath;
+		ActorSelection actorSelection = getContext()
+				.actorSelection(transportPath);
+
+		IoMessagePackage messagePackage = ((ReciveIOSessionMessage) msg).messagePackage;
+		IoMessagePackageMessage message = new IoMessagePackageMessage(
+				MessageType.IOSessionReciveMessage, messagePackage);
+		actorSelection.tell(message, getSender());
+	}
+
+	private void processCreateIOSessionActor(Object msg)
+			throws ClassNotFoundException
+	{
+		logger.debug("TransportSupervisor CreateIOSessionActor");
+		IoSession ioSession = ((CreateIOSessionActor) msg).ioSession;
+		Props create = Props.create(getTransportClass(), ioSession);
+		ActorRef actorOf = getContext().actorOf(create);
+		getContext().watch(actorOf);
+		TransportSupervisorProxy.getInstance().addTransportNum();
+	}
+
 }
 
-class LostNetActor {
+class LostNetActor
+{
 	public final long lostNetTime = System.currentTimeMillis();
 	public final ActorRef actorRef;
 
-	public LostNetActor(ActorRef actorRef) {
+	public LostNetActor(ActorRef actorRef)
+	{
 		super();
 		this.actorRef = actorRef;
 	}

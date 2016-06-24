@@ -1,7 +1,7 @@
 package com.example.protocol.handler.Hall;
 
 
-import com.avalon.protobuff.JavaProtocolTransform;
+import com.avalon.protocol.JavaProtocolTransform;
 import com.example.protocol.helper.HallCodecHelper;
 import com.example.protocol.javabean.CS_JoinHallJavaBean;
 import com.google.protobuf.InvalidProtocolBufferException;

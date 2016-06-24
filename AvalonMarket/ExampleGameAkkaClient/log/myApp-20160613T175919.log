@@ -1,0 +1,13 @@
+2016-06-13 17:59:19,247 INFO [Client-akka.actor.default-dispatcher-4] a.e.s.Slf4jLogger [Slf4jLogger.scala:85] Slf4jLogger started
+2016-06-13 17:59:19,258 DEBUG [Client-akka.actor.default-dispatcher-4] a.e.EventStream [Slf4jLogger.scala:82] logger log1-Slf4jLogger started
+2016-06-13 17:59:19,261 DEBUG [Client-akka.actor.default-dispatcher-4] a.e.EventStream [Slf4jLogger.scala:82] Default Loggers started
+2016-06-13 17:59:19,351 INFO [Client-akka.actor.default-dispatcher-3] a.r.Remoting [Slf4jLogger.scala:79] Starting remoting
+2016-06-13 17:59:19,491 INFO [Client-akka.actor.default-dispatcher-3] a.r.Remoting [Slf4jLogger.scala:79] Remoting started; listening on addresses :[akka.tcp://Client@10.1.37.203:2552]
+2016-06-13 17:59:19,501 INFO [Client-akka.actor.default-dispatcher-3] a.c.Cluster(akka://Client) [Slf4jLogger.scala:79] Cluster Node [akka.tcp://Client@10.1.37.203:2552] - Starting up...
+2016-06-13 17:59:19,524 INFO [Client-akka.actor.default-dispatcher-14] a.c.Cluster(akka://Client) [Slf4jLogger.scala:79] Cluster Node [akka.tcp://Client@10.1.37.203:2552] - Registered cluster JMX MBean [akka:type=Cluster]
+2016-06-13 17:59:19,525 INFO [Client-akka.actor.default-dispatcher-14] a.c.Cluster(akka://Client) [Slf4jLogger.scala:79] Cluster Node [akka.tcp://Client@10.1.37.203:2552] - Started up successfully
+2016-06-13 17:59:19,530 INFO [Client-akka.actor.default-dispatcher-14] a.c.Cluster(akka://Client) [Slf4jLogger.scala:79] Cluster Node [akka.tcp://Client@10.1.37.203:2552] - Metrics will be retreived from MBeans, and may be incorrect on some platforms. To increase metric accuracy add the 'sigar.jar' to the classpath and the appropriate platform-specific native libary to 'java.library.path'. Reason: java.lang.ClassNotFoundException: org.hyperic.sigar.Sigar
+2016-06-13 17:59:19,533 INFO [Client-akka.actor.default-dispatcher-16] a.c.Cluster(akka://Client) [Slf4jLogger.scala:79] Cluster Node [akka.tcp://Client@10.1.37.203:2552] - Metrics collection has started successfully
+2016-06-13 17:59:19,542 INFO [Client-akka.actor.default-dispatcher-2] a.c.Cluster(akka://Client) [Slf4jLogger.scala:79] Cluster Node [akka.tcp://Client@10.1.37.203:2552] - No seed-nodes configured, manual cluster join required
+2016-06-13 17:59:19,727 DEBUG [Client-akka.actor.default-dispatcher-15] a.s.Serialization(akka://Client) [Slf4jLogger.scala:82] Using serializer[akka.serialization.JavaSerializer] for message [java.lang.String]
+2016-06-13 17:59:19,745 DEBUG [Client-akka.actor.default-dispatcher-15] a.r.EndpointWriter [Slf4jLogger.scala:82] Drained buffer with maxWriteCount: 50, fullBackoffCount: 1, smallBackoffCount: 0, noBackoffCount: 0 , adaptiveBackoff: 1000

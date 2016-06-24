@@ -350,7 +350,8 @@ import com.avalon.api.IoSession;
 import com.avalon.api.internal.ActorBridge;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.core.ContextResolver;
-import com.avalon.core.message.TransportSupervisorMessage;
+import com.avalon.core.message.CreateIOSessionActor;
+import com.avalon.core.message.MessageType;
 import com.avalon.io.message.NetWorkMessage;
 import com.avalon.util.AkkaDecorate;
 import com.avalon.util.MessageHead;
@@ -366,7 +367,8 @@ import io.netty.channel.ChannelHandlerContext;
  * The Class NettyHandler.
  */
 @Sharable
-public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
+public class NettyHandler extends ChannelHandlerAdapter implements IoSession
+{
 
 	/** The logger. */
 	private Logger logger = LoggerFactory.getLogger("NetHandler");
@@ -381,14 +383,16 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	private ActorBridge transportActorCallBack;
 
 	/** The netty server. */
-	static NettyServer nettyServer = ContextResolver.getComponent(NettyServer.class);
+	static NettyServer nettyServer = ContextResolver
+			.getComponent(NettyServer.class);
 
 	private final long sessionId;
 
 	/** The no process message. */
 	private Queue<Object> noProcessMessage = Queues.newLinkedBlockingDeque();
 
-	public NettyHandler(Long sessionId) {
+	public NettyHandler(Long sessionId)
+	{
 		super();
 		this.sessionId = sessionId;
 	}
@@ -401,11 +405,13 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	 * ChannelHandlerContext)
 	 */
 	@Override
-	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception
+	{
 		super.handlerRemoved(ctx);
 		nettyServer.handleMessage(new NetWorkMessage.SessionOutline(this));
 		this.close();
-		if (logger.isDebugEnabled()) {
+		if (logger.isDebugEnabled())
+		{
 			logger.debug("解除注册");
 		}
 
@@ -419,18 +425,20 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	 * .ChannelHandlerContext)
 	 */
 	@Override
-	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+	public void channelRegistered(ChannelHandlerContext ctx) throws Exception
+	{
 		super.channelRegistered(ctx);
 		this.ctx = ctx;
 
-		TransportSupervisorMessage.CreateIOSessionActor message = new TransportSupervisorMessage.CreateIOSessionActor(
-				this);
+		CreateIOSessionActor message = new CreateIOSessionActor(
+				MessageType.CreateIOSessionActor, this);
 		// 创建一个新的会话封装
 		Inbox inbox = AkkaDecorate.getInbox();
 		inbox.send(AkkaDecorate.getTransportSupervisorRef(), message);
 
 		nettyServer.handleMessage(new NetWorkMessage.SessionOnline(this));
-		if (logger.isDebugEnabled()) {
+		if (logger.isDebugEnabled())
+		{
 			logger.debug("注册");
 		}
 
@@ -443,7 +451,8 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	 * channel.ChannelHandlerContext)
 	 */
 	@Override
-	public void channelReadComplete(ChannelHandlerContext ctx) {
+	public void channelReadComplete(ChannelHandlerContext ctx)
+	{
 		ctx.flush();
 	}
 
@@ -458,16 +467,23 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	 *             the exception
 	 */
 	@Override
-	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+	public void channelRead(ChannelHandlerContext ctx, Object msg)
+			throws Exception
+	{
 		super.channelRead(ctx, msg);
-		if (bindingTransportActor) {
+		if (bindingTransportActor)
+		{
 			sendMessageToTransport(msg);
-			if (logger.isDebugEnabled()) {
+			if (logger.isDebugEnabled())
+			{
 				logger.debug("bindingTransportActor Send message");
 			}
-		} else {
+		}
+		else
+		{
 			noProcessMessage.add(msg);
-			if (logger.isDebugEnabled()) {
+			if (logger.isDebugEnabled())
+			{
 				logger.debug("no bindingTransportActor Send message");
 			}
 		}
@@ -479,7 +495,8 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	 * @param msg
 	 *            the msg
 	 */
-	private void sendMessageToTransport(Object msg) {
+	private void sendMessageToTransport(Object msg)
+	{
 		IoMessagePackage ioMessagePackage = (IoMessagePackage) msg;
 		transportActorCallBack.tellMessage(ioMessagePackage);
 	}
@@ -492,7 +509,8 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	 * ChannelHandlerContext, java.lang.Throwable)
 	 */
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+	{
 		logger.error("net error", cause);
 		ctx.close();
 	}
@@ -503,11 +521,14 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	 * @see com.avalon.api.IoSession#write(java.lang.Object)
 	 */
 	@Override
-	public void write(Object msg) {
-		if (msg instanceof IoMessagePackage) {
+	public void write(Object msg)
+	{
+		if (msg instanceof IoMessagePackage)
+		{
 			MessageHead head = new MessageHead((IoMessagePackage) msg);
 			ctx.writeAndFlush(head);
-			if (logger.isDebugEnabled()) {
+			if (logger.isDebugEnabled())
+			{
 				logger.debug("write IoMessagePackage");
 			}
 		}
@@ -520,7 +541,8 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	 * @see com.avalon.api.IoSession#isConnection()
 	 */
 	@Override
-	public boolean isConnection() {
+	public boolean isConnection()
+	{
 		return ctx.channel().isActive();
 	}
 
@@ -530,9 +552,11 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	 * @see com.avalon.api.IoSession#close()
 	 */
 	@Override
-	public void close() {
+	public void close()
+	{
 		ctx.close();
-		if (bindingTransportActor) {
+		if (bindingTransportActor)
+		{
 			transportActorCallBack.closed();
 		}
 	}
@@ -544,12 +568,13 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 	 * com.avalon.api.IoSession#setSesssionActorCallBack(com.avalon.api.internal
 	 * .ActorCallBack)
 	 */
-	@Override
-	public void setActorBridge(ActorBridge actorCallBack) {
+	public void setActorBridge(ActorBridge actorCallBack)
+	{
 		this.transportActorCallBack = actorCallBack;
 		bindingTransportActor = true;
 		nettyServer.handlerBing(this, actorCallBack.getBindSessionId());
-		while (!noProcessMessage.isEmpty()) {
+		while (!noProcessMessage.isEmpty())
+		{
 			Object poll = noProcessMessage.poll();
 			sendMessageToTransport(poll);
 			logger.debug("处理未发送的消息");
@@ -557,15 +582,18 @@ public class NettyHandler extends ChannelHandlerAdapter implements IoSession {
 
 	}
 
-	public long getSessionId() {
+	public long getSessionId()
+	{
 		return sessionId;
 	}
 
-	public boolean isBindingTransportActor() {
+	public boolean isBindingTransportActor()
+	{
 		return bindingTransportActor;
 	}
 
-	public ActorBridge getTransportActorCallBack() {
+	public ActorBridge getTransportActorCallBack()
+	{
 		return transportActorCallBack;
 	}
 

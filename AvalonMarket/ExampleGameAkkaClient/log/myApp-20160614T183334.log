@@ -1,0 +1,33 @@
+2016-06-14 18:33:34,607 DEBUG [AWT-EventQueue-0] i.n.u.i.l.InternalLoggerFactory [Slf4JLogger.java:71] Using SLF4J as the default logging framework
+2016-06-14 18:33:34,613 DEBUG [AWT-EventQueue-0] i.n.c.MultithreadEventLoopGroup [Slf4JLogger.java:76] -Dio.netty.eventLoopThreads: 16
+2016-06-14 18:33:34,660 DEBUG [AWT-EventQueue-0] i.n.u.i.PlatformDependent0 [Slf4JLogger.java:76] java.nio.Buffer.address: available
+2016-06-14 18:33:34,660 DEBUG [AWT-EventQueue-0] i.n.u.i.PlatformDependent0 [Slf4JLogger.java:76] sun.misc.Unsafe.theUnsafe: available
+2016-06-14 18:33:34,661 DEBUG [AWT-EventQueue-0] i.n.u.i.PlatformDependent0 [Slf4JLogger.java:71] sun.misc.Unsafe.copyMemory: available
+2016-06-14 18:33:34,662 DEBUG [AWT-EventQueue-0] i.n.u.i.PlatformDependent0 [Slf4JLogger.java:76] java.nio.Bits.unaligned: true
+2016-06-14 18:33:34,663 DEBUG [AWT-EventQueue-0] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] Java version: 8
+2016-06-14 18:33:34,664 DEBUG [AWT-EventQueue-0] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.noUnsafe: false
+2016-06-14 18:33:34,664 DEBUG [AWT-EventQueue-0] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] sun.misc.Unsafe: available
+2016-06-14 18:33:34,664 DEBUG [AWT-EventQueue-0] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.noJavassist: false
+2016-06-14 18:33:34,749 DEBUG [AWT-EventQueue-0] i.n.u.i.PlatformDependent [Slf4JLogger.java:71] Javassist: available
+2016-06-14 18:33:34,749 DEBUG [AWT-EventQueue-0] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.tmpdir: /var/folders/k1/bfwvf_dd14ggxvb58z56hl6r0000gn/T (java.io.tmpdir)
+2016-06-14 18:33:34,749 DEBUG [AWT-EventQueue-0] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.bitMode: 64 (sun.arch.data.model)
+2016-06-14 18:33:34,749 DEBUG [AWT-EventQueue-0] i.n.u.i.PlatformDependent [Slf4JLogger.java:76] -Dio.netty.noPreferDirect: false
+2016-06-14 18:33:34,750 DEBUG [AWT-EventQueue-0] i.n.c.n.NioEventLoop [Slf4JLogger.java:76] -Dio.netty.noKeySetOptimization: false
+2016-06-14 18:33:34,750 DEBUG [AWT-EventQueue-0] i.n.c.n.NioEventLoop [Slf4JLogger.java:76] -Dio.netty.selectorAutoRebuildThreshold: 512
+2016-06-14 18:33:34,805 DEBUG [AWT-EventQueue-0] i.n.c.DefaultChannelId [Slf4JLogger.java:76] -Dio.netty.processId: 3171 (auto-detected)
+2016-06-14 18:33:34,815 DEBUG [AWT-EventQueue-0] i.n.c.DefaultChannelId [Slf4JLogger.java:76] -Dio.netty.machineId: 10:40:f3:ff:fe:a9:36:64 (auto-detected)
+2016-06-14 18:33:34,817 DEBUG [AWT-EventQueue-0] i.n.u.i.ThreadLocalRandom [Slf4JLogger.java:71] -Dio.netty.initialSeedUniquifier: 0x4e931217e3444c07 (took 8 ms)
+2016-06-14 18:33:34,851 DEBUG [AWT-EventQueue-0] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.numHeapArenas: 8
+2016-06-14 18:33:34,851 DEBUG [AWT-EventQueue-0] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.numDirectArenas: 8
+2016-06-14 18:33:34,852 DEBUG [AWT-EventQueue-0] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.pageSize: 8192
+2016-06-14 18:33:34,852 DEBUG [AWT-EventQueue-0] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.maxOrder: 11
+2016-06-14 18:33:34,852 DEBUG [AWT-EventQueue-0] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.chunkSize: 16777216
+2016-06-14 18:33:34,852 DEBUG [AWT-EventQueue-0] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.tinyCacheSize: 512
+2016-06-14 18:33:34,852 DEBUG [AWT-EventQueue-0] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.smallCacheSize: 256
+2016-06-14 18:33:34,853 DEBUG [AWT-EventQueue-0] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.normalCacheSize: 64
+2016-06-14 18:33:34,853 DEBUG [AWT-EventQueue-0] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+2016-06-14 18:33:34,853 DEBUG [AWT-EventQueue-0] i.n.b.PooledByteBufAllocator [Slf4JLogger.java:76] -Dio.netty.allocator.cacheTrimInterval: 8192
+2016-06-14 18:33:34,860 DEBUG [AWT-EventQueue-0] i.n.b.ByteBufUtil [Slf4JLogger.java:76] -Dio.netty.allocator.type: pooled
+2016-06-14 18:33:34,861 DEBUG [AWT-EventQueue-0] i.n.b.ByteBufUtil [Slf4JLogger.java:76] -Dio.netty.threadLocalDirectBufferSize: 65536
+2016-06-14 18:33:34,893 DEBUG [AWT-EventQueue-0] i.n.u.i.JavassistTypeParameterMatcherGenerator [Slf4JLogger.java:76] Generated: io.netty.util.internal.__matchers__.java.net.InetSocketAddressMatcher
+2016-06-14 18:33:34,906 DEBUG [nioEventLoopGroup-0-0] i.n.u.i.JavassistTypeParameterMatcherGenerator [Slf4JLogger.java:76] Generated: io.netty.util.internal.__matchers__.com.avalon.util.MessageHeadMatcher

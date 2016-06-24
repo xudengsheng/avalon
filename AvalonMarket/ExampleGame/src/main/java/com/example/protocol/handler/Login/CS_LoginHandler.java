@@ -6,7 +6,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSelection;
 
 import com.avalon.api.AppContext;
-import com.avalon.protobuff.JavaProtocolTransform;
+import com.avalon.protocol.JavaProtocolTransform;
 import com.example.protocol.helper.LoginCodecHelper;
 import com.example.protocol.javabean.CS_LoginJavaBean;
 import com.google.protobuf.InvalidProtocolBufferException;

@@ -84,5 +84,14 @@
 				<arguments>1.0-projectRelativePath-matches-false-false-ProtobuffPlug</arguments>
 			</matcher>
 		</filter>
+		<filter>
+			<id>1465809407944</id>
+			<name></name>
+			<type>26</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-projectRelativePath-matches-false-false-ExampleGameAkkaClient</arguments>
+			</matcher>
+		</filter>
 	</filteredResources>
 </projectDescription>

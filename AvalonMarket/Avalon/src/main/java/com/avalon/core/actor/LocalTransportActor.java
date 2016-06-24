@@ -346,12 +346,11 @@ import org.slf4j.LoggerFactory;
 
 import com.avalon.api.IoSession;
 import com.avalon.api.internal.IoMessagePackage;
-import com.avalon.core.message.ConnectionSessionMessage;
-import com.avalon.core.message.GameServerSupervisorMessage.LocalSessionMessage;
-import com.avalon.core.message.TransportMessage;
-import com.avalon.core.message.TransportMessage.ActorSendMessageToSession;
-import com.avalon.core.message.TransportMessage.IOSessionReciveMessage;
-import com.avalon.core.message.TransportSupervisorMessage;
+import com.avalon.core.message.AvaloneMessage;
+import com.avalon.core.message.DirectSessionMessage;
+import com.avalon.core.message.IoMessagePackageMessage;
+import com.avalon.core.message.MessageType;
+import com.avalon.io.netty.NettyHandler;
 import com.avalon.util.AkkaDecorate;
 
 import akka.actor.ActorRef;
@@ -363,7 +362,8 @@ import akka.actor.UntypedActor;
  *
  * @author ZERO
  */
-public class LocalTransportActor extends UntypedActor {
+public class LocalTransportActor extends UntypedActor
+{
 
 	/** The log. */
 	private static Logger logger = LoggerFactory.getLogger("LocalTransportActor");
@@ -393,17 +393,19 @@ public class LocalTransportActor extends UntypedActor {
 	 * @param ioSession
 	 *            the io session
 	 */
-	public LocalTransportActor(IoSession ioSession) {
+	public LocalTransportActor(IoSession ioSession)
+	{
 		super();
 		this.ioSession = ioSession;
 
 	}
 
 	@Override
-	public void preStart() throws Exception {
+	public void preStart() throws Exception
+	{
 		logger.debug("LocalTransportActor preStart");
 		super.preStart();
-		ioSession.setActorBridge(new InnerLocalActorBringe(getSelf().path().uid(), getSelf()));
+		((NettyHandler) ioSession).setActorBridge(new InnerLocalActorBringe(getSelf().path().uid(), getSelf()));
 	}
 
 	/*
@@ -412,41 +414,77 @@ public class LocalTransportActor extends UntypedActor {
 	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
 	 */
 	@Override
-	public void onReceive(Object msg) throws Exception {
+	public void onReceive(Object msg) throws Exception
+	{
 		logger.debug("LocalTransportActor onReceive msg");
-		if (msg instanceof TransportMessage.IOSessionReciveMessage) {
-			if (bindingConnectionSession) {
-				logger.debug("LocalTransportActor bindingConnectionSession onReceive msg");
-				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
-				ConnectionSessionMessage message = new ConnectionSessionMessage.DirectSessionMessage(messagePackage);
-				connectionSessionsRef.tell(message, getSelf());
-			} else {
-				logger.debug("LocalTransportActor no bindingConnectionSession onReceive msg");
-				IoMessagePackage messagePackage = ((IOSessionReciveMessage) msg).messagePackage;
-				LocalSessionMessage commandSessionProtocol = new LocalSessionMessage(messagePackage);
-				AkkaDecorate.getConnectionSessionSupervisorRef().tell(commandSessionProtocol, getSelf());
+		if (msg instanceof AvaloneMessage)
+		{
+			switch (((AvaloneMessage) msg).getMessageType())
+			{
+				case IOSessionReciveMessage :
+					processIOSessionReciveMessage((IoMessagePackageMessage) msg);
+					break;
+				case ActorSendMessageToSession :
+					processActorSendMessageToSession((IoMessagePackageMessage) msg);
+					break;
+				case ConnectionSessionsBinding :
+					processConnectionSessionsBinding();
+					break;
+				case CloseConnectionSessions :
+					processCloseConnectionSessions();
+					break;
+				default :
+					break;
 			}
-			return;
-		} else if (msg instanceof ActorSendMessageToSession) {
-			logger.debug("LocalTransportActor SessionSessionMessage onReceive msg");
-			IoMessagePackage messagePackage = ((ActorSendMessageToSession) msg).messagePackage;
-			ioSession.write(messagePackage);
-			return;
-		} else if (msg instanceof TransportMessage.CloseConnectionSessions) {
-			if (bindingConnectionSession) {
-				connectionSessionsRef.tell(new ConnectionSessionMessage.LostConnect(), getSelf());
-			}
-			TransportSupervisorMessage message = new TransportSupervisorMessage.TransportLostNetSession();
-			AkkaDecorate.getTransportSupervisorRef().tell(message, getSelf());
-			return;
-		} else if (msg instanceof TransportMessage.ConnectionSessionsBinding) {
-			this.connectionSessionsRef = getSender();
-			this.bindingConnectionSession = true;
-			return;
-		} else {
+
+		}
+		else
+		{
 			unhandled(msg);
 		}
 
+	}
+
+	private void processCloseConnectionSessions()
+	{
+		if (bindingConnectionSession)
+		{
+			connectionSessionsRef.tell(new AvaloneMessage(MessageType.LostConnect), getSelf());
+		}
+		AvaloneMessage message = new AvaloneMessage(MessageType.TransportLostNetSession);
+		AkkaDecorate.getTransportSupervisorRef().tell(message, getSelf());
+	}
+
+	private void processConnectionSessionsBinding()
+	{
+		this.connectionSessionsRef = getSender();
+		this.bindingConnectionSession = true;
+	}
+
+	private void processActorSendMessageToSession(IoMessagePackageMessage msg)
+	{
+		logger.debug("LocalTransportActor SessionSessionMessage onReceive msg");
+		IoMessagePackage messagePackage = msg.messagePackage;
+		ioSession.write(messagePackage);
+	}
+
+	private void processIOSessionReciveMessage(IoMessagePackageMessage msg)
+	{
+		if (bindingConnectionSession)
+		{
+			logger.debug("LocalTransportActor bindingConnectionSession onReceive msg");
+			IoMessagePackage messagePackage = msg.messagePackage;
+			DirectSessionMessage message = new DirectSessionMessage(MessageType.DirectSessionMessage, messagePackage);
+			connectionSessionsRef.tell(message, getSelf());
+		}
+		else
+		{
+			logger.debug("LocalTransportActor no bindingConnectionSession onReceive msg");
+			IoMessagePackage messagePackage = ((IoMessagePackageMessage) msg).messagePackage;
+			IoMessagePackageMessage commandSessionProtocol = new IoMessagePackageMessage(
+					MessageType.LocalSessionMessage, messagePackage);
+			AkkaDecorate.getConnectionSessionSupervisorRef().tell(commandSessionProtocol, getSelf());
+		}
 	}
 
 	/*
@@ -455,9 +493,11 @@ public class LocalTransportActor extends UntypedActor {
 	 * @see akka.actor.UntypedActor#postStop()
 	 */
 	@Override
-	public void postStop() throws Exception {
+	public void postStop() throws Exception
+	{
 		super.postStop();
-		if (bindingConnectionSession) {
+		if (bindingConnectionSession)
+		{
 			connectionSessionsRef.tell(akka.actor.PoisonPill.getInstance(), getSelf());
 		}
 	}

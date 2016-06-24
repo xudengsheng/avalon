@@ -353,9 +353,12 @@ import com.avalon.api.TaskManager;
 import com.avalon.api.internal.IoMessagePackage;
 import com.avalon.api.message.GetLocationMessage;
 import com.avalon.core.ContextResolver;
-import com.avalon.core.message.ConnectionSessionMessage;
-import com.avalon.core.message.TransportMessage;
-import com.avalon.core.message.TransportMessage.ActorSendMessageToSession;
+import com.avalon.core.message.AvaloneMessage;
+import com.avalon.core.message.ConnectionSessionsBinding;
+import com.avalon.core.message.DirectSessionMessage;
+import com.avalon.core.message.HasSenderPathMessage;
+import com.avalon.core.message.IoMessagePackageMessage;
+import com.avalon.core.message.MessageType;
 import com.avalon.setting.SystemEnvironment;
 import com.avalon.util.PropertiesWrapper;
 
@@ -369,11 +372,12 @@ import scala.concurrent.duration.Duration;
 
 // TODO: Auto-generated Javadoc
 /**
- * 客户端连接会话.
- * 可以理解为是Session与actor结合
+ * 客户端连接会话. 可以理解为是Session与actor结合
+ * 
  * @author ZERO
  */
-public class ConnectionSession extends UntypedActor {
+public class ConnectionSession extends UntypedActor
+{
 
 	/** The log. */
 	private static Logger logger = LoggerFactory.getLogger("ConnectionSession");
@@ -388,73 +392,110 @@ public class ConnectionSession extends UntypedActor {
 	private ClientSessionLinenter sessionLinenter;
 
 	@Override
-	public void onReceive(Object msg) throws Exception {
-		if (msg instanceof ConnectionSessionMessage.HasSenderPathMessage) {
-			logger.debug("msg is ConnectionSessionMessage.HasSenderPathMessage");
-			sender = ((ConnectionSessionMessage.HasSenderPathMessage) msg).sender;
-			int serverId = ((ConnectionSessionMessage.HasSenderPathMessage) msg).serverId;
+	public void onReceive(Object msg) throws Exception
+	{
+		if (msg instanceof AvaloneMessage)
+		{
+			AvaloneMessage avaloneMessage = (AvaloneMessage) msg;
+			switch (avaloneMessage.getMessageType())
+			{
+				case HasSenderPathMessage :
+					processHasSenderPathMessage((HasSenderPathMessage) msg);
+					break;
+				case DirectSessionMessage :
+					processDirectSessionMessage((DirectSessionMessage) msg);
+					break;
+				case LostConnect :
+					processLostConnect();
+					break;
+				default :
+					break;
+			}
 
-			TransportMessage.ConnectionSessionsBinding binding = new TransportMessage.ConnectionSessionsBinding(serverId);
-
-			Object message = ((ConnectionSessionMessage.HasSenderPathMessage) msg).message;
-			sender.tell(binding, getSelf());
-			// 如果第一次连接的话，通知下逻辑服务器有新的会话登入
-			if (clientSession == null) {
-				logger.debug("msg is ConnectionSessionMessage.HasSenderPathMessage clientSession is frist");
-				clientSession = new InnerClient(sender, this);
-				AppListener appListener = ContextResolver.getAppListener();
-				appListener.actorLogin(self());
-			}
-			// 实例化处理逻辑的监听类
-			if (sessionLinenter == null) {
-				logger.debug("msg is ConnectionSessionMessage.HasSenderPathMessage sessionLinenter is frist");
-				PropertiesWrapper propertiesWrapper = ContextResolver.getPropertiesWrapper();
-				sessionLinenter = (ClientSessionLinenter) propertiesWrapper.getClassInstanceProperty(SystemEnvironment.APP_SESSION_LISTENER, ClientSessionLinenter.class, new Class[] {});
-			}
-			try {
-				logger.debug("msg is ConnectionSessionMessage.HasSenderPathMessage sessionLinenter.receivedMessage");
-				sessionLinenter.receivedMessage(clientSession, (IoMessagePackage) message);
-			} catch (Exception e) {
-				logger.error("sessionLinenter recevice error:",e);
-			}
-			return;
 		}
-		// 获得remote的Actor消息
-		else if (msg instanceof ConnectionSessionMessage.DirectSessionMessage) {
-			logger.debug("msg is ConnectionSessionMessage.DirectSessionMessage");
-			Object message = ((ConnectionSessionMessage.DirectSessionMessage) msg).origins;
-			try {
-				sessionLinenter.receivedMessage(clientSession, (IoMessagePackage) message);
-			} catch (Exception e) {
-				logger.error("sessionLinenter recevice d error:",e);
-			}
-			return;
-		} 
-		// 获得Actor之间的消息
-		else if (msg instanceof GetLocationMessage) {
+		else if (msg instanceof GetLocationMessage)
+		{
 			logger.debug("get meeesage GetLocationMessage");
 			sessionLinenter.receivedActorMessage(getSender(), ((GetLocationMessage) msg).getMessage());
 			return;
 		}
-		// 失去网络连接的信号
-		else if (msg instanceof ConnectionSessionMessage.LostConnect) {
-			logger.debug("ConnectionSessionMessage LostConnect");
-			sessionLinenter.disconnected(false);
-			AppListener appListener = ContextResolver.getAppListener();
-			appListener.actorDisconnect(self().path().name());
-		}
 
 	}
 
+	private void processLostConnect()
+	{
+		logger.debug("ConnectionSessionMessage LostConnect");
+		sessionLinenter.disconnected(false);
+		AppListener appListener = ContextResolver.getAppListener();
+		appListener.actorDisconnect(self().path().name());
+	}
+
+	private void processDirectSessionMessage(DirectSessionMessage msg)
+	{
+		logger.debug("msg is ConnectionSessionMessage.DirectSessionMessage");
+		Object rawMessage = msg.origins;
+		try
+		{
+			sessionLinenter.receivedMessage(clientSession, (IoMessagePackage) rawMessage);
+		}
+		catch (Exception e)
+		{
+			logger.error("sessionLinenter recevice d error:", e);
+		}
+	}
+
+	private void processHasSenderPathMessage(HasSenderPathMessage msg)
+	{
+		logger.debug("msg is ConnectionSessionMessage.HasSenderPathMessage");
+		sender = msg.sender;
+		int serverId = msg.serverId;
+		Object message = msg.message;
+		processConnection(serverId, message);
+	}
+
+	private void processConnection(int serverId, Object message)
+	{
+		ConnectionSessionsBinding binding = new ConnectionSessionsBinding(MessageType.ConnectionSessionsBinding,
+				serverId);
+		sender.tell(binding, getSelf());
+		// 如果第一次连接的话，通知下逻辑服务器有新的会话登入
+		if (clientSession == null)
+		{
+			logger.debug("msg is ConnectionSessionMessage.HasSenderPathMessage clientSession is frist");
+			clientSession = new InnerClient(sender, this);
+			AppListener appListener = ContextResolver.getAppListener();
+			appListener.actorLogin(self());
+		}
+		// 实例化处理逻辑的监听类
+		if (sessionLinenter == null)
+		{
+			logger.debug("msg is ConnectionSessionMessage.HasSenderPathMessage sessionLinenter is frist");
+			PropertiesWrapper propertiesWrapper = ContextResolver.getPropertiesWrapper();
+			sessionLinenter = (ClientSessionLinenter) propertiesWrapper.getClassInstanceProperty(
+					SystemEnvironment.APP_SESSION_LISTENER, ClientSessionLinenter.class, new Class[]
+					{});
+		}
+		try
+		{
+			logger.debug("msg is ConnectionSessionMessage.HasSenderPathMessage sessionLinenter.receivedMessage");
+			sessionLinenter.receivedMessage(clientSession, (IoMessagePackage) message);
+		}
+		catch (Exception e)
+		{
+			logger.error("sessionLinenter recevice error:", e);
+		}
+	}
 
 	@Override
-	public void postStop() throws Exception {
+	public void postStop() throws Exception
+	{
 		super.postStop();
 		sessionLinenter.disconnected(true);
 	}
 }
 
-class InnerClient implements ActorSession, TaskManager {
+class InnerClient implements ActorSession, TaskManager
+{
 
 	ActorRef transport;
 
@@ -462,42 +503,48 @@ class InnerClient implements ActorSession, TaskManager {
 
 	final UntypedActor self;
 
-	public InnerClient(ActorRef sender, UntypedActor self) {
+	public InnerClient(ActorRef sender, UntypedActor self)
+	{
 		super();
 		this.transport = sender;
 		this.self = self;
 		context = self.getContext();
 	}
 
-	@Override
-	public void setTransport(ActorRef untypActorSelection) {
+	public void setTransport(ActorRef untypActorSelection)
+	{
 		this.transport = untypActorSelection;
 
 	}
 
 	@Override
-	public void sendIoMessage(IoMessagePackage message) {
-		ActorSendMessageToSession sessionMessage = new ActorSendMessageToSession(message);
+	public void sendIoMessage(IoMessagePackage message)
+	{
+		IoMessagePackageMessage sessionMessage = new IoMessagePackageMessage(MessageType.ActorSendMessageToSession,
+				message);
 		transport.tell(sessionMessage, self.getSelf());
 	}
 
 	@Override
-	public Cancellable scheduleOnceTask(Runnable runnable) {
+	public Cancellable scheduleOnceTask(Runnable runnable)
+	{
 		ActorSystem actorSystem = context.system();
 		Scheduler scheduler = actorSystem.scheduler();
 		return scheduler.scheduleOnce(Duration.Zero(), runnable, actorSystem.dispatcher());
 	}
 
 	@Override
-	public Cancellable scheduleOnceTask(long delay, Runnable runnable) {
+	public Cancellable scheduleOnceTask(long delay, Runnable runnable)
+	{
 		ActorSystem actorSystem = context.system();
 		Scheduler scheduler = actorSystem.scheduler();
-		return scheduler
-				.scheduleOnce(Duration.create(delay, TimeUnit.MILLISECONDS), runnable, actorSystem.dispatcher());
+		return scheduler.scheduleOnce(Duration.create(delay, TimeUnit.MILLISECONDS), runnable,
+				actorSystem.dispatcher());
 	}
 
 	@Override
-	public Cancellable scheduleTask(long delay, long period, Runnable runnable) {
+	public Cancellable scheduleTask(long delay, long period, Runnable runnable)
+	{
 		ActorSystem actorSystem = context.system();
 		Scheduler scheduler = actorSystem.scheduler();
 		return scheduler.schedule(Duration.create(delay, TimeUnit.MILLISECONDS),
@@ -505,12 +552,14 @@ class InnerClient implements ActorSession, TaskManager {
 	}
 
 	@Override
-	public TaskManager getTaskManager() {
+	public TaskManager getTaskManager()
+	{
 		return this;
 	}
 
 	@Override
-	public UntypedActor getSelfUntypedActor() {
+	public UntypedActor getSelfUntypedActor()
+	{
 		return self;
 	}
 

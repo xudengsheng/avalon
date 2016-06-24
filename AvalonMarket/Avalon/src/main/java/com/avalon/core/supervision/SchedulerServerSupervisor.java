@@ -350,8 +350,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.avalon.api.CancellableTask;
-import com.avalon.core.message.SchedulerServerSupervisorMessage;
-import com.avalon.core.message.SchedulerServerSupervisorMessage.RunTaskInfo;
+import com.avalon.core.message.AvaloneMessage;
+import com.avalon.core.message.CancelTask;
+import com.avalon.core.message.RunTask;
+import com.avalon.core.message.RunTaskInfo;
 import com.avalon.core.model.CancellabTaskImpl;
 
 import akka.actor.ActorSystem;
@@ -367,7 +369,8 @@ import scala.concurrent.duration.FiniteDuration;
  *
  * @author ZERO
  */
-public class SchedulerServerSupervisor extends UntypedActor {
+public class SchedulerServerSupervisor extends UntypedActor
+{
 
 	/** The log. */
 	private static Logger logger = LoggerFactory.getLogger("AvalonEngine");
@@ -378,47 +381,66 @@ public class SchedulerServerSupervisor extends UntypedActor {
 	/** The cancellable info. */
 	private Map<String, Cancellable> cancellableInfo = new HashMap<String, Cancellable>();
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see akka.actor.UntypedActor#onReceive(java.lang.Object)
 	 */
 	@Override
 	public void onReceive(Object message) throws Exception
 	{
-		if (message instanceof SchedulerServerSupervisorMessage.RunTask)
+		if (message instanceof AvaloneMessage)
 		{
-			
-			CancellableTask scheduleOnceTask = null;
-			switch (((SchedulerServerSupervisorMessage.RunTask) message).type)
+			switch (((AvaloneMessage) message).getMessageType())
 			{
-			case 1:
-				scheduleOnceTask = scheduleOnceTask(((SchedulerServerSupervisorMessage.RunTask) message).runnable);
-				break;
-			case 2:
-				scheduleOnceTask = scheduleOnceTask(((SchedulerServerSupervisorMessage.RunTask) message).delay,((SchedulerServerSupervisorMessage.RunTask) message).runnable);
-				break;
-			case 3:
-				scheduleOnceTask = scheduleTask(((SchedulerServerSupervisorMessage.RunTask) message).delay,((SchedulerServerSupervisorMessage.RunTask) message).period,((SchedulerServerSupervisorMessage.RunTask) message).runnable);
-				break;
-			default:
-				break;
+				case RunTask :
+					processRunTask((RunTask) message);
+					break;
+				case CancelTask :
+					processCancelTask((CancelTask) message);
+					break;
+				default :
+					break;
 			}
-			RunTaskInfo info=new RunTaskInfo(scheduleOnceTask);
-			getSender().tell(info, getSelf());
-		} else if (message instanceof SchedulerServerSupervisorMessage.CancelTask)
-		{
-			if (cancellableInfo.containsKey(((SchedulerServerSupervisorMessage.CancelTask) message).taskId))
-			{
-				Cancellable cancellable1 = cancellableInfo.get(((SchedulerServerSupervisorMessage.CancelTask) message).taskId);
-				cancellable1.cancel();
-			}
-		}
 
+		}
+	}
+
+	private void processCancelTask(CancelTask message)
+	{
+		if (cancellableInfo.containsKey(message.taskId))
+		{
+			Cancellable cancellable1 = cancellableInfo.get(message.taskId);
+			cancellable1.cancel();
+		}
+	}
+
+	private void processRunTask(RunTask message)
+	{
+		CancellableTask scheduleOnceTask = null;
+		switch (message.type)
+		{
+			case 1 :
+				scheduleOnceTask = scheduleOnceTask(message.runnable);
+				break;
+			case 2 :
+				scheduleOnceTask = scheduleOnceTask(message.delay, message.runnable);
+				break;
+			case 3 :
+				scheduleOnceTask = scheduleTask(message.delay, message.period, message.runnable);
+				break;
+			default :
+				break;
+		}
+		RunTaskInfo info = new RunTaskInfo(scheduleOnceTask);
+		getSender().tell(info, getSelf());
 	}
 
 	/**
 	 * Schedule once task.
 	 *
-	 * @param runnable the runnable
+	 * @param runnable
+	 *            the runnable
 	 * @return the cancellable task
 	 */
 	public CancellableTask scheduleOnceTask(Runnable runnable)
@@ -436,8 +458,10 @@ public class SchedulerServerSupervisor extends UntypedActor {
 	/**
 	 * Schedule once task.
 	 *
-	 * @param delay the delay
-	 * @param runnable the runnable
+	 * @param delay
+	 *            the delay
+	 * @param runnable
+	 *            the runnable
 	 * @return the cancellable task
 	 */
 	public CancellableTask scheduleOnceTask(long delay, Runnable runnable)
@@ -456,9 +480,12 @@ public class SchedulerServerSupervisor extends UntypedActor {
 	/**
 	 * Schedule task.
 	 *
-	 * @param delay the delay
-	 * @param period the period
-	 * @param runnable the runnable
+	 * @param delay
+	 *            the delay
+	 * @param period
+	 *            the period
+	 * @param runnable
+	 *            the runnable
 	 * @return the cancellable task
 	 */
 	public CancellableTask scheduleTask(long delay, long period, Runnable runnable)
